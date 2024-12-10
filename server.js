@@ -10,7 +10,7 @@ const io = new Server(server);
 
 // Serve static files
 // app.use(express.static('public'));
-app.use('cors')
+app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')));
 app.use((req, res, next) => {
   res.setHeader('Cache-Control', 'no-store');
