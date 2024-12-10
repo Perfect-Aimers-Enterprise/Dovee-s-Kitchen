@@ -18,7 +18,7 @@ app.use((req, res, next) => {
   next();
 });
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/htmlFolder/menu2.html');
+  res.sendFile(__dirname + '/public/htmlFolder/Doviee2.html');
 });
 
 // Socket.IO connection
