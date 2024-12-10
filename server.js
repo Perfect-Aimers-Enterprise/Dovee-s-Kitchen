@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+const cors = require('cors')
 const http = require('http');
 const { Server } = require('socket.io');
 
@@ -9,7 +10,12 @@ const io = new Server(server);
 
 // Serve static files
 // app.use(express.static('public'));
+app.use('cors')
 app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  next();
+});
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/htmlFolder/menu2.html');
 });
