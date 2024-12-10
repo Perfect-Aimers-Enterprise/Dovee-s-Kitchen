@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../src/output.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+
+</head>
+<body class="bg-gray-100">
+  <div class="flex flex-col h-screen">
+    <!-- Sidebar -->
+    <div class="w-1/6 md:w-1/5 bg-gray-800 text-white flex flex-col fixed h-full">
+      <div class="p-4 md:text-2xl font-bold text-center border-b border-gray-700">Admin Panel</div>
+      <nav class="mt-4 flex-1">
+        <ul class="space-y-4">
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div >
+              <i class="fas fa-home"></i>
+            </div> 
+            <div class="hidden md:block">
+              <p>Dashboard</p>
+            </div>
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Menu Management</p>
+            </div>
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-glass-cheers"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Specials</p>
+            </div>  
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-bicycle"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Orders</p>
+            </div>
+            </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-envelope-open-text"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Real-Time Chat</p>
+            </div>  
+          </a></li>
+        </ul>
+      </nav>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="flex-1 p-6 space-y-6 ml-[20%]">
+      <!-- Analytics -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="bg-white shadow-lg rounded-lg p-4 text-center">
+          <h3 class="text-xl font-semibold">Total Earnings</h3>
+          <p class="text-2xl font-bold text-green-500">$12,500</p>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-4 text-center">
+          <h3 class="text-xl font-semibold">Pending Orders</h3>
+          <p class="text-2xl font-bold text-yellow-500">35</p>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-4 text-center">
+          <h3 class="text-xl font-semibold">Registered Users</h3>
+          <p class="text-2xl font-bold text-blue-500">1,240</p>
+        </div>
+        <div class="bg-white shadow-lg rounded-lg p-4 text-center">
+          <h3 class="text-xl font-semibold">Weekly Growth</h3>
+          <p class="text-2xl font-bold text-purple-500">+15%</p>
+        </div>
+      </div>
+
+      <!-- Growth Chart -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Growth Chart</h2>
+        <canvas id="growthChart" class="w-full"></canvas>
+      </div>
+    </div>
+
+    <!-- Menu Management Section  -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%]">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Manage Menu Products</h2>
+      
+        <!-- Upload Product Form -->
+        <form id="productForm" class="space-y-4 border-b pb-6 mb-6">
+          <div>
+            <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <input
+              type="text"
+              id="productName"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter product name"
+            />
+          </div>
+      
+          <div>
+            <label for="productDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              id="productDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              rows="3"
+              placeholder="Enter product description"
+            ></textarea>
+          </div>
+      
+          <div>
+            <label for="productPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <input
+              type="number"
+              id="productPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter product price"
+            />
+          </div>
+      
+          <div>
+            <label for="productImage" class="block text-sm font-medium text-gray-700">Product Image</label>
+            <input
+              type="file"
+              id="productImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
+            />
+          </div>
+      
+          <button
+            type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+          >
+            Upload Product
+          </button>
+        </form>
+      
+        <!-- Product List -->
+        <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
+        <div id="productList" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">Chicken Suya</h4>
+                <p class="text-sm text-gray-600">₦3,000</p>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Edit</button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>      
+    </section>
+
+    <!-- Special Management Section -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%]">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Manage Special Products</h2>
+      
+        <!-- Upload Product Form -->
+        <form id="productForm" class="space-y-4 border-b pb-6 mb-6">
+          <div>
+            <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <input
+              type="text"
+              id="productName"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter product name"
+            />
+          </div>
+      
+          <div>
+            <label for="productDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              id="productDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              rows="3"
+              placeholder="Enter product description"
+            ></textarea>
+          </div>
+      
+          <div>
+            <label for="productPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <input
+              type="number"
+              id="productPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter product price"
+            />
+          </div>
+      
+          <div>
+            <label for="productImage" class="block text-sm font-medium text-gray-700">Product Image</label>
+            <input
+              type="file"
+              id="productImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
+            />
+          </div>
+      
+          <button
+            type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+          >
+            Upload Product
+          </button>
+        </form>
+      
+        <!-- Product List -->
+        <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
+        <div id="productList" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">Chicken Suya</h4>
+                <p class="text-sm text-gray-600">₦3,000</p>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Edit</button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>      
+    </section>
+
+    <!-- Orders Management Section  -->
+     <section class="flex-1 p-6 space-y-6 ml-[20%]">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Manage Orders</h2>
+      
+        <!-- Orders List -->
+        <div id="ordersList" class="space-y-4">
+          <!-- Example Order Card -->
+          <div class="border rounded-lg shadow-md p-4">
+            <div class="flex items-center justify-between">
+              <!-- Product Info -->
+              <div class="flex items-center space-x-4">
+                <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+                <div>
+                  <h4 class="font-semibold">Chicken Suya</h4>
+                  <p class="text-sm text-gray-600">₦3,000</p>
+                </div>
+              </div>
+              <!-- Order Time -->
+              <div class="text-sm text-gray-500">
+                <p>Ordered At:</p>
+                <p>10:45 AM, 7 Dec 2024</p>
+              </div>
+            </div>
+      
+            <!-- Client Info -->
+            <div class="mt-4 space-y-2">
+              <p><strong>Client Name:</strong> John Doe</p>
+              <p><strong>Email:</strong> johndoe@example.com</p>
+              <p><strong>Phone:</strong> +234 812 345 6789</p>
+              <p><strong>Address:</strong> 123 Example Street, Lagos</p>
+              <p><strong>Quantity:</strong> 2</p>
+              <p><strong>Total Price:</strong> ₦6,000</p>
+            </div>
+      
+            <!-- Actions -->
+            <div class="mt-4 flex space-x-4">
+              <button class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 w-full">
+                Processing Order
+              </button>
+              <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
+                Confirm/Delivered
+              </button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more orders -->
+        </div>
+      </div>
+      
+     </section>
+
+     <!-- User MessageSection  -->
+      <section class="flex-1 p-6 space-y-6 ml-[20%]">
+        <!-- ViewAll Message  -->
+        <div class="bg-white shadow-lg rounded-lg p-6">
+          <h2 class="text-xl font-bold mb-4">User Messages</h2>
+        
+          <!-- Messages List -->
+          <div id="messagesList" class="space-y-4">
+            <!-- Example Message -->
+            <div class="border rounded-lg shadow-md p-4 cursor-pointer" onclick="openMessagePopup('John Doe', 'Need Help', 'I am having issues with my order...', '+234 812 345 6789', 'johndoe@example.com')">
+              <div class="flex justify-between items-center">
+                <!-- User Info -->
+                <div>
+                  <h4 class="font-semibold">John Doe</h4>
+                  <p class="text-sm text-gray-600">Need Help</p>
+                </div>
+                <!-- Time Posted -->
+                <p class="text-sm text-gray-500">10:45 AM, 7 Dec 2024</p>
+              </div>
+            </div>
+        
+            <!-- Repeat for more messages -->
+          </div>
+        </div>
+
+        <!-- View Specific Message  -->
+         <!-- Message Details Popup -->
+        <div id="messagePopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+          <div class="bg-white w-96 rounded-lg shadow-lg p-6">
+            <h2 id="popupUserName" class="text-xl font-bold mb-2">John Doe</h2>
+            <p id="popupTitle" class="text-lg font-semibold mb-2">Message Title: Need Help</p>
+            <p id="popupDescription" class="text-gray-600 mb-4">Message: I am having issues with my order...</p>
+            <p><strong>Phone:</strong> <span id="popupPhone">+234 812 345 6789</span></p>
+            <p><strong>Email:</strong> <span id="popupEmail">johndoe@example.com</span></p>
+            <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full" onclick="closeMessagePopup()">Close</button>
+          </div>
+        </div>
+
+        
+      </section>
+
+  </div>
+
+  <script>
+    const socket = io();
+
+    // Example Data for Chart.js
+    const ctx = document.getElementById('growthChart').getContext('2d');
+    const growthChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [{
+          label: 'Orders Growth',
+          data: [10, 20, 15, 25],
+          borderColor: '#6366F1',
+          borderWidth: 2,
+          fill: false,
+        }]
+      }
+    });
+
+    // Real-Time Chat
+    const chatBox = document.getElementById('chatBox');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+
+    sendBtn.addEventListener('click', () => {
+      const message = chatInput.value;
+      if (message.trim()) {
+        socket.emit('chatMessage', message);
+        chatInput.value = '';
+      }
+    });
+
+    socket.on('chatMessage', (msg) => {
+      const messageElem = document.createElement('div');
+      messageElem.textContent = msg;
+      chatBox.appendChild(messageElem);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    });
+
+
+
+    // Open Message Popup
+function openMessagePopup(name, title, description, phone, email) {
+  document.getElementById('popupUserName').textContent = name;
+  document.getElementById('popupTitle').textContent = `Message Title: ${title}`;
+  document.getElementById('popupDescription').textContent = `Message: ${description}`;
+  document.getElementById('popupPhone').textContent = phone;
+  document.getElementById('popupEmail').textContent = email;
+
+  document.getElementById('messagePopup').classList.remove('hidden');
+}
+
+// Close Message Popup
+function closeMessagePopup() {
+  document.getElementById('messagePopup').classList.add('hidden');
+}
+
+  </script>
+</body>
+</html>

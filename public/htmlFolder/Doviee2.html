@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../src/output.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
+  <title>Dovee’s Kitchen</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .hero-overlay {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      transition: 0.3s ease-in-out;
+    }
+
+    nav a {
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #FFA726;
+    }
+  </style>
+</head>
+
+<body class="bg-black text-gray-200">
+  <!-- Header -->
+  <header class="bg-green-600 text-white py-3 fixed top-0 w-full z-10 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-6 lg:px-16">
+      <div class="flex items-center space-x-4">
+        <img src="../image/doveeLogo.png" alt="Logo" class="w-10 h-10">
+        <h1 class="text-lg font-bold">Dovee's Kitchen</h1>
+      </div>
+
+      <nav>
+        <ul class="hidden md:flex space-x-6">
+          <li><a href="#menu" class="hover:text-orange-300">Menu</a></li>
+          <li><a href="#about" class="hover:text-orange-300">About</a></li>
+          <li><a href="#specials" class="hover:text-orange-300">Specials</a></li>
+          <li><a href="#contact" class="hover:text-orange-300">Contact</a></li>
+          <li><a href="#help" class="hover:text-orange-300">Help</a></li>
+          <li>
+            <div class="relative">
+              <i class="fas fa-shopping-cart"></i>
+              <span class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">2</span>
+            </div>
+          </li>
+        </ul>
+      </nav>
+
+      <button id="menuToggle" class="md:hidden text-xl">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Sliding Navbar -->
+  <nav id="slidingNavbar" class="fixed top-0 right-0 h-full w-3/4 bg-black text-gray-200 transform translate-x-full transition-transform duration-300 md:hidden">
+    <div class="p-4">
+      <!-- Close Icon -->
+      <button id="closeMenu" class="text-white text-2xl">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <ul class="mt-5 space-y-4 text-lg px-6">
+      <li><a href="#menu" class="hover:text-orange-300">Menu</a></li>
+      <li><a href="#about" class="hover:text-orange-300">About</a></li>
+      <li><a href="#specials" class="hover:text-orange-300">Specials</a></li>
+      <li><a href="#account" class="hover:text-orange-300">Account</a></li>
+      <li><a href="#contact" class="hover:text-orange-300">Contact</a></li>
+      <li><a href="#help" class="hover:text-orange-300">Help</a></li>
+      <li class="w-fit">
+        <div class="relative">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">2</span>
+        </div>
+      </li>
+    </ul>
+  </nav>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]" style="background-image: url('../image/regBg1.jpg');">
+    <div class="hero-overlay absolute inset-0"></div>
+    <div class="relative h-full flex flex-col justify-center items-center text-center">
+      <h2 class="text-3xl md:text-5xl font-bold mb-4">Welcome to Dovee’s Kitchen</h2>
+      <p class="text-lg md:text-xl mb-6">Delicious meals made with love. Place your orders now!</p>
+      <a href="#menu" class="bg-orange-500 py-3 px-6 rounded-full hover:bg-orange-600">Explore Menu</a>
+    </div>
+  </section>
+
+  <!-- Menu Section -->
+  <section id="menu" class="py-16 bg-gray-100 text-black">
+
+    <div class="container mx-auto px-6 lg:px-16">
+      <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Featured Dishes</h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dish Card -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+          <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold">Grilled Chicken</h4>
+          <p class="mt-2 text-gray-600">Deliciously seasoned grilled chicken.</p>
+          <p class="mt-4 text-green-700 font-bold">$15</p>
+          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+        </div>
+
+        <!-- Dish Card2 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+            <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+            <h4 class="mt-4 text-xl font-semibold">Grilled Chicken</h4>
+            <p class="mt-2 text-gray-600">Deliciously seasoned grilled chicken.</p>
+            <p class="mt-4 text-green-700 font-bold">$15</p>
+            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+          </div>
+
+          <!-- Dish Card3 -->
+          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+            <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+            <h4 class="mt-4 text-xl font-semibold">Grilled Chicken</h4>
+            <p class="mt-2 text-gray-600">Deliciously seasoned grilled chicken.</p>
+            <p class="mt-4 text-green-700 font-bold">$15</p>
+            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+          </div>
+
+          <!-- Dish Card4 -->
+          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+            <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+            <h4 class="mt-4 text-xl font-semibold">Grilled Chicken</h4>
+            <p class="mt-2 text-gray-600">Deliciously seasoned grilled chicken.</p>
+            <p class="mt-4 text-green-700 font-bold">$15</p>
+            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+          </div>
+
+        <!-- Repeat Dish Card for other items -->
+      </div>
+    </div>
+
+    <div id="menuBtn" class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
+        <p>View All</p>
+        <i class="fas fa-angle-down"></i>
+    </div>
+
+  </section>
+
+  <!-- Student Flyer section  -->
+  <section style="background-image: url(../image/xmasPackage.jpg); background-size: cover; height: 200px;" class=" grid items-center text-[25px] font-bold relative">
+    <div class="bg-black opacity-50 inset-0 absolute"></div>
+    <div class="text-center relative">
+      <h1>Flyer Section</h1>
+    </div>
+   </section>
+
+  <!-- Specials Section -->
+  <section id="specials" class="py-16 bg-orange-100">
+    <div class="container mx-auto px-6 lg:px-16 text-center">
+      <h3 class="text-2xl font-bold text-orange-700 mb-6">Special Packages</h3>
+      <p class="text-gray-700 mb-10">Exciting packages for holidays and events!</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Special Package Card -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+          <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold text-gray-900">Valentine Package</h4>
+          <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine.</p>
+          <p class="mt-4 text-green-700 font-bold">$15</p>
+          <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full">Order Now</button>
+        </div>
+
+        <!-- Special Package Card2 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+            <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+            <h4 class="mt-4 text-xl font-semibold text-gray-900">Valentine Package</h4>
+            <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine.</p>
+            <p class="mt-4 text-green-700 font-bold">$15</p>
+            <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full">Order Now</button>
+          </div>
+
+        <!-- Special Package Card3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+            <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+            <h4 class="mt-4 text-xl font-semibold text-gray-900">Valentine Package</h4>
+            <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine.</p>
+            <p class="mt-4 text-green-700 font-bold">$15</p>
+            <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full">Order Now</button>
+          </div>
+
+        <!-- Special Package Card4 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+            <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+            <h4 class="mt-4 text-xl font-semibold text-gray-900">Valentine Package</h4>
+            <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine.</p>
+            <p class="mt-4 text-green-700 font-bold">$15</p>
+            <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full">Order Now</button>
+          </div>
+
+        <!-- Repeat for other specials -->
+      </div>
+    </div>
+
+    <div id="specialBtn" class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
+      <p>View All</p>
+      <i class="fas fa-angle-down"></i>
+  </div>
+  </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-10 bg-gray-100 text-black">
+        <div class="container mx-auto px-4 text-center">
+          <h3 class="text-2xl font-bold text-green-800">About Us</h3>
+          <p class="mt-4">Doviee’s Kitchen is a home restaurant dedicated to bringing you the best meals made with love and care. From everyday dishes to special event packages, we’ve got you covered!</p>
+        </div>
+    
+        <div id="ceoProfile" class="w-[95%] mx-auto mt-[20px]">
+          <div class="h-[400px] md:h-[550px] lg:w-[80%] mx-auto overflow-hidden border-[3px] border-green-400">
+            <img id="ceoImageId" src="../image/ceo1.jpg" alt="" class="object-cover w-full h-full">
+          </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonialSection" class="py-12 bg-gray-100">
+        <h1 class="text-center text-3xl font-bold text-green-700 mb-8">What Our Clients Say</h1>
+        <div id="testimonialDiv" class="w-[95%] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- 1st User Testimonial -->
+          <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-center mb-4">
+              <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4">
+              <h2 class="font-semibold text-lg">Mr. Nduka</h2>
+            </div>
+            <p class="text-sm text-gray-600 italic">
+              "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, ad? Saepe tenetur fugit maiores assumenda placeat voluptate animi eos ut."
+            </p>
+            <div class="mt-4 text-yellow-500">
+              <!-- Star ratings -->
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+      
+          <!-- 2nd User Testimonial -->
+          <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-center mb-4">
+              <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4">
+              <h2 class="font-semibold text-lg">Ms. Adeola</h2>
+            </div>
+            <p class="text-sm text-gray-600 italic">
+              "The team was fantastic! Their expertise and professionalism made the entire process seamless. Highly recommend their services."
+            </p>
+            <div class="mt-4 text-yellow-500">
+              <!-- Star ratings -->
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+      
+          <!-- 3rd User Testimonial -->
+          <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div class="flex items-center mb-4">
+              <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4">
+              <h2 class="font-semibold text-lg">Dr. Chike</h2>
+            </div>
+            <p class="text-sm text-gray-600 italic">
+              "Amazing service and great results! They exceeded my expectations in every way. Will definitely work with them again."
+            </p>
+            <div class="mt-4 text-yellow-500">
+              <!-- Star ratings -->
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </div>
+          </div>
+        </div>
+    </section>
+
+    <!-- Become a Distributor -->
+   <section style="background-image: url(../image/xmasPackage.jpg); background-size: cover; height: 200px;" class="grid items-center text-[25px] font-bold relative">
+    <div class="bg-black opacity-50 inset-0 absolute"></div>
+    <div class="text-center relative">
+      <h1>Become a Distributor Flyer</h1>
+    </div>
+   </section>
+
+     <!-- Contact Section -->
+  <section id="contact" class="bg-orange-100 py-10 text-black">
+    <div class="container mx-auto px-4">
+      <h3 class="text-2xl font-bold text-red-800 text-center">Contact Us</h3>
+      <form class="mt-6 max-w-lg mx-auto space-y-4">
+        <div>
+          <label for="messageTitle" class="block text-sm font-medium">Message Title</label>
+          <input type="text" id="messageTitle" name="messageTitle" class="w-full border rounded px-3 py-2">
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium">Message</label>
+          <textarea id="message" name="message" rows="4" class="w-full border rounded px-3 py-2"></textarea>
+        </div>
+        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Send Message</button>
+      </form>
+    </div>
+  </section>
+      
+
+
+</body>
+<script>
+  const menuBtn = document.getElementById('menuBtn')
+  const specialBtn = document.getElementById('specialBtn')
+
+  menuBtn.onclick = () => {
+    window.location.href = '../htmlFolder/menu2.html'
+  }
+
+  specialBtn.onclick = () => {
+    window.location.href = '../htmlFolder/special2.html'
+  }
+
+</script>
+<script src="../jsFolder/navBar.js"></script>
+</html>

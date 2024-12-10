@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Status</title>
+  <link rel="stylesheet" href="../src/output.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
+</head>
+<body class="bg-gray-300 min-h-screen">
+
+ 
+  <div class="bg-white shadow-lg rounded-lg w-full max-w-4xl p-6 mx-auto">
+
+    <div class="bg-black text-white py-[10px] px-[15px] mb-[10px] flex justify-between">
+        <div class="flex gap-4">
+            <div>
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h1>Cart</h1>
+        </div>
+
+        <div class="">
+            <i id="elips" class="fas fa-ellipsis-h cursor-pointer"></i>
+
+                <div id="elipsPop" class="bg-gray-200 text-black p-[10px] fixed right-0 mr-[10px] truncate border-gray-700 border-[1px] hidden">
+                    <a href="#" class="flex items-center gap-3">
+                        <i class="fas fa-home"></i>
+                        <p>Home</p>
+                    </a>
+    
+                    <a href="#" class="flex items-center gap-3">
+                        <i class="fas fa-utensils"></i>
+                        <p>Menu</p>
+                    </a>
+    
+                    <a href="#" class="flex items-center gap-3">
+                        <i class="fas fa-glass-cheers"></i>
+                        <p>Specials</p>
+                    </a>
+                </div>
+
+            
+        </div>
+    </div>
+
+    <!-- Heading Div  -->
+    <div class="bg-gray-400 p-4">
+        <h1>CART SUMMARY</h1>
+     </div>
+
+     <!-- SubTotal Div  -->
+      <div class="flex justify-between p-4 font-bold">
+        <div>
+            <h1>SubTotal</h1>
+        </div>
+
+        <div>
+            <p>&#8358 25000</p>
+        </div>
+      </div>
+
+      <!-- Total Orders -->
+      <div class="bg-gray-400 p-4">
+        <h1>Total Orders (2)</h1>
+     </div>
+
+
+
+    <!-- productDisplayDiv -->
+     <div>
+        <h1 class="text-2xl font-bold text-gray-700 mb-4 mt-[30px]">Your Orders</h1>
+        <div class="space-y-4">
+        <!-- Single Order Item -->
+        <div class="flex items-center p-4 border rounded-lg bg-gray-50">
+            <img src="../image/valentineCombo.jpg" alt="Product" class="w-20 h-20 rounded-lg object-cover">
+            <div class="ml-4 flex-1">
+            <h2 class="text-lg font-bold text-gray-800">Product Name</h2>
+            <p class="text-gray-600">Price: $50.00</p>
+            <p class="text-gray-600">Quantity: 2</p>
+            </div>
+            <div>
+            <span class="px-3 py-1 bg-yellow-400 text-white text-sm rounded-lg">Pending</span>
+            </div>
+        </div>
+        <!-- Repeat for more orders -->
+        <div class="flex items-center p-4 border rounded-lg bg-gray-50">
+            <img src="https://via.placeholder.com/100" alt="Product" class="w-20 h-20 rounded-lg object-cover">
+            <div class="ml-4 flex-1">
+            <h2 class="text-lg font-bold text-gray-800">Another Product</h2>
+            <p class="text-gray-600">Price: $30.00</p>
+            <p class="text-gray-600">Quantity: 1</p>
+            </div>
+            <div>
+            <span class="px-3 py-1 bg-green-500 text-white text-sm rounded-lg">Confirmed</span>
+            </div>
+        </div>
+        </div>
+     </div>
+
+
+
+  </div>
+</body>
+<script>
+    const elips = document.getElementById('elips')
+    const elipsPop = document.getElementById('elipsPop')
+
+    elips.onclick = () => {
+        elipsPop.classList.toggle('hidden')
+    }
+</script>
+</html>

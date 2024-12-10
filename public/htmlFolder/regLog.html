@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="../src/output.css">
+    <title>User Registration & Login</title>
+    <style>
+        body {
+            background-image: url('../image/regBg2.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center">
+
+
+     <!-- General Section for Registration, Login and Visiting  -->
+     <section id="generalSection" class="bg-gradient-to-tr from-orange-300 via-orange-800 to-orange-500 w-[80%] mx-auto p-[30px] rounded-lg border-[2px] border-green-400 md:w-[600px] shadow-lg shadow-black relative">
+
+        <!-- Existing User  -->
+        <div id="existingUser" class="flex text-black bg-gradient-to-tr from-gray-300 via-gray-100 to-gray-400 justify-around items-center p-[10px] rounded-lg cursor-pointer">
+            <!-- ExistingUserIcon -->
+             <div class="w-[20%]">
+                <i class="fas fa-user-friends"></i>
+             </div>
+
+             <!-- ExistingUserDetailInfo -->
+              <div class="w-[50%]">
+                <h1 class="font-bold">Existing User</h1>
+                <div>Sign in</div>
+              </div>
+
+              <!-- GeneralIcon -->
+               <div class="w-[20%] text-right">
+                <i class="fas fa-greater-than"></i>
+               </div>
+
+        </div>
+
+        <!-- New User  -->
+        <div id="newUser" class="flex text-black bg-gradient-to-tr from-gray-300 via-gray-100 to-gray-400 justify-around items-center p-[10px] rounded-lg mt-[20px] cursor-pointer">
+            <!-- ExistingUserIcon -->
+             <div class="w-[20%]">
+                <i class="fas fa-user"></i>
+             </div>
+
+             <!-- ExistingUserDetailInfo -->
+              <div class="w-[50%]">
+                <h1 class="font-bold">New User</h1>
+                <div>Sign up</div>
+              </div>
+
+              <!-- GeneralIcon -->
+               <div class="w-[20%] text-right">
+                <i class="fas fa-greater-than"></i>
+               </div>
+
+        </div>
+
+        <!-- Explore App  -->
+        <div id="exploreApp" class="flex text-black bg-gradient-to-tr from-gray-300 via-gray-100 to-gray-400 justify-around items-center p-[10px] rounded-lg mt-[20px] cursor-pointer">
+            <!-- ExistingUserIcon -->
+             <div class="w-[20%]">
+                <i class="fas fa-compass"></i>
+             </div>
+
+             <!-- ExistingUserDetailInfo -->
+              <div class="w-[50%]">
+                <h1 class="font-bold">Explore App</h1>
+                <div>Continue as Guest</div>
+              </div>
+
+              <!-- GeneralIcon -->
+               <div class="w-[20%] text-right">
+                <i class="fas fa-greater-than"></i>
+               </div>
+
+        </div>
+
+     </section>
+
+
+     <!-- Register User  -->
+    <section id="registrationSection" class="glass w-[90%] md:w-[400px] p-8 rounded-xl shadow-lg relative hidden">
+        <h1 class="text-2xl font-bold text-center text-green-400 uppercase">User Registration Form</h1>
+        <form id="registrationForm" class="mt-8 grid gap-6">
+            <!-- Step 1 -->
+            <div class="step">
+                <label for="userName" class="block text-gray-300 font-medium mb-1">Full Name</label>
+                <input type="text" name="userName" id="userName" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Full Name">
+            </div>
+            <div class="step">
+                <label for="userEmail" class="block text-gray-300 font-medium mb-1">Email</label>
+                <input type="email" name="userEmail" id="userEmail" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Email">
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step hidden">
+                <label for="userPhone" class="block text-gray-300 font-medium mb-1">Phone Number</label>
+                <input type="tel" name="userPhone" id="userPhone" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Phone Number">
+            </div>
+            <div class="step hidden">
+                <label for="userNationality" class="block text-gray-300 font-medium mb-1">Nationality</label>
+                <input type="text" name="userNationality" id="userNationality" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Nationality">
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step hidden">
+                <label for="userState" class="block text-gray-300 font-medium mb-1">State</label>
+                <input type="text" name="userState" id="userState" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your State">
+            </div>
+            <div class="step hidden">
+                <label for="userPassword" class="block text-gray-300 font-medium mb-1">Password</label>
+                <input type="password" name="userPassword" id="userPassword" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Password">
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step hidden">
+                <label for="userConfirmPassword" class="block text-gray-300 font-medium mb-1">Confirm Password</label>
+                <input type="password" name="userConfirmPassword" id="userConfirmPassword" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Confirm Your Password">
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between">
+                <button type="button" id="prevButton" class="hidden bg-gray-400 text-white font-bold py-2 px-4 rounded-lg">Previous</button>
+                <button type="button" id="nextButton" class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Next</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- Login User -->
+    <section id="loginSection" class="glass w-[90%] md:w-[400px] p-8 rounded-xl shadow-lg relative hidden">
+        <h1 class="text-2xl font-bold text-center text-green-400 uppercase">User Login Form</h1>
+        <form id="loginForm" class="mt-8 grid gap-6">
+
+            <!-- loginEmail  -->
+            <div class="">
+                <label for="userEmail" class="block text-gray-300 font-medium mb-1">Email</label>
+                <input type="email" name="userEmail" id="userLoginEmail" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Email">
+            </div>
+
+            <!-- Password  -->
+            <div class="">
+                <label for="userPassword" class="block text-gray-300 font-medium mb-1">Password</label>
+                <input type="password" name="userPassword" id="userLoginPassword" 
+                       class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
+                       placeholder="Enter Your Password">
+            </div>
+
+
+            <!-- Navigation Buttons -->
+            <div class="flex justify-between">
+                <button type="button" id="loginButton" class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Login</button>
+            </div>
+        </form>
+    </section>
+
+    
+</body>
+<script>
+    const steps = document.querySelectorAll('.step');
+    const nextButton = document.getElementById('nextButton');
+    const prevButton = document.getElementById('prevButton');
+    let currentStep = 0;
+
+    function showStep(stepIndex) {
+        steps.forEach((step, index) => {
+            step.classList.toggle('hidden', index !== stepIndex && index !== stepIndex + 1);
+        });
+        prevButton.classList.toggle('hidden', stepIndex === 0);
+        nextButton.textContent = stepIndex + 2 >= steps.length ? 'Submit' : 'Next';
+    }
+
+    nextButton.addEventListener('click', () => {
+        const inputs = Array.from(steps).slice(currentStep, currentStep + 2);
+        if (inputs.some(input => !input.querySelector('input').value.trim())) {
+            alert('Please fill out all fields before proceeding.');
+            return;
+        }
+        if (currentStep + 2 >= steps.length) {
+            document.getElementById('registrationForm').submit();
+        } else {
+            currentStep += 2;
+            showStep(currentStep);
+        }
+    });
+
+    prevButton.addEventListener('click', () => {
+        currentStep -= 2;
+        showStep(currentStep);
+    });
+
+    showStep(currentStep);
+</script>
+<script src="../jsFolder/navigation.js"></script>
+</html>
