@@ -8,7 +8,7 @@ const getAllProceedSubTotalFunc = async () => {
     const subtotalDiv = document.getElementById('subtotalDiv');
 
     try {
-        const getAllProceedDataCountResponse = await fetch('http://localhost:3000/doveeysKitchen/order/getAllProceedOrder', {
+        const getAllProceedDataCountResponse = await fetch('/doveeysKitchen/order/getAllProceedOrder', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -44,7 +44,7 @@ const getAllProceedDataCountFunc = async () => {
     const totalOrders = document.getElementById('totalOrders')
     totalOrders.innerHTML = ''
     try {
-        const getAllProceedDataCountResponse = await fetch('http://localhost:3000/doveeysKitchen/order/getAllProceedOrder', {
+        const getAllProceedDataCountResponse = await fetch('/doveeysKitchen/order/getAllProceedOrder', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -65,7 +65,7 @@ const getAllProceedDataCountFunc = async () => {
 
 const getAllProceedOrderFunc = async () => {
     try {
-        const getAllProceedResponse = await fetch('http://localhost:3000/doveeysKitchen/order/getAllProceedOrder', {
+        const getAllProceedResponse = await fetch('/doveeysKitchen/order/getAllProceedOrder', {
             method: 'GET',
             headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`

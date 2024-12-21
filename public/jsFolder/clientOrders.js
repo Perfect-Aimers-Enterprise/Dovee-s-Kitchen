@@ -11,7 +11,7 @@ const getAllMenuProductFunc = async () => {
     
 
     try {
-        const getAllMenuProductResponse = await fetch('http://localhost:3000/doveeysKitchen/product/getMenuProducts')
+        const getAllMenuProductResponse = await fetch('/doveeysKitchen/product/getMenuProducts')
         // console.log(getAllMenuProductResponse);
         
         const data = await getAllMenuProductResponse.json()
@@ -76,7 +76,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
     console.log('id', menuProductId);
   
     try {
-      const fetchSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
+      const fetchSingleProductResponse = await fetch(`/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
   
     // console.log(fetchSingleProductResponse);
   
@@ -220,7 +220,7 @@ const populateUserProceedOrder = () => {
 
 const userProceedOrderFunc = async (formData) => {
     try {
-        const userProceedResponse = await fetch('http://localhost:3000/doveeysKitchen/order/createProceedOrder', {
+        const userProceedResponse = await fetch('/doveeysKitchen/order/createProceedOrder', {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,

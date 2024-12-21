@@ -18,7 +18,7 @@ menuProductForm.addEventListener('submit', async (e) => {
     console.log(formData);
     
     try {
-        const createMenuProduct = await fetch('http://localhost:3000/doveeysKitchen/product/createMenuProduct', {
+        const createMenuProduct = await fetch('/doveeysKitchen/product/createMenuProduct', {
             method: 'post',
             body: formData
         })
@@ -39,7 +39,7 @@ menuProductForm.addEventListener('submit', async (e) => {
 const getMenuProductFunc = async (e) => {
   // e.preventDefault()
     try {
-        const getMenuProductsResponse = await fetch('http://localhost:3000/doveeysKitchen/product/getMenuProducts')
+        const getMenuProductsResponse = await fetch('/doveeysKitchen/product/getMenuProducts')
 
         console.log(getMenuProductsResponse);
 
@@ -124,7 +124,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
   console.log('id', menuProductId);
 
   try {
-    const fetchSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
+    const fetchSingleProductResponse = await fetch(`/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
 
   // console.log(fetchSingleProductResponse);
 
@@ -223,7 +223,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
     console.log(formData);
     
     try {
-      const updateMenuProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
+      const updateMenuProductResponse = await fetch(`/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -250,7 +250,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
 
   const deleteSingleProductFunc = async (menuProductId) => {
     try {
-      const deleteSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
+      const deleteSingleProductResponse = await fetch(`/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
         method: 'DELETE',
       })
 
@@ -294,7 +294,7 @@ const fetchAllOrders = async () => {
   ordersList.innerHTML = ''
 
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder')
+    const response = await fetch('/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder')
 
     console.log(response);
     
@@ -384,7 +384,7 @@ const fetchAllOrders = async () => {
 
 const cancleUserOrders = async (menuOrderId) => {
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
+    const response = await fetch(`/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -403,7 +403,7 @@ const cancleUserOrders = async (menuOrderId) => {
 
 const confirmUserOrders = async (menuOrderId) => {
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
+    const response = await fetch(`/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
