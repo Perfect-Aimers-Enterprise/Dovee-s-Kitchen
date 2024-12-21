@@ -26,7 +26,7 @@ app.use((req, res, next) => {
   next();
 });
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/htmlFolder/Doviee2.html');
+  res.sendFile(__dirname + '/public/htmlFolder/regLog.html');
 });
 
 
