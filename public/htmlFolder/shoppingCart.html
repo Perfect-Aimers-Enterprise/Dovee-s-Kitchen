@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Order Status</title>
+  <title>ShoppingCart</title>
   <link rel="stylesheet" href="../src/output.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
@@ -51,7 +51,7 @@
      </div>
 
      <!-- SubTotal Div  -->
-      <div class="flex justify-between p-4 font-bold">
+      <div id="subtotalDiv" class="flex justify-between p-4 font-bold">
         <div>
             <h1>SubTotal</h1>
         </div>
@@ -62,16 +62,18 @@
       </div>
 
       <!-- Total Orders -->
-      <div class="bg-gray-400 p-4">
+      <div id="totalOrders" class="bg-gray-400 p-4">
         <h1>Total Orders (2)</h1>
      </div>
 
-
+     <div class="p-4 italic">
+        <p>For enquiry contact admin +2349135913460</p>
+     </div>
 
     <!-- productDisplayDiv -->
      <div>
         <h1 class="text-2xl font-bold text-gray-700 mb-4 mt-[30px]">Your Orders</h1>
-        <div class="space-y-4">
+        <div id="shoppingCartDiv" class="space-y-4">
         <!-- Single Order Item -->
         <div class="flex items-center p-4 border rounded-lg bg-gray-50">
             <img src="../image/valentineCombo.jpg" alt="Product" class="w-20 h-20 rounded-lg object-cover">
@@ -111,4 +113,6 @@
         elipsPop.classList.toggle('hidden')
     }
 </script>
+
+<script src="../jsFolder/shoppingCartApi.js"></script>
 </html>

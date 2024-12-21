@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../src/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
-    <title>Shopping Cart</title>
+    <title>Order Details Page</title>
 </head>
 <body class="bg-black">
     <!-- Order Page -->
@@ -17,6 +17,11 @@
             <!-- Product Image -->
             <div class="mb-4">
                 <img src="../image/jollofRice.jpg" alt="Product Image" class="rounded-lg w-full">
+            </div>
+
+            <!-- Product Name -->
+            <div class="mb-4">
+                <p class="text-lg font-semibold text-gray-800">Name: <span class="text-green-500">Jollof Fried Rice</span></p>
             </div>
 
             <!-- Product Price -->
@@ -48,20 +53,6 @@
             <button id="proceedButton" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Order</button>
         </div>
     </div>
-
-    <script>
-        const proceedButton = document.getElementById('proceedButton');
-        const termsCheckbox = document.getElementById('terms');
-        const orderPage = document.getElementById('orderPage');
-
-        termsCheckbox.addEventListener('change', () => {
-            proceedButton.disabled = !termsCheckbox.checked;
-        });
-
-        proceedButton.addEventListener('click', () => {
-            orderPage.classList.add('hidden');
-            statusPage.classList.remove('hidden');
-        });
-    </script>
 </body>
+<script src="../jsFolder/clientOrders.js"></script>
 </html>

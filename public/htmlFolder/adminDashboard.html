@@ -6,6 +6,7 @@
   <title>Admin Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../src/output.css">
+    <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
@@ -67,9 +68,9 @@
     </div>
     
     <!-- Main Content -->
-    <div class="flex-1 p-6 space-y-6 ml-[20%]">
+    <div id="analytics4Home" class="flex-1 p-6 space-y-6 ml-[20%] content analytics4HomeContent">
       <!-- Analytics -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div  class="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div class="bg-white shadow-lg rounded-lg p-4 text-center">
           <h3 class="text-xl font-semibold">Total Earnings</h3>
           <p class="text-2xl font-bold text-green-500">$12,500</p>
@@ -96,26 +97,28 @@
     </div>
 
     <!-- Menu Management Section  -->
-    <section class="flex-1 p-6 space-y-6 ml-[20%]">
+    <section id="menuManagement" class="flex-1 p-6 space-y-6 ml-[20%] content hidden menuManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Menu Products</h2>
       
         <!-- Upload Product Form -->
-        <form id="productForm" class="space-y-4 border-b pb-6 mb-6">
+        <form id="menuProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
           <div>
-            <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <label for="menuProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
             <input
               type="text"
-              id="productName"
+              id="menuProductName"
+              name="menuProductName"
               class="mt-1 p-2 block w-full border border-gray-300 rounded"
               placeholder="Enter product name"
             />
           </div>
       
           <div>
-            <label for="productDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <label for="menuDescription" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea
-              id="productDescription"
+              id="menuDescription"
+              name="menuDescription"
               class="mt-1 p-2 block w-full border border-gray-300 rounded"
               rows="3"
               placeholder="Enter product description"
@@ -123,20 +126,22 @@
           </div>
       
           <div>
-            <label for="productPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <label for="menuPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
             <input
               type="number"
-              id="productPrice"
+              id="menuPrice"
+              name="menuPrice"
               class="mt-1 p-2 block w-full border border-gray-300 rounded"
               placeholder="Enter product price"
             />
           </div>
       
           <div>
-            <label for="productImage" class="block text-sm font-medium text-gray-700">Product Image</label>
+            <label for="menuImage" class="block text-sm font-medium text-gray-700">Product Image</label>
             <input
               type="file"
-              id="productImage"
+              id="menuImage"
+              name="menuImage"
               class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
             />
           </div>
@@ -151,7 +156,7 @@
       
         <!-- Product List -->
         <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
-        <div id="productList" class="space-y-4">
+        <div id="menuProductList" class="space-y-4">
           <!-- Example Product Card -->
           <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
             <div class="flex items-center space-x-4">
@@ -162,8 +167,14 @@
               </div>
             </div>
             <div class="flex space-x-2">
-              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Edit</button>
-              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Edit</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
             </div>
           </div>
       
@@ -173,7 +184,7 @@
     </section>
 
     <!-- Special Management Section -->
-    <section class="flex-1 p-6 space-y-6 ml-[20%]">
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden specialManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Special Products</h2>
       
@@ -239,8 +250,14 @@
               </div>
             </div>
             <div class="flex space-x-2">
-              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">Edit</button>
-              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Delete</button>
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Edit</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
             </div>
           </div>
       
@@ -250,7 +267,7 @@
     </section>
 
     <!-- Orders Management Section  -->
-     <section class="flex-1 p-6 space-y-6 ml-[20%]">
+     <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden orderManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Orders</h2>
       
@@ -285,24 +302,27 @@
             </div>
       
             <!-- Actions -->
-            <div class="mt-4 flex space-x-4">
+            <div class="mt-4 md:flex md:space-x-4 space-y-1 md:space-y-0">
               <button class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 w-full">
                 Processing Order
               </button>
+              
               <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
                 Confirm/Delivered
               </button>
             </div>
+
           </div>
       
           <!-- Repeat for more orders -->
         </div>
+        
       </div>
       
      </section>
 
      <!-- User MessageSection  -->
-      <section class="flex-1 p-6 space-y-6 ml-[20%]">
+      <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden messageManagementContent">
         <!-- ViewAll Message  -->
         <div class="bg-white shadow-lg rounded-lg p-6">
           <h2 class="text-xl font-bold mb-4">User Messages</h2>
@@ -341,6 +361,57 @@
 
         
       </section>
+
+      <!-- MenuEditPopUpSection  -->
+       <section id="menuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
+          <div id="menuPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+            <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
+      
+        <!-- Upload Product Form -->
+            <form id="editMenuProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+              <div class="eachEditMenuProductDiv">
+                <label for="menuProductName" class="block text-sm font-medium ">Existing Product Name</label>
+                <input
+                  type="text"
+                  id="menuProductName"
+                  name="menuProductName"
+                  class="mt-1 p-2 block w-full border border-gray-300 rounded"
+                  placeholder="Enter new product name"
+                />
+              </div>
+          
+              <div>
+                <label for="menuDescription" class="block text-sm font-medium ">Existing Product Description</label>
+                <textarea
+                  id="menuDescription"
+                  name="menuDescription"
+                  class="mt-1 p-2 block w-full border border-gray-300 rounded"
+                  rows="3"
+                  placeholder="Enter new product description"
+                ></textarea>
+              </div>
+          
+              <div>
+                <label for="menuPrice" class="block text-sm font-medium "> Existing Product Price (₦)</label>
+                <input
+                  type="number"
+                  id="menuPrice"
+                  name="menuPrice"
+                  class="mt-1 p-2 block w-full border border-gray-300 rounded"
+                  placeholder="Enter new product price"
+                />
+              </div>
+          
+              <button
+                type="submit"
+                class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+              >
+                Upload Product
+              </button>
+              
+            </form>
+          </div>
+       </section>
 
   </div>
 
@@ -402,5 +473,6 @@ function closeMessagePopup() {
 }
 
   </script>
+  <script src="../jsFolder/order.js"></script>
 </body>
 </html>

@@ -151,6 +151,7 @@
             <div class="flex justify-between">
                 <button type="button" id="prevButton" class="hidden bg-gray-400 text-white font-bold py-2 px-4 rounded-lg">Previous</button>
                 <button type="button" id="nextButton" class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Next</button>
+                <button type="submit" id="submitButton" class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg hidden">Submit</button>
             </div>
         </form>
     </section>
@@ -179,47 +180,13 @@
 
             <!-- Navigation Buttons -->
             <div class="flex justify-between">
-                <button type="button" id="loginButton" class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Login</button>
+                <button type="submit" id="loginButton" class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Login</button>
             </div>
         </form>
     </section>
 
     
 </body>
-<script>
-    const steps = document.querySelectorAll('.step');
-    const nextButton = document.getElementById('nextButton');
-    const prevButton = document.getElementById('prevButton');
-    let currentStep = 0;
 
-    function showStep(stepIndex) {
-        steps.forEach((step, index) => {
-            step.classList.toggle('hidden', index !== stepIndex && index !== stepIndex + 1);
-        });
-        prevButton.classList.toggle('hidden', stepIndex === 0);
-        nextButton.textContent = stepIndex + 2 >= steps.length ? 'Submit' : 'Next';
-    }
-
-    nextButton.addEventListener('click', () => {
-        const inputs = Array.from(steps).slice(currentStep, currentStep + 2);
-        if (inputs.some(input => !input.querySelector('input').value.trim())) {
-            alert('Please fill out all fields before proceeding.');
-            return;
-        }
-        if (currentStep + 2 >= steps.length) {
-            document.getElementById('registrationForm').submit();
-        } else {
-            currentStep += 2;
-            showStep(currentStep);
-        }
-    });
-
-    prevButton.addEventListener('click', () => {
-        currentStep -= 2;
-        showStep(currentStep);
-    });
-
-    showStep(currentStep);
-</script>
 <script src="../jsFolder/navigation.js"></script>
 </html>
