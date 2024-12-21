@@ -1,7 +1,7 @@
 require('dotenv').config()
 const express = require('express');
 const cors = require('cors')
-const http = require('http');
+// const http = require('http');
 const path = require('path')
 const connectDB = require('./db/connectDB')
 const userRoute = require('./routes/userRoute')
@@ -10,11 +10,11 @@ const orderRoute = require('./routes/orderRoute')
 const adminGetOrderRoute = require('./routes/adminGetOrderRoute')
 
 const authentication = require('./middleWare/authentication')
-const { Server } = require('socket.io');
+// const { Server } = require('socket.io');
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server);
+// const server = http.createServer(app);
+// const io = new Server(server);
 
 // Serve static files
 // app.use(express.static('public'));
@@ -37,17 +37,18 @@ app.use('/doveeysKitchen/order', authentication, orderRoute)
 app.use('/doveeysKitchen/adminGetOrder', adminGetOrderRoute)
 
 // Socket.IO connection
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
+// io.on('connection', (socket) => {
+//   console.log('A user connected');
+//   socket.on('disconnect', () => {
+//     console.log('User disconnected');
+//   });
 
   // Handle chat messages
-  socket.on('chatMessage', (msg) => {
-    io.emit('chatMessage', msg); // Broadcast message to all clients
-  });
-});
+//   socket.on('chatMessage', (msg) => {
+   // Broadcast message to all clients
+//     io.emit('chatMessage', msg);
+//   });
+// });
 
 const port = process.env.PORT || 3000
 
