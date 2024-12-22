@@ -27,7 +27,7 @@ menuProductForm.addEventListener('submit', async (e) => {
     console.log(formData);
     
     try {
-        const createMenuProduct = await fetch('/doveeysKitchen/product/createMenuProduct', {
+        const createMenuProduct = await fetch('https://dovees-kitchen.vercel.app/doveeysKitchen/product/createMenuProduct', {
             method: 'post',
             body: formData
         })
