@@ -3,7 +3,7 @@ const userSchema = require('../model/userModel')
 
 const getAllProceedOrder = async (req, res) => {
     try {
-        const orderProceed = await orderModel.find({createdBy: req.user.userId}).sort('createdAt')
+        const orderProceed = await orderModel.find({createdBy: req.user.userId}).sort({ createdAt: -1 })
 
         res.status(201).json({orderProceed, count: orderProceed.length})
     } catch (error) {
@@ -28,7 +28,7 @@ const createProceedOrder = async (req, res) => {
 
 const adminGetAllProceedOrder = async (req, res) => {
     try {
-        const orderProceed = await orderModel.find().sort('createdAt')
+        const orderProceed = await orderModel.find().sort({ createdAt: -1 })
 
         res.status(201).json({orderProceed, count: orderProceed.length})
     } catch (error) {

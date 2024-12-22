@@ -3,6 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchAllOrders()
 })
 
+// All Api URL Testing
+// http://localhost:3000
+const getMenuProductFuncUrl = '/doveeysKitchen/product/getMenuProducts'
+const menuProductFormUrl = '/doveeysKitchen/product/createMenuProduct'
+
+// All Api URL Development
+// const menuProductFormUrl = '/doveeysKitchen/product/createMenuProduct'
+// const getMenuProductFuncUrl = '/doveeysKitchen/product/getMenuProducts'
+
 const menuProductForm = document.getElementById('menuProductForm')
 const menuProductList = document.getElementById('menuProductList')
 
@@ -37,9 +46,10 @@ menuProductForm.addEventListener('submit', async (e) => {
 
 // getMenuProducts
 const getMenuProductFunc = async (e) => {
-  // e.preventDefault()
+  
+
     try {
-        const getMenuProductsResponse = await fetch('/doveeysKitchen/product/getMenuProducts')
+        const getMenuProductsResponse = await fetch(getMenuProductFuncUrl)
 
         console.log(getMenuProductsResponse);
 
@@ -134,11 +144,19 @@ const fetchSingleProductFunc = async (menuProductId) => {
     const menuPopUpSection = document.getElementById('menuPopUpSection')
     menuPopUpSection.classList.remove('hidden')
 
+    // menuPopUpSection.addEventListener('click', () => {
+    //   menuPopUpSection.classList.add('hidden')
+    // })
+
     const menuPopUpDiv = document.getElementById('menuPopUpDiv')
     menuPopUpDiv.innerHTML = ""
   
   
     const editEachProduct = `
+      <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
+          <div><i class="fas fa-times"></i></div>
+            <p>close</p>
+          </div>
       <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
 
       <form id="editMenuProductForm"  class="space-y-4 border-b pb-6 mb-6 text-black">
@@ -187,6 +205,12 @@ const fetchSingleProductFunc = async (menuProductId) => {
               </form>
     `;
     menuPopUpDiv.innerHTML = editEachProduct
+
+    const closeMenuPopUp = document.getElementById('closeMenuPopUp')
+
+    closeMenuPopUp.addEventListener('click', () => {
+      menuPopUpSection.classList.add('hidden')
+    })
 
     // Edit Listener Section 
     const editMenuProductForm = document.getElementById('editMenuProductForm')
@@ -304,7 +328,7 @@ const fetchAllOrders = async () => {
     const spreadData = data.orderProceed
 
     spreadData.forEach((eachData) => {
-      // console.log(eachData._id);
+      console.log(eachData);
       const menuOrderId = eachData._id
 
       const ordersDisplay = `
@@ -334,7 +358,8 @@ const fetchAllOrders = async () => {
               <p><strong>Email:</strong> ${eachData.userEmail}</p>
               <p><strong>Phone:</strong> ${eachData.userPhone}</p>
               <p><strong>Address:</strong> ${eachData.menuProductOrderAddress}</p>
-              <p><strong>Quantity:</strong> 2</p>
+              <p><strong>Quantity:</strong> ${eachData.
+                menuProductOrderQuantity}</p>
               <p><strong>Total Price:</strong> ₦${eachData.
                 menuTotalProductOrderPrice}</p>
             </div>

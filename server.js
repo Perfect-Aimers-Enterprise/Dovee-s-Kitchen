@@ -6,6 +6,7 @@ const path = require('path')
 const connectDB = require('./db/connectDB')
 const userRoute = require('./routes/userRoute')
 const productRoute = require('./routes/productRoute')
+const specialProductRoute = require('./routes/specialProductRoute')
 const orderRoute = require('./routes/orderRoute')
 const adminGetOrderRoute = require('./routes/adminGetOrderRoute')
 
@@ -13,6 +14,10 @@ const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
 
 const app = express();
+app.use((req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store');
+  next();
+});
 // const server = http.createServer(app);
 // const io = new Server(server);
 
@@ -21,10 +26,7 @@ const app = express();
 app.use(cors())
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');
-  next();
-});
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/htmlFolder/regLog.html');
 });
@@ -35,6 +37,8 @@ app.use('/doveeysKitchen/api', userRoute)
 app.use('/doveeysKitchen/product', productRoute)
 app.use('/doveeysKitchen/order', authentication, orderRoute)
 app.use('/doveeysKitchen/adminGetOrder', adminGetOrderRoute)
+
+app.use('/doveeysKitchen/specialProduct', specialProductRoute)
 
 // Socket.IO connection
 // io.on('connection', (socket) => {

@@ -8,7 +8,8 @@ const registerUser = async (req, res) => {
         res.status(201).json({
             user: {
                 userName: user.userName,
-                userEmail: user.userEmail
+                userEmail: user.userEmail,
+                userPhone: user.userPhone
             },
             token
         })
@@ -43,7 +44,8 @@ const loginUser = async (req, res) => {
         res.status(201).json({
             user: {
                 userName: user.userName,
-                userEmail: user.userEmail
+                userEmail: user.userEmail,
+                userPhone: user.userPhone
             },
             token
         })

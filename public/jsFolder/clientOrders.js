@@ -1,7 +1,12 @@
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
+
+    // const userPhone = localStorage.getItem('userPhone')
+    //     console.log(userPhone);
 })
+
+// http://localhost:3000
 
 const menuGridClass = document.querySelector('.menuGridClass')
 
@@ -174,7 +179,7 @@ const populateUserProceedOrder = () => {
 
     proceedButton.addEventListener('click', () => {
         orderPage.classList.add('hidden');
-        statusPage.classList.remove('hidden');
+        // statusPage.classList.remove('hidden');
     });
 
     // console.log(orderProceedImage.src);
@@ -198,6 +203,8 @@ const populateUserProceedOrder = () => {
         const userName = localStorage.getItem('userName')
         const userEmail = localStorage.getItem('userEmail')
         const userPhone = localStorage.getItem('userPhone')
+        console.log(userPhone);
+        
         if (!token) {
             return alert('Please Register or Login an account')
         }
@@ -219,6 +226,7 @@ const populateUserProceedOrder = () => {
 }
 
 const userProceedOrderFunc = async (formData) => {
+    const orderPopUpAlert = document.getElementById('orderPopUpAlert')
     try {
         const userProceedResponse = await fetch('/doveeysKitchen/order/createProceedOrder', {
             method: 'POST',
@@ -233,7 +241,9 @@ const userProceedOrderFunc = async (formData) => {
         console.log(userProceedResponse);
         
         const data = await userProceedResponse.json()
-        console.log(data);
+        // console.log(data);
+        // alert('orderPlaced Successfully')
+        orderPopUpAlert.classList.remove('hidden')
         
     } catch (error) {
         console.log(error);

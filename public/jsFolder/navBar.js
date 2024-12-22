@@ -36,3 +36,11 @@ const activeNavBarFunc = () => {
     }
   })
 }
+
+
+const menuOrderNow = document.querySelectorAll('.menuOrderNow')
+menuOrderNow.forEach((eachMenuOrder) => {
+  eachMenuOrder.addEventListener('click', () => {
+    window.location.href = '../htmlFolder/menu2.html'
+  })
+})

@@ -10,6 +10,16 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="http://localhost:3000/socket.io/socket.io.js"></script>
 
+    <style>
+      /* .content {
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+      .hidden {
+        opacity: 0;
+        transform: translateY(-10px);
+        pointer-events: none;
+      } */
+    </style>
 </head>
 <body class="bg-gray-100">
   <div class="flex flex-col h-screen">
@@ -189,21 +199,23 @@
         <h2 class="text-xl font-bold mb-4">Manage Special Products</h2>
       
         <!-- Upload Product Form -->
-        <form id="productForm" class="space-y-4 border-b pb-6 mb-6">
+        <form id="specialProductForm" class="space-y-4 border-b pb-6 mb-6">
           <div>
-            <label for="productName" class="block text-sm font-medium text-gray-700">Product Name</label>
+            <label for="specialProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
             <input
               type="text"
-              id="productName"
+              id="specialProductName"
+              name="specialProductName"
               class="mt-1 p-2 block w-full border border-gray-300 rounded"
               placeholder="Enter product name"
             />
           </div>
       
           <div>
-            <label for="productDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <label for="specialDescription" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea
-              id="productDescription"
+              id="specialDescription"
+              name="specialDescription"
               class="mt-1 p-2 block w-full border border-gray-300 rounded"
               rows="3"
               placeholder="Enter product description"
@@ -211,20 +223,22 @@
           </div>
       
           <div>
-            <label for="productPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <label for="specialPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
             <input
               type="number"
-              id="productPrice"
+              id="specialPrice"
+              name="specialPrice"
               class="mt-1 p-2 block w-full border border-gray-300 rounded"
               placeholder="Enter product price"
             />
           </div>
       
           <div>
-            <label for="productImage" class="block text-sm font-medium text-gray-700">Product Image</label>
+            <label for="specialImage" class="block text-sm font-medium text-gray-700">Product Image</label>
             <input
               type="file"
-              id="productImage"
+              id="specialImage"
+              name="specialImage"
               class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
             />
           </div>
@@ -239,7 +253,7 @@
       
         <!-- Product List -->
         <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
-        <div id="productList" class="space-y-4">
+        <div id="specialProductList" class="space-y-4">
           <!-- Example Product Card -->
           <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
             <div class="flex items-center space-x-4">
@@ -249,6 +263,7 @@
                 <p class="text-sm text-gray-600">₦3,000</p>
               </div>
             </div>
+            
             <div class="flex space-x-2">
               <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
                 <p class="hidden md:block">Edit</p>
@@ -365,6 +380,12 @@
       <!-- MenuEditPopUpSection  -->
        <section id="menuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
           <div id="menuPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+
+            <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
+              <div><i class="fas fa-times"></i></div>
+              <p>close</p>
+            </div>
+
             <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
       
         <!-- Upload Product Form -->
@@ -412,6 +433,64 @@
             </form>
           </div>
        </section>
+
+
+       <!-- specialEditPopUpSection  -->
+       <section id="specialPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
+        <div id="specialPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+
+          <div id="closeSpecialPopUp" class="text-red-500 flex items-center font-bold">
+            <div><i class="fas fa-times"></i></div>
+            <p>close</p>
+          </div>
+
+          <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit special Products</h2>
+    
+      <!-- Upload Product Form -->
+          <form id="editSpecialProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+            <div class="eachEditspecialProductDiv">
+              <label for="specialProductName" class="block text-sm font-medium ">Existing Product Name</label>
+              <input
+                type="text"
+                id="specialProductName"
+                name="specialProductName"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded"
+                placeholder="Enter new product name"
+              />
+            </div>
+        
+            <div>
+              <label for="specialDescription" class="block text-sm font-medium ">Existing Product Description</label>
+              <textarea
+                id="specialDescription"
+                name="specialDescription"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded"
+                rows="3"
+                placeholder="Enter new product description"
+              ></textarea>
+            </div>
+        
+            <div>
+              <label for="specialPrice" class="block text-sm font-medium "> Existing Product Price (₦)</label>
+              <input
+                type="number"
+                id="specialPrice"
+                name="specialPrice"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded"
+                placeholder="Enter new product price"
+              />
+            </div>
+        
+            <button
+              type="submit"
+              class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+            >
+              Upload Product
+            </button>
+            
+          </form>
+        </div>
+     </section>
 
   </div>
 
@@ -474,5 +553,6 @@ function closeMessagePopup() {
 
   </script>
   <script src="../jsFolder/order.js"></script>
+  <script src="../jsFolder/specialOrder.js"></script>
 </body>
 </html>

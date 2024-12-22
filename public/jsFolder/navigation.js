@@ -87,6 +87,9 @@ exploreApp.onclick = () => {
 const userLoginEmail = document.getElementById('userLoginEmail')
 const userLoginPassword = document.getElementById('userLoginPassword')
 
+
+// http://localhost:3000
+
 registrationForm.addEventListener('submit', async (e) => { 
     e.preventDefault()
     
@@ -116,6 +119,8 @@ registrationForm.addEventListener('submit', async (e) => {
         console.log(data.token);
         console.log(data.user.userName);
         console.log(data.user.userEmail);
+        console.log(data.user.userPhone);
+        
         
         
         

@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     getAllProceedOrderFunc()
 })
 
+// http://localhost:3000
+
 const getAllProceedSubTotalFunc = async () => {
     const subtotalDiv = document.getElementById('subtotalDiv');
 

@@ -53,6 +53,29 @@
             <button id="proceedButton" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Order</button>
         </div>
     </div>
+
+    <!-- PopUP Trigger  -->
+     <div id="orderPopUpAlert" class="fixed inset-0 bg-black bg-opacity-50 grid items-center justify-center hidden">
+
+        <div class="bg-white border-[2px] border-green-500 rounded-lg w-fit p-[30px] flex flex-col justify-center items-center leading-[50px]">
+            <div class="text-white bg-green-500 h-[50px] w-[50px] text-[30px] flex items-center justify-center rounded-full">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <div>
+                <p class="font-bold">Order Placed Successfully!!!</p>
+            </div>
+
+            <div>
+                <a href="../htmlFolder/shoppingCart.html" class="bg-orange-500 text-white p-2 rounded-lg">View Cart</a>
+
+                <div class="text-green-500">
+                    <a href="../htmlFolder/Doviee2.html"><i class="fas fa-home"></i> Home</a>
+                </div>
+            </div>
+        </div>
+
+     </div>
 </body>
 <script src="../jsFolder/clientOrders.js"></script>
 </html>

@@ -73,4 +73,4 @@ const updateMenuProduct = async (req, res) => {
 }
 
 
-module.exports = { createMenuProduct, getMenuProducts, getSingleMenuProduct, deleteMenuProduct, updateMenuProduct }
+module.exports = { createMenuProduct, getMenuProducts, getSingleMenuProduct, deleteMenuProduct, updateMenuProduct}
