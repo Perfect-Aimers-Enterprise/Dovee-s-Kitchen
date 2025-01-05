@@ -116,3 +116,9 @@ const getAllProceedOrderFunc = async () => {
         console.log(error);
     }
 }
+
+// Add an event listener to the back button
+const backButton = document.getElementById('backButton');
+backButton.addEventListener('click', () => {
+    window.history.back(); // Navigate to the previous page
+});

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     countPendingOrdersFunc()
     countRegisteredUsers()
     getWeeklyGrowthFunc()
+    getAllUserMessageFunc()
 })
 
 // All Api URL Testing
@@ -535,6 +536,93 @@ weeklyGrowthElem.className = `text-2xl font-bold ${
 
   } catch (error) {
     console.log(error);
+    
+  }
+}
+
+
+const getAllUserMessageFunc = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/doveeysKitchen/message/getAllUserMessage');
+
+    const data = await response.json();
+
+    const messagesList = document.getElementById('messagesList');
+
+    // Clear the message list
+    messagesList.innerHTML = '';
+
+    // Helper function to format the date
+    const formatDate = (timestamp) => {
+      const date = new Date(timestamp);
+      const options = { hour: '2-digit', minute: '2-digit', year: 'numeric', month: 'short', day: 'numeric' };
+      return date.toLocaleString('en-US', options); // Adjust 'en-US' for locale preferences
+    };
+
+    // Populate messages
+    data.forEach((eachData) => {
+      const formattedTime = formatDate(eachData.createdAt); // Format the timestamp
+
+      const populateAllUserMessage = `
+        <div id="eachPopulateMessage" class="border rounded-lg shadow-md p-4 cursor-pointer" data-id="${eachData._id}">
+          <div class="flex justify-between items-center">
+            <!-- User Info -->
+            <div>
+              <h4 class="font-semibold">${eachData.userName}</h4>
+              <p class="text-sm text-gray-600">${eachData.userMessageTitle}</p>
+            </div>
+            <!-- Time Posted -->
+            <p class="text-sm text-gray-500">${formattedTime}</p>
+          </div>
+        </div>
+      `;
+      messagesList.innerHTML += populateAllUserMessage;
+    });
+
+    // Add event listeners for each message
+    const eachPopulateMessage = document.querySelectorAll('#eachPopulateMessage');
+
+    eachPopulateMessage.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const messageId = e.target.closest('#eachPopulateMessage').dataset.id;
+
+        getSingleUserMessageFunc(messageId);
+      });
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+const getSingleUserMessageFunc = async (messageId) => {
+  try {
+    const response = await fetch(`http://localhost:3000/doveeysKitchen/message/getSingleUserMessage/${messageId}`)
+
+    const data = await response.json()
+
+    const messagePopup = document.getElementById('messagePopup')
+    messagePopup.classList.remove('hidden')
+    messagePopup.innerHTML = ''
+
+    const populateEachMessage = `
+      <div class="bg-white w-96 rounded-lg shadow-lg p-6">
+            <h2 id="popupUserName" class="text-xl font-bold mb-2">Name: ${data.userName}</h2>
+            <p id="popupTitle" class="text-lg font-semibold mb-2">Message Title: ${data.userMessageTitle}</p>
+            <p id="popupDescription" class="text-gray-600 mb-4">Message: ${data.userMessage}</p>
+            <p><strong>Phone:</strong> <span id="popupPhone">tel: ${data.userPhone}</span></p>
+            <p><strong>Email:</strong> <span id="popupEmail">Email: ${data.userEmail}</span></p>
+            <button id="closeMessage" class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full">Close</button>
+          </div>
+    `
+    messagePopup.innerHTML = populateEachMessage
+
+    const closeMessage = document.getElementById('closeMessage')
+    closeMessage.addEventListener('click', () => {
+      messagePopup.classList.add('hidden')
+    })
+
+  } catch (error) {
     
   }
 }

@@ -9,6 +9,7 @@ const productRoute = require('./routes/productRoute')
 const specialProductRoute = require('./routes/specialProductRoute')
 const orderRoute = require('./routes/orderRoute')
 const adminGetOrderRoute = require('./routes/adminGetOrderRoute')
+const userMessageRoute = require('./routes/userMessageRoute')
 
 const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
@@ -39,6 +40,7 @@ app.use('/doveeysKitchen/order', authentication, orderRoute)
 app.use('/doveeysKitchen/adminGetOrder', adminGetOrderRoute)
 
 app.use('/doveeysKitchen/specialProduct', specialProductRoute)
+app.use('/doveeysKitchen/message', userMessageRoute)
 
 // Socket.IO connection
 // io.on('connection', (socket) => {
