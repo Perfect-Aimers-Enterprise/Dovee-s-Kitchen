@@ -1,12 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
     getMenuProductFunc()
     fetchAllOrders()
+    fetTotalOrderIncome()
+    countPendingOrdersFunc()
+    countRegisteredUsers()
+    getWeeklyGrowthFunc()
 })
 
 // All Api URL Testing
 // http://localhost:3000
-const getMenuProductFuncUrl = '/doveeysKitchen/product/getMenuProducts'
-const menuProductFormUrl = '/doveeysKitchen/product/createMenuProduct'
+const getMenuProductFuncUrl = 'http://localhost:3000/doveeysKitchen/product/getMenuProducts'
+const menuProductFormUrl = 'http://localhost:3000/doveeysKitchen/product/createMenuProduct'
 
 // All Api URL Development
 // const menuProductFormUrl = '/doveeysKitchen/product/createMenuProduct'
@@ -27,8 +31,8 @@ menuProductForm.addEventListener('submit', async (e) => {
     console.log(formData);
     
     try {
-        const createMenuProduct = await fetch('https://dovees-kitchen.vercel.app/doveeysKitchen/product/createMenuProduct', {
-            method: 'post',
+        const createMenuProduct = await fetch('http://localhost:3000/doveeysKitchen/product/createMenuProduct', {
+            method: 'POST',
             body: formData
         })
 
@@ -134,7 +138,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
   console.log('id', menuProductId);
 
   try {
-    const fetchSingleProductResponse = await fetch(`/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
+    const fetchSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
 
   // console.log(fetchSingleProductResponse);
 
@@ -247,7 +251,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
     console.log(formData);
     
     try {
-      const updateMenuProductResponse = await fetch(`/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
+      const updateMenuProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -274,11 +278,11 @@ const fetchSingleProductFunc = async (menuProductId) => {
 
   const deleteSingleProductFunc = async (menuProductId) => {
     try {
-      const deleteSingleProductResponse = await fetch(`/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
+      const deleteSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
         method: 'DELETE',
       })
 
-      console.log(deleteSingleProductResponse);
+      // console.log(deleteSingleProductResponse);
 
       if (deleteSingleProductResponse.ok) {
         alert('Product Deleted successfully!');
@@ -314,102 +318,107 @@ sidebarLinks.forEach((link, index) => {
 const ordersList = document.getElementById('ordersList')
 
 const fetchAllOrders = async () => {
-
-  ordersList.innerHTML = ''
+  ordersList.innerHTML = '';
 
   try {
-    const response = await fetch('/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder')
+    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder');
 
-    console.log(response);
-    
-    const data = await response.json()
-    console.log('admin Data',data.orderProceed);
+    const data = await response.json();
+    console.log('admin Data', data.orderProceed);
 
-    const spreadData = data.orderProceed
+    const spreadData = data.orderProceed;
 
     spreadData.forEach((eachData) => {
       console.log(eachData);
-      const menuOrderId = eachData._id
+      const menuOrderId = eachData._id;
+
+      // Format the createdAt date
+      const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = {
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true, // For AM/PM format
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+        };
+        return date.toLocaleString('en-US', options);
+      };
 
       const ordersDisplay = `
-      <div class="border rounded-lg shadow-md p-4 ordersIdClass" data-id="${menuOrderId}">
-            <div class="flex items-center justify-between">
-              <!-- Product Info -->
-              <div class="flex items-center space-x-4">
-                <img src="../image/menuImage/${eachData.
-                  menuProductOrderImage}" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
-                <div>
-                  <h4 class="font-semibold">${eachData.menuProductOrderName
-                  }</h4>
-                  <p class="text-sm text-gray-600">₦${eachData.menuProductOrderPrice
-                  }</p>
-                </div>
-              </div>
-              <!-- Order Time -->
-              <div class="text-sm text-gray-500">
-                <p>Ordered At:</p>
-                <p>10:45 AM, 7 Dec 2024</p>
+        <div class="border rounded-lg shadow-md p-4 ordersIdClass" data-id="${menuOrderId}">
+          <div class="flex items-center justify-between">
+            <!-- Product Info -->
+            <div class="flex items-center space-x-4">
+              <img src="${eachData.menuProductOrderImage}" alt="${eachData.menuProductOrderName}" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">${eachData.menuProductOrderName}</h4>
+                <p class="text-sm text-gray-600">₦${eachData.menuProductOrderPrice}</p>
               </div>
             </div>
-      
-            <!-- Client Info -->
-            <div class="mt-4 space-y-2">
-              <p><strong>Client Name:</strong> ${eachData.userName}</p>
-              <p><strong>Email:</strong> ${eachData.userEmail}</p>
-              <p><strong>Phone:</strong> ${eachData.userPhone}</p>
-              <p><strong>Address:</strong> ${eachData.menuProductOrderAddress}</p>
-              <p><strong>Quantity:</strong> ${eachData.
-                menuProductOrderQuantity}</p>
-              <p><strong>Total Price:</strong> ₦${eachData.
-                menuTotalProductOrderPrice}</p>
+            <!-- Order Time -->
+            <div class="text-sm text-gray-500">
+              <p>Ordered At:</p>
+              <p>${formatDate(eachData.createdAt)}</p>
             </div>
-      
-            <!-- Actions -->
-            <div class="mt-4 md:flex md:space-x-4 space-y-1 md:space-y-0">
-              <button id="cancleOrderBtn" class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full">
-                Cancle Order
-              </button>
-              
-              <button id="confirmOrderBtn" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
-                Confirm/Delivered
-              </button>
-            </div>
-
           </div>
-    `
 
-    ordersList.innerHTML += ordersDisplay
-    
-    
-    const cancleOrderBtn = document.getElementById('cancleOrderBtn')
+          <!-- Client Info -->
+          <div class="mt-4 space-y-2">
+            <p><strong>Client Name:</strong> ${eachData.userName}</p>
+            <p><strong>Email:</strong> ${eachData.userEmail}</p>
+            <p><strong>Phone:</strong> ${eachData.userPhone}</p>
+            <p><strong>Address:</strong> ${eachData.menuProductOrderAddress}</p>
+            <p><strong>Quantity:</strong> ${eachData.menuProductOrderQuantity}</p>
+            <p><strong>Total Price:</strong> ₦${eachData.menuTotalProductOrderPrice}</p>
+          </div>
 
-    cancleOrderBtn.addEventListener('click', (e) => {
-      // console.log(e.target.closest('.ordersIdClass').dataset.id);
-      
-      const deleteMenuOrderId = e.target.closest('.ordersIdClass').dataset.id
-      cancleUserOrders(deleteMenuOrderId)
-    })
+          <!-- Actions -->
+          <div class="mt-4 md:flex md:space-x-4 space-y-1 md:space-y-0">
+            <button class="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full cancleOrderBtn">
+              Cancel Order
+            </button>
+            
+            <button id="confirmOrderBtn" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
+              Confirm/Delivered
+            </button>
+          </div>
+        </div>
+      `;
 
-    const confirmOrderBtn = document.getElementById('confirmOrderBtn')
+      ordersList.innerHTML += ordersDisplay;
 
-    confirmOrderBtn.addEventListener('click', (e) => {
-      const confirmMenuOrderId = e.target.closest('.ordersIdClass').dataset.id
-      confirmUserOrders(confirmMenuOrderId)
-    })
-    
+      // const cancleOrderBtn = document.getElementById('cancleOrderBtn');
+      // cancleOrderBtn.addEventListener('click', (e) => {
+      //   const deleteMenuOrderId = e.target.closest('.ordersIdClass').dataset.id;
+      //   cancleUserOrders(deleteMenuOrderId);
+      // });
 
-    })
+      const confirmOrderBtn = document.getElementById('confirmOrderBtn');
+      confirmOrderBtn.addEventListener('click', (e) => {
+        const confirmMenuOrderId = e.target.closest('.ordersIdClass').dataset.id;
+        confirmUserOrders(confirmMenuOrderId);
+      });
+    });
 
-    
-    
+    document.querySelectorAll('.cancleOrderBtn').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const deleteMenuOrderId = e.target.closest('.ordersIdClass').dataset.id;
+        cancleUserOrders(deleteMenuOrderId);
+      });
+    });
+
+
   } catch (error) {
     console.log(error);
   }
-}
+};
+
 
 const cancleUserOrders = async (menuOrderId) => {
   try {
-    const response = await fetch(`/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
+    const response = await fetch(`http://localhost:3000/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -428,7 +437,7 @@ const cancleUserOrders = async (menuOrderId) => {
 
 const confirmUserOrders = async (menuOrderId) => {
   try {
-    const response = await fetch(`/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
+    const response = await fetch(`http://localhost:3000/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -442,6 +451,87 @@ const confirmUserOrders = async (menuOrderId) => {
     
 
     fetchAllOrders()
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+const fetTotalOrderIncome = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllConfirmedOrdersPrice')
+
+    console.log('Total Price',response);
+    
+    const data = await response.json()
+    console.log('total Price Data', data.totalPrice);
+
+    const analyticTotalPrice = data.totalPrice
+    
+    const analyTicEarning = document.getElementById('analyTicEarning')
+
+    analyTicEarning.textContent = analyticTotalPrice
+  } catch (error) {
+    
+  }
+}
+
+const countPendingOrdersFunc = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder');
+
+    const data = await response.json()
+    console.log(data);
+
+    const countData = data.count
+    document.getElementById('pendingOrders').textContent = countData
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+const countRegisteredUsers = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/doveeysKitchen/api/getRegisteredUser')
+
+    console.log(response);
+    
+
+    const data = await response.json()
+    console.log('reg users count', data);
+    document.getElementById('regUserCount').textContent = data.count
+
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
+
+const getWeeklyGrowthFunc = async () => {
+  try {
+    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/getWeeklyGrowth')
+
+    const data = await response.json()
+    console.log('adminChart',data);
+    
+    const { growthPercentage } = data;
+
+        // Update the growth percentage in the UI
+        const weeklyGrowthElem = document.getElementById('weeklyGrowth');
+        // weeklyGrowthElem.textContent = `${growthPercentage > 0 ? '+' : ''}${growthPercentage}%`;
+        // weeklyGrowthElem.className = `text-2xl font-bold ${
+        //   growthPercentage >= 0 ? 'text-green-500' : 'text-red-500'
+        // }`;
+
+        weeklyGrowthElem.textContent = growthPercentage !== undefined 
+  ? `${growthPercentage > 0 ? '+' : ''}${growthPercentage}%`
+  : 'Data Unavailable';
+weeklyGrowthElem.className = `text-2xl font-bold ${
+  growthPercentage >= 0 ? 'text-green-500' : 'text-red-500'
+}`;
+
 
   } catch (error) {
     console.log(error);

@@ -10,7 +10,7 @@ const getAllProceedSubTotalFunc = async () => {
     const subtotalDiv = document.getElementById('subtotalDiv');
 
     try {
-        const getAllProceedDataCountResponse = await fetch('/doveeysKitchen/order/getAllProceedOrder', {
+        const getAllProceedDataCountResponse = await fetch('http://localhost:3000/doveeysKitchen/order/getAllProceedOrder', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -46,7 +46,7 @@ const getAllProceedDataCountFunc = async () => {
     const totalOrders = document.getElementById('totalOrders')
     totalOrders.innerHTML = ''
     try {
-        const getAllProceedDataCountResponse = await fetch('/doveeysKitchen/order/getAllProceedOrder', {
+        const getAllProceedDataCountResponse = await fetch('http://localhost:3000/doveeysKitchen/order/getAllProceedOrder', {
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -67,7 +67,7 @@ const getAllProceedDataCountFunc = async () => {
 
 const getAllProceedOrderFunc = async () => {
     try {
-        const getAllProceedResponse = await fetch('/doveeysKitchen/order/getAllProceedOrder', {
+        const getAllProceedResponse = await fetch('http://localhost:3000/doveeysKitchen/order/getAllProceedOrder', {
             method: 'GET',
             headers: {
                     "Authorization": `Bearer ${localStorage.getItem("token")}`
@@ -94,7 +94,7 @@ const getAllProceedOrderFunc = async () => {
         
         const populateCartOrder = `
             <div class="flex items-center p-4 border rounded-lg bg-gray-50">
-            <img src="../image/menuImage/${eachOrderData.menuProductOrderImage}" alt="Product" class="w-20 h-20 rounded-lg object-cover">
+            <img src="${eachOrderData.menuProductOrderImage}" alt="Product" class="w-20 h-20 rounded-lg object-cover">
             <div class="ml-4 flex-1">
             <h2 class="text-lg font-bold text-gray-800">${eachOrderData.menuProductOrderName}</h2>
             <p class="text-gray-600">Price: &#8358 ${eachOrderData.menuTotalProductOrderPrice}</p>

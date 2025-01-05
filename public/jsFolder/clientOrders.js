@@ -1,9 +1,6 @@
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
-
-    // const userPhone = localStorage.getItem('userPhone')
-    //     console.log(userPhone);
 })
 
 // http://localhost:3000
@@ -16,7 +13,7 @@ const getAllMenuProductFunc = async () => {
     
 
     try {
-        const getAllMenuProductResponse = await fetch('/doveeysKitchen/product/getMenuProducts')
+        const getAllMenuProductResponse = await fetch('http://localhost:3000/doveeysKitchen/product/getMenuProducts')
         // console.log(getAllMenuProductResponse);
         
         const data = await getAllMenuProductResponse.json()
@@ -24,7 +21,7 @@ const getAllMenuProductFunc = async () => {
         menuGridClass.innerHTML = ''        
 
         data.forEach((eachData) => {
-            console.log(eachData._id);
+            // console.log(eachData._id);
             
             const eachDataId = eachData._id
             
@@ -54,7 +51,7 @@ const getAllMenuProductFunc = async () => {
         }, 100);
         
         const orderNowButton = document.querySelectorAll('#orderNowButton')
-        console.log(orderNowButton);
+        // console.log(orderNowButton);
         
         orderNowButton.forEach((eachOrderNowButton) => {
             eachOrderNowButton.addEventListener('click', (e) => {
@@ -74,19 +71,18 @@ const getAllMenuProductFunc = async () => {
     }
 }
 
-
 const fetchSingleProductFunc = async (menuProductId) => {
 
     // console.log('fetch', eachData);
-    console.log('id', menuProductId);
+    // console.log('id', menuProductId);
   
     try {
-      const fetchSingleProductResponse = await fetch(`/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
+      const fetchSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
   
     // console.log(fetchSingleProductResponse);
   
       const data = await fetchSingleProductResponse.json()
-      console.log(data);
+    //   console.log(data);
 
       const menuProductOrderImage = data.menuImage
       const menuProductOrderName = data.menuProductName
@@ -203,14 +199,13 @@ const populateUserProceedOrder = () => {
         const userName = localStorage.getItem('userName')
         const userEmail = localStorage.getItem('userEmail')
         const userPhone = localStorage.getItem('userPhone')
-        console.log(userPhone);
         
         if (!token) {
             return alert('Please Register or Login an account')
         }
 
         const formData = {
-            menuProductOrderImage: proceedOrderImg,
+            menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
             menuProductOrderName: proceedOrderName,
             menuProductOrderPrice: proceedOrderPrice,
             menuTotalProductOrderPrice: proceedOrderPrice * quantity.value,
@@ -228,7 +223,7 @@ const populateUserProceedOrder = () => {
 const userProceedOrderFunc = async (formData) => {
     const orderPopUpAlert = document.getElementById('orderPopUpAlert')
     try {
-        const userProceedResponse = await fetch('/doveeysKitchen/order/createProceedOrder', {
+        const userProceedResponse = await fetch('http://localhost:3000/doveeysKitchen/order/createProceedOrder', {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,

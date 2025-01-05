@@ -44,3 +44,10 @@ menuOrderNow.forEach((eachMenuOrder) => {
     window.location.href = '../htmlFolder/menu2.html'
   })
 })
+
+const specialMenuOrder = document.querySelectorAll('.specialMenuOrder')
+specialMenuOrder.forEach((eachSpecialOrder) => {
+  eachSpecialOrder.addEventListener('click', () => {
+    window.location.href = '../htmlFolder/special2.html'
+  })
+})

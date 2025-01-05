@@ -3,13 +3,13 @@ const mongoose = require('mongoose')
 const orderProceedSchema = new mongoose.Schema({
     menuProductOrderImage: {type: String},
     menuProductOrderName: {type: String},
-    menuProductOrderPrice: {type: String},
-    menuTotalProductOrderPrice: {type: String},
+    menuProductOrderPrice: {type: Number},
+    menuTotalProductOrderPrice: {type: Number},
     menuProductOrderAddress: {type: String},
     menuProductOrderQuantity: {type: String},
     userName: {type: String},
     userEmail: {type: String},
-    userPhone: {type: String},
+    userPhone: {type: Number},
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'User'

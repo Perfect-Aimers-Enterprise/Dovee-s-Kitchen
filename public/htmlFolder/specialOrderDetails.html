@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
+    <title>Order Details Page</title>
+</head>
+<body class="bg-black">
+    <!-- Order Page -->
+    <div id="specialOrderPage" class="min-h-screen flex items-center justify-center">
+        <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Order Details</h2>
+
+            <!-- Product Image -->
+            <div class="mb-4">
+                <img src="../image/jollofRice.jpg" alt="Product Image" class="rounded-lg w-full">
+            </div>
+
+            <!-- Product Name -->
+            <div class="mb-4">
+                <p class="text-lg font-semibold text-gray-800">Name: <span class="text-green-500">Jollof Fried Rice</span></p>
+            </div>
+
+            <!-- Product Price -->
+            <div class="mb-4">
+                <p class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">$49.99</span></p>
+            </div>
+
+            <!-- Address Input -->
+            <div class="mb-4">
+                <label for="address" class="block text-gray-600 font-medium mb-1">Delivery Address</label>
+                <input type="text" id="address" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Enter your address">
+            </div>
+
+            <!-- Quantity Input -->
+            <div class="mb-4">
+                <label for="quantity" class="block text-gray-600 font-medium mb-1">Quantity</label>
+                <input type="number" id="quantity" min="1" value="1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+            </div>
+
+            <!-- Terms and Conditions -->
+            <div class="mb-6">
+                <label class="inline-flex items-center">
+                    <input type="checkbox" id="terms" class="form-checkbox h-5 w-5 text-green-600">
+                    <span class="ml-2 text-gray-700">I agree to the <a href="#" class="text-blue-500">Terms and Conditions</a></span>
+                </label>
+            </div>
+
+            <!-- Proceed Button -->
+            <button id="proceedButton" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Order</button>
+        </div>
+    </div>
+
+    <!-- PopUP Trigger  -->
+     <div id="specialOrderPopUpAlert" class="fixed inset-0 bg-black bg-opacity-50 grid items-center justify-center hidden">
+
+        <div class="bg-white border-[2px] border-green-500 rounded-lg w-fit p-[30px] flex flex-col justify-center items-center leading-[50px]">
+            <div class="text-white bg-green-500 h-[50px] w-[50px] text-[30px] flex items-center justify-center rounded-full">
+                <i class="fas fa-check"></i>
+            </div>
+
+            <div>
+                <p class="font-bold">Order Placed Successfully!!!</p>
+            </div>
+
+            <div>
+                <a href="../htmlFolder/shoppingCart.html" class="bg-orange-500 text-white p-2 rounded-lg">View Cart</a>
+
+                <div class="text-green-500">
+                    <a href="../htmlFolder/Doviee2.html"><i class="fas fa-home"></i> Home</a>
+                </div>
+            </div>
+        </div>
+
+     </div>
+</body>
+<script src="../jsFolder/clientSpecialOrders.js"></script>
+</html>

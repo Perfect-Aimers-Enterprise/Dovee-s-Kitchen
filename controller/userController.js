@@ -54,7 +54,17 @@ const loginUser = async (req, res) => {
     }
 }
 
+const getRegisteredUser = async (req, res) => {
+    try {
+        const user = await userSchema.find()
+
+        res.status(201).json({user, count: user.length})
+    } catch (error) {
+        res.status(500).json(error)
+    }
+}
+
 
 module.exports = {
-    registerUser, loginUser
+    registerUser, loginUser, getRegisteredUser
 }

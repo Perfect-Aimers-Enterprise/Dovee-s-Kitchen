@@ -96,7 +96,7 @@ registrationForm.addEventListener('submit', async (e) => {
     
 
     try {
-        const registrationResponse = await fetch('/doveeysKitchen/api/registerUser', {
+        const registrationResponse = await fetch('http://localhost:3000/doveeysKitchen/api/registerUser', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -147,7 +147,7 @@ registrationForm.addEventListener('submit', async (e) => {
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     try {
-        const loginResponse = await fetch('/doveeysKitchen/api/loginUser', {
+        const loginResponse = await fetch('http://localhost:3000/doveeysKitchen/api/loginUser', {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'

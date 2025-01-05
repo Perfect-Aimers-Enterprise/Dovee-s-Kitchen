@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="../src/output.css">
     <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="http://localhost:3000/socket.io/socket.io.js"></script>
+    <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
 
     <style>
       /* .content {
@@ -81,27 +81,42 @@
     <div id="analytics4Home" class="flex-1 p-6 space-y-6 ml-[20%] content analytics4HomeContent">
       <!-- Analytics -->
       <div  class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Total Earnings -->
         <div class="bg-white shadow-lg rounded-lg p-4 text-center">
           <h3 class="text-xl font-semibold">Total Earnings</h3>
-          <p class="text-2xl font-bold text-green-500">$12,500</p>
+          <p class="text-2xl font-bold text-green-500">₦<span id="analyTicEarning"></span></p>
         </div>
+
+        <!-- Pending Orders  -->
         <div class="bg-white shadow-lg rounded-lg p-4 text-center">
           <h3 class="text-xl font-semibold">Pending Orders</h3>
-          <p class="text-2xl font-bold text-yellow-500">35</p>
+          <p id="pendingOrders" class="text-2xl font-bold text-yellow-500">35</p>
         </div>
+
+        <!-- Count Registered User  -->
         <div class="bg-white shadow-lg rounded-lg p-4 text-center">
           <h3 class="text-xl font-semibold">Registered Users</h3>
-          <p class="text-2xl font-bold text-blue-500">1,240</p>
+          <p id="regUserCount" class="text-2xl font-bold text-blue-500">1,240</p>
         </div>
+
+        <!-- WeekLy Growth -->
         <div class="bg-white shadow-lg rounded-lg p-4 text-center">
           <h3 class="text-xl font-semibold">Weekly Growth</h3>
-          <p class="text-2xl font-bold text-purple-500">+15%</p>
+          <p id="weeklyGrowth" class="text-2xl font-bold text-purple-500">+0%</p>
         </div>
       </div>
 
       <!-- Growth Chart -->
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Growth Chart</h2>
+
+        <div class="flex justify-between items-center">
+          <button id="prevMonthBtn" class="px-4 py-2 bg-gray-300 rounded">Previous</button>
+          <h2 id="currentMonth" class="text-lg font-bold">January 2024</h2>
+          <button id="nextMonthBtn" class="px-4 py-2 bg-gray-300 rounded">Next</button>
+        </div>
+
         <canvas id="growthChart" class="w-full"></canvas>
       </div>
     </div>
@@ -495,62 +510,72 @@
   </div>
 
   <script>
-    const socket = io();
-
-    // Example Data for Chart.js
     const ctx = document.getElementById('growthChart').getContext('2d');
-    const growthChart = new Chart(ctx, {
+    let currentMonth = new Date().getMonth() + 1; // Current month (1-based)
+    let currentYear = new Date().getFullYear();
+  
+    // Initialize Chart.js
+    let growthChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
         datasets: [{
           label: 'Orders Growth',
-          data: [10, 20, 15, 25],
+          data: [0, 0, 0, 0],
           borderColor: '#6366F1',
           borderWidth: 2,
           fill: false,
         }]
       }
     });
-
-    // Real-Time Chat
-    const chatBox = document.getElementById('chatBox');
-    const chatInput = document.getElementById('chatInput');
-    const sendBtn = document.getElementById('sendBtn');
-
-    sendBtn.addEventListener('click', () => {
-      const message = chatInput.value;
-      if (message.trim()) {
-        socket.emit('chatMessage', message);
-        chatInput.value = '';
+  
+    const updateChart = (month, year) => {
+      fetch(`http://localhost:3000/doveeysKitchen/adminGetOrder/getMonthlyOrders?month=${month}&year=${year}`)
+        .then(response => response.json())
+        .then(data => {
+          const orders = data.orders;
+          const weeklyOrders = new Array(4).fill(0);
+          orders.forEach(order => {
+            weeklyOrders[order._id - 1] = order.totalOrders; // Adjust week index
+          });
+  
+          // Update chart data
+          growthChart.data.datasets[0].data = weeklyOrders;
+          growthChart.update();
+  
+          // Update current month display
+          const monthNames = [
+            'January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'
+          ];
+          document.getElementById('currentMonth').textContent = `${monthNames[month - 1]} ${year}`;
+        })
+        .catch(error => console.error(error));
+    };
+  
+    // Event Listeners for Navigation
+    document.getElementById('prevMonthBtn').addEventListener('click', () => {
+      if (currentMonth === 1) {
+        currentMonth = 12;
+        currentYear--;
+      } else {
+        currentMonth--;
       }
+      updateChart(currentMonth, currentYear);
     });
-
-    socket.on('chatMessage', (msg) => {
-      const messageElem = document.createElement('div');
-      messageElem.textContent = msg;
-      chatBox.appendChild(messageElem);
-      chatBox.scrollTop = chatBox.scrollHeight;
+  
+    document.getElementById('nextMonthBtn').addEventListener('click', () => {
+      if (currentMonth === 12) {
+        currentMonth = 1;
+        currentYear++;
+      } else {
+        currentMonth++;
+      }
+      updateChart(currentMonth, currentYear);
     });
-
-
-
-    // Open Message Popup
-function openMessagePopup(name, title, description, phone, email) {
-  document.getElementById('popupUserName').textContent = name;
-  document.getElementById('popupTitle').textContent = `Message Title: ${title}`;
-  document.getElementById('popupDescription').textContent = `Message: ${description}`;
-  document.getElementById('popupPhone').textContent = phone;
-  document.getElementById('popupEmail').textContent = email;
-
-  document.getElementById('messagePopup').classList.remove('hidden');
-}
-
-// Close Message Popup
-function closeMessagePopup() {
-  document.getElementById('messagePopup').classList.add('hidden');
-}
-
+  
+    // Load initial chart data
+    updateChart(currentMonth, currentYear);
   </script>
   <script src="../jsFolder/order.js"></script>
   <script src="../jsFolder/specialOrder.js"></script>
