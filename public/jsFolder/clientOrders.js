@@ -24,7 +24,7 @@ const getAllMenuProductFunc = async () => {
         console.log(getAllMenuProductResponse);
         
         const data = await getAllMenuProductResponse.json()
-        // console.log(data);
+        console.log(data);
         menuGridClass.innerHTML = ''        
 
         data.forEach((eachData) => {

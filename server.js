@@ -17,10 +17,17 @@ const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
 
 const app = express();
+
+// Middleware to set cache control headers
 app.use((req, res, next) => {
-  res.setHeader('Cache-Control', 'no-store');
+  // Set the Cache-Control headers to 'no-store' to prevent caching
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   next();
 });
+
+
 // const server = http.createServer(app);
 // const io = new Server(server);
 
