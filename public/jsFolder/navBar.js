@@ -1,3 +1,9 @@
+const config = {
+  apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : `${window.location.protocol}//${window.location.hostname}`
+};
+
 const menuToggle = document.getElementById('menuToggle');
 const closeMenu = document.getElementById('closeMenu');
 const slidingNavbar = document.getElementById('slidingNavbar');
@@ -52,37 +58,23 @@ specialMenuOrder.forEach((eachSpecialOrder) => {
   })
 })
 
+
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('/service-worker.js')
+    navigator.serviceWorker.register('../service-worker.js')
       .then(function(registration) {
         console.log('Service Worker registered:', registration);
         subscribeUserToPush();
       })
       .catch(function(error) {
-        console.log('Service Worker registration failed:', error);
+        console.error('Service Worker registration failed:', error);
       });
   });
 }
 
-// frontend push subscription logic
-
-
-
-//  if('serviceWorker' in navigator) {
-//     subscribeUserToPush().catch(err => console.error(err))
-//     }
-
 const subscribeUserToPush = async () => {
   try {
-    // Correct the path to the service worker
-    // const registration = await navigator.serviceWorker.register('../../notification/service-worker.js');
-    // const registration = await navigator.serviceWorker.register('/service-worker.js');
-
-    // if('serviceWorker' in navigator) {
-    //   send().catch(err => console.error(err))
-    // }
-
     console.log('Registering Service Worker');
     
     const registration = await navigator.serviceWorker.register('../service-worker.js', {
@@ -90,14 +82,20 @@ const subscribeUserToPush = async () => {
     });
 
     console.log('Service Worker Registration');
-    
 
     // Request notification permission
-    // const permission = await Notification.requestPermission();
-    // if (permission !== "granted") {
-    //   console.error("Permission for notifications denied.");
-    //   return;
-    // }
+    const permission = await Notification.requestPermission();
+    if (permission !== "granted") {
+      console.error("Permission for notifications denied.");
+      return; // Exit the function if permission is denied
+    }
+
+    // Check if the user is already subscribed
+    const existingSubscription = await registration.pushManager.getSubscription();
+    if (existingSubscription) {
+      console.log("User is already subscribed:", existingSubscription);
+      return; // Exit the function if the user is already subscribed
+    }
 
     // Convert applicationServerKey to Uint8Array
     const applicationServerKey = urlBase64ToUint8Array('BB0ldobS0_bnh5yMIBUrklV8vBscFIEwxwu_gmeRdV8VZS6LPXmOM6N0YPPtQjKP9zeDUNU0mmPZ20nmnPNOy8w');
@@ -108,8 +106,10 @@ const subscribeUserToPush = async () => {
       applicationServerKey,
     });
 
+    console.log('User subscribed for notifications:', pushSubscription);
+
     // Send subscription data to the backend
-    const response = await fetch('http://localhost:3000/notification/subscribe', {
+    const response = await fetch(`${config.apiUrl}/notification/subscribe`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -117,12 +117,10 @@ const subscribeUserToPush = async () => {
       body: JSON.stringify(pushSubscription),
     });
 
-    console.log('Push sent...');
-    
     if (response.ok) {
-      console.log("User subscribed for notifications:", pushSubscription);
+      console.log("Subscription sent to the backend successfully.");
     } else {
-      console.error("Failed to subscribe user:", response.statusText);
+      console.error("Failed to send subscription to backend:", response.statusText);
     }
   } catch (error) {
     console.error("Error during subscription process:", error);
@@ -140,6 +138,3 @@ function urlBase64ToUint8Array(base64String) {
   }
   return outputArray;
 }
-
-// Call the function to initiate subscription
-subscribeUserToPush();

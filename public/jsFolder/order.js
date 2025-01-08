@@ -1,3 +1,10 @@
+const config = {
+  apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : `${window.location.protocol}//${window.location.hostname}`
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
     getMenuProductFunc()
     fetchAllOrders()
@@ -9,9 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 // All Api URL Testing
-// http://localhost:3000
-const getMenuProductFuncUrl = 'http://localhost:3000/doveeysKitchen/product/getMenuProducts'
-const menuProductFormUrl = 'http://localhost:3000/doveeysKitchen/product/createMenuProduct'
+// 
+const getMenuProductFuncUrl = `${config.apiUrl}/doveeysKitchen/product/getMenuProducts`
+const menuProductFormUrl = `${config.apiUrl}/doveeysKitchen/product/createMenuProduct`
 
 // All Api URL Development
 // const menuProductFormUrl = '/doveeysKitchen/product/createMenuProduct'
@@ -32,13 +39,19 @@ menuProductForm.addEventListener('submit', async (e) => {
     console.log(formData);
     
     try {
-        const createMenuProduct = await fetch('http://localhost:3000/doveeysKitchen/product/createMenuProduct', {
+        const createMenuProduct = await fetch(`${config.apiUrl}/doveeysKitchen/product/createMenuProduct`, {
             method: 'POST',
             body: formData
         })
 
         console.log(createMenuProduct);
         
+        if (createMenuProduct.ok) {
+          alert('Product created successfully!');
+          getMenuProductFunc(); // Refresh product list
+        } else {
+          alert('Failed to create product.');
+        }
 
         const data = await createMenuProduct.json()
         console.log(data);
@@ -139,7 +152,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
   console.log('id', menuProductId);
 
   try {
-    const fetchSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
+    const fetchSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
 
   // console.log(fetchSingleProductResponse);
 
@@ -252,7 +265,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
     console.log(formData);
     
     try {
-      const updateMenuProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
+      const updateMenuProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json'
@@ -279,7 +292,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
 
   const deleteSingleProductFunc = async (menuProductId) => {
     try {
-      const deleteSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
+      const deleteSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
         method: 'DELETE',
       })
 
@@ -322,7 +335,7 @@ const fetchAllOrders = async () => {
   ordersList.innerHTML = '';
 
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder');
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder`);
 
     const data = await response.json();
     console.log('admin Data', data.orderProceed);
@@ -419,7 +432,7 @@ const fetchAllOrders = async () => {
 
 const cancleUserOrders = async (menuOrderId) => {
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -438,7 +451,7 @@ const cancleUserOrders = async (menuOrderId) => {
 
 const confirmUserOrders = async (menuOrderId) => {
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -461,7 +474,7 @@ const confirmUserOrders = async (menuOrderId) => {
 
 const fetTotalOrderIncome = async () => {
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllConfirmedOrdersPrice')
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/adminGetAllConfirmedOrdersPrice`)
 
     console.log('Total Price',response);
     
@@ -480,7 +493,7 @@ const fetTotalOrderIncome = async () => {
 
 const countPendingOrdersFunc = async () => {
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder');
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder`);
 
     const data = await response.json()
     console.log(data);
@@ -495,7 +508,7 @@ const countPendingOrdersFunc = async () => {
 
 const countRegisteredUsers = async () => {
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/api/getRegisteredUser')
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/api/getRegisteredUser`)
 
     console.log(response);
     
@@ -512,7 +525,7 @@ const countRegisteredUsers = async () => {
 
 const getWeeklyGrowthFunc = async () => {
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/adminGetOrder/getWeeklyGrowth')
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/getWeeklyGrowth`)
 
     const data = await response.json()
     console.log('adminChart',data);
@@ -543,7 +556,7 @@ weeklyGrowthElem.className = `text-2xl font-bold ${
 
 const getAllUserMessageFunc = async () => {
   try {
-    const response = await fetch('http://localhost:3000/doveeysKitchen/message/getAllUserMessage');
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/getAllUserMessag`);
 
     const data = await response.json();
 
@@ -587,7 +600,7 @@ const getAllUserMessageFunc = async () => {
         const messageId = e.target.closest('#eachPopulateMessage').dataset.id;
 
         getSingleUserMessageFunc(messageId);
-      });
+      });e
     });
   } catch (error) {
     console.log(error);
@@ -597,7 +610,7 @@ const getAllUserMessageFunc = async () => {
 
 const getSingleUserMessageFunc = async (messageId) => {
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/message/getSingleUserMessage/${messageId}`)
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/getSingleUserMessage/${messageId}`)
 
     const data = await response.json()
 

@@ -1,3 +1,11 @@
+// config.js
+const config = {
+    apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000'
+      : `${window.location.protocol}//${window.location.hostname}`
+  };
+  
+
 document.addEventListener('DOMContentLoaded', () => {
     // getAllUserMessageFunc()
 })
@@ -5,12 +13,6 @@ document.addEventListener('DOMContentLoaded', () => {
 const userMessageTitle = document.getElementById('userMessageTitle')
 
 const userMessage = document.getElementById('userMessage')
-
-// userMessageTitle: {type: String},
-// userMessage: {type: String},
-// userName: {type: String},
-// userEmail: {type: String},
-// userPhone: {type: Number},
 
 const sendUserMessage = async () => {
     const userMessageTitle = document.getElementById('userMessageTitle')
@@ -36,7 +38,7 @@ const sendUserMessage = async () => {
         userPhone
     }
     try {
-        const response = await fetch('http://localhost:3000/doveeysKitchen/message/sendUserMessage', {
+        const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/sendUserMessage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

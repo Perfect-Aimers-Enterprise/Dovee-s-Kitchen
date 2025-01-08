@@ -1,3 +1,10 @@
+const config = {
+    apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000'
+      : `${window.location.protocol}//${window.location.hostname}`
+  };
+  
+
 // const registrationSection = document.getElementById('registrationSection')
 const loginSection = document.getElementById('loginSection')
 const existingUser = document.getElementById('existingUser')
@@ -88,7 +95,7 @@ const userLoginEmail = document.getElementById('userLoginEmail')
 const userLoginPassword = document.getElementById('userLoginPassword')
 
 
-// http://localhost:3000
+// 
 
 registrationForm.addEventListener('submit', async (e) => { 
     e.preventDefault()
@@ -96,7 +103,7 @@ registrationForm.addEventListener('submit', async (e) => {
     
 
     try {
-        const registrationResponse = await fetch('http://localhost:3000/doveeysKitchen/api/registerUser', {
+        const registrationResponse = await fetch(`${config.apiUrl}/doveeysKitchen/api/registerUser`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'
@@ -147,7 +154,7 @@ registrationForm.addEventListener('submit', async (e) => {
 loginForm.addEventListener('submit', async (e) => {
     e.preventDefault()
     try {
-        const loginResponse = await fetch('http://localhost:3000/doveeysKitchen/api/loginUser', {
+        const loginResponse = await fetch(`${config.apiUrl}/doveeysKitchen/api/loginUser`, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json'

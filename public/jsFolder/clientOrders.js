@@ -1,9 +1,16 @@
+// config.js
+const config2 = {
+    apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://localhost:3000'
+      : `${window.location.protocol}//${window.location.hostname}`
+  };
+
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
 })
 
-// http://localhost:3000
+// 
 
 const menuGridClass = document.querySelector('.menuGridClass')
 
@@ -13,8 +20,8 @@ const getAllMenuProductFunc = async () => {
     
 
     try {
-        const getAllMenuProductResponse = await fetch('http://localhost:3000/doveeysKitchen/product/getMenuProducts')
-        // console.log(getAllMenuProductResponse);
+        const getAllMenuProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getMenuProducts`)
+        console.log(getAllMenuProductResponse);
         
         const data = await getAllMenuProductResponse.json()
         // console.log(data);
@@ -77,7 +84,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
     // console.log('id', menuProductId);
   
     try {
-      const fetchSingleProductResponse = await fetch(`http://localhost:3000/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
+      const fetchSingleProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
   
     // console.log(fetchSingleProductResponse);
   
@@ -223,7 +230,7 @@ const populateUserProceedOrder = () => {
 const userProceedOrderFunc = async (formData) => {
     const orderPopUpAlert = document.getElementById('orderPopUpAlert')
     try {
-        const userProceedResponse = await fetch('http://localhost:3000/doveeysKitchen/order/createProceedOrder', {
+        const userProceedResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
             method: 'POST',
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,

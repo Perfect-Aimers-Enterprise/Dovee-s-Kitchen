@@ -1,3 +1,10 @@
+const config4 = {
+  apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:3000'
+    : `${window.location.protocol}//${window.location.hostname}`
+};
+
+
 document.addEventListener('DOMContentLoaded', () => {
 
   getAllAdminSpecialProductsFunc()
@@ -8,7 +15,7 @@ const specialProductForm = document.getElementById('specialProductForm')
 const specialProductList = document.getElementById('specialProductList')
 
 
-// http://localhost:3000
+// 
 
 specialProductForm.addEventListener('submit', async (e) => {
     e.preventDefault()
@@ -16,7 +23,7 @@ specialProductForm.addEventListener('submit', async (e) => {
     const formData = new FormData(specialProductTarget)
 
     try {
-        const response = await fetch('http://localhost:3000/doveeysKitchen/specialProduct/createSpecialProduct', {
+        const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/createSpecialProduct`, {
             method: 'POST',
             body: formData
         })
@@ -43,7 +50,7 @@ const getAllAdminSpecialProductsFunc = async (e) => {
     // e.preventDefault()
 
     try {
-        const response = await fetch('http://localhost:3000/doveeysKitchen/specialProduct/getSpecialProducts')
+        const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/getSpecialProducts`)
 
         const data = await response.json()
 
@@ -123,7 +130,7 @@ const fetchSingleSpecialProduct = async (specialProductId) => {
   specialPopUpSection.innerHTML = ''
 
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/specialProduct/getSingleSpecialProduct/${specialProductId}`)
+    const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/getSingleSpecialProduct/${specialProductId}`)
 
     console.log('single special res',response);
 
@@ -236,7 +243,7 @@ const updateSpecialProduct = async (specialProductId, formData) => {
   console.log(formData);
   
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/specialProduct/updateSpecialProduct/${specialProductId}`, {
+    const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/updateSpecialProduct/${specialProductId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
@@ -266,7 +273,7 @@ const updateSpecialProduct = async (specialProductId, formData) => {
 const deleteSpecialProduct = async (specialProductId) => {
 
   try {
-    const response = await fetch(`http://localhost:3000/doveeysKitchen/specialProduct/deleteSpecialProduct/${specialProductId}`, {method: 'DELETE'})
+    const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/deleteSpecialProduct/${specialProductId}`, {method: 'DELETE'})
 
     // alert('Special product deleted successfully!!!')
 
