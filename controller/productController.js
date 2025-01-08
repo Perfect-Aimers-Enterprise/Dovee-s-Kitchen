@@ -4,7 +4,7 @@ const createMenuProduct = async (req, res) => {
 
     try {
         const { menuProductName, menuDescription, menuPrice } = req.body
-        const menuImageUrl = req.file.filename
+        menuImageUrl = req.file.filename
 
         const menuProduct = await productModel.create({ menuProductName, menuDescription, menuPrice, menuImage:menuImageUrl })
 
