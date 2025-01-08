@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const cors = require('cors')
 // const http = require('http');
+const bodyParser = require('body-parser')
 const path = require('path')
 const connectDB = require('./db/connectDB')
 const userRoute = require('./routes/userRoute')
@@ -10,6 +11,7 @@ const specialProductRoute = require('./routes/specialProductRoute')
 const orderRoute = require('./routes/orderRoute')
 const adminGetOrderRoute = require('./routes/adminGetOrderRoute')
 const userMessageRoute = require('./routes/userMessageRoute')
+const subscribeRoute = require('./routes/subscriptionRoute')
 
 const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
@@ -26,6 +28,7 @@ app.use((req, res, next) => {
 // app.use(express.static('public'));
 app.use(cors())
 app.use(express.json())
+app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
@@ -41,6 +44,7 @@ app.use('/doveeysKitchen/adminGetOrder', adminGetOrderRoute)
 
 app.use('/doveeysKitchen/specialProduct', specialProductRoute)
 app.use('/doveeysKitchen/message', userMessageRoute)
+app.use('/notification', subscribeRoute)
 
 // Socket.IO connection
 // io.on('connection', (socket) => {

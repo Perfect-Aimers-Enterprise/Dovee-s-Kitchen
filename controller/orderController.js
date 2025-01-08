@@ -1,4 +1,6 @@
 const orderModel = require('../model/orderModel')
+const Subscription = require('../model/subscriptionModel'); // Assuming you have a subscription model for notifications
+const { webPush } = require('../utils/webPushConfig');
 const userSchema = require('../model/userModel')
 
 const getAllProceedOrder = async (req, res) => {
@@ -11,20 +13,86 @@ const getAllProceedOrder = async (req, res) => {
     }
 }
 
-const createProceedOrder = async (req, res) => {
-    try {
-        req.body.createdBy = req.user.userId
-        const orderProceed = await orderModel.create({...req.body})
+// const createProceedOrder = async (req, res) => {
+//     try {
+//         req.body.createdBy = req.user.userId
+//         const orderProceed = await orderModel.create({...req.body})
 
-        console.log(orderModel);
+//         console.log(orderModel);
         
 
-        res.status(201).json({orderProceed, message: 'Order Processed Successfully'})
+//         res.status(201).json({orderProceed, message: 'Order Processed Successfully'})
+
+//     } catch (error) {
+//         res.status(500).json(error)
+//     }
+// }
+
+const subscribe = async (req, res) => {
+    try {
+      const subscription = req.body;
+  
+      // Check if subscription already exists
+      const existingSub = await Subscription.findOne({ endpoint: subscription.endpoint });
+      if (!existingSub) {
+        await Subscription.create(subscription); // Save subscription
+      }
+  
+      res.status(201).json({ message: 'Subscription successful!' });
+    } catch (error) {
+      console.error('Subscription error:', error);
+      res.status(500).json({ message: 'Subscription failed.' });
+    }
+  };
+  
+
+const createProceedOrder = async (req, res) => {
+    try {
+        // Attach the user ID to the order
+        req.body.createdBy = req.user.userId;
+
+        // Save the order to the database
+        const orderProceed = await orderModel.create({...req.body});
+
+        console.log('Order Created:', orderProceed);
+
+        // Notification payload to notify users (if necessary)
+        const notificationPayload = JSON.stringify({
+            title: 'Order Placed!',
+            body: `Your order for ${req.body.menuProductOrderName} has been processed.`,
+            icon: req.body.menuProductOrderImage,
+            name: req.body.userName,
+            product: req.body.menuProductOrderName,
+            url: `/order-details/${orderProceed._id}` // Add the URL
+        });
+        
+
+        console.log(notificationPayload);
+        
+
+        // Fetch all subscriptions from the database and send notifications
+        const subscriptions = await Subscription.find();
+
+        console.log('Sending notifications to subscriptions:', subscriptions.length); // Log the number of subscriptions
+
+        await Promise.all(
+            subscriptions.map(sub => {
+              console.log('Sending notification to:', sub.endpoint); // Log each subscription endpoint
+              return webPush.sendNotification(sub, notificationPayload).catch(err => console.error('Error sending notification:', err));
+            })
+          );
+      
+
+        res.status(201).json({
+            orderProceed,
+            message: 'Order Processed Successfully and Notification Sent!'
+        });
 
     } catch (error) {
-        res.status(500).json(error)
+        console.error('Error processing order:', error);
+        res.status(500).json({ message: 'Error placing order.', error });
     }
-}
+};
 
 const adminGetAllProceedOrder = async (req, res) => {
     try {
@@ -174,4 +242,4 @@ const getWeeklyGrowth = async (req, res) => {
   };
   
 
-module.exports = {createProceedOrder, getAllProceedOrder, adminGetAllProceedOrder, adminCancleOrder, adminConfirmOrder, adminGetAllConfirmedOrdersPrice, getMonthlyOrders, getWeeklyGrowth}
+module.exports = {createProceedOrder, getAllProceedOrder, adminGetAllProceedOrder, adminCancleOrder, adminConfirmOrder, adminGetAllConfirmedOrdersPrice, getMonthlyOrders, getWeeklyGrowth, subscribe}
