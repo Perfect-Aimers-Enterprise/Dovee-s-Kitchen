@@ -42,6 +42,9 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/htmlFolder/regLog.html');
 });
 
+app.get('/doveeyskitchenadmin', (req, res) => {
+  res.sendFile(__dirname + '/public/htmlFolder/adminDashboard.html');
+});
 
 // MiddleWares 
 app.use('/doveeysKitchen/api', userRoute)
