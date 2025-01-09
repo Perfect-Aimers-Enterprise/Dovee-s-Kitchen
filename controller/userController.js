@@ -1,5 +1,5 @@
 const userSchema = require('../model/userModel')
-const nodemailer = requrire('nodemailer')
+const nodemailer = require('nodemailer')
 
 const registerUser = async (req, res) => {
     try {
