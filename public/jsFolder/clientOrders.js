@@ -101,7 +101,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
       localStorage.setItem('menuProductOrderDescription', menuProductOrderDescription)
       localStorage.setItem('menuProductOrderPrice', menuProductOrderPrice)
 
-      window.location.href = '/htmlFolder/orderDetailsPage.html'
+      window.location.href = '../htmlFolder/orderDetailsPage.html'
 
     } catch (error) {
       console.log(error);
