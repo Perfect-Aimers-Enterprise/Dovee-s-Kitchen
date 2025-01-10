@@ -22,6 +22,7 @@ const registerUser = async (req, res) => {
           });
           
 
+          
         console.log('After transporter');
         
         const mailOptions = {
