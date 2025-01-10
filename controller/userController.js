@@ -8,7 +8,9 @@ const registerUser = async (req, res) => {
         const user = await userSchema.create({ ...req.body })
         console.log(user);
         const token = user.createJwt()
-
+        console.log(token);
+        
+        
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -17,6 +19,8 @@ const registerUser = async (req, res) => {
             }
         })
 
+        console.log('After transporter');
+        
         const mailOptions = {
             from: process.env.DOVEEYS_EMAIL,
             to: user.userEmail,
@@ -73,7 +77,15 @@ const registerUser = async (req, res) => {
             ],
         }
 
-        await transporter.sendMail(mailOptions)
+        console.log('after mail Options');
+        
+        try {
+            await transporter.sendMail(mailOptions);
+            console.log("Email sent successfully");
+        } catch (emailError) {
+            console.error("Nodemailer Error:", emailError);
+            return res.status(500).json({ message: "Failed to send confirmation email." });
+        }
 
         res.status(201).json({
             user: {
@@ -84,7 +96,6 @@ const registerUser = async (req, res) => {
             token
         })
 
-        console.log(token);
         
     } catch (error) {
         console.log(error);
