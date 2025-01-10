@@ -104,7 +104,7 @@ registrationForm.addEventListener('submit', async (e) => {
 
     try {
         const registrationResponse = await fetch(`${config.apiUrl}/doveeysKitchen/api/registerUser`, {
-            method: 'post',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -121,8 +121,11 @@ registrationForm.addEventListener('submit', async (e) => {
         console.log(registrationResponse);
         
         if (!registrationResponse.ok) {
-            alert(registrationResponse.message)
+            const errorData = await registrationResponse.json();
+            alert(errorData.message || "An error occurred during registration.");
+            return;
         }
+        
     
         const data = await registrationResponse.json()
         console.log(data);
@@ -136,6 +139,7 @@ registrationForm.addEventListener('submit', async (e) => {
         
 
         if (data.token) {
+            
             localStorage.setItem('token', data.token)
             localStorage.setItem('userName', data.user.userName),
             localStorage.setItem('userEmail', data.user.userEmail),
