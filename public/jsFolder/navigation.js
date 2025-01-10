@@ -68,6 +68,9 @@ newUser.onclick = () => {
 
 exploreApp.onclick = () => {
     generalSection.classList.add('hidden')
+
+        // localStorage.removeItem('token')
+
     window.location.href = '../htmlFolder/Doviee2.html'
 }
 
