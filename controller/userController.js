@@ -14,10 +14,13 @@ const registerUser = async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: process.env.DOVEEYS_EMAIL,
-                pass: process.env.DOVEEYS_PASS
-            }
-        })
+              user: process.env.DOVEEYS_EMAIL,
+              pass: process.env.DOVEEYS_PASS,
+            },
+            debug: true,
+            logger: true,
+          });
+          
 
         console.log('After transporter');
         
