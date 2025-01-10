@@ -68,7 +68,7 @@ newUser.onclick = () => {
 
 exploreApp.onclick = () => {
     generalSection.classList.add('hidden')
-    window.location.href = '../htmlFolder/Doviee.html'
+    window.location.href = '../htmlFolder/Doviee2.html'
 }
 
 
