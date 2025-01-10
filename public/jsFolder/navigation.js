@@ -118,25 +118,15 @@ registrationForm.addEventListener('submit', async (e) => {
             })
         })
 
-        console.log(registrationResponse);
         
-        if (!registrationResponse.ok) {
-            const errorData = await registrationResponse.json();
-            alert(errorData.message || "An error occurred during registration.");
-            return;
-        }
+        // if (!registrationResponse.ok) {
+        //     const errorData = await registrationResponse.json();
+        //     alert(errorData.message || "An error occurred during registration.");
+        //     return;
+        // }
         
     
         const data = await registrationResponse.json()
-        console.log(data);
-        console.log(data.token);
-        console.log(data.user.userName);
-        console.log(data.user.userEmail);
-        console.log(data.user.userPhone);
-        
-        
-        
-        
 
         if (data.token) {
             
