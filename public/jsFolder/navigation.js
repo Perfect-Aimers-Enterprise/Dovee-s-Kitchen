@@ -120,6 +120,9 @@ registrationForm.addEventListener('submit', async (e) => {
 
         console.log(registrationResponse);
         
+        if (!registrationResponse.ok) {
+            alert(registrationResponse.message)
+        }
     
         const data = await registrationResponse.json()
         console.log(data);
@@ -138,10 +141,6 @@ registrationForm.addEventListener('submit', async (e) => {
             localStorage.setItem('userEmail', data.user.userEmail),
             localStorage.setItem('userPhone', data.user.userPhone)
             window.location.href = '../htmlFolder/Doviee2.html'
-        }
-
-        if (!data.ok) {
-           return alert(data.message)
         }
 
     } catch (error) {
@@ -166,6 +165,10 @@ loginForm.addEventListener('submit', async (e) => {
         })
 
         console.log(loginResponse);
+
+        if (!loginResponse.ok) {
+            alert(registrationResponse.message)
+        }
         
         const data = await loginResponse.json()
         console.log(data);
