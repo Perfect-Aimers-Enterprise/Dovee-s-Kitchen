@@ -206,7 +206,7 @@ const sendReminderEmail = async () => {
 };
 
 // Schedule the email to send every Friday at 10:00 AM
-cron.schedule('0 4 * * 4', sendReminderEmail, {
+cron.schedule('0 10 * * 5', sendReminderEmail, {
     scheduled: true,
     timezone: "Africa/Lagos", // Use your local timezone here
 });
