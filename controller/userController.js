@@ -88,7 +88,7 @@ const registerUser = async (req, res) => {
             console.log("Email sent successfully");
         } catch (emailError) {
             console.error("Nodemailer Error:", emailError);
-            return res.status(500).json({ message: "Failed to send confirmation email." });
+            // return res.status(500).json({ message: "Failed to send confirmation email." });
         }
 
         res.status(201).json({
