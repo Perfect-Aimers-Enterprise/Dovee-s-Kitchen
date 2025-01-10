@@ -119,11 +119,11 @@ registrationForm.addEventListener('submit', async (e) => {
         })
 
         
-        // if (!registrationResponse.ok) {
-        //     const errorData = await registrationResponse.json();
-        //     alert(errorData.message || "An error occurred during registration.");
-        //     return;
-        // }
+        if (!registrationResponse.ok) {
+            const errorData = await registrationResponse.json();
+            alert(errorData.message || "An error occurred during registration.");
+            return;
+        }
         
     
         const data = await registrationResponse.json()
