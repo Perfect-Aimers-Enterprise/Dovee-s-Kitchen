@@ -38,6 +38,7 @@ app.use(express.json())
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/htmlFolder/regLog.html');
 });
@@ -56,19 +57,21 @@ app.use('/doveeysKitchen/specialProduct', specialProductRoute)
 app.use('/doveeysKitchen/message', userMessageRoute)
 app.use('/notification', subscribeRoute)
 
-// Socket.IO connection
-// io.on('connection', (socket) => {
-//   console.log('A user connected');
-//   socket.on('disconnect', () => {
-//     console.log('User disconnected');
-//   });
 
-  // Handle chat messages
-//   socket.on('chatMessage', (msg) => {
-   // Broadcast message to all clients
-//     io.emit('chatMessage', msg);
-//   });
-// });
+const fs = require('fs');
+
+const logStream = fs.createWriteStream(__dirname + '/logs/app.log', { flags: 'a' });
+
+app.use((req, res, next) => {
+  logStream.write(`[${new Date().toISOString()}] ${req.method} ${req.url}\n`);
+  next();
+});
+
+// Use this to log errors
+process.on('uncaughtException', (err) => {
+  logStream.write(`[${new Date().toISOString()}] Uncaught Exception: ${err.message}\n`);
+});
+
 
 const port = process.env.PORT || 3000
 
