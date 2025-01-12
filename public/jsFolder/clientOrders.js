@@ -34,7 +34,7 @@ const getAllMenuProductFunc = async () => {
             
             const allMenuGridProduct = `
             <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
-                <img src="/image/menuImage/${eachData.menuImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
+                <img src="../image/menuImage/${eachData.menuImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
                 <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
                 <p class="text-gray-600">${eachData.menuDescription}</p>
                 <p class="mt-2 text-green-700 font-bold">₦${eachData.menuPrice}</p>
