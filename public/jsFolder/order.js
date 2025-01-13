@@ -383,6 +383,7 @@ const fetchAllOrders = async () => {
             <p><strong>Client Name:</strong> ${eachData.userName}</p>
             <p><strong>Email:</strong> ${eachData.userEmail}</p>
             <p><strong>Phone:</strong> ${eachData.userPhone}</p>
+            <p><strong>Order Tel:</strong> ${eachData.menuProductOrderContact}</p>
             <p><strong>Address:</strong> ${eachData.menuProductOrderAddress}</p>
             <p><strong>Quantity:</strong> ${eachData.menuProductOrderQuantity}</p>
             <p><strong>Total Price:</strong> ₦${eachData.menuTotalProductOrderPrice}</p>
