@@ -12,11 +12,17 @@ const orderRoute = require('./routes/orderRoute')
 const adminGetOrderRoute = require('./routes/adminGetOrderRoute')
 const userMessageRoute = require('./routes/userMessageRoute')
 const subscribeRoute = require('./routes/subscriptionRoute')
+const landingSectionRoute = require('./routes/landingSectionRoute')
 
 const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
 
 const app = express();
+
+// const http = require('http');
+// const { Server } = require('socket.io');
+// const server = http.createServer(app);
+// const io = new Server(server);
 
 // Middleware to set cache control headers
 app.use((req, res, next) => {
@@ -28,8 +34,6 @@ app.use((req, res, next) => {
 });
 
 
-// const server = http.createServer(app);
-// const io = new Server(server);
 
 // Serve static files
 // app.use(express.static('public'));
@@ -56,6 +60,7 @@ app.use('/doveeysKitchen/adminGetOrder', adminGetOrderRoute)
 app.use('/doveeysKitchen/specialProduct', specialProductRoute)
 app.use('/doveeysKitchen/message', userMessageRoute)
 app.use('/notification', subscribeRoute)
+app.use('/doveeysLanding', landingSectionRoute)
 
 
 const fs = require('fs');
@@ -89,3 +94,20 @@ const start = async () => {
 }
 
 start()
+
+
+
+// WebSocket logic
+
+// io.on('connection', (socket) => {
+//   console.log('A user connected:', socket.id);
+
+//   setInterval(() => {
+//       const data = { message: 'Real-time update', timestamp: new Date() };
+//       socket.emit('update', data);
+//   }, 1000);
+
+//   socket.on('disconnect', () => {
+//       console.log('A user disconnected:', socket.id);
+//   });
+// });

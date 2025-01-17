@@ -637,11 +637,6 @@ video {
   margin-right: auto;
 }
 
-.my-\[20px\] {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
 .mb-1 {
   margin-bottom: 0.25rem;
 }
@@ -668,6 +663,10 @@ video {
 
 .mb-\[10px\] {
   margin-bottom: 10px;
+}
+
+.mb-\[20px\] {
+  margin-bottom: 20px;
 }
 
 .ml-2 {
@@ -738,14 +737,6 @@ video {
   margin-top: 40px;
 }
 
-.mt-\[2px\] {
-  margin-top: 2px;
-}
-
-.mb-\[20px\] {
-  margin-bottom: 20px;
-}
-
 .block {
   display: block;
 }
@@ -794,8 +785,12 @@ video {
   height: 1.25rem;
 }
 
-.h-\[200px\] {
-  height: 200px;
+.h-\[100px\] {
+  height: 100px;
+}
+
+.h-\[300px\] {
+  height: 300px;
 }
 
 .h-\[400px\] {
@@ -818,16 +813,16 @@ video {
   height: 100vh;
 }
 
-.h-\[300px\] {
-  height: 300px;
-}
-
 .max-h-64 {
   max-height: 16rem;
 }
 
 .min-h-screen {
   min-height: 100vh;
+}
+
+.w-1\/2 {
+  width: 50%;
 }
 
 .w-1\/6 {
@@ -1115,6 +1110,11 @@ video {
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
 }
 
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
@@ -1282,10 +1282,6 @@ video {
   padding: 5px;
 }
 
-.p-\[20px\] {
-  padding: 20px;
-}
-
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
@@ -1362,10 +1358,6 @@ video {
 
 .pt-4 {
   padding-top: 1rem;
-}
-
-.pt-\[20px\] {
-  padding-top: 20px;
 }
 
 .text-center {
@@ -1660,6 +1652,11 @@ li a .activeNav {
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
+.hover\:bg-blue-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+}
+
 .hover\:bg-gray-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
@@ -1764,16 +1761,16 @@ li a .activeNav {
     display: none;
   }
 
+  .md\:h-\[350px\] {
+    height: 350px;
+  }
+
   .md\:h-\[550px\] {
     height: 550px;
   }
 
   .md\:h-\[60vh\] {
     height: 60vh;
-  }
-
-  .md\:h-\[350px\] {
-    height: 350px;
   }
 
   .md\:w-1\/5 {
@@ -1853,12 +1850,12 @@ li a .activeNav {
     display: none;
   }
 
-  .lg\:h-\[70vh\] {
-    height: 70vh;
-  }
-
   .lg\:h-\[400px\] {
     height: 400px;
+  }
+
+  .lg\:h-\[70vh\] {
+    height: 70vh;
   }
 
   .lg\:w-\[70\%\] {

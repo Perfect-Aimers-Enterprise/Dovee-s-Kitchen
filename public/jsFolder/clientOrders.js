@@ -5,9 +5,35 @@ const config2 = {
       : `${window.location.protocol}//${window.location.hostname}`
   };
 
+
+  // Connect to the WebSocket server
+//   const socket = io(config2.apiUrl);
+
+  // Listen for 'update' events from the server
+
+//   socket.on('update', (data) => {
+//       console.log('Real-time data received:', data);
+
+
+//       const orderPageDiv = document.getElementById('orderPage');
+//       orderPageDiv.innerHTML = `
+//           <p><strong>Message:</strong> ${data.message}</p>
+//           <p><strong>Time:</strong> ${new Date(data.timestamp).toLocaleTimeString()}</p>
+//       `;
+//   });
+
+  // Optional: Handle disconnection
+
+//   socket.on('disconnect', () => {
+//       console.log('Disconnected from server');
+//       document.getElementById('result').innerHTML = 'Disconnected from server.';
+//   });
+
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
+
+    
 })
 
 // 
@@ -15,40 +41,49 @@ document.addEventListener('DOMContentLoaded', ()=> {
 const menuGridClass = document.querySelector('.menuGridClass')
 
 const getAllMenuProductFunc = async () => {
-    // e.preventDefault()
-
-    
-
     try {
-        const getAllMenuProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getMenuProducts`)
+        const getAllMenuProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getMenuProducts`);
         console.log(getAllMenuProductResponse);
         
-        const data = await getAllMenuProductResponse.json()
+        const data = await getAllMenuProductResponse.json();
         console.log(data);
-        menuGridClass.innerHTML = ''        
+        menuGridClass.innerHTML = '';        
 
         data.forEach((eachData) => {
-            // console.log(eachData._id);
-            
-            const eachDataId = eachData._id
-            
-            const allMenuGridProduct = `
-            <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
-                <img src="../image/menuImage/${eachData.menuImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
-                <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
-                <p class="text-gray-600">${eachData.menuDescription}</p>
-                <p class="mt-2 text-green-700 font-bold">₦${eachData.menuPrice}</p>
-                <button id="orderNowButton" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
-            </div>
-        `
+            const eachDataId = eachData._id;
 
-        // console.log(allMenuGridProduct);
-        
-        menuGridClass.innerHTML += allMenuGridProduct
-        // menuGridClass.append(allMenuGridProduct)
+            let productContent = '';
 
-        // console.log(menuGridClass);
-        })
+
+            if (eachData.menuPrice && (!eachData.variations || eachData.variations.length === 0 || isAllVariationsInvalid(eachData.variations))) {
+                
+                productContent = `
+                    <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
+                        <img src="../image/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
+                        <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
+                        <p class="text-gray-600">${eachData.menuDescription}</p>
+                        <p class="mt-2 text-green-700 font-bold">₦${eachData.menuPrice}</p>
+                        <button id="orderNowButton" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+                    </div>
+                `;
+            } else if (eachData.variations && eachData.variations.length > 0) {
+                 // Show the price of the first variation
+                 const firstVariationPrice = eachData.variations[0].price;
+
+                 productContent = `
+                     <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
+                         <img src="../image/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
+                         <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
+                         <p class="text-gray-600">${eachData.menuDescription}</p>
+                         <p class="mt-2 text-green-700 font-bold">₦${firstVariationPrice}</p>
+                         <button id="orderNowButton" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+                     </div>
+                 `;
+            }
+
+            // Append the product content to the menu grid
+            menuGridClass.innerHTML += productContent;
+        });
 
         setTimeout(() => {
             const menuItems = document.querySelectorAll('.menu-item');
@@ -57,26 +92,25 @@ const getAllMenuProductFunc = async () => {
             });
         }, 100);
         
-        const orderNowButton = document.querySelectorAll('#orderNowButton')
-        // console.log(orderNowButton);
+        const orderNowButton = document.querySelectorAll('#orderNowButton');
         
         orderNowButton.forEach((eachOrderNowButton) => {
             eachOrderNowButton.addEventListener('click', (e) => {
-                const token = localStorage.getItem('token')
+                const token = localStorage.getItem('token');
                 if (!token) {
-                    return alert('Please Register or Login an account')
+                    return alert('Please Register or Login an account');
                 }
-                const menuProductId = e.target.closest('.menu-item').dataset.id
-                fetchSingleProductFunc(menuProductId)
-                
-            })
-        })
-
+                const menuProductId = e.target.closest('.menu-item').dataset.id;
+                fetchSingleProductFunc(menuProductId);
+            });
+        });
 
     } catch (error) {
-        
+        console.log(error);
     }
-}
+};
+
+
 
 const fetchSingleProductFunc = async (menuProductId) => {
 
@@ -89,17 +123,22 @@ const fetchSingleProductFunc = async (menuProductId) => {
     // console.log(fetchSingleProductResponse);
   
       const data = await fetchSingleProductResponse.json()
-    //   console.log(data);
+      console.log('Testing Data String', data);
 
       const menuProductOrderImage = data.menuImage
       const menuProductOrderName = data.menuProductName
       const menuProductOrderDescription = data.menuDescription
       const menuProductOrderPrice = data.menuPrice
+      const menuProductVariations = data.variations || []; // Check if variations exist
+
+      console.log(menuProductVariations);
+      
 
       localStorage.setItem('menuProductOrderImage', menuProductOrderImage)
       localStorage.setItem('menuProductOrderName', menuProductOrderName)
       localStorage.setItem('menuProductOrderDescription', menuProductOrderDescription)
       localStorage.setItem('menuProductOrderPrice', menuProductOrderPrice)
+      localStorage.setItem('menuProductVariations', JSON.stringify(menuProductVariations));
 
       window.location.href = '../htmlFolder/orderDetailsPage.html'
 
@@ -120,15 +159,84 @@ const populateUserProceedOrder = () => {
     const proceedOrderImg = localStorage.getItem('menuProductOrderImage')
     const proceedOrderName = localStorage.getItem('menuProductOrderName')
     const proceedOrderPrice = parseFloat(localStorage.getItem('menuProductOrderPrice'));
+    const menuProductVariations = JSON.parse(localStorage.getItem('menuProductVariations'))
+
+    console.log(menuProductVariations);
     
+
+
+    let variationDropdown = '';
+    let priceDisplay = '';
+
+    // if (menuProductVariations && menuProductVariations.length > 0) {
+    //     variationDropdown = `
+    //     <div class="mb-4">
+    //         <label for="variationSelect" class="block text-gray-600 font-medium mb-1">Choose Variation</label>
+    //         <select id="variationSelect" class="w-full p-3 border border-gray-300 rounded-lg">
+    //         <option disabled selected>Select Food Size</option>
+    //         ${menuProductVariations
+    //             .map(
+    //             (variation) =>
+    //                 `<option value="${variation.price}" data-variation-name="${variation.size}">
+    //                 ${variation.size} - &#8358;${variation.price.toFixed(2)}
+    //                 </option>`
+    //             )
+    //             .join('')}
+    //         </select>
+    //     </div>`;
+
+    //     priceDisplay = `
+    //     <div class="mb-4">
+    //         <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${menuProductVariations[0].price.toFixed(2)}</span></p>
+    //     </div>`;
+    // } else {
+    //     priceDisplay = `
+    //     <div class="mb-4">
+    //         <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${proceedOrderPrice.toFixed(2)}</span></p>
+    //     </div>`;
+    // }
+    
+
+    if (proceedOrderPrice && (!menuProductVariations || menuProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(menuProductVariations))) {
+        priceDisplay = `
+        <div class="mb-4">
+            <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${proceedOrderPrice.toFixed(2)}</span></p>
+        </div>`;
+    } else if (menuProductVariations && menuProductVariations.length > 0) {
+        variationDropdown = `
+        <div class="mb-4">
+            <label for="variationSelect" class="block text-gray-600 font-medium mb-1">Choose Variation</label>
+            <select id="variationSelect" class="w-full p-3 border border-gray-300 rounded-lg">
+            <option disabled selected>Select Food Size</option>
+            ${menuProductVariations
+                .map(
+                (variation) =>
+                    `<option value="${variation.price}" data-variation-name="${variation.size}">
+                    ${variation.size} - &#8358;${variation.price.toFixed(2)}
+                    </option>`
+                )
+                .join('')}
+            </select>
+        </div>`;
+
+        priceDisplay = `
+        <div class="mb-4">
+            <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${menuProductVariations[0].price.toFixed(2)}</span></p>
+        </div>`;
+    }
+
+        
+    function isAllVariationsInvalidMenuPrice(menuProductVariations) {
+        return menuProductVariations.every((menuProductVariation) => !menuProductVariation.size || menuProductVariation.price === null);
+      }
 
     const userProceedOrder = `
             <form id="userProceedOrderId" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
             <h2 class="text-2xl font-bold text-gray-700 mb-4">Order Details</h2>
 
             <!-- Product Image -->
-            <div class="mb-4">
-                <img id="orderProceedImage" src="../image/menuImage/${proceedOrderImg}" alt="Product Image" class="rounded-lg w-full">
+            <div class="mb-4 h-[400px] items-center justify-center overflow-hidden">
+                <img id="orderProceedImage" src="../image/menuImage/${proceedOrderImg}" alt="Product Image" class="rounded-lg w-full h-[400px]">
             </div>
 
             <!-- Product Name -->
@@ -136,10 +244,13 @@ const populateUserProceedOrder = () => {
                 <p id="orderProceedName" class="text-lg font-semibold text-gray-800">Name: <span class="text-green-500">${proceedOrderName}</span></p>
             </div>
 
-            <!-- Product Price -->
-            <div class="mb-4">
-                <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358 ${proceedOrderPrice}</span></p>
-            </div>
+
+             ${variationDropdown}
+
+            ${priceDisplay}
+
+             <!-- Product Price -->
+            
 
             <!-- Address Input -->
             <div class="mb-4">
@@ -231,91 +342,92 @@ const populateUserProceedOrder = () => {
         </div>
     `
 
-    const proceedButton = document.getElementById('proceedButton');
-    const termsCheckbox = document.getElementById('terms');
-            // const orderPage = document.getElementById('orderPage');
-    termsCheckbox.addEventListener('change', () => {
-        proceedButton.disabled = !termsCheckbox.checked;
-    });
+  
+    initializeEventListeners(proceedOrderPrice)
 
- 
-    const termsCondition = document.getElementById('termsCondition')
-
-    termsCondition.addEventListener('click', () => {
-        orderPage.innerHTML = terms_condition
-
-        const goBack = document.querySelector('.goBack')
-        goBackFunc(goBack)
-    })
 
     
-    
-const goBackFunc = (goBack) => {
-    goBack.addEventListener('click', () => {
-        orderPage.innerHTML = userProceedOrder
-    })
-}
-    
+        const termsCondition = document.getElementById('termsCondition')
+
+        termsCondition.addEventListener('click', () => {
+            orderPage.innerHTML = terms_condition
+
+            const goBack = document.querySelector('.goBack')
+            goBackFunc(goBack)
+        })
+
+        
+        
+        const goBackFunc = (goBack) => {
+            goBack.addEventListener('click', () => {
+                orderPage.innerHTML = userProceedOrder
+            })
+        }
+        
+
+        // Price and Total Price Handling
+        const orderProceedAddress = document.getElementById('orderProceedAddress')
+        const deliveryContact = document.getElementById('deliveryContact')
+
+        proceedButton.addEventListener('click', async (e) => {
+            e.preventDefault()
+
+            const validateInputProvision = document.querySelectorAll('#userProceedOrderId .inputProceed')
+
+            // Validate inputs and stop execution if any are empty
+            const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
+                if (!inputProvision.value) {
+                    alert('Please provide all information');
+                    return true; // Stop further validation
+                }
+                return false;
+            });
+
+            if (hasEmptyInput) return;
 
 
-    const orderProceedAddress = document.getElementById('orderProceedAddress')
-    const quantityInput = document.getElementById('quantity');
-    const totalPriceElement = document.getElementById('totalPrice');
-    const deliveryContact = document.getElementById('deliveryContact')
+            
+            orderPage.classList.add('hidden');
 
-    
-    quantityInput.addEventListener('input', () => {
-        const quantity = parseInt(quantityInput.value, 10) || 1; // Default to 1 if input is invalid
-        const totalPrice = proceedOrderPrice * quantity;
-        totalPriceElement.textContent = totalPrice.toFixed(2); // Update the displayed total price
-    });
-
-    
-
-    proceedButton.addEventListener('click', async (e) => {
-        e.preventDefault()
-
-        const validateInputProvision = document.querySelectorAll('#userProceedOrderId .inputProceed')
-
-        // Validate inputs and stop execution if any are empty
-        const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
-            if (!inputProvision.value) {
-                alert('Please provide all information');
-                return true; // Stop further validation
+            const token = localStorage.getItem('token')
+            const userName = localStorage.getItem('userName')
+            const userEmail = localStorage.getItem('userEmail')
+            const userPhone = localStorage.getItem('userPhone')
+            
+            if (!token) {
+                return alert('Please Register or Login an account')
             }
-            return false;
-        });
-
-        if (hasEmptyInput) return;
+ 
 
 
-        
-        orderPage.classList.add('hidden');
+                const formData = {
+                    menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
+                    menuProductOrderName: proceedOrderName,
+                    menuProductOrderPrice: selectedPrice,
+                    menuTotalProductOrderPrice: selectedPrice * quantity.value,
+                    menuProductOrderAddress: orderProceedAddress.value,
+                    menuProductOrderContact: deliveryContact.value,
+                    menuProductOrderQuantity: quantity.value,
+                    userName,
+                    userEmail,
+                    userPhone,
+                    ...(menuProductVariations.length > 0 && {
+                        menuProductOrderVariation: {
+                            size: document.getElementById('variationSelect').selectedOptions[0].dataset.variationName,
+                            price: parseFloat(document.getElementById('variationSelect').value)
+                        }
+                    })
+                }
+    
 
-        const token = localStorage.getItem('token')
-        const userName = localStorage.getItem('userName')
-        const userEmail = localStorage.getItem('userEmail')
-        const userPhone = localStorage.getItem('userPhone')
-        
-        if (!token) {
-            return alert('Please Register or Login an account')
-        }
+    
+                alert(`Selected Price: ${selectedPrice}`);
+                await userProceedOrderFunc(formData)
+            
 
-        const formData = {
-            menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
-            menuProductOrderName: proceedOrderName,
-            menuProductOrderPrice: proceedOrderPrice,
-            menuTotalProductOrderPrice: proceedOrderPrice * quantity.value,
-            menuProductOrderAddress: orderProceedAddress.value,
-            menuProductOrderContact: deliveryContact.value,
-            menuProductOrderQuantity: quantity.value,
-            userName,
-            userEmail,
-            userPhone
-        }
+        })
+    
 
-        await userProceedOrderFunc(formData)
-    })
 }
 
 const userProceedOrderFunc = async (formData) => {
@@ -343,3 +455,54 @@ const userProceedOrderFunc = async (formData) => {
         
     }
 }
+
+
+
+const initializeEventListeners = (proceedOrderPrice) => {
+    const variationSelect = document.getElementById('variationSelect');
+    const quantityInput = document.getElementById('quantity');
+    const totalPriceElement = document.getElementById('totalPrice');
+    const proceedButton = document.getElementById('proceedButton');
+    const termsCheckbox = document.getElementById('terms');
+
+    // Enable Proceed Button on Terms Acceptance
+    termsCheckbox.addEventListener('change', () => {
+        proceedButton.disabled = !termsCheckbox.checked;
+    });
+
+
+    // Listen for changes in the variation dropdown
+if (variationSelect) {
+    variationSelect.addEventListener('change', (event) => {
+        const selectedOption = event.target.selectedOptions[0];
+        selectedPrice = parseFloat(selectedOption.value); // Update selectedPrice based on selected variation
+        document.getElementById('orderProceedPrice').innerHTML = `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
+        updateTotalPrice();
+    });
+} else {
+    selectedPrice = proceedOrderPrice; // Default to the fixed price from local storage
+}
+
+
+    quantityInput.addEventListener('input', () => {
+        // const selectedPrice = variationSelect ? parseFloat(variationSelect.value) : proceedOrderPrice;
+        // const quantity = parseInt(quantityInput.value, 10) || 1;
+        // const totalPrice = selectedPrice * quantity;
+        // totalPriceElement.innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
+        updateTotalPrice()
+    });
+
+};
+
+
+// Function to update the total price dynamically
+const updateTotalPrice = () => {
+    const totalPrice = selectedPrice * parseInt(quantity.value || 1, 10);
+    document.getElementById('totalPrice').innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
+};
+
+
+// Helper function to check if all variations are invalid
+function isAllVariationsInvalid(variations) {
+    return variations.every((variation) => !variation.size || variation.price === null);
+  }

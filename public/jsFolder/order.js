@@ -63,30 +63,33 @@ menuProductForm.addEventListener('submit', async (e) => {
 })
 
 // getMenuProducts
+// getMenuProducts
 const getMenuProductFunc = async (e) => {
-  
+  try {
+    const getMenuProductsResponse = await fetch(getMenuProductFuncUrl);
 
-    try {
-        const getMenuProductsResponse = await fetch(getMenuProductFuncUrl)
+    console.log(getMenuProductsResponse);
 
-        console.log(getMenuProductsResponse);
+    const data = await getMenuProductsResponse.json();
+    console.log(data);
 
-        const data = await getMenuProductsResponse.json()
-        console.log(data);
-        menuProductList.innerHTML = ''
-        
-        data.forEach((eachData) => {
-            console.log(eachData);
-            // console.log(eachData._id);
-            
-            const menuProductId = eachData._id
-            console.log(menuProductId);
-            
+    menuProductList.innerHTML = '';
 
-            const menuProductEach = `
-                <div class="flex items-center justify-between border rounded-lg shadow-md p-4 menuProductEach" data-id="${menuProductId}">
+    data.forEach((eachData) => {
+      console.log('Data eachdata',eachData);
+
+      const menuProductId = eachData._id;
+      console.log(menuProductId);
+
+      let productContent = '';
+
+      // Check if product has price or variations
+      if (eachData.menuPrice && (!eachData.variations || eachData.variations.length === 0 || isAllVariationsInvalid(eachData.variations))) {
+        // Display product with price
+        productContent = `
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4 menuProductEach" data-id="${menuProductId}">
             <div class="flex items-center space-x-4">
-              <img src="../image/menuImage/${eachData.menuImage}" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <img src="../image/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-16 h-16 object-cover rounded">
               <div>
                 <h4 class="font-semibold">${eachData.menuProductName}</h4>
                 <p class="text-sm text-gray-600">₦${eachData.menuPrice}</p>
@@ -103,21 +106,62 @@ const getMenuProductFunc = async (e) => {
               </button>
             </div>
           </div>
-            `
+        `;
+      } else if (eachData.variations && eachData.variations.length > 0) {
 
-            // console.log(e.target.closest('.flex'));
-            
-            menuProductList.innerHTML += menuProductEach
-        })
+        
+        // Display product with variations
+        let variationsContent = '';
+        eachData.variations.forEach((variation) => {
+          variationsContent += `
+            <div class="flex items-center space-x-4 mb-2">
+              <p class="text-sm text-gray-600">${variation.size} - ₦${variation.price}</p>
+            </div>
+          `;
+        });
 
-        attachEditEventListeners()
-        
-    } catch (error) {
-        console.log(error);
-        
-    }
+        productContent = `
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4 menuProductEach" data-id="${menuProductId}">
+            <div class="flex items-center space-x-4">
+              <img src="../image/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">${eachData.menuProductName}</h4>
+                <div class="text-sm text-gray-600">
+                  ${variationsContent}
+                </div>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600 editButton" data-id="${menuProductId}">
+                <p class="hidden md:block">Edit</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 deleteButton" data-id="${menuProductId}">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }
+
+      // Append the product content to the product list
+      menuProductList.innerHTML += productContent;
+    });
+
+    attachEditEventListeners();
     
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+// Helper function to check if all variations are invalid
+function isAllVariationsInvalid(variations) {
+  return variations.every((variation) => !variation.size || variation.price === null);
 }
+
 
 const attachEditEventListeners = () => {
 
@@ -343,7 +387,8 @@ const fetchAllOrders = async () => {
     const spreadData = data.orderProceed;
 
     spreadData.forEach((eachData) => {
-      console.log(eachData);
+      console.log(eachData.menuProductOrderVariation.size
+      );
       const menuOrderId = eachData._id;
 
       // Format the createdAt date
@@ -384,6 +429,7 @@ const fetchAllOrders = async () => {
             <p><strong>Email:</strong> ${eachData.userEmail}</p>
             <p><strong>Phone:</strong> ${eachData.userPhone}</p>
             <p><strong>Order Tel:</strong> ${eachData.menuProductOrderContact}</p>
+            <p><strong>Variation: </strong>{ Size ${eachData.menuProductOrderVariation.size} : Price ${eachData.menuProductOrderVariation.price} }</p>
             <p><strong>Address:</strong> ${eachData.menuProductOrderAddress}</p>
             <p><strong>Quantity:</strong> ${eachData.menuProductOrderQuantity}</p>
             <p><strong>Total Price:</strong> ₦${eachData.menuTotalProductOrderPrice}</p>
@@ -640,3 +686,64 @@ const getSingleUserMessageFunc = async (messageId) => {
     
   }
 }
+
+
+// Handle dynamic variation addition
+const addVariationBtn = document.getElementById("addVariationBtn");
+const variationsContainer = document.getElementById("variationsContainer");
+const priceSection = document.getElementById('priceSection');
+const showVariationBtn = document.getElementById('showVariationBtn')
+  // let variationAdded = true;
+
+  // Toggle between Price or Variation form
+  function toggleVariationOption() {
+    if (variationsContainer.classList.contains('hidden')) {
+      priceSection.classList.add('hidden');
+      showVariationBtn.textContent = 'Close Variation'
+      showVariationBtn.classList.add('bg-red-500')
+      showVariationBtn.classList.remove('bg-blue-500')
+      variationsContainer.classList.remove('hidden');
+      addVariationBtn.classList.remove('hidden');
+
+      
+    } else {
+      priceSection.classList.remove('hidden');
+      showVariationBtn.classList.remove('hidden')
+      showVariationBtn.classList.remove('bg-red-500')
+      showVariationBtn.classList.add('bg-blue-500')
+      showVariationBtn.textContent = 'Show Variation'
+      variationsContainer.classList.add('hidden');
+      addVariationBtn.classList.add('hidden');
+    }
+  }
+
+  // Add Variation Button Clicked
+  showVariationBtn.addEventListener('click', () => {
+    // variationAdded = false;
+    toggleVariationOption();
+  });
+
+  // Initially, the price section is visible, and variations section is hidden
+  // toggleVariationOption();
+
+addVariationBtn.addEventListener("click", () => {
+  const newVariation = document.createElement("div");
+  newVariation.classList.add("flex", "space-x-4", "mb-4");
+
+  newVariation.innerHTML = `
+    <input
+      type="text"
+      name="variationSize[]"
+      class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+      placeholder="Enter variation size (e.g., 1L)"
+    />
+    <input
+      type="number"
+      name="variationPrice[]"
+      class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+      placeholder="Enter price"
+    />
+  `;
+  
+  variationsContainer.appendChild(newVariation);
+});

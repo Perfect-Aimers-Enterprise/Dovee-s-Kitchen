@@ -3,10 +3,20 @@ const productModel = require('../model/productModel')
 const createMenuProduct = async (req, res) => {
 
     try {
-        const { menuProductName, menuDescription, menuPrice } = req.body
+        const { menuProductName, menuDescription, menuPrice, variationSize, variationPrice } = req.body
         menuImageUrl = req.file.filename
 
-        const menuProduct = await productModel.create({ menuProductName, menuDescription, menuPrice, menuImage:menuImageUrl })
+         // Create a new menu product
+         const menuProduct = await productModel.create({
+            menuProductName,
+            menuDescription,
+            menuPrice,
+            menuImage: menuImageUrl,
+            variations: variationSize.map((size, index) => ({
+                size: size,
+                price: variationPrice[index]
+            }))
+        });
 
         console.log(menuProduct);
         

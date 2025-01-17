@@ -11,6 +11,10 @@ const orderProceedSchema = new mongoose.Schema({
     userName: {type: String},
     userEmail: {type: String},
     userPhone: {type: Number},
+    menuProductOrderVariation: {
+            size: { type: String}, // Size (e.g., 1L, 2L)
+            price: { type: Number} // Price for the size
+        },
     createdBy: {
         type: mongoose.Types.ObjectId,
         ref: 'User'
