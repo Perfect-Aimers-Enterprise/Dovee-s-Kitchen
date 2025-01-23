@@ -1,5 +1,5 @@
-// config.js
-const config = {
+// config9.js
+const config9 = {
     apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
       ? 'http://localhost:3000'
       : `${window.location.protocol}//${window.location.hostname}`
@@ -38,7 +38,7 @@ const sendUserMessage = async () => {
         userPhone
     }
     try {
-        const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/sendUserMessage`, {
+        const response = await fetch(`${config9.apiUrl}/doveeysKitchen/message/sendUserMessage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

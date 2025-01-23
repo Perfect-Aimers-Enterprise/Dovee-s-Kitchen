@@ -13,6 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
     countRegisteredUsers()
     getWeeklyGrowthFunc()
     getAllUserMessageFunc()
+    getAdminMenuLandingFunc()
+    getAllSpecialImagesFunc()
 })
 
 // All Api URL Testing
@@ -603,7 +605,8 @@ weeklyGrowthElem.className = `text-2xl font-bold ${
 
 const getAllUserMessageFunc = async () => {
   try {
-    const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/getAllUserMessag`);
+  
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/getAllUserMessage`);
 
     const data = await response.json();
 
@@ -647,7 +650,7 @@ const getAllUserMessageFunc = async () => {
         const messageId = e.target.closest('#eachPopulateMessage').dataset.id;
 
         getSingleUserMessageFunc(messageId);
-      });e
+      });
     });
   } catch (error) {
     console.log(error);
@@ -670,8 +673,8 @@ const getSingleUserMessageFunc = async (messageId) => {
             <h2 id="popupUserName" class="text-xl font-bold mb-2">Name: ${data.userName}</h2>
             <p id="popupTitle" class="text-lg font-semibold mb-2">Message Title: ${data.userMessageTitle}</p>
             <p id="popupDescription" class="text-gray-600 mb-4">Message: ${data.userMessage}</p>
-            <p><strong>Phone:</strong> <span id="popupPhone">tel: ${data.userPhone}</span></p>
-            <p><strong>Email:</strong> <span id="popupEmail">Email: ${data.userEmail}</span></p>
+            <p><strong>Phone:</strong> <span id="popupPhone">${data.userPhone}</span></p>
+            <p><strong>Email:</strong> <span id="popupEmail">${data.userEmail}</span></p>
             <button id="closeMessage" class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full">Close</button>
           </div>
     `
@@ -747,3 +750,255 @@ addVariationBtn.addEventListener("click", () => {
   
   variationsContainer.appendChild(newVariation);
 });
+
+
+
+
+
+// Generic function to handle form submissions
+async function handleFormSubmit(event, endpoint) {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(`${config.apiUrl}${endpoint}`, {
+      method: "PATCH",
+      body: formData,
+    });
+    const result = await response.json();
+
+    if (response.ok) {
+      alert(result.message);
+      form.reset();
+    } else {
+      alert(result.message || "An error occurred.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Failed to upload. Please try again.");
+  }
+}
+
+
+
+// Attach event listeners to forms
+document.getElementById("heroImageForm").addEventListener("submit", (e) => handleFormSubmit(e, "/doveeysLanding/updateHeroImageSchema"));
+
+document.getElementById("flyer1Form").addEventListener("submit", (e) => handleFormSubmit(e, "/doveeysLanding/uploadFlyer1Schema"));
+
+document.getElementById("flyer2Form").addEventListener("submit", (e) => handleFormSubmit(e, "/doveeysLanding/uploadFlyer2Schema"));
+
+
+async function handleCreateFormSubmit(event, endpoint) {
+  event.preventDefault();
+  const form = event.target;
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch(`${config.apiUrl}${endpoint}`, {
+      method: "POST",
+      body: formData,
+    });
+    const result = await response.json();
+
+    if (response.ok) {
+      alert(result.message);
+      form.reset();
+    } else {
+      alert(result.message || "An error occurred.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Failed to upload. Please try again.");
+  }
+}
+
+document.getElementById("menuImageForm").addEventListener("submit", (e) => handleCreateFormSubmit(e, "/doveeysLanding/createMenuImage"));
+
+document.getElementById("specialImageForm").addEventListener("submit", (e) => handleCreateFormSubmit(e, "/doveeysLanding/createSpecialImage"));
+
+
+
+const getAdminMenuLandingFunc = async () => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysLanding/getAllMenuImage`);
+    const data = await response.json();
+
+    const updatedMenuList = document.getElementById('updatedMenuList');
+    updatedMenuList.innerHTML = '';
+
+    data.forEach((eachData) => {
+      const dataId = eachData._id;
+
+      console.log('get Menu Landing DataId', eachData);
+
+      const populateMenuLanding = `
+        <div id="populatedMenuLandingDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${dataId}">
+          <div class="flex items-center space-x-4">
+            <img src="../image/menuLandingImage/${eachData.menuLandingImage}" alt="${eachData.menuLandingName}" class="w-16 h-16 object-cover rounded">
+          </div>
+
+          <div>
+            <h4 class="font-semibold">${eachData.menuLandingName}</h4>
+            <p class="text-sm text-gray-600 font-semibold">${eachData.menuLandingDes}</p>
+          </div>
+
+          <div class="flex space-x-2">
+            <button id="updateMenuLanding" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+              <p class="hidden md:block">Update</p>
+              <i class="fas fa-pencil-alt md:hidden"></i>
+            </button>
+          </div>
+        </div>
+      `;
+      updatedMenuList.innerHTML += populateMenuLanding;
+    });
+
+    const updateMenuLandingButtons = document.querySelectorAll('#updateMenuLanding');
+    const MenuLandingPageEditPopUpSection = document.getElementById('MenuLandingPageEditPopUpSection');
+
+    updateMenuLandingButtons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        MenuLandingPageEditPopUpSection.classList.remove('hidden');
+        const menuLandingId = e.target.closest('#populatedMenuLandingDiv').dataset.id;
+
+        // Fetch the menu landing data and populate the form
+        fetchSingleAdminMenuLanding(menuLandingId);
+      });
+    });
+  } catch (error) {
+    console.error('Error fetching menu landing data:', error);
+  }
+};
+
+const fetchSingleAdminMenuLanding = async (menuLandingId) => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysLanding/getSingleMenuImage/${menuLandingId}`);
+    const data = await response.json();
+
+    // Attach the event listener for the form submission
+    const menuLandingImageForm = document.getElementById('menuLandingImageForm');
+    menuLandingImageForm.onsubmit = (e) => {
+      e.preventDefault(); // Prevent default form submission
+      const formData = new FormData(menuLandingImageForm);
+      updateAdminMenuLanding(formData, menuLandingId);
+    };
+  } catch (error) {
+    console.error('Error fetching single menu landing:', error);
+  }
+};
+
+const updateAdminMenuLanding = async (formData, menuLandingId) => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysLanding/uploadMenuImageSchema/${menuLandingId}`, {
+      method: 'PATCH',
+      body: formData, // Correctly pass FormData in the body
+    });
+
+    if (response.ok) {
+      alert('Update Successful');
+      getAdminMenuLandingFunc(); // Refresh the menu list after update
+      document.getElementById('MenuLandingPageEditPopUpSection').classList.add('hidden'); // Hide the popup
+    } else {
+      alert('Update failed');
+      console.error('Failed response:', await response.text());
+    }
+  } catch (error) {
+    console.error('Error updating menu landing:', error);
+    alert('Update failed');
+  }
+};
+
+
+
+const getAllSpecialImagesFunc = async () => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysLanding/getAllSpecialImage`);
+    const data = await response.json();
+
+    const updatedSpecialList = document.getElementById('updatedSpecialList');
+    updatedSpecialList.innerHTML = ''; // Clear previous entries
+
+    data.forEach((eachData) => {
+      const dataId = eachData._id;
+
+      const populateSpecialLanding = `
+        <div id="populatedSpecialLandingDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${dataId}">
+          <div class="flex items-center space-x-4">
+            <img src="../image/specialLandingImage/${eachData.specialLandingImage}" alt="${eachData.specialLandingName}" class="w-16 h-16 object-cover rounded">
+          </div>
+
+          <div>
+            <h4 class="font-semibold">${eachData.specialLandingName}</h4>
+            <p class="text-sm text-gray-600 font-semibold">${eachData.specialLandingDes}</p>
+          </div>
+
+          <div class="flex space-x-2">
+            <button id="updateSpecialLanding" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+              <p class="hidden md:block">Update</p>
+              <i class="fas fa-pencil-alt md:hidden"></i>
+            </button>
+          </div>
+        </div>
+      `;
+
+      updatedSpecialList.innerHTML += populateSpecialLanding;
+    });
+
+    // Add event listeners to "Update" buttons
+    const updateSpecialLandingButtons = document.querySelectorAll('#updateSpecialLanding');
+    const specialLandingPageEditPopUpSection = document.getElementById('specialLandingPageEditPopUpSection');
+
+    updateSpecialLandingButtons.forEach((eachSpecialLanding) => {
+      eachSpecialLanding.addEventListener('click', (e) => {
+        specialLandingPageEditPopUpSection.classList.remove('hidden');
+        const specialLandingId = e.target.closest('#populatedSpecialLandingDiv').dataset.id;
+
+        fetchSingleSpecialImage(specialLandingId);
+      });
+    });
+  } catch (error) {
+    console.error('Error fetching special images:', error);
+  }
+};
+
+
+const fetchSingleSpecialImage = async (specialLandingId) => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysLanding/getSingleSpecialImage/${specialLandingId}`);
+    const data = await response.json();
+
+    document.getElementById('specialLandingImageForm').addEventListener('submit', (e) => {
+      e.preventDefault(); // Prevent default form submission
+      const form = e.target;
+      const formData = new FormData(form);
+  
+      updateSpecialImage(formData, specialLandingId);
+    });
+
+  } catch (error) {
+    console.error('Error fetching single special image:', error);
+  }
+};
+
+const updateSpecialImage = async (formData, specialLandingId) => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysLanding/uploadSpecialImageSchema/${specialLandingId}`, {
+      method: 'PATCH',
+      body: formData, // Attach the FormData object
+    });
+
+    if (response.ok) {
+      alert('Update Successful');
+      getAllSpecialImagesFunc(); // Refresh the list
+    } else {
+      const errorText = await response.text();
+      alert('Update failed');
+      console.error('Failed response:', errorText);
+    }
+  } catch (error) {
+    console.error('Error updating special image:', error);
+    alert('Update failed');
+  }
+};

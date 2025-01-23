@@ -10,21 +10,12 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
 
-    <style>
-      /* .content {
-        transition: opacity 0.3s ease, transform 0.3s ease;
-      }
-      .hidden {
-        opacity: 0;
-        transform: translateY(-10px);
-        pointer-events: none;
-      } */
-    </style>
+
 </head>
 <body class="bg-gray-100">
   <div class="flex flex-col h-screen">
     <!-- Sidebar -->
-    <div class="w-1/6 md:w-1/5 bg-gray-800 text-white flex flex-col fixed h-full">
+    <div class="w-1/6 md:w-1/5 bg-gray-800 text-white flex flex-col fixed h-full overflow-y-scroll">
       <div class="p-4 md:text-2xl font-bold text-center border-b border-gray-700">Admin Panel</div>
       <nav class="mt-4 flex-1">
         <ul class="space-y-4">
@@ -73,6 +64,53 @@
               <p>Real-Time Chat</p>
             </div>  
           </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-rocket"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Hero Image</p>
+            </div>  
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-tshirt"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>MenuLandingImages</p>
+            </div>  
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>SpecialLandingImage</p>
+            </div>  
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-bullhorn"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Flyer 1</p>
+            </div>  
+          </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-palette"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Flyer 2</p>
+            </div>  
+          </a></li>
+
+
         </ul>
       </nav>
     </div>
@@ -424,6 +462,168 @@
         
       </section>
 
+       <!-- Update Hero Image -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <h2 class="text-xl font-bold mb-4">Update Hero Image</h2>
+      <form id="heroImageForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="heroImageName" class="block text-sm font-medium">Image Name</label>
+          <input type="text" id="heroImageName" name="heroImageName" class="w-full p-2 border rounded" required>
+        </div>
+        <div>
+          <label for="heroImageDes" class="block text-sm font-medium">Image Description</label>
+          <textarea id="heroImageDes" name="heroImageDes" class="w-full p-2 border rounded" required></textarea>
+        </div>
+        <div>
+          <label for="heroImage" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="heroImage" name="heroImage" class="w-full p-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Update Hero Image</button>
+      </form>
+    </section>
+
+    <!-- Upload Menu Image -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <h2 class="text-xl font-bold mb-4">Upload Menu Image</h2>
+      <form id="menuImageForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+
+        <div>
+          <label for="menuLandingName" class="block text-sm font-medium">Menu Name</label>
+          <input type="text" id="menuLandingName" name="menuLandingName" class="w-full p-2 border rounded" required>
+        </div>
+
+        <div>
+          <label for="menuLandingDes" class="block text-sm font-medium">Menu Description</label>
+          <input type="text" id="menuLandingDes" name="menuLandingDes" class="w-full p-2 border rounded" required>
+        </div>
+        
+        <div>
+          <label for="menuLandingImage" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="menuLandingImage" name="menuLandingImage" class="w-full p-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Upload Menu Image</button>
+      </form>
+
+      <!-- Uploaded Menu List  -->
+      <div>
+        <!-- Uploaded Menu List -->
+        <h3 class="text-lg font-semibold mb-4">Updated Menu List</h3>
+        <div id="updatedMenuList" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+            </div>
+
+            <div>
+              <h4 class="font-semibold">Chicken Suya</h4>
+              <p class="text-sm text-gray-600 font-semibold">MenuLanding Page Description</p>
+              <p class="text-sm text-gray-600">₦3,000</p>
+              
+            </div>
+
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Update</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload Special Image -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <h2 class="text-xl font-bold mb-4">Upload Special Image</h2>
+      <form id="specialImageForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+
+        <div>
+          <label for="specialLandingName" class="block text-sm font-medium">Special Name</label>
+          <input type="text" id="specialLandingName" name="specialLandingName" class="w-full p-2 border rounded" required>
+        </div>
+
+        <div>
+          <label for="specialLandingDes" class="block text-sm font-medium">Special Description</label>
+          <input type="text" id="specialLandingDes" name="specialLandingDes" class="w-full p-2 border rounded" required>
+        </div>
+
+        <div>
+          <label for="specialLandingImage" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="specialLandingImage" name="specialLandingImage" class="w-full p-2" required>
+        </div>
+
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Upload Special Image</button>
+      </form>
+
+
+      <!-- Uploaded Special List  -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Updated Special List</h3>
+        <div id="updatedSpecialList" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+            </div>
+
+            <div>
+              <h4 class="font-semibold">Chicken Suya</h4>
+              <p class="text-sm text-gray-600 font-semibold">MenuLanding Page Description</p>
+              
+            </div>
+
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Update</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Upload Flyer 1 -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <h2 class="text-xl font-bold mb-4">Upload Flyer 1</h2>
+      <form id="flyer1Form" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="flyer1Title" class="block text-sm font-medium">Flyer Title</label>
+          <input type="text" id="flyer1Title" name="flyer1Title" class="w-full p-2 border rounded" required>
+        </div>
+        <div>
+          <label for="flyer1Image" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="flyer1Image" name="flyer1Image" class="w-full p-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Upload Flyer 1</button>
+      </form>
+    </section>
+
+    <!-- Upload Flyer 2 -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <h2 class="text-xl font-bold mb-4">Upload Flyer 2</h2>
+      <form id="flyer2Form" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="flyer2Title" class="block text-sm font-medium">Flyer Title</label>
+          <input type="text" id="flyer2Title" name="flyer2Title" class="w-full p-2 border rounded" required>
+        </div>
+        <div>
+          <label for="flyer2Image" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="flyer2Image" name="flyer2Image" class="w-full p-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Upload Flyer 2</button>
+      </form>
+    </section>
+
+
+      <!-- POP UP SECTIONS -->
+
       <!-- MenuEditPopUpSection  -->
        <section id="menuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
           <div id="menuPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
@@ -538,6 +738,71 @@
           </form>
         </div>
      </section>
+
+     <!-- MenuLandingPageEditPopUpSection  -->
+    <section id="MenuLandingPageEditPopUpSection" class="flex-1 p-6 space-y-6 ml-[20%] fixed inset-0 bg-blue-100 hidden">
+
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold mb-4">Update Menu Image</h2>
+        </div>
+
+        <div class="cursor-pointer">
+          <p class="text-red-600 font-bold">close</p>
+        </div>
+      </div>
+
+      <form id="menuLandingImageForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="" class="block text-sm font-medium">Menu Name</label>
+          <input type="text" id="" name="menuLandingName" class="w-full p-2 border rounded" required>
+        </div>
+
+        <div>
+          <label for="" class="block text-sm font-medium">Menu Description</label>
+          <input type="text" id="" name="menuLandingDes" class="w-full p-2 border rounded" required>
+        </div>
+        
+        <div>
+          <label for="" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="" name="menuLandingImage" class="w-full p-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Proceed</button>
+      </form>
+    </section>
+
+    <!-- specialLandingPageEditPopUpSection  -->
+    <section id="specialLandingPageEditPopUpSection" class="flex-1 p-6 space-y-6 ml-[20%] fixed inset-0 bg-blue-100 hidden">
+
+      <div class="flex justify-between items-center">
+        <div>
+          <h2 class="text-xl font-bold mb-4">Update Special Image</h2>
+        </div>
+
+        <div class="cursor-pointer">
+          <p class="text-red-600 font-bold">close</p>
+        </div>
+      </div>
+
+      <form id="specialLandingImageForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="" class="block text-sm font-medium">Special Name</label>
+          <input type="text" id="" name="specialLandingName" class="w-full p-2 border rounded" required>
+        </div>
+
+        <div>
+          <label for="" class="block text-sm font-medium">Special Description</label>
+          <input type="text" id="" name="specialLandingDes" class="w-full p-2 border rounded" required>
+        </div>
+        
+        <div>
+          <label for="" class="block text-sm font-medium">Upload Image</label>
+          <input type="file" id="" name="specialLandingImage" class="w-full p-2" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Proceed</button>
+      </form>
+    </section>
+     
 
   </div>
 

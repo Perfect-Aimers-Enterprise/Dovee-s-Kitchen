@@ -90,12 +90,14 @@
   </header>
 
   <!-- Hero Section -->
-  <section class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]" style="background-image: url('../image/regBg1.jpg');">
-    <div class="hero-overlay absolute inset-0"></div>
-    <div class="relative h-full flex flex-col justify-center items-center text-center">
-      <h2 class="text-2xl md:text-5xl font-bold mb-4">Welcome to Doveeys Kitchen</h2>
-      <p class="text-lg md:text-xl mb-6">Delicious meals made with love. Place your orders now!</p>
-      <a href="#menu" class="bg-orange-500 py-3 px-6 rounded-full hover:bg-orange-600">Explore Menu</a>
+  <section id="dynamicHeroImage" class="mt-[30px]">
+    <div class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]" style="background-image: url('../image/regBg1.jpg');">
+      <div class="hero-overlay absolute inset-0"></div>
+      <div class="relative h-full flex flex-col justify-center items-center text-center">
+        <h2 class="text-2xl md:text-5xl font-bold mb-4">Welcome to Doveeys Kitchen</h2>
+        <p class="text-lg md:text-xl mb-6">Delicious meals made with love. Place your orders now!</p>
+        <a href="#menu" class="bg-orange-500 py-3 px-6 rounded-full hover:bg-orange-600">Explore Menu</a>
+      </div>
     </div>
   </section>
 
@@ -104,7 +106,7 @@
 
     <div class="container mx-auto px-6 lg:px-16">
       <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Featured Dishes</h3>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="menuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Dish Card -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
           <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
@@ -153,19 +155,21 @@
   </section>
 
   <!-- Student Flyer section  -->
-  <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/xmasPackage.jpg); background-size: cover; height: 200px;" class=" grid items-center text-[25px] font-bold relative">
-    <div class="bg-black opacity-50 inset-0 absolute"></div>
-    <div class="text-center relative">
-      <h1>Run Your ADS here (Contact Us)</h1>
-    </div>
-   </a>
+  <section id="flyer1Section">
+    <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/xmasPackage.jpg); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
+      <div class="bg-black opacity-50 inset-0 absolute"></div>
+      <div class="text-center relative">
+        <h1>Run Your ADS here (Contact Us)</h1>
+      </div>
+     </a>
+  </section>
 
   <!-- Specials Section -->
   <section id="specials" class="py-16 bg-orange-100">
     <div class="container mx-auto px-6 lg:px-16 text-center">
       <h3 class="text-2xl font-bold text-orange-700 mb-6">Special Packages</h3>
       <p class="text-gray-700 mb-10">Exciting packages for holidays and events!</p>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div id="specialLandingPageDisplay" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Special Package Card -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
           <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
@@ -317,9 +321,10 @@
     <div class="bg-orange-100 mb-[20px]">
       hello
     </div>
-    <!-- Become a Distributor -->
-   <section>
-    <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/xmasPackage.jpg); background-size: cover; height: 200px;" class="grid items-center text-[25px] font-bold relative">
+
+    <!-- Become a Distributor Flyer -->
+   <section id="flyer2Section">
+    <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/xmasPackage.jpg); background-size: cover;" class="grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
       <div class="bg-black opacity-50 inset-0 absolute"></div>
       <div class="text-center relative">
         <h1>Click to Become a Distributor Flyer</h1>
