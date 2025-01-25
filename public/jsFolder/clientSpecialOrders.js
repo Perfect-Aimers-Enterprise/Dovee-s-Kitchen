@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', ()=> {
     populateSpecialProductFunc()
 })
 
+const specialNavigationPopUp = document.getElementById('specialNavigationPopUp')
+
 const getAllClientProductFunc = async () => {
     const specialGridClass = document.querySelector('.specialGridClass')
     specialGridClass.innerHTML = ''
@@ -56,7 +58,7 @@ const getAllClientProductFunc = async () => {
                 console.log(token);
                 
                 if (!token) {
-                    return alert('Please Register or Login an account')
+                   return specialNavigationPopUp.classList.remove('hidden')
                 }
                 const specialProductId = e.target.closest('.special-item').dataset.id
                 getSingleClientProductFunc(specialProductId)
@@ -287,7 +289,7 @@ const populateSpecialProductFunc = () => {
         const userPhone = localStorage.getItem('userPhone')
         
         if (!token) {
-            return alert('Please Register or Login an account')
+            return specialNavigationPopUp.classList.remove('hidden')
         }
 
         const formData = {

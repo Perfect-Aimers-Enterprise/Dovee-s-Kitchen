@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../src/output.css">
-  <title>Dovieeys Kitchen - Menu</title>
+  <title>Dovieeys Kitchen - Specials</title>
   <style>
     .menu-item {
       opacity: 0;
@@ -149,6 +149,22 @@
     </div>
   </section>
 
+  <!-- Navigation PopUp Section -->
+  <section id="specialNavigationPopUp" class="fixed inset-0 bg-black bg-opacity-50 z-50 grid items-center justify-center hidden">
+    <div>
+      <div class="text-center leading-10 bg-white text-black p-[20px] border-[2px] border-gray-500 rounded-md">
+        <div>
+          <p>Please Register or Login an account</p>
+        </div>
+        <a href="regLog.html" class="bg-green-600 p-[5px] text-white cursor-pointer active:bg-green-200 active:text-black">Register/Login an Account</a>
+
+        <div>
+          <p id="specialToggleRegCloseBtn" class="text-orange-500 font-bold cursor-pointer">close</p>
+        </div>
+      </div>
+    </div>
+ </section>
+
   <script>
     const menuGrid = document.querySelector("#menuGrid");
     const menuItems = document.querySelectorAll(".menu-item");
@@ -170,6 +186,13 @@
         const text = item.querySelector("h3").textContent.toLowerCase();
         item.style.display = text.includes(searchValue) ? "" : "none";
       });
+    }
+
+
+    const specialToggleRegCloseBtn = document.getElementById('specialToggleRegCloseBtn')
+    
+    specialToggleRegCloseBtn.onclick = () => {
+      document.getElementById('specialNavigationPopUp').classList.add('hidden')
     }
   </script>
 </body>

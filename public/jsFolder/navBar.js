@@ -49,22 +49,6 @@ const activeNavBarFunc = () => {
 }
 
 
-const menuOrderNow = document.querySelectorAll('.menuOrderNow')
-menuOrderNow.forEach((eachMenuOrder) => {
-  eachMenuOrder.addEventListener('click', () => {
-    window.location.href = '../htmlFolder/menu2.html'
-  })
-})
-
-const specialMenuOrder = document.querySelectorAll('.specialMenuOrder')
-specialMenuOrder.forEach((eachSpecialOrder) => {
-  eachSpecialOrder.addEventListener('click', () => {
-    window.location.href = '../htmlFolder/special2.html'
-  })
-})
-
-
-
 const getHeroImageDisplay = async () => {
   try {
     const response = await fetch(`${config.apiUrl}/doveeysLanding/getHeroImage`)
@@ -169,6 +153,14 @@ const getMenuLandingFunc = async () => {
         </div>
       `
       menuDishCards.innerHTML += populateMenuLanding
+
+      const menuOrderNow = document.querySelectorAll('.menuOrderNow')
+      menuOrderNow.forEach((eachMenuOrder) => {
+        eachMenuOrder.addEventListener('click', () => {
+          window.location.href = '../htmlFolder/menu2.html'
+        })
+      })
+
     })
   
     
@@ -198,6 +190,14 @@ const getSpecialLandingFunc = async () => {
         </div>
       `
       specialLandingPageDisplay.innerHTML += populateSpecialLanding
+
+      const specialMenuOrder = document.querySelectorAll('.specialMenuOrder')
+      specialMenuOrder.forEach((eachSpecialOrder) => {
+        eachSpecialOrder.addEventListener('click', () => {
+          window.location.href = '../htmlFolder/special2.html'
+        })
+      })
+
     })
   
     
@@ -285,4 +285,12 @@ function urlBase64ToUint8Array(base64String) {
     outputArray[i] = rawData.charCodeAt(i);
   }
   return outputArray;
+}
+
+
+const toggleRegCloseBtn = document.getElementById('toggleRegCloseBtn')
+
+
+toggleRegCloseBtn.onclick = () => {
+  document.getElementById('navigationPopUp').classList.add('hidden')
 }

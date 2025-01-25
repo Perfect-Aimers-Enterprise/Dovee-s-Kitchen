@@ -5,7 +5,7 @@ const config2 = {
       : `${window.location.protocol}//${window.location.hostname}`
   };
 
-
+  const navigationPopUp = document.getElementById('navigationPopUp')
   // Connect to the WebSocket server
 //   const socket = io(config2.apiUrl);
 
@@ -98,7 +98,7 @@ const getAllMenuProductFunc = async () => {
             eachOrderNowButton.addEventListener('click', (e) => {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                    return alert('Please Register or Login an account');
+                   return navigationPopUp.classList.remove('hidden')
                 }
                 const menuProductId = e.target.closest('.menu-item').dataset.id;
                 fetchSingleProductFunc(menuProductId);
@@ -114,8 +114,6 @@ const getAllMenuProductFunc = async () => {
 
 const fetchSingleProductFunc = async (menuProductId) => {
 
-    // console.log('fetch', eachData);
-    // console.log('id', menuProductId);
   
     try {
       const fetchSingleProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
@@ -147,7 +145,6 @@ const fetchSingleProductFunc = async (menuProductId) => {
       
     }}
 
-    // console.log(fetchSingleProductFunc);
 
 const orderPage = document.getElementById('orderPage')
 
@@ -168,34 +165,6 @@ const populateUserProceedOrder = () => {
     let variationDropdown = '';
     let priceDisplay = '';
 
-    // if (menuProductVariations && menuProductVariations.length > 0) {
-    //     variationDropdown = `
-    //     <div class="mb-4">
-    //         <label for="variationSelect" class="block text-gray-600 font-medium mb-1">Choose Variation</label>
-    //         <select id="variationSelect" class="w-full p-3 border border-gray-300 rounded-lg">
-    //         <option disabled selected>Select Food Size</option>
-    //         ${menuProductVariations
-    //             .map(
-    //             (variation) =>
-    //                 `<option value="${variation.price}" data-variation-name="${variation.size}">
-    //                 ${variation.size} - &#8358;${variation.price.toFixed(2)}
-    //                 </option>`
-    //             )
-    //             .join('')}
-    //         </select>
-    //     </div>`;
-
-    //     priceDisplay = `
-    //     <div class="mb-4">
-    //         <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${menuProductVariations[0].price.toFixed(2)}</span></p>
-    //     </div>`;
-    // } else {
-    //     priceDisplay = `
-    //     <div class="mb-4">
-    //         <p id="orderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${proceedOrderPrice.toFixed(2)}</span></p>
-    //     </div>`;
-    // }
-    
 
     if (proceedOrderPrice && (!menuProductVariations || menuProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(menuProductVariations))) {
         priceDisplay = `
@@ -395,7 +364,9 @@ const populateUserProceedOrder = () => {
             const userPhone = localStorage.getItem('userPhone')
             
             if (!token) {
-                return alert('Please Register or Login an account')
+                
+                return navigationPopUp.classList.remove('hidden')
+                
             }
  
 
