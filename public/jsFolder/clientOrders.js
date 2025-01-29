@@ -32,6 +32,7 @@ const config2 = {
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
+    fetchUserGallery()
 
     
 })
@@ -471,6 +472,9 @@ const updateTotalPrice = () => {
     const totalPrice = selectedPrice * parseInt(quantity.value || 1, 10);
     document.getElementById('totalPrice').innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
 };
+
+
+
 
 
 // Helper function to check if all variations are invalid

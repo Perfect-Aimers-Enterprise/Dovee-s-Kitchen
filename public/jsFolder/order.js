@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     getAllUserMessageFunc()
     getAdminMenuLandingFunc()
     getAllSpecialImagesFunc()
+    fetchGallery();
 })
 
 // All Api URL Testing
@@ -1002,3 +1003,166 @@ const updateSpecialImage = async (formData, specialLandingId) => {
     alert('Update failed');
   }
 };
+
+
+const galleryForm = document.getElementById('galleryForm')
+const createGalleryFunc = async () => {
+  const formData = new FormData(galleryForm);
+  try {
+    
+    const response = await fetch(`${config.apiUrl}/galleryDisplay/createGallery`, {
+      method: 'POST',
+      body: formData
+    })
+
+    const result = await response.json();
+        if (response.ok) {
+          alert("File uploaded successfully!");
+          // fetchGallery(); 
+          fetchGallery()
+        } else {
+          alert(result.error || "Failed to upload file.");
+        }
+  } catch (error) {
+    console.error(err);
+    alert("An error occurred while uploading the file.");
+  }
+}
+
+galleryForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  await createGalleryFunc()
+} )
+
+
+async function fetchGallery() {
+  try {
+    const response = await fetch(`${config.apiUrl}/galleryDisplay/getGallery`); // Fetch the gallery data
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const data = await response.json(); // Parse the response JSON
+
+    console.log(response, data);
+    
+
+    const container = document.getElementById("galleryListDiv"); // Select the container for gallery items
+    container.innerHTML = ''
+    data.forEach((item) => {
+      let content;
+
+       // Function to format the time in a human-readable format
+       function timeAgo(date) {
+        const now = new Date();
+        const timeDifference = now - new Date(date);
+        const seconds = Math.floor(timeDifference / 1000);
+        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(minutes / 60);
+        const days = Math.floor(hours / 24);
+        const months = Math.floor(days / 30);
+        const years = Math.floor(months / 12);
+
+        if (years > 0) {
+          return `${years} year${years > 1 ? 's' : ''} ago`;
+        } else if (months > 0) {
+          return `${months} month${months > 1 ? 's' : ''} ago`;
+        } else if (days > 0) {
+          return `${days} day${days > 1 ? 's' : ''} ago`;
+        } else if (hours > 0) {
+          return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+        } else if (minutes > 0) {
+          return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+        } else {
+          return `${seconds} second${seconds > 1 ? 's' : ''} ago`;
+        }
+      }
+
+      const timePosted = timeAgo(item.createdAt);
+
+      const deleteId = item._id
+
+      console.log('deleted Id', deleteId);
+      
+
+      if (item.galleryType === "image") {
+
+        content = `
+          <div id="galleryIdDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${deleteId}">
+            <div id="galleryDisplayDiv" class="flex items-center space-x-4">
+              <img src="../image/GalleryVideo/${item.galleryMedia}" alt="${item.galleryTitle}" class="w-16 h-16 object-cover rounded">
+            </div>
+
+            <div>
+              <h4 class="font-semibold">${item.galleryTitle}</h4>
+              <p class="text-sm text-gray-600 font-semibold"><span>Posted: </span>${timePosted}</p>
+              
+            </div>
+
+            <div class="flex space-x-2">
+              <button id="deleteGallery" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
+            </div>
+          </div>
+        `
+      } else if (item.galleryType === "video") {
+        
+          content = `
+          <div id="galleryIdDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${deleteId}">
+            <div id="galleryDisplayDiv" class="flex items-center space-x-4">
+              <video controls class="w-16 h-16 object-cover rounded">
+                <source src="../image/GalleryVideo/${item.galleryMedia}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+
+            <div>
+              <h4 class="font-semibold">${item.galleryTitle}</h4>
+              <p class="text-sm text-gray-600 font-semibold"><span>Posted: </span>${timePosted}</p>
+              
+            </div>
+
+            <div class="flex space-x-2">
+              <button id="deleteGallery" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
+            </div>
+          </div>
+        `
+          
+      }
+
+      container.innerHTML += content
+
+      const deleteGallery = document.querySelectorAll('#deleteGallery')
+
+      deleteGallery.forEach((eachDelete) => {
+        eachDelete.addEventListener('click', (e) => {
+          const galleryDeleteId = e.target.closest('#galleryIdDiv').dataset.id
+          deleteGalleryFunc(galleryDeleteId)
+        })
+      })
+      
+    });
+  } catch (err) {
+    console.error("Failed to fetch gallery items:", err); // Log the error
+  }
+}
+
+// Call the function to fetch and display the gallery
+
+async function deleteGalleryFunc(galleryDeleteId) {
+  try {
+    const response = await fetch(`${config.apiUrl}/galleryDisplay/deleteGallery/${galleryDeleteId}`, {
+      method: 'DELETE'
+    })
+
+    alert('Item deleted successfully')
+    fetchGallery()
+  } catch (error) {
+    console.log(error);
+    
+  }
+}

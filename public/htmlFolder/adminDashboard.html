@@ -110,7 +110,14 @@
             </div>  
           </a></li>
 
-
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-images"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Gallery</p>
+            </div>  
+          </a></li>
         </ul>
       </nav>
     </div>
@@ -619,6 +626,59 @@
         </div>
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Upload Flyer 2</button>
       </form>
+    </section>
+
+    <!-- UPLOAD GALLERY  -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <h2 class="text-xl font-bold mb-4">Upload Gallery</h2>
+      <form id="galleryForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
+        <div>
+          <label for="galleryTitle" class="block text-sm font-medium">GalleryTitle</label>
+          <input type="text" id="galleryTitle" name="galleryTitle" class="w-full p-2 border rounded" required>
+        </div>
+
+        <div>
+          <label for="galleryType" class="block text-sm font-medium">GalleryType</label>
+          <select name="galleryType" id="galleryType" required>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="galleryMedia" class="block text-sm font-medium">Select File</label>
+          <input type="file" id="galleryMedia" name="galleryMedia" accept="image/*,video/*" required>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Upload Gallery</button>
+      </form>
+
+      <!-- Gallery List -->
+      <div>
+        <h3 class="text-lg font-semibold mb-4">Gallery List</h3>
+        <div id="galleryListDiv" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div id="galleryDisplayDiv" class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+            </div>
+
+            <div>
+              <h4 class="font-semibold">Chicken Suya</h4>
+              <p class="text-sm text-gray-600 font-semibold"><span>Posted: </span>Time Posted</p>
+              
+            </div>
+
+            <div class="flex space-x-2">
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>
     </section>
 
 

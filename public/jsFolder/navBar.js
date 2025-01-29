@@ -149,7 +149,7 @@ const getMenuLandingFunc = async () => {
           <h4 class="mt-4 text-xl font-semibold">${eachData.menuLandingName}</h4>
           <p class="mt-2 text-gray-600">${eachData.menuLandingDes}</p>
           
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order Now</button>
+          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">View Menu</button>
         </div>
       `
       menuDishCards.innerHTML += populateMenuLanding
@@ -186,7 +186,7 @@ const getSpecialLandingFunc = async () => {
           <h4 class="mt-4 text-xl font-semibold text-gray-900">${eachData.specialLandingName}</h4>
           <p class="mt-2 text-gray-600">${eachData.specialLandingDes}</p>
           
-          <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order Now</button>
+          <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">View Specials</button>
         </div>
       `
       specialLandingPageDisplay.innerHTML += populateSpecialLanding
