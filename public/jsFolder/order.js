@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     getAdminMenuLandingFunc()
     getAllSpecialImagesFunc()
     fetchGallery();
+    getAllDailyMenus()
 })
 
 // All Api URL Testing
@@ -1165,4 +1166,211 @@ async function deleteGalleryFunc(galleryDeleteId) {
     console.log(error);
     
   }
+}
+
+
+
+
+// Function to create a new daily menu
+  const dailyMenuForm = document.getElementById('dailyMenuForm')
+
+  dailyMenuForm.addEventListener('submit', async (e) => {
+    e.preventDefault()
+    let menuProductTarget = e.target
+
+    const formData = new FormData(menuProductTarget)
+    try {
+        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/createDailyMenu`, {
+            method: "POST",
+            body: formData, // FormData should contain the image and price
+        });
+
+        if (response.ok) {
+          return alert('Daily Menu added successfully')
+        } else{
+          return alert('Failed to create Daily Menu')
+        }
+        // const data = await response.json();
+        // console.log("Menu Created:", data);
+        
+    } catch (error) {
+        console.error("Error creating daily menu:", error);
+    }
+  })
+
+// Function to get all daily menus
+async function getAllDailyMenus() {
+
+  const dailyMenuProductList = document.getElementById('dailyMenuProductList')
+
+    try {
+        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/allDailyMenu`);
+        const data = await response.json();
+
+        dailyMenuProductList.innerHTML = ''
+        data.forEach((eachData) => {
+
+          const eachDailyMenuId = eachData._id
+
+          const populateDailyMenu = `
+            <div id="dailydisplayDivv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${eachDailyMenuId}">
+            <div class="flex items-center space-x-4">
+              <img src="../image/dailyMenu/${eachData.menuImage}" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">${eachData.menuTitle}</h4>
+                <p class="text-sm text-gray-600">₦${eachData.price}</p>
+              </div>
+            </div>
+            
+            <div class="flex space-x-2">
+              <button id="updateDailydisplayDivv" class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Edit</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+              <button id="deleteDailydisplayDivv" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
+            </div>
+          </div>
+          `
+
+          dailyMenuProductList.innerHTML += populateDailyMenu
+          // dailydisplayDivv
+          const deleteDailydisplayDivv = document.querySelectorAll('#deleteDailydisplayDivv')
+          const updateDailydisplayDivv = document.querySelectorAll('#updateDailydisplayDivv')
+
+          deleteDailydisplayDivv.forEach((eachDataDelete) => {
+            eachDataDelete.addEventListener('click', (e) => {
+              const deleteEachData = e.target.closest('#dailydisplayDivv').dataset.id
+              deleteDailyMenu(deleteEachData)
+            })
+          })
+          
+
+          updateDailydisplayDivv.forEach((eachDataEdit) => {
+            eachDataEdit.addEventListener('click', (e) => {
+              const editEachData = e.target.closest('#dailydisplayDivv').dataset.id
+              getSingleDailyMenu(editEachData)
+            })
+          })
+          
+
+        })
+    } catch (error) {
+        console.error("Error fetching daily menus:", error);
+    }
+}
+
+// Function to get a single daily menu by ID
+async function getSingleDailyMenu(editEachData) {
+  const dailyMenuPopUpSection = document.getElementById('dailyMenuPopUpSection')
+  dailyMenuPopUpSection.classList.remove('hidden')
+
+  const dailyMenuPopUpDiv = document.getElementById('dailyMenuPopUpDiv')
+  dailyMenuPopUpDiv.innerHTML = ''
+    try {
+        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/eachDailyMenu/${editEachData}`);
+        const data = await response.json();
+        console.log("Single Daily Menu:", data);
+
+        const populateSingleDailyMenu = `
+            <div id="closeDailyMenuPopUp" class="text-red-500 flex items-center font-bold">
+          <div><i class="fas fa-times"></i></div>
+          <p>close</p>
+        </div>
+
+        <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
+  
+        <form id="editDailyMenuForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6 text-black">
+          <div class="eachEditMenuProductDiv">
+            <label class="block text-sm font-medium ">Existing Daily Menu</label>
+            <input
+              type="text"
+              name="menuTitle"
+              value="${data.menuTitle}"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter new product name"
+            />
+          </div>
+      
+          <div>
+            <label class="block text-sm font-medium "> Existing Product Price (₦)</label>
+            <input
+              type="number"
+              name="price"
+              value="${data.price}"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter new product price"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Daily Menu Image</label>
+            <input
+              type="file"
+              name="menuImage"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              accept="image/*"
+            />
+          </div>
+      
+          <button
+            type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+          >
+            Upload Product
+          </button>
+          
+        </form>
+        `
+
+      dailyMenuPopUpDiv.innerHTML = populateSingleDailyMenu
+
+        const closeMenuPopUp = document.getElementById('closeDailyMenuPopUp')
+        closeMenuPopUp.addEventListener('click', () => {
+          dailyMenuPopUpSection.classList.add('hidden')
+        })
+
+        const editDailyMenuForm = document.getElementById('editDailyMenuForm')
+        editDailyMenuForm.addEventListener('submit', (e) => {
+          e.preventDefault()
+          let menuProductTarget = e.target
+          const formData = new FormData(menuProductTarget)
+          updateDailyMenu(editEachData, formData)
+        })
+    } catch (error) {
+        console.error("Error fetching daily menu:", error);
+    }
+}
+
+// Function to update a daily menu by ID
+async function updateDailyMenu(editEachData, formData) {
+    try {
+        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/updateDailyMenu/${editEachData}`, {
+            method: "PATCH",
+            body: formData, // FormData should contain updated image and price
+        });
+        const data = await response.json();
+        console.log("Menu Updated:", data);
+        alert('Item updated successfully')
+        getAllDailyMenus()
+    } catch (error) {
+        console.error("Error updating daily menu:", error);
+    }
+}
+
+// Function to delete a daily menu by ID
+async function deleteDailyMenu(deleteEachData) {
+    try {
+        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/deleteDailyMenu/${deleteEachData}`, {
+            method: "DELETE",
+        });
+        const data = await response.json();
+        console.log("Menu Deleted:", data);
+        alert('Daily Menu Item Deleted Successfully')
+        getAllDailyMenus()
+    } catch (error) {
+        console.error("Error deleting daily menu:", error);
+    }
 }

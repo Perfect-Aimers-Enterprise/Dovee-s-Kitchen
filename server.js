@@ -14,6 +14,7 @@ const userMessageRoute = require('./routes/userMessageRoute')
 const subscribeRoute = require('./routes/subscriptionRoute')
 const landingSectionRoute = require('./routes/landingSectionRoute')
 const galleryRoute = require('./routes/galleryRoute')
+const dailyMenuRoute = require('./routes/dailyMenuRoute')
 
 const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
@@ -62,6 +63,7 @@ app.use('/doveeysKitchen/message', userMessageRoute)
 app.use('/notification', subscribeRoute)
 app.use('/doveeysLanding', landingSectionRoute)
 app.use('/galleryDisplay', galleryRoute)
+app.use('/dailyMenuDisplay', dailyMenuRoute)
 
 
 const fs = require('fs');

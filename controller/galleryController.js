@@ -1,4 +1,6 @@
 const gallery = require('../model/gallery')
+const path = require('path');
+const fs = require('fs');
 
 const createGallery = async (req, res) => {
     try {

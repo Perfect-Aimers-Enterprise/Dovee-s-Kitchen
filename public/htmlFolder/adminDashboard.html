@@ -118,6 +118,15 @@
               <p>Gallery</p>
             </div>  
           </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+            <div>
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="hidden md:block">
+              <p>Daily Menu</p>
+            </div>  
+          </a></li>
         </ul>
       </nav>
     </div>
@@ -681,6 +690,83 @@
       </div>
     </section>
 
+    <!-- DAILY MENU SECTION  -->
+    <section id="dailyMenuSection" class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Manage Daily Menu</h2>
+      
+        <!-- Upload Product Form -->
+        <form id="dailyMenuForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+          <div>
+            <label for="menuTitle" class="block text-sm font-medium text-gray-700">Daily Menu Title</label>
+            <input
+              type="text"
+              id="menuTitle"
+              name="menuTitle"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter daily menu title"
+            />
+          </div>
+      
+          <div id="dailyMenuPrice">
+            <label for="price2" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <input
+              type="number"
+              id="price2"
+              name="price"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter product price"
+            />
+          </div>
+      
+          <div>
+            <label for="menuImage2" class="block text-sm font-medium text-gray-700">Daily Menu Image</label>
+            <input
+              type="file"
+              id="menuImage2"
+              name="menuImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
+            />
+          </div>
+      
+          <button
+            type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+          >
+            Upload Product
+          </button>
+        </form>
+      
+        <!-- Product List -->
+        <h3 class="text-lg font-semibold mb-4">Existing Daily Menu</h3>
+        <div id="dailyMenuProductList" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">Chicken Suya</h4>
+                <p class="text-sm text-gray-600">₦3,000</p>
+              </div>
+            </div>
+
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Edit</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>      
+    </section>
+
 
       <!-- POP UP SECTIONS -->
 
@@ -863,6 +949,66 @@
       </form>
     </section>
      
+    <!-- DAILY MENU POPUP SECTION  -->
+    <section id="dailyMenuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
+      <div id="dailyMenuPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+
+        <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
+          <div><i class="fas fa-times"></i></div>
+          <p>close</p>
+        </div>
+
+        <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
+  
+    <!-- Upload Product Form -->
+        <form id="editDailyMenuForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+          <div class="eachEditMenuProductDiv">
+            <label class="block text-sm font-medium ">Existing Daily Menu</label>
+            <input
+              type="text"
+              name="menuTitle"
+              value=""
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter new product name"
+            />
+          </div>
+      
+          <div>
+            <label class="block text-sm font-medium "> Existing Product Price (₦)</label>
+            <input
+              type="number"
+              name="price"
+              value=""
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter new product price"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Daily Menu Image</label>
+            <input
+              type="file"
+              name="menuImage"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              accept="image/*"
+            />
+          </div>
+      
+          <button
+            type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+          >
+            Upload Product
+          </button>
+          
+        </form>
+
+        
+      </div>
+   </section>
+
+
+
 
   </div>
 
