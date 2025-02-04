@@ -287,3 +287,60 @@ const deleteSpecialProduct = async (specialProductId) => {
     
   }
 }
+
+// SPECIAL VARIATION SECTION 
+const specialVariationsContainer = document.getElementById('specialVariationsContainer')
+const addSpecialVariationBtn = document.getElementById('addSpecialVariationBtn')
+const showSpecialVariationBtn = document.getElementById('showSpecialVariationBtn')
+const specialPriceSection = document.getElementById('specialPriceSection')
+
+  // Toggle between Price or Variation form
+  function toggleVariationOption() {
+    if (specialVariationsContainer.classList.contains('hidden')) {
+      specialPriceSection.classList.add('hidden');
+      showSpecialVariationBtn.textContent = 'Close Variation'
+      showSpecialVariationBtn.classList.add('bg-red-500')
+      showSpecialVariationBtn.classList.remove('bg-blue-500')
+      specialVariationsContainer.classList.remove('hidden');
+      addSpecialVariationBtn.classList.remove('hidden');
+
+      
+    } else {
+      specialPriceSection.classList.remove('hidden');
+      showSpecialVariationBtn.classList.remove('hidden')
+      showSpecialVariationBtn.classList.remove('bg-red-500')
+      showSpecialVariationBtn.classList.add('bg-blue-500')
+      showSpecialVariationBtn.textContent = 'Show Variation'
+      specialVariationsContainer.classList.add('hidden');
+      addSpecialVariationBtn.classList.add('hidden');
+    }
+  }
+
+  // Add Variation Button Clicked
+  showSpecialVariationBtn.addEventListener('click', () => {
+    // variationAdded = false;
+    toggleVariationOption();
+  });
+
+
+addSpecialVariationBtn.addEventListener("click", () => {
+  const newVariation = document.createElement("div");
+  newVariation.classList.add("flex", "space-x-4", "mb-4");
+
+  newVariation.innerHTML = `
+    <input
+      type="text"
+      name="variationSize[]"
+      class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+      placeholder="Enter variation size (e.g., 1L)"
+    />
+    <input
+      type="number"
+      name="variationPrice[]"
+      class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+      placeholder="Enter price"
+    />
+  `;
+  
+  specialVariationsContainer.appendChild(newVariation);
+});

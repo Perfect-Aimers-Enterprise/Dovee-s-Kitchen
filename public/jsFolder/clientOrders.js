@@ -32,7 +32,7 @@ const config2 = {
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
-    fetchUserGallery()
+    // fetchUserGallery()
 
     
 })
@@ -356,9 +356,6 @@ const populateUserProceedOrder = () => {
             if (hasEmptyInput) return;
 
 
-            
-            orderPage.classList.add('hidden');
-
             const token = localStorage.getItem('token')
             const userName = localStorage.getItem('userName')
             const userEmail = localStorage.getItem('userEmail')
@@ -370,7 +367,21 @@ const populateUserProceedOrder = () => {
                 
             }
  
+            const variationSelect = document.getElementById('variationSelect');
+            // const hasVariation = menuProductVariations.length > 0 && variationSelect && variationSelect.selectedOptions.length > 0;
 
+
+            const hasVariation = menuProductVariations.length > 0 && variationSelect;
+
+            if (hasVariation) {
+                // Ensure user selects a variation
+                if (variationSelect.selectedIndex === 0) {
+                    alert("Please select a food size before proceeding.");
+                    return;
+                }
+            }
+
+            orderPage.classList.add('hidden');
 
                 const formData = {
                     menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
@@ -383,12 +394,18 @@ const populateUserProceedOrder = () => {
                     userName,
                     userEmail,
                     userPhone,
-                    ...(menuProductVariations.length > 0 && {
+                    ...(hasVariation && variationSelect.selectedIndex > 0 && {
                         menuProductOrderVariation: {
-                            size: document.getElementById('variationSelect').selectedOptions[0].dataset.variationName,
-                            price: parseFloat(document.getElementById('variationSelect').value)
+                            size: variationSelect.selectedOptions[0].dataset.variationName,
+                            price: parseFloat(variationSelect.value)
                         }
                     })
+                    // ...(menuProductVariations.length > 0 && {
+                    //     menuProductOrderVariation: {
+                    //         size: document.getElementById('variationSelect').selectedOptions[0].dataset.variationName,
+                    //         price: parseFloat(document.getElementById('variationSelect').value)
+                    //     }
+                    // })
                 }
     
 

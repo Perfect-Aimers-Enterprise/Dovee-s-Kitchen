@@ -63,7 +63,7 @@ async function getSingleDailyMenu(eachDailyMenuData) {
           localStorage.setItem('menuTitle', data.menuTitle)
           localStorage.setItem('price', data.price)
 
-          window.location.href = '../htmlFolder/orderDetailsPage.html'
+          window.location.href = '../htmlFolder/dailyMenuOrderDetails.html'
 
       } catch (error) {
           console.error("Error fetching daily menu:", error);
@@ -78,11 +78,11 @@ async function getSingleDailyMenu(eachDailyMenuData) {
     const userName = localStorage.getItem('userName')
     const userEmail = localStorage.getItem('userEmail')
     const userPhone = localStorage.getItem('userPhone')
-    const orderPage = document.getElementById('orderPage')
+    const dailyMenuOrderPage = document.getElementById('dailyMenuOrderPage')
 
     const userProceedOrder2 = `
             <form id="userProceedDailyMenuOrderId" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-            <h2 class="text-2xl font-bold text-gray-700 mb-4">Order Details</h2>
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">Daily Menu Order Details</h2>
 
             <!-- Product Image -->
             <div class="mb-4 h-[400px] items-center justify-center overflow-hidden">
@@ -113,10 +113,10 @@ async function getSingleDailyMenu(eachDailyMenuData) {
                 <input type="tel" id="dailyMenuDeliveryContact" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 inputProceed" placeholder="Enter your contact">
             </div>
 
-            <!-- Quantity Input -->
+            <!-- dailyMenuQuantity Input -->
             <div class="mb-4">
-                <label for="quantity" class="block text-gray-600 font-medium mb-1">Quantity</label>
-                <input type="number" id="quantity" min="1" value="1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 inputProceed">
+                <label for="dailyMenuQuantity" class="block text-gray-600 font-medium mb-1">dailyMenuQuantity</label>
+                <input type="number" id="dailyMenuQuantity" min="1" value="1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 inputProceed">
             </div>
 
             <!-- Total Price -->
@@ -124,23 +124,23 @@ async function getSingleDailyMenu(eachDailyMenuData) {
                 <p id="totalPrice" class="text-lg font-semibold text-gray-800">Total Price: <span class="text-green-500">&#8358 </span></p>
             </div>
 
-            <!-- Terms and Conditions -->
+            <!-- terms2 and Conditions -->
             <div class="mb-6">
                 <label class="inline-flex items-center">
-                    <input type="checkbox" id="terms" class="form-checkbox h-5 w-5 text-green-600">
-                    <span id="termsCondition" class="ml-2 text-gray-700">I agree to the <a href="#" class="text-blue-500">Terms and Conditions</a></span>
+                    <input type="checkbox" id="terms2" class="form-checkbox h-5 w-5 text-green-600">
+                    <span id="terms2Condition" class="ml-2 text-gray-700">I agree to the <a href="#" class="text-blue-500">terms2 and Conditions</a></span>
                 </label>
             </div>
 
             <!-- Proceed Button -->
-            <button id="proceedButton" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Order</button>
+            <button id="dailyMenuProceedBtn" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Order</button>
         </form>
         `
 
-        const terms_condition = `
+        const terms2_condition = `
                 <div class="fixed inset-0 z-50 bg-white text-black">
             <section class="w-[90%] mx-auto md:w-[80%] lg:w-[70%] bg-white p-4 rounded-lg shadow-lg">
-            <h1 class="font-bold text-lg">📝 Terms and Conditions for Placing Orders</h1>
+            <h1 class="font-bold text-lg">📝 terms2 and Conditions for Placing Orders</h1>
 
             <p class="text-black goBack2"><i class="fas fa-arrow-left"></i> back </p>
             
@@ -180,7 +180,7 @@ async function getSingleDailyMenu(eachDailyMenuData) {
                     designed for your convenience and peace of mind.
                     </p>
                     <p>Thank you for choosing <span class="font-bold">Doveeys Kitchen!</span> We look forward to serving you. 🥳</p>
-                    <p>By placing your order, you agree to these terms and conditions. ✅</p>
+                    <p>By placing your order, you agree to these terms2 and conditions. ✅</p>
                 </li>
                 </ul>
             </div>
@@ -189,16 +189,16 @@ async function getSingleDailyMenu(eachDailyMenuData) {
         </div>
     `
 
-        orderPage.innerHTML = userProceedOrder2
-        const quantity = document.getElementById('quantity')
-        const termsCheckbox = document.getElementById('terms');
-        const termsCondition = document.getElementById('termsCondition')
+        dailyMenuOrderPage.innerHTML = userProceedOrder2
+        const dailyMenuQuantity = document.getElementById('dailyMenuQuantity')
+        const terms2Checkbox = document.getElementById('terms2');
+        const terms2Condition = document.getElementById('terms2Condition')
         const dailyMenuOrderProceedAddress = document.getElementById('dailyMenuOrderProceedAddress')
         const dailyMenuDeliveryContact = document.getElementById('dailyMenuDeliveryContact')
 
 
-        termsCondition.addEventListener('click', () => {
-            orderPage.innerHTML = terms_condition
+        terms2Condition.addEventListener('click', () => {
+            orderPage.innerHTML = terms2_condition
 
             const goBack2 = document.querySelector('.goBack2')
             goBackFunc(goBack2)
@@ -213,32 +213,45 @@ async function getSingleDailyMenu(eachDailyMenuData) {
             })
         }
 
-        termsCheckbox.addEventListener('change', () => {
-            proceedButton.disabled = !termsCheckbox.checked;
+        terms2Checkbox.addEventListener('change', () => {
+            dailyMenuProceedBtn.disabled = !terms2Checkbox.checked;
         });
 
-        quantity.addEventListener('input', () => {
-            const totalPrice = menuProductOrderPrice * parseInt(quantity.value || 1, 10);
+        dailyMenuQuantity.addEventListener('input', () => {
+            const totalPrice = menuProductOrderPrice * parseInt(dailyMenuQuantity.value || 1, 10);
             document.getElementById('totalPrice').innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
         });
 
-        const proceedButton = document.getElementById('proceedButton')
+        const dailyMenuProceedBtn = document.getElementById('dailyMenuProceedBtn')
 
-        proceedButton.addEventListener('click', async (e) => {
-
+        dailyMenuProceedBtn.addEventListener('click', async (e) => {
             e.preventDefault()
-            // if(!token) {
-            //     return alert('Please Register an Account')
-            // }
+
+            const validateInputProvision = document.querySelectorAll('.inputProceed')
+
+            // Validate inputs and stop execution if any are empty
+            const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
+                if (!inputProvision.value) {
+                    alert('Please provide all information');
+                    return true; // Stop further validation
+                }
+                return false;
+            });
+
+            if (hasEmptyInput) return;
+
+            if(!token) {
+                return alert('Please Register an Account')
+            }
 
             const formData = {
-                menuProductOrderImage: `../image/menuImage/${menuProductOrderImage}`,
+                menuProductOrderImage: `../image/dailyMenu/${menuProductOrderImage}`,
                 menuProductOrderName,
                 menuProductOrderPrice,
-                menuTotalProductOrderPrice: menuProductOrderPrice * quantity.value,
+                menuTotalProductOrderPrice: menuProductOrderPrice * dailyMenuQuantity.value,
                 menuProductOrderAddress: dailyMenuOrderProceedAddress.value,
                 menuProductOrderContact: dailyMenuDeliveryContact.value,
-                menuProductOrderQuantity: quantity.value,
+                menuProductOrderQuantity: dailyMenuQuantity.value,
                 userName,
                 userEmail,
                 userPhone,

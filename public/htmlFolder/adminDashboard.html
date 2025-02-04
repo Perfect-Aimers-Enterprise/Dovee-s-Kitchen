@@ -323,7 +323,7 @@
             ></textarea>
           </div>
       
-          <div>
+          <div id="specialPriceSection">
             <label for="specialPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
             <input
               type="number"
@@ -333,6 +333,37 @@
               placeholder="Enter product price"
             />
           </div>
+
+            <!-- Variations Section -->
+          <div id="specialVariationsContainer" class="hidden">
+            <h3 class="text-lg font-semibold mb-4">Add Product Variations</h3>
+            <div class="specialVariation-group">
+              <div class="flex space-x-4 mb-4">
+                <input
+                  type="text"
+                  name="variationSize[]"
+                  class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+                  placeholder="Enter variation size (e.g., 1L)"
+                />
+                <input
+                  type="number"
+                  name="variationPrice[]"
+                  class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+                  placeholder="Enter price"
+                />
+              </div>
+            </div>
+
+            <button type="button" id="addSpecialVariationBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
+              Add Variation
+            </button>
+          </div>
+
+        
+
+          <button type="button" id="showSpecialVariationBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
+            Show Variations
+          </button>
       
           <div>
             <label for="specialImage" class="block text-sm font-medium text-gray-700">Product Image</label>

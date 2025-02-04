@@ -728,8 +728,6 @@ const showVariationBtn = document.getElementById('showVariationBtn')
     toggleVariationOption();
   });
 
-  // Initially, the price section is visible, and variations section is hidden
-  // toggleVariationOption();
 
 addVariationBtn.addEventListener("click", () => {
   const newVariation = document.createElement("div");
@@ -752,8 +750,6 @@ addVariationBtn.addEventListener("click", () => {
   
   variationsContainer.appendChild(newVariation);
 });
-
-
 
 
 

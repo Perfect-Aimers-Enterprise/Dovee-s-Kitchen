@@ -36,13 +36,22 @@ const deleteMenuProduct = async (req, res) => {
 const createSpecialProduct = async (req, res) => {
 
     try {
-        const { specialProductName, specialDescription, specialPrice } = req.body
+        const { specialProductName, specialDescription, specialPrice,  variationSize, variationPrice  } = req.body
 
         console.log(req.body);
         
         const specialImageUrl = req.file.filename
 
-        const specialProduct = await specialProductSchema.create({ specialProductName, specialDescription, specialPrice, specialImage:specialImageUrl })
+        const specialProduct = await specialProductSchema.create({ 
+            specialProductName, 
+            specialDescription, 
+            specialPrice, 
+            specialImage:specialImageUrl,
+            variations: variationSize.map((size, index) => ({
+                size: size,
+                price: variationPrice[index]
+            }))
+         })
 
         console.log(specialProduct);
         

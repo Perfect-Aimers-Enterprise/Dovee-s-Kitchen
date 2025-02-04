@@ -26,17 +26,46 @@ const getAllClientProductFunc = async () => {
             // console.log(eachSpecialData);
 
             const eachSpecialDataId = eachSpecialData._id
-            const clientSpecialVar = `
-            <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
-            <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
-            <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
-            <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
-            <p class="mt-2 text-green-700 font-bold">₦${eachSpecialData.specialPrice}</p>
-            <button id="orderSpecialProductNow" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full ">Order Now</button>
-            </div>
-            `;
+            // <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
+            // <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
+            // <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
+            // <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
+            // <p class="mt-2 text-green-700 font-bold">₦${eachSpecialData.specialPrice}</p>
+            // <button id="orderSpecialProductNow" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full ">Order Now</button>
+            // </div>
+            // `;
 
-            specialGridClass.innerHTML += clientSpecialVar
+            let productContent = '';
+
+
+            if (eachSpecialData.specialPrice && (!eachSpecialData.variations || eachSpecialData.variations.length === 0 || isAllVariationsInvalid(eachSpecialData.variations))) {
+                
+                productContent = `
+                    <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
+                        <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="${eachSpecialData.specialProductName}" class="w-full h-48 object-cover rounded">
+                        <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
+                        <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
+                        <p class="mt-2 text-green-700 font-bold">₦${eachSpecialData.specialPrice}</p>
+                        <button id="orderSpecialProductNow"" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+                    </div>
+                `;
+            } else if (eachSpecialData.variations && eachSpecialData.variations.length > 0) {
+                 // Show the price of the first variation
+                 const firstSpecialVariationPrice = eachSpecialData.variations[0].price;
+
+                 productContent = `
+                     <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
+                         <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="${eachSpecialData.specialProductName}" class="w-full h-48 object-cover rounded">
+                         <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
+                         <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
+                         <p class="mt-2 text-green-700 font-bold">₦${firstSpecialVariationPrice}</p>
+                         <button id="orderSpecialProductNow"" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
+                     </div>
+                 `;
+            }
+
+            // specialGridClass.innerHTML += clientSpecialVar
+            specialGridClass.innerHTML += productContent
         })
 
         setTimeout(() => {
@@ -86,11 +115,13 @@ const getSingleClientProductFunc = async (specialProductId) => {
         const specialProductNameSingle = data.specialProductName
         const specialDescriptionSingle = data.specialDescription
         const specialPriceSingle = data.specialPrice
+        const specialProductVariations = data.variations || []; // Check if 
 
         localStorage.setItem('specialImageSingle', specialImageSingle)
         localStorage.setItem('specialProductNameSingle', specialProductNameSingle)
         localStorage.setItem('specialDescriptionSingle', specialDescriptionSingle)
         localStorage.setItem('specialPriceSingle', specialPriceSingle)
+        localStorage.setItem('specialProductVariations', JSON.stringify(specialProductVariations))
         
         window.location.href = '../htmlFolder/specialOrderDetails.html'
         
@@ -104,13 +135,51 @@ const populateSpecialProductFunc = () => {
     const specialOrderPage = document.getElementById('specialOrderPage')
     specialOrderPage.innerHTML = ''
 
-
         const specialImage = localStorage.getItem('specialImageSingle')
         console.log(specialImage);
         const specialProductName = localStorage.getItem('specialProductNameSingle')
         const specialDescription = localStorage.getItem('specialDescriptionSingle')
-        const specialPrice = localStorage.getItem('specialPriceSingle')
+        const specialPrice = parseFloat(localStorage.getItem('specialPriceSingle'))
+        const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
 
+
+        let variationDropdown = '';
+        let priceDisplay = '';
+    
+        let formattedPrice = specialPrice.toFixed(2); // Now safe to call toFixed()
+        
+        if (specialPrice && (!specialProductVariations || specialProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(specialProductVariations))) {
+            priceDisplay = `
+            <div class="mb-4">
+                <p id="specialOrderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${formattedPrice}</span></p>
+            </div>`;
+        } else if (specialProductVariations && specialProductVariations.length > 0) {
+            variationDropdown = `
+            <div class="mb-4">
+                <label for="variationSelect" class="block text-gray-600 font-medium mb-1">Choose Variation</label>
+                <select id="variationSelect" class="w-full p-3 border border-gray-300 rounded-lg">
+                <option disabled selected>Select Food Size</option>
+                ${specialProductVariations
+                    .map(
+                    (variation) =>
+                        `<option value="${variation.price}" data-variation-name="${variation.size}">
+                        ${variation.size} - &#8358;${variation.price.toFixed(2)}
+                        </option>`
+                    )
+                    .join('')}
+                </select>
+            </div>`;
+    
+            priceDisplay = `
+            <div class="mb-4">
+                <p id="specialOrderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${specialProductVariations[0].price.toFixed(2)}</span></p>
+            </div>`;
+        }
+    
+            
+        function isAllVariationsInvalidMenuPrice(specialProductVariations) {
+            return specialProductVariations.every((specialProductVariation) => !specialProductVariation.size || specialProductVariation.price === null);
+          }
         
 
     const populateSpecialVar = `
@@ -128,9 +197,9 @@ const populateSpecialProductFunc = () => {
             </div>
 
             <!-- Product Price -->
-            <div class="mb-4">
-                <p class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358 ${specialPrice}</span></p>
-            </div>
+             ${variationDropdown}
+
+            ${priceDisplay}
 
             <!-- Address Input -->
             <div class="mb-4">
@@ -224,6 +293,9 @@ const populateSpecialProductFunc = () => {
         </div>
     `
 
+    initializeEventListeners(specialPrice)
+
+
     const termsCondition2 = document.getElementById('termsCondition2')
 
     termsCondition2.addEventListener('click', () => {
@@ -251,11 +323,8 @@ const populateSpecialProductFunc = () => {
     const totalPriceElement = document.getElementById('totalPrice');
 
     
-    specialQuantity.addEventListener('input', () => {
-        const quantity = parseInt(specialQuantity.value, 10) || 1; // Default to 1 if input is invalid
-        const totalPrice = specialPrice * quantity;
-        totalPriceElement.textContent = totalPrice.toFixed(2); // Update the displayed total price
-    });
+    // specialQuantity.addEventListener('input', updateTotalPrice);
+    
 
     const proceedButton = document.getElementById('proceedButton');
     const termsCheckbox = document.getElementById('terms');
@@ -292,6 +361,20 @@ const populateSpecialProductFunc = () => {
             return specialNavigationPopUp.classList.remove('hidden')
         }
 
+
+        const variationSelect = document.getElementById('variationSelect');
+
+        const hasVariation = specialProductVariations.length > 0 && variationSelect;
+
+        if (hasVariation) {
+            // Ensure user selects a variation
+            if (variationSelect.selectedIndex === 0) {
+                alert("Please select a food size before proceeding.");
+                return;
+            }
+        }
+
+
         const formData = {
             menuProductOrderImage: `../image/specialImage/${specialImage}`,
             menuProductOrderName: specialProductName,
@@ -302,7 +385,13 @@ const populateSpecialProductFunc = () => {
             menuProductOrderQuantity: specialQuantity.value,
             userName,
             userEmail,
-            userPhone
+            userPhone,
+            ...(hasVariation && variationSelect.selectedIndex > 0 && {
+                specialProductOrderVariation: {
+                    size: variationSelect.selectedOptions[0].dataset.variationName,
+                    price: parseFloat(variationSelect.value)
+                }
+            })
         }
 
         await userProceedSpecialOrderFunc(formData)
@@ -327,3 +416,54 @@ const userProceedSpecialOrderFunc = async (formData) => {
         
     }
 }
+
+
+const initializeEventListeners = (specialPrice) => {
+    const variationSelect = document.getElementById('variationSelect');
+    const quantityInput = document.getElementById('specialQuantity');
+
+    // Listen for changes in the variation dropdown
+    if (variationSelect) {
+        variationSelect.addEventListener('change', (event) => {
+            const selectedPrice = parseFloat(event.target.value) || 0;
+            document.getElementById('specialOrderProceedPrice').innerHTML = `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
+    
+            // Update specialPrice for total calculation
+            specialPrice = selectedPrice;
+    
+            // Update total price based on new variation
+            updateTotalPrice();
+        });
+    } else {
+    selectedPrice = specialPrice; // Default to the fixed price from local storage
+}
+
+};
+
+// Function to update the total price dynamically
+function updateTotalPrice() {
+    const quantity = parseInt(document.getElementById('specialQuantity').value) || 1;
+    const variationSelect = document.getElementById('variationSelect');
+    
+    // Ensure we get the price from the selected variation
+    let specialPrice = 0;
+    if (variationSelect) {
+        specialPrice = parseFloat(variationSelect.value) || 0;
+    }
+
+    // Update the total price element
+    const totalPriceElement = document.getElementById('specialOrderProceedTotalPrice');
+    if (totalPriceElement) {
+        totalPriceElement.innerHTML = `Total Price: <span class="text-green-500">&#8358;${(specialPrice * quantity).toFixed(2)}</span>`;
+    }
+}
+
+// Attach event listener to update price when quantity changes
+document.getElementById('specialQuantity')?.addEventListener('input', updateTotalPrice);
+document.getElementById('variationSelect')?.addEventListener('change', updateTotalPrice);
+
+
+// Helper function to check if all variations are invalid
+function isAllVariationsInvalid(variations) {
+    return variations.every((variation) => !variation.size || variation.price === null);
+  }
