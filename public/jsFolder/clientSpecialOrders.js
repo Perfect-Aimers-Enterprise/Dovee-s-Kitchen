@@ -239,8 +239,6 @@ const populateSpecialProductFunc = () => {
 
     specialOrderPage.innerHTML = populateSpecialVar
 
-    
-
     const terms_condition = `
                 <div class="fixed inset-0 z-50 bg-white text-black">
             <section class="w-[90%] mx-auto md:w-[80%] lg:w-[70%] bg-white p-4 rounded-lg shadow-lg">
@@ -252,8 +250,8 @@ const populateSpecialProductFunc = () => {
             <div class="mt-4 max-h-64 overflow-y-scroll relative border-t border-gray-300 pt-4">
                 <ul class="list-disc list-inside space-y-6"> 
                 <li>
-                    <h2 class="font-semibold text-gray-800">🚚 Payment on Delivery</h2>
-                    <p>💳 Payment will only be accepted upon delivery of your order.</p>
+                    <h2 class="font-semibold text-gray-800">🚚 Payment before Delivery</h2>
+                    <p>💳 Payment will only be accepted before delivery of your order.</p>
                     <p>🚪 Please ensure someone is available at your delivery address to make the payment.</p>
                     <p>💵 Accepted payment methods include cash or mobile transfer at the time of delivery.</p>
                 </li>
@@ -320,7 +318,7 @@ const populateSpecialProductFunc = () => {
 
 
     // const quantityInput = document.getElementById('quantity');
-    const totalPriceElement = document.getElementById('totalPrice');
+    // const totalPriceElement = document.getElementById('totalPrice');
 
     
     // specialQuantity.addEventListener('input', updateTotalPrice);
@@ -378,8 +376,8 @@ const populateSpecialProductFunc = () => {
         const formData = {
             menuProductOrderImage: `../image/specialImage/${specialImage}`,
             menuProductOrderName: specialProductName,
-            menuProductOrderPrice: specialPrice,
-            menuTotalProductOrderPrice: specialPrice * specialQuantity.value,
+            menuProductOrderPrice: selectedPrice,
+            menuTotalProductOrderPrice: selectedPrice * specialQuantity.value,
             menuProductOrderAddress: specialAddress.value,
             menuProductOrderContact: specialContact.value,
             menuProductOrderQuantity: specialQuantity.value,
@@ -417,46 +415,41 @@ const userProceedSpecialOrderFunc = async (formData) => {
     }
 }
 
-
 const initializeEventListeners = (specialPrice) => {
     const variationSelect = document.getElementById('variationSelect');
     const quantityInput = document.getElementById('specialQuantity');
+    let selectedPrice = specialPrice; // Default price
 
     // Listen for changes in the variation dropdown
     if (variationSelect) {
         variationSelect.addEventListener('change', (event) => {
-            const selectedPrice = parseFloat(event.target.value) || 0;
-            document.getElementById('specialOrderProceedPrice').innerHTML = `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
-    
-            // Update specialPrice for total calculation
-            specialPrice = selectedPrice;
-    
-            // Update total price based on new variation
-            updateTotalPrice();
+            selectedPrice = parseFloat(event.target.value) || 0;
+            document.getElementById('specialOrderProceedPrice').innerHTML = 
+                `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
         });
-    } else {
-    selectedPrice = specialPrice; // Default to the fixed price from local storage
-}
+    }
 
+    // Ensure quantityInput exists before adding event listener
+    if (quantityInput) {
+        quantityInput.addEventListener('input', () => {
+            updateTotalPrice(selectedPrice);
+        });
+    }
 };
 
 // Function to update the total price dynamically
-function updateTotalPrice() {
-    const quantity = parseInt(document.getElementById('specialQuantity').value) || 1;
-    const variationSelect = document.getElementById('variationSelect');
-    
-    // Ensure we get the price from the selected variation
-    let specialPrice = 0;
-    if (variationSelect) {
-        specialPrice = parseFloat(variationSelect.value) || 0;
-    }
+function updateTotalPrice(selectedPrice) {
+    const quantityInput = document.getElementById('specialQuantity');
+    const totalPriceElement = document.getElementById('totalPrice');
 
-    // Update the total price element
-    const totalPriceElement = document.getElementById('specialOrderProceedTotalPrice');
-    if (totalPriceElement) {
-        totalPriceElement.innerHTML = `Total Price: <span class="text-green-500">&#8358;${(specialPrice * quantity).toFixed(2)}</span>`;
+    if (quantityInput && totalPriceElement) {
+        const quantity = parseInt(quantityInput.value) || 1;
+        const total = selectedPrice * quantity;
+        totalPriceElement.innerHTML = 
+            `Total Price: <span class="text-green-500">&#8358;${total.toFixed(2)}</span>`;
     }
 }
+
 
 // Attach event listener to update price when quantity changes
 document.getElementById('specialQuantity')?.addEventListener('input', updateTotalPrice);

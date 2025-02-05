@@ -148,8 +148,8 @@ async function getSingleDailyMenu(eachDailyMenuData) {
             <div class="mt-4 max-h-64 overflow-y-scroll relative border-t border-gray-300 pt-4">
                 <ul class="list-disc list-inside space-y-6"> 
                 <li>
-                    <h2 class="font-semibold text-gray-800">🚚 Payment on Delivery</h2>
-                    <p>💳 Payment will only be accepted upon delivery of your order.</p>
+                    <h2 class="font-semibold text-gray-800">🚚 Payment before Delivery</h2>
+                    <p>💳 Payment will only be accepted before delivery of your order.</p>
                     <p>🚪 Please ensure someone is available at your delivery address to make the payment.</p>
                     <p>💵 Accepted payment methods include cash or mobile transfer at the time of delivery.</p>
                 </li>
