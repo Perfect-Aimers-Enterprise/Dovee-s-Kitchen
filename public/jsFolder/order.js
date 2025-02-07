@@ -377,10 +377,12 @@ sidebarLinks.forEach((link, index) => {
   });
 });
 
-const ordersList = document.getElementById('ordersList')
+const adminOrdersList = document.getElementById('adminOrdersList')
+
+{/* <p><strong>Variation: </strong>{ Size ${eachData.menuProductOrderVariation.size} : Price ${eachData.menuProductOrderVariation.price} }</p> */}
 
 const fetchAllOrders = async () => {
-  ordersList.innerHTML = '';
+  adminOrdersList.innerHTML = '';
 
   try {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder`);
@@ -391,8 +393,8 @@ const fetchAllOrders = async () => {
     const spreadData = data.orderProceed;
 
     spreadData.forEach((eachData) => {
-      console.log(eachData.menuProductOrderVariation.size
-      );
+      // console.log(eachData.menuProductOrderVariation.size
+      // );
       const menuOrderId = eachData._id;
 
       // Format the createdAt date
@@ -433,7 +435,8 @@ const fetchAllOrders = async () => {
             <p><strong>Email:</strong> ${eachData.userEmail}</p>
             <p><strong>Phone:</strong> ${eachData.userPhone}</p>
             <p><strong>Order Tel:</strong> ${eachData.menuProductOrderContact}</p>
-            <p><strong>Variation: </strong>{ Size ${eachData.menuProductOrderVariation.size} : Price ${eachData.menuProductOrderVariation.price} }</p>
+
+
             <p><strong>Address:</strong> ${eachData.menuProductOrderAddress}</p>
             <p><strong>Quantity:</strong> ${eachData.menuProductOrderQuantity}</p>
             <p><strong>Total Price:</strong> ₦${eachData.menuTotalProductOrderPrice}</p>
@@ -452,7 +455,10 @@ const fetchAllOrders = async () => {
         </div>
       `;
 
-      ordersList.innerHTML += ordersDisplay;
+      adminOrdersList.innerHTML += ordersDisplay;
+
+      console.log(adminOrdersList);
+      
 
       // const cancleOrderBtn = document.getElementById('cancleOrderBtn');
       // cancleOrderBtn.addEventListener('click', (e) => {

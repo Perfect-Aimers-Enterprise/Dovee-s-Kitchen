@@ -376,11 +376,43 @@ const populateUserProceedOrder = () => {
                 }
             }
 
+
+
+            
+        let sizeDisplay = '';
+        let variationSizeDisplay = '';
+        let selectedSize = ''; // Store the selected size
+
+        if (proceedOrderPrice && (!menuProductVariations || menuProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(menuProductVariations))) {
+            sizeDisplay = '';
+        } else if (menuProductVariations && menuProductVariations.length > 0) {
+            variationSizeDisplay = `
+                <select id="variationSelect" class="">
+                    ${menuProductVariations.map((variation) => 
+                        `<option value="${variation.price}" data-variation-name="${variation.size}">
+                            ${variation.size}
+                        </option>`
+                    ).join('')}
+                </select>
+            `;
+        }
+
+            // Event listener to update selected size
+            document.addEventListener('change', (event) => {
+                if (event.target && event.target.id === 'variationSelect') {
+                    selectedSize = event.target.selectedOptions[0].dataset.variationName;
+                }
+            });
+
+
+            const selectedSizeValue = variationSelect ? variationSelect.selectedOptions[0].dataset.variationName : menuProductVariations[0]?.size || 'Default';
+
+
             orderPage.classList.add('hidden');
 
                 const formData = {
                     menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
-                    menuProductOrderName: proceedOrderName,
+                    menuProductOrderName: `${proceedOrderName} - Size: ${selectedSizeValue}`,
                     menuProductOrderPrice: selectedPrice,
                     menuTotalProductOrderPrice: selectedPrice * quantity.value,
                     menuProductOrderAddress: orderProceedAddress.value,
@@ -469,10 +501,7 @@ if (variationSelect) {
 
 
     quantityInput.addEventListener('input', () => {
-        // const selectedPrice = variationSelect ? parseFloat(variationSelect.value) : proceedOrderPrice;
-        // const quantity = parseInt(quantityInput.value, 10) || 1;
-        // const totalPrice = selectedPrice * quantity;
-        // totalPriceElement.innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
+
         updateTotalPrice()
     });
 

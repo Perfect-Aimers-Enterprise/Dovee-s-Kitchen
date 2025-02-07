@@ -131,8 +131,9 @@ const getSingleClientProductFunc = async (specialProductId) => {
     }
 }
 
+const specialOrderPage = document.getElementById('specialOrderPage')
 const populateSpecialProductFunc = () => {
-    const specialOrderPage = document.getElementById('specialOrderPage')
+    
     specialOrderPage.innerHTML = ''
 
         const specialImage = localStorage.getItem('specialImageSingle')
@@ -140,7 +141,8 @@ const populateSpecialProductFunc = () => {
         const specialProductName = localStorage.getItem('specialProductNameSingle')
         const specialDescription = localStorage.getItem('specialDescriptionSingle')
         const specialPrice = parseFloat(localStorage.getItem('specialPriceSingle'))
-        const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
+        // const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
+        const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations'));
 
 
         let variationDropdown = '';
@@ -304,7 +306,6 @@ const populateSpecialProductFunc = () => {
     })
 
     
-    
     const goBackFunc = (goBack) => {
         goBack.addEventListener('click', () => {
             specialOrderPage.innerHTML = populateSpecialVar
@@ -331,7 +332,6 @@ const populateSpecialProductFunc = () => {
     });
 
 
-
     proceedButton.addEventListener('click', async (e) => {
         e.preventDefault()
 
@@ -348,7 +348,7 @@ const populateSpecialProductFunc = () => {
 
         if (hasEmptyInput) return;
 
-        specialOrderPage.classList.add('hidden');
+        
         
         const token = localStorage.getItem('token')
         const userName = localStorage.getItem('userName')
@@ -373,9 +373,46 @@ const populateSpecialProductFunc = () => {
         }
 
 
+        let sizeDisplay = '';
+        let variationSizeDisplay = '';
+        let selectedSize = ''; // Store the selected size
+
+        if (
+            specialPrice &&
+            (!specialProductVariations || 
+            specialProductVariations.length === 0 || 
+            isAllVariationsInvalidMenuPrice(specialProductVariations))
+        ) {
+            sizeDisplay = '';
+        } else if (specialProductVariations && specialProductVariations.length > 0) {
+            variationSizeDisplay = `
+                <select id="variationSelect" class="">
+                    ${specialProductVariations.map((variation) => 
+                        `<option value="${variation.price}" data-variation-name="${variation.size}">
+                            ${variation.size}
+                        </option>`
+                    ).join('')}
+                </select>
+            `;
+        }
+
+        // Event listener to update selected size
+        document.addEventListener('change', (event) => {
+            if (event.target && event.target.id === 'variationSelect') {
+                selectedSize = event.target.selectedOptions[0].dataset.variationName;
+            }
+        });
+
+
+        const selectedSizeValue = variationSelect ? variationSelect.selectedOptions[0].dataset.variationName : specialProductVariations[0]?.size || 'Default';
+
+
+        specialOrderPage.classList.add('hidden');
+
         const formData = {
             menuProductOrderImage: `../image/specialImage/${specialImage}`,
-            menuProductOrderName: specialProductName,
+            // menuProductOrderName: `${specialProductName} size ${variationSizeDisplay} ${priceDisplay}`,
+            menuProductOrderName: `${specialProductName} - Size: ${selectedSizeValue}`,
             menuProductOrderPrice: selectedPrice,
             menuTotalProductOrderPrice: selectedPrice * specialQuantity.value,
             menuProductOrderAddress: specialAddress.value,
@@ -392,6 +429,7 @@ const populateSpecialProductFunc = () => {
             })
         }
 
+        alert(`Selected Price: ${selectedPrice}`);
         await userProceedSpecialOrderFunc(formData)
     })
 }
@@ -415,45 +453,44 @@ const userProceedSpecialOrderFunc = async (formData) => {
     }
 }
 
+
+let selectedPrice = 0; 
 const initializeEventListeners = (specialPrice) => {
     const variationSelect = document.getElementById('variationSelect');
     const quantityInput = document.getElementById('specialQuantity');
-    let selectedPrice = specialPrice; // Default price
 
     // Listen for changes in the variation dropdown
     if (variationSelect) {
         variationSelect.addEventListener('change', (event) => {
-            selectedPrice = parseFloat(event.target.value) || 0;
+            // selectedPrice = parseFloat(event.target.value) || 0;
+
+            const selectedOption = event.target.selectedOptions[0];
+            selectedPrice = parseFloat(selectedOption.value);
+
             document.getElementById('specialOrderProceedPrice').innerHTML = 
                 `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
-        });
-    }
 
-    // Ensure quantityInput exists before adding event listener
-    if (quantityInput) {
-        quantityInput.addEventListener('input', () => {
-            updateTotalPrice(selectedPrice);
+                updateTotalPrice();
         });
+    } else {
+        selectedPrice = specialPrice
     }
+    
+    // quantityInput.addEventListener('input', updateTotalPrice);
+    quantityInput.addEventListener('input', () => {
+
+        updateTotalPrice()
+    });
+
 };
 
 // Function to update the total price dynamically
-function updateTotalPrice(selectedPrice) {
-    const quantityInput = document.getElementById('specialQuantity');
-    const totalPriceElement = document.getElementById('totalPrice');
 
-    if (quantityInput && totalPriceElement) {
-        const quantity = parseInt(quantityInput.value) || 1;
-        const total = selectedPrice * quantity;
-        totalPriceElement.innerHTML = 
-            `Total Price: <span class="text-green-500">&#8358;${total.toFixed(2)}</span>`;
-    }
-}
+const updateTotalPrice = () => {
+    const totalPrice = selectedPrice * parseInt(specialQuantity.value || 1, 10);
+    document.getElementById('totalPrice').innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
+};
 
-
-// Attach event listener to update price when quantity changes
-document.getElementById('specialQuantity')?.addEventListener('input', updateTotalPrice);
-document.getElementById('variationSelect')?.addEventListener('change', updateTotalPrice);
 
 
 // Helper function to check if all variations are invalid
