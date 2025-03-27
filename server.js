@@ -46,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/htmlFolder/regLog.html');
+  res.sendFile(__dirname + '/public/htmlFolder/Doviee2.html');
 });
 
 app.get('/doveeyskitchenadmin', (req, res) => {
