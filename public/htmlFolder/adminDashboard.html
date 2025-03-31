@@ -56,6 +56,16 @@
             </div>
             </a></li>
 
+            <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+              <div>
+                <i class="fas fa-ticket-alt"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Events</p>
+              </div>
+              </a></li>
+
+
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
             <div>
               <i class="fas fa-envelope-open-text"></i>
@@ -467,6 +477,95 @@
       </div>
       
      </section>
+
+     <!-- Event Management  -->
+     <section id="eventManagement" class="flex-1 p-6 space-y-6 ml-[20%] content hidden eventManagementContent">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">Manage Upcoming Event</h2>
+      
+        <!-- Upload Product Form -->
+        <form id="eventProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+          <div>
+            <label for="eventTitle" class="block text-sm font-medium text-gray-700">Event Title</label>
+            <input
+              type="text"
+              id="eventTitle"
+              name="eventTitle"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter Event Title"
+            />
+          </div>
+      
+          <!-- <div>
+            <label for="eventDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea
+              id="eventDescription"
+              name="eventDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              rows="3"
+              placeholder="Enter product description"
+            ></textarea>
+          </div> -->
+      
+          <div id="eventPrice">
+            <label for="eventPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <input
+              type="number"
+              id="eventPrice"
+              name="eventPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter Event Price"
+            />
+          </div>
+      
+          <div>
+            <label for="eventImage" class="block text-sm font-medium text-gray-700">Event Flyer/Image</label>
+            <input
+              type="file"
+              id="eventImage"
+              name="eventImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
+            />
+          </div>
+      
+          <button
+          id="eventUploadBtn"
+            type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
+          >
+            Upload Event
+          </button>
+        </form>
+      
+        <!-- Product List -->
+        <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
+        <div id="menuProductList" class="space-y-4">
+          <!-- Example Product Card -->
+          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+            <div class="flex items-center space-x-4">
+              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+              <div>
+                <h4 class="font-semibold">Chicken Suya</h4>
+                <p class="text-sm text-gray-600">₦3,000</p>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                <p class="hidden md:block">Edit</p>
+                <i class="fas fa-pencil-alt md:hidden"></i>
+              </button>
+              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                <p class="hidden md:block">Delete</p>
+                <i class="fas fa-trash md:hidden"></i>
+              </button>
+            </div>
+          </div>
+      
+          <!-- Repeat for more products -->
+        </div>
+      </div>      
+    </section>
+
 
      <!-- User MessageSection  -->
       <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden messageManagementContent">

@@ -15,6 +15,8 @@ const subscribeRoute = require('./routes/subscriptionRoute')
 const landingSectionRoute = require('./routes/landingSectionRoute')
 const galleryRoute = require('./routes/galleryRoute')
 const dailyMenuRoute = require('./routes/dailyMenuRoute')
+const eventMgtRoute = require('./routes/eventMgtRoute')
+const adminSecureRoute = require('./routes/adminAuthRoute')
 
 const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
@@ -64,6 +66,8 @@ app.use('/notification', subscribeRoute)
 app.use('/doveeysLanding', landingSectionRoute)
 app.use('/galleryDisplay', galleryRoute)
 app.use('/dailyMenuDisplay', dailyMenuRoute)
+app.use('/doveeysKitchen/eventapi', eventMgtRoute)
+app.use('/doveeysKitchen/safezone', adminSecureRoute)
 
 
 const fs = require('fs');

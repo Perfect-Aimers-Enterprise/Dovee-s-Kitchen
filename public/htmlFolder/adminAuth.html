@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../src/output.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
+    <title>Admin Authentication</title>
+
+    <style>
+        /* Toast Notification Styles */
+        #toast {
+            visibility: hidden;
+            min-width: 250px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 16px;
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.5s, bottom 0.5s;
+        }
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+            bottom: 50px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <section class="flex h-screen items-center justify-center">
+        <form id="adminLoginAuth" action="" class="bg-gray-700 backdrop-blur-lg text-gray-100 p-10">
+            <h1 class="font-bold mb-[20px]">Doveeys Kitchen Admin Access</h1>
+            <div class="w-[250px] md:w-[350px]">
+                <label for="">Email</label>
+                <div class="w-full">
+                    <input type="email" name="" id="adminEmail" class="border-none shadow-sm outline-green-200 mt-[5px] w-full p-1 text-black" placeholder="Enter Email">
+                </div>
+            </div>
+
+            <div class="w-[250px] md:w-[350px] mt-[10px]">
+                <label for="">Password</label>
+                <div class="w-full">
+                    <input type="text" name="" id="adminPassword" class="border-none shadow-sm outline-green-200 mt-[5px] w-full p-1 text-black" placeholder="Enter Password">
+                </div>
+            </div>
+
+            <div class="w-[250px] md:w-[350px] mt-[20px]">
+                    <button type="submit" class="w-full bg-green-600 text-center border-none outline-gray-400 p-1">Access</button>
+            </div>
+
+        </form>
+    </section>
+
+    <!-- Toast Notification -->
+    <div id="toast"></div>
+</body>
+
+<script>
+    const adminAuthConfig = {
+        apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:3000'
+            : `${window.location.protocol}//${window.location.hostname}`
+    };
+
+    const adminEmail = document.getElementById('adminEmail');
+    const adminPassword = document.getElementById('adminPassword');
+    const toast = document.getElementById('toast');
+
+    function showToast(message, isSuccess = true) {
+        toast.innerText = message;
+        toast.style.backgroundColor = isSuccess ? '#4CAF50' : '#FF5733'; // Green for success, red for error
+        toast.classList.add('show');
+        setTimeout(() => {
+            toast.classList.remove('show');
+        }, 3000); // Hide after 3 seconds
+    }
+
+    document.getElementById('adminLoginAuth').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = {
+            adminEmail: adminEmail.value,
+            adminPassword: adminPassword.value
+        };
+
+        try {
+            const response = await fetch(`${adminAuthConfig.apiUrl}/doveeysKitchen/safezone/authenticateAdmin`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const data = await response.json();
+            console.log(data);
+            
+
+            if (response.ok) {
+                showToast(data.message || 'Login successful Redirecting...', true);
+                setTimeout(() => {
+                    window.location.href = "../htmlFolder/adminDashboard.html"; 
+                }, 2000);
+            } else {
+                showToast(data.error || 'Invalid credentials', false);
+            }
+        } catch (error) {
+            showToast('Network error. Please try again.', false);
+        }
+    });
+</script>
+</html>

@@ -1376,3 +1376,27 @@ async function deleteDailyMenu(deleteEachData) {
         console.error("Error deleting daily menu:", error);
     }
 }
+
+
+// Manage Upcoming Event
+
+document.getElementById('eventProductForm').addEventListener('submit', async (e) => {
+  e.preventDefault()
+
+  const formData = new FormData(e.target)
+  console.log(formData);
+  
+
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventapi/createEventMgt`, {
+      method: 'POST',
+      body: formData
+    })
+
+    console.log(response);
+    
+  } catch (error) {
+    
+  }
+
+})
