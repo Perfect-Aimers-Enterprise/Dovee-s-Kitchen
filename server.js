@@ -60,9 +60,10 @@ app.use(cookieParser());
 //   // credentials: true  // ✅ Allow cookies/sessions
 // }));
 app.use(cors({
-  origin: 'http://127.0.0.1:5501',  // Frontend origin
+  origin: allowedOrigins,
   credentials: true  // Allow cookies to be sent
 }));
+
 app.use(express.json())
 
 app.use(bodyParser.json())
@@ -74,7 +75,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/doveeyskitchenadmin', (req, res) => {
-  res.sendFile(__dirname + '/public/htmlFolder/adminDashboard.html');
+  res.sendFile(__dirname + '/public/htmlFolder/adminAuth.html');
 });
 
 // MiddleWares 
