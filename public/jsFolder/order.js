@@ -1480,7 +1480,7 @@ const toggleEventFunc = async () => {
 
 const getToggleEventFunc = async () => {
   document.getElementById("preloader").classList.remove('hidden')
-  eventToggleStatusDiv.innerHTML = ''; // Clear the div before adding new content
+  // eventToggleStatusDiv.innerHTML = ''; 
 
   try {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventStatus/getToggleStatus`);
