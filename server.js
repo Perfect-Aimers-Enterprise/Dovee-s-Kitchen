@@ -3,6 +3,7 @@ const express = require('express');
 const cors = require('cors')
 // const http = require('http');
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser');
 const path = require('path')
 const connectDB = require('./db/connectDB')
 const userRoute = require('./routes/userRoute')
@@ -17,6 +18,8 @@ const galleryRoute = require('./routes/galleryRoute')
 const dailyMenuRoute = require('./routes/dailyMenuRoute')
 const eventMgtRoute = require('./routes/eventMgtRoute')
 const adminSecureRoute = require('./routes/adminAuthRoute')
+const eventHeaderRoute = require('./routes/eventHeaderRoute')
+const toggleEventRoute = require('./routes/toggleEventRoute')
 
 const authentication = require('./middleWare/authentication')
 // const { Server } = require('socket.io');
@@ -29,20 +32,39 @@ const app = express();
 // const io = new Server(server);
 
 // Middleware to set cache control headers
-app.use((req, res, next) => {
-  // Set the Cache-Control headers to 'no-store' to prevent caching
-  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  next();
-});
+// app.use((req, res, next) => {
+//   // Set the Cache-Control headers to 'no-store' to prevent caching
+//   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+//   res.setHeader('Pragma', 'no-cache');
+//   res.setHeader('Expires', '0');
+//   next();
+// });
 
 
 
 // Serve static files
 // app.use(express.static('public'));
-app.use(cors())
+const allowedOrigins = [
+  'http://localhost:3000',
+  'http://localhost:5501',  // For local testing
+  'http://127.0.0.1:5501',  // Alternative localhost
+  'https://doveeyskitchen.org',  // ✅ Your live domain
+  'https://www.doveeyskitchen.org' // ✅ With "www" (if applicable)
+];
+
+
+app.use(cookieParser());
+// secure: process.env.NODE_ENV === 'production',  // ✅ Secure in production, not in development
+// app.use(cors({
+//   origin: allowedOrigins,  
+//   // credentials: true  // ✅ Allow cookies/sessions
+// }));
+app.use(cors({
+  origin: 'http://127.0.0.1:5501',  // Frontend origin
+  credentials: true  // Allow cookies to be sent
+}));
 app.use(express.json())
+
 app.use(bodyParser.json())
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -68,6 +90,8 @@ app.use('/galleryDisplay', galleryRoute)
 app.use('/dailyMenuDisplay', dailyMenuRoute)
 app.use('/doveeysKitchen/eventapi', eventMgtRoute)
 app.use('/doveeysKitchen/safezone', adminSecureRoute)
+app.use('/doveeysKitchen/eventHeader', eventHeaderRoute)
+app.use('/doveeysKitchen/eventStatus', toggleEventRoute)
 
 
 const fs = require('fs');

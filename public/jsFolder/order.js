@@ -6,17 +6,17 @@ const config = {
 
 
 document.addEventListener('DOMContentLoaded', () => {
-    getMenuProductFunc()
-    fetchAllOrders()
-    fetTotalOrderIncome()
-    countPendingOrdersFunc()
-    countRegisteredUsers()
-    getWeeklyGrowthFunc()
-    getAllUserMessageFunc()
-    getAdminMenuLandingFunc()
-    getAllSpecialImagesFunc()
-    fetchGallery();
-    getAllDailyMenus()
+  getMenuProductFunc()
+  fetchAllOrders()
+  fetTotalOrderIncome()
+  countPendingOrdersFunc()
+  countRegisteredUsers()
+  getWeeklyGrowthFunc()
+  getAllUserMessageFunc()
+  getAdminMenuLandingFunc()
+  getAllSpecialImagesFunc()
+  fetchGallery();
+  getAllDailyMenus()
 })
 
 // All Api URL Testing
@@ -32,38 +32,38 @@ const menuProductForm = document.getElementById('menuProductForm')
 const menuProductList = document.getElementById('menuProductList')
 
 menuProductForm.addEventListener('submit', async (e) => {
-    e.preventDefault()
-    let menuProductTarget = e.target
+  e.preventDefault()
+  let menuProductTarget = e.target
 
-    const formData = new FormData(menuProductTarget)
+  const formData = new FormData(menuProductTarget)
 
-    formData.forEach((value, key) => {
-        console.log(key, value);
-    });
-    console.log(formData);
-    
-    try {
-        const createMenuProduct = await fetch(`${config.apiUrl}/doveeysKitchen/product/createMenuProduct`, {
-            method: 'POST',
-            body: formData
-        })
+  formData.forEach((value, key) => {
+    console.log(key, value);
+  });
+  console.log(formData);
 
-        console.log(createMenuProduct);
-        
-        if (createMenuProduct.ok) {
-          alert('Product created successfully!');
-          getMenuProductFunc(); // Refresh product list
-        } else {
-          alert('Failed to create product.');
-        }
+  try {
+    const createMenuProduct = await fetch(`${config.apiUrl}/doveeysKitchen/product/createMenuProduct`, {
+      method: 'POST',
+      body: formData
+    })
 
-        const data = await createMenuProduct.json()
-        console.log(data);
-        
-    } catch (error) {
-        console.log(error);
-        
+    console.log(createMenuProduct);
+
+    if (createMenuProduct.ok) {
+      alert('Product created successfully!');
+      getMenuProductFunc(); // Refresh product list
+    } else {
+      alert('Failed to create product.');
     }
+
+    const data = await createMenuProduct.json()
+    console.log(data);
+
+  } catch (error) {
+    console.log(error);
+
+  }
 })
 
 // getMenuProducts
@@ -80,7 +80,7 @@ const getMenuProductFunc = async (e) => {
     menuProductList.innerHTML = '';
 
     data.forEach((eachData) => {
-      console.log('Data eachdata',eachData);
+      console.log('Data eachdata', eachData);
 
       const menuProductId = eachData._id;
       console.log(menuProductId);
@@ -113,7 +113,7 @@ const getMenuProductFunc = async (e) => {
         `;
       } else if (eachData.variations && eachData.variations.length > 0) {
 
-        
+
         // Display product with variations
         let variationsContent = '';
         eachData.variations.forEach((variation) => {
@@ -154,7 +154,7 @@ const getMenuProductFunc = async (e) => {
     });
 
     attachEditEventListeners();
-    
+
   } catch (error) {
     console.log(error);
   }
@@ -176,7 +176,7 @@ const attachEditEventListeners = () => {
       const menuProductId = e.target.closest('.editButton').dataset.id
 
       console.log(menuProductId);
-      
+
       fetchSingleProductFunc(menuProductId)
     })
   })
@@ -202,7 +202,7 @@ const fetchSingleProductFunc = async (menuProductId) => {
   try {
     const fetchSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
 
-  // console.log(fetchSingleProductResponse);
+    // console.log(fetchSingleProductResponse);
 
     const data = await fetchSingleProductResponse.json()
     console.log(data);
@@ -216,8 +216,8 @@ const fetchSingleProductFunc = async (menuProductId) => {
 
     const menuPopUpDiv = document.getElementById('menuPopUpDiv')
     menuPopUpDiv.innerHTML = ""
-  
-  
+
+
     const editEachProduct = `
       <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
           <div><i class="fas fa-times"></i></div>
@@ -282,83 +282,84 @@ const fetchSingleProductFunc = async (menuProductId) => {
     const editMenuProductForm = document.getElementById('editMenuProductForm')
     editMenuProductForm.addEventListener('submit', async (e) => {
       e.preventDefault()
-      
+
       const menuName = document.getElementById('menuName').value;
       const menuProductDescription = document.getElementById('menuProductDescription').value;
       const menuProductPrice = document.getElementById('menuProductPrice').value;
-    
+
       console.log('Menu Product Name:', menuName);
       console.log('Menu Description:', menuProductDescription);
       console.log('Menu Price:', menuProductPrice);
-    
+
       const formData = {
         menuProductName: menuName,
         menuDescription: menuProductDescription,
         menuPrice: menuProductPrice,
       };
-    
+
       console.log('FormData:', formData);
-      
+
       await updateMenuProductFunc(menuProductId, formData)
       menuPopUpSection.classList.add('hidden')
     })
 
   } catch (error) {
     console.log(error);
-    
-  }}
 
-  const updateMenuProductFunc = async (menuProductId, formData) => {
-
-    console.log(formData);
-    
-    try {
-      const updateMenuProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-
-      console.log(updateMenuProductResponse);
-      
-
-      if (updateMenuProductResponse.ok) {
-        alert('Product updated successfully!');
-        getMenuProductFunc(); // Refresh product list
-      } else {
-        alert('Failed to update product.');
-      }
-
-      // alert('successful')
-    } catch (error) {
-      
-    }
   }
+}
+
+const updateMenuProductFunc = async (menuProductId, formData) => {
+
+  console.log(formData);
+
+  try {
+    const updateMenuProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+
+    console.log(updateMenuProductResponse);
 
 
-  const deleteSingleProductFunc = async (menuProductId) => {
-    try {
-      const deleteSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
-        method: 'DELETE',
-      })
-
-      // console.log(deleteSingleProductResponse);
-
-      if (deleteSingleProductResponse.ok) {
-        alert('Product Deleted successfully!');
-        getMenuProductFunc(); // Refresh product list
-      } else {
-        alert('Failed to delete product.');
-      }
-      
-    } catch (error) {
-      
+    if (updateMenuProductResponse.ok) {
+      alert('Product updated successfully!');
+      getMenuProductFunc(); // Refresh product list
+    } else {
+      alert('Failed to update product.');
     }
-  }
 
-  // Select all sidebar links and sections
+    // alert('successful')
+  } catch (error) {
+
+  }
+}
+
+
+const deleteSingleProductFunc = async (menuProductId) => {
+  try {
+    const deleteSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
+      method: 'DELETE',
+    })
+
+    // console.log(deleteSingleProductResponse);
+
+    if (deleteSingleProductResponse.ok) {
+      alert('Product Deleted successfully!');
+      getMenuProductFunc(); // Refresh product list
+    } else {
+      alert('Failed to delete product.');
+    }
+
+  } catch (error) {
+
+  }
+}
+
+// Select all sidebar links and sections
 const sidebarLinks = document.querySelectorAll('nav a');
 const sections = document.querySelectorAll('.content');
 
@@ -379,7 +380,7 @@ sidebarLinks.forEach((link, index) => {
 
 const adminOrdersList = document.getElementById('adminOrdersList')
 
-{/* <p><strong>Variation: </strong>{ Size ${eachData.menuProductOrderVariation.size} : Price ${eachData.menuProductOrderVariation.price} }</p> */}
+{/* <p><strong>Variation: </strong>{ Size ${eachData.menuProductOrderVariation.size} : Price ${eachData.menuProductOrderVariation.price} }</p> */ }
 
 const fetchAllOrders = async () => {
   adminOrdersList.innerHTML = '';
@@ -458,7 +459,7 @@ const fetchAllOrders = async () => {
       adminOrdersList.innerHTML += ordersDisplay;
 
       console.log(adminOrdersList);
-      
+
 
       // const cancleOrderBtn = document.getElementById('cancleOrderBtn');
       // cancleOrderBtn.addEventListener('click', (e) => {
@@ -495,14 +496,14 @@ const cancleUserOrders = async (menuOrderId) => {
         'Authorization': `Bearer ${localStorage.getItem('token')}`
       }
     })
-    
+
 
     const data = await response.json()
     fetchAllOrders()
-    
+
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
@@ -516,16 +517,16 @@ const confirmUserOrders = async (menuOrderId) => {
     })
 
     console.log(response);
-    
+
     const data = await response.json()
     console.log(data);
-    
+
 
     fetchAllOrders()
 
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
@@ -533,18 +534,18 @@ const fetTotalOrderIncome = async () => {
   try {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/adminGetAllConfirmedOrdersPrice`)
 
-    console.log('Total Price',response);
-    
+    console.log('Total Price', response);
+
     const data = await response.json()
     console.log('total Price Data', data.totalPrice);
 
     const analyticTotalPrice = data.totalPrice
-    
+
     const analyTicEarning = document.getElementById('analyTicEarning')
 
     analyTicEarning.textContent = analyticTotalPrice
   } catch (error) {
-    
+
   }
 }
 
@@ -559,7 +560,7 @@ const countPendingOrdersFunc = async () => {
     document.getElementById('pendingOrders').textContent = countData
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
@@ -568,7 +569,7 @@ const countRegisteredUsers = async () => {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/api/getRegisteredUser`)
 
     console.log(response);
-    
+
 
     const data = await response.json()
     console.log('reg users count', data);
@@ -576,7 +577,7 @@ const countRegisteredUsers = async () => {
 
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
@@ -585,35 +586,34 @@ const getWeeklyGrowthFunc = async () => {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/getWeeklyGrowth`)
 
     const data = await response.json()
-    console.log('adminChart',data);
-    
+    console.log('adminChart', data);
+
     const { growthPercentage } = data;
 
-        // Update the growth percentage in the UI
-        const weeklyGrowthElem = document.getElementById('weeklyGrowth');
-        // weeklyGrowthElem.textContent = `${growthPercentage > 0 ? '+' : ''}${growthPercentage}%`;
-        // weeklyGrowthElem.className = `text-2xl font-bold ${
-        //   growthPercentage >= 0 ? 'text-green-500' : 'text-red-500'
-        // }`;
+    // Update the growth percentage in the UI
+    const weeklyGrowthElem = document.getElementById('weeklyGrowth');
+    // weeklyGrowthElem.textContent = `${growthPercentage > 0 ? '+' : ''}${growthPercentage}%`;
+    // weeklyGrowthElem.className = `text-2xl font-bold ${
+    //   growthPercentage >= 0 ? 'text-green-500' : 'text-red-500'
+    // }`;
 
-        weeklyGrowthElem.textContent = growthPercentage !== undefined 
-  ? `${growthPercentage > 0 ? '+' : ''}${growthPercentage}%`
-  : 'Data Unavailable';
-weeklyGrowthElem.className = `text-2xl font-bold ${
-  growthPercentage >= 0 ? 'text-green-500' : 'text-red-500'
-}`;
+    weeklyGrowthElem.textContent = growthPercentage !== undefined
+      ? `${growthPercentage > 0 ? '+' : ''}${growthPercentage}%`
+      : 'Data Unavailable';
+    weeklyGrowthElem.className = `text-2xl font-bold ${growthPercentage >= 0 ? 'text-green-500' : 'text-red-500'
+      }`;
 
 
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
 
 const getAllUserMessageFunc = async () => {
   try {
-  
+
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/message/getAllUserMessage`);
 
     const data = await response.json();
@@ -694,7 +694,7 @@ const getSingleUserMessageFunc = async (messageId) => {
     })
 
   } catch (error) {
-    
+
   }
 }
 
@@ -704,35 +704,35 @@ const addVariationBtn = document.getElementById("addVariationBtn");
 const variationsContainer = document.getElementById("variationsContainer");
 const priceSection = document.getElementById('priceSection');
 const showVariationBtn = document.getElementById('showVariationBtn')
-  // let variationAdded = true;
+// let variationAdded = true;
 
-  // Toggle between Price or Variation form
-  function toggleVariationOption() {
-    if (variationsContainer.classList.contains('hidden')) {
-      priceSection.classList.add('hidden');
-      showVariationBtn.textContent = 'Close Variation'
-      showVariationBtn.classList.add('bg-red-500')
-      showVariationBtn.classList.remove('bg-blue-500')
-      variationsContainer.classList.remove('hidden');
-      addVariationBtn.classList.remove('hidden');
+// Toggle between Price or Variation form
+function toggleVariationOption() {
+  if (variationsContainer.classList.contains('hidden')) {
+    priceSection.classList.add('hidden');
+    showVariationBtn.textContent = 'Close Variation'
+    showVariationBtn.classList.add('bg-red-500')
+    showVariationBtn.classList.remove('bg-blue-500')
+    variationsContainer.classList.remove('hidden');
+    addVariationBtn.classList.remove('hidden');
 
-      
-    } else {
-      priceSection.classList.remove('hidden');
-      showVariationBtn.classList.remove('hidden')
-      showVariationBtn.classList.remove('bg-red-500')
-      showVariationBtn.classList.add('bg-blue-500')
-      showVariationBtn.textContent = 'Show Variation'
-      variationsContainer.classList.add('hidden');
-      addVariationBtn.classList.add('hidden');
-    }
+
+  } else {
+    priceSection.classList.remove('hidden');
+    showVariationBtn.classList.remove('hidden')
+    showVariationBtn.classList.remove('bg-red-500')
+    showVariationBtn.classList.add('bg-blue-500')
+    showVariationBtn.textContent = 'Show Variation'
+    variationsContainer.classList.add('hidden');
+    addVariationBtn.classList.add('hidden');
   }
+}
 
-  // Add Variation Button Clicked
-  showVariationBtn.addEventListener('click', () => {
-    // variationAdded = false;
-    toggleVariationOption();
-  });
+// Add Variation Button Clicked
+showVariationBtn.addEventListener('click', () => {
+  // variationAdded = false;
+  toggleVariationOption();
+});
 
 
 addVariationBtn.addEventListener("click", () => {
@@ -753,7 +753,7 @@ addVariationBtn.addEventListener("click", () => {
       placeholder="Enter price"
     />
   `;
-  
+
   variationsContainer.appendChild(newVariation);
 });
 
@@ -977,7 +977,7 @@ const fetchSingleSpecialImage = async (specialLandingId) => {
       e.preventDefault(); // Prevent default form submission
       const form = e.target;
       const formData = new FormData(form);
-  
+
       updateSpecialImage(formData, specialLandingId);
     });
 
@@ -1012,20 +1012,20 @@ const galleryForm = document.getElementById('galleryForm')
 const createGalleryFunc = async () => {
   const formData = new FormData(galleryForm);
   try {
-    
+
     const response = await fetch(`${config.apiUrl}/galleryDisplay/createGallery`, {
       method: 'POST',
       body: formData
     })
 
     const result = await response.json();
-        if (response.ok) {
-          alert("File uploaded successfully!");
-          // fetchGallery(); 
-          fetchGallery()
-        } else {
-          alert(result.error || "Failed to upload file.");
-        }
+    if (response.ok) {
+      alert("File uploaded successfully!");
+      // fetchGallery(); 
+      fetchGallery()
+    } else {
+      alert(result.error || "Failed to upload file.");
+    }
   } catch (error) {
     console.error(err);
     alert("An error occurred while uploading the file.");
@@ -1035,7 +1035,7 @@ const createGalleryFunc = async () => {
 galleryForm.addEventListener('submit', async (e) => {
   e.preventDefault()
   await createGalleryFunc()
-} )
+})
 
 
 async function fetchGallery() {
@@ -1047,15 +1047,15 @@ async function fetchGallery() {
     const data = await response.json(); // Parse the response JSON
 
     console.log(response, data);
-    
+
 
     const container = document.getElementById("galleryListDiv"); // Select the container for gallery items
     container.innerHTML = ''
     data.forEach((item) => {
       let content;
 
-       // Function to format the time in a human-readable format
-       function timeAgo(date) {
+      // Function to format the time in a human-readable format
+      function timeAgo(date) {
         const now = new Date();
         const timeDifference = now - new Date(date);
         const seconds = Math.floor(timeDifference / 1000);
@@ -1085,7 +1085,7 @@ async function fetchGallery() {
       const deleteId = item._id
 
       console.log('deleted Id', deleteId);
-      
+
 
       if (item.galleryType === "image") {
 
@@ -1110,8 +1110,8 @@ async function fetchGallery() {
           </div>
         `
       } else if (item.galleryType === "video") {
-        
-          content = `
+
+        content = `
           <div id="galleryIdDiv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${deleteId}">
             <div id="galleryDisplayDiv" class="flex items-center space-x-4">
               <video controls class="w-16 h-16 object-cover rounded">
@@ -1134,7 +1134,7 @@ async function fetchGallery() {
             </div>
           </div>
         `
-          
+
       }
 
       container.innerHTML += content
@@ -1147,7 +1147,7 @@ async function fetchGallery() {
           deleteGalleryFunc(galleryDeleteId)
         })
       })
-      
+
     });
   } catch (err) {
     console.error("Failed to fetch gallery items:", err); // Log the error
@@ -1166,7 +1166,7 @@ async function deleteGalleryFunc(galleryDeleteId) {
     fetchGallery()
   } catch (error) {
     console.log(error);
-    
+
   }
 }
 
@@ -1174,47 +1174,47 @@ async function deleteGalleryFunc(galleryDeleteId) {
 
 
 // Function to create a new daily menu
-  const dailyMenuForm = document.getElementById('dailyMenuForm')
+const dailyMenuForm = document.getElementById('dailyMenuForm')
 
-  dailyMenuForm.addEventListener('submit', async (e) => {
-    e.preventDefault()
-    let menuProductTarget = e.target
+dailyMenuForm.addEventListener('submit', async (e) => {
+  e.preventDefault()
+  let menuProductTarget = e.target
 
-    const formData = new FormData(menuProductTarget)
-    try {
-        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/createDailyMenu`, {
-            method: "POST",
-            body: formData, // FormData should contain the image and price
-        });
+  const formData = new FormData(menuProductTarget)
+  try {
+    const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/createDailyMenu`, {
+      method: "POST",
+      body: formData, // FormData should contain the image and price
+    });
 
-        if (response.ok) {
-          return alert('Daily Menu added successfully')
-        } else{
-          return alert('Failed to create Daily Menu')
-        }
-        // const data = await response.json();
-        // console.log("Menu Created:", data);
-        
-    } catch (error) {
-        console.error("Error creating daily menu:", error);
+    if (response.ok) {
+      return alert('Daily Menu added successfully')
+    } else {
+      return alert('Failed to create Daily Menu')
     }
-  })
+    // const data = await response.json();
+    // console.log("Menu Created:", data);
+
+  } catch (error) {
+    console.error("Error creating daily menu:", error);
+  }
+})
 
 // Function to get all daily menus
 async function getAllDailyMenus() {
 
   const dailyMenuProductList = document.getElementById('dailyMenuProductList')
 
-    try {
-        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/allDailyMenu`);
-        const data = await response.json();
+  try {
+    const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/allDailyMenu`);
+    const data = await response.json();
 
-        dailyMenuProductList.innerHTML = ''
-        data.forEach((eachData) => {
+    dailyMenuProductList.innerHTML = ''
+    data.forEach((eachData) => {
 
-          const eachDailyMenuId = eachData._id
+      const eachDailyMenuId = eachData._id
 
-          const populateDailyMenu = `
+      const populateDailyMenu = `
             <div id="dailydisplayDivv" class="flex items-center justify-between border rounded-lg shadow-md p-4" data-id="${eachDailyMenuId}">
             <div class="flex items-center space-x-4">
               <img src="../image/dailyMenu/${eachData.menuImage}" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
@@ -1237,31 +1237,31 @@ async function getAllDailyMenus() {
           </div>
           `
 
-          dailyMenuProductList.innerHTML += populateDailyMenu
-          // dailydisplayDivv
-          const deleteDailydisplayDivv = document.querySelectorAll('#deleteDailydisplayDivv')
-          const updateDailydisplayDivv = document.querySelectorAll('#updateDailydisplayDivv')
+      dailyMenuProductList.innerHTML += populateDailyMenu
+      // dailydisplayDivv
+      const deleteDailydisplayDivv = document.querySelectorAll('#deleteDailydisplayDivv')
+      const updateDailydisplayDivv = document.querySelectorAll('#updateDailydisplayDivv')
 
-          deleteDailydisplayDivv.forEach((eachDataDelete) => {
-            eachDataDelete.addEventListener('click', (e) => {
-              const deleteEachData = e.target.closest('#dailydisplayDivv').dataset.id
-              deleteDailyMenu(deleteEachData)
-            })
-          })
-          
-
-          updateDailydisplayDivv.forEach((eachDataEdit) => {
-            eachDataEdit.addEventListener('click', (e) => {
-              const editEachData = e.target.closest('#dailydisplayDivv').dataset.id
-              getSingleDailyMenu(editEachData)
-            })
-          })
-          
-
+      deleteDailydisplayDivv.forEach((eachDataDelete) => {
+        eachDataDelete.addEventListener('click', (e) => {
+          const deleteEachData = e.target.closest('#dailydisplayDivv').dataset.id
+          deleteDailyMenu(deleteEachData)
         })
-    } catch (error) {
-        console.error("Error fetching daily menus:", error);
-    }
+      })
+
+
+      updateDailydisplayDivv.forEach((eachDataEdit) => {
+        eachDataEdit.addEventListener('click', (e) => {
+          const editEachData = e.target.closest('#dailydisplayDivv').dataset.id
+          getSingleDailyMenu(editEachData)
+        })
+      })
+
+
+    })
+  } catch (error) {
+    console.error("Error fetching daily menus:", error);
+  }
 }
 
 // Function to get a single daily menu by ID
@@ -1271,12 +1271,12 @@ async function getSingleDailyMenu(editEachData) {
 
   const dailyMenuPopUpDiv = document.getElementById('dailyMenuPopUpDiv')
   dailyMenuPopUpDiv.innerHTML = ''
-    try {
-        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/eachDailyMenu/${editEachData}`);
-        const data = await response.json();
-        console.log("Single Daily Menu:", data);
+  try {
+    const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/eachDailyMenu/${editEachData}`);
+    const data = await response.json();
+    console.log("Single Daily Menu:", data);
 
-        const populateSingleDailyMenu = `
+    const populateSingleDailyMenu = `
             <div id="closeDailyMenuPopUp" class="text-red-500 flex items-center font-bold">
           <div><i class="fas fa-times"></i></div>
           <p>close</p>
@@ -1327,54 +1327,54 @@ async function getSingleDailyMenu(editEachData) {
         </form>
         `
 
-      dailyMenuPopUpDiv.innerHTML = populateSingleDailyMenu
+    dailyMenuPopUpDiv.innerHTML = populateSingleDailyMenu
 
-        const closeMenuPopUp = document.getElementById('closeDailyMenuPopUp')
-        closeMenuPopUp.addEventListener('click', () => {
-          dailyMenuPopUpSection.classList.add('hidden')
-        })
+    const closeMenuPopUp = document.getElementById('closeDailyMenuPopUp')
+    closeMenuPopUp.addEventListener('click', () => {
+      dailyMenuPopUpSection.classList.add('hidden')
+    })
 
-        const editDailyMenuForm = document.getElementById('editDailyMenuForm')
-        editDailyMenuForm.addEventListener('submit', (e) => {
-          e.preventDefault()
-          let menuProductTarget = e.target
-          const formData = new FormData(menuProductTarget)
-          updateDailyMenu(editEachData, formData)
-        })
-    } catch (error) {
-        console.error("Error fetching daily menu:", error);
-    }
+    const editDailyMenuForm = document.getElementById('editDailyMenuForm')
+    editDailyMenuForm.addEventListener('submit', (e) => {
+      e.preventDefault()
+      let menuProductTarget = e.target
+      const formData = new FormData(menuProductTarget)
+      updateDailyMenu(editEachData, formData)
+    })
+  } catch (error) {
+    console.error("Error fetching daily menu:", error);
+  }
 }
 
 // Function to update a daily menu by ID
 async function updateDailyMenu(editEachData, formData) {
-    try {
-        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/updateDailyMenu/${editEachData}`, {
-            method: "PATCH",
-            body: formData, // FormData should contain updated image and price
-        });
-        const data = await response.json();
-        console.log("Menu Updated:", data);
-        alert('Item updated successfully')
-        getAllDailyMenus()
-    } catch (error) {
-        console.error("Error updating daily menu:", error);
-    }
+  try {
+    const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/updateDailyMenu/${editEachData}`, {
+      method: "PATCH",
+      body: formData, // FormData should contain updated image and price
+    });
+    const data = await response.json();
+    console.log("Menu Updated:", data);
+    alert('Item updated successfully')
+    getAllDailyMenus()
+  } catch (error) {
+    console.error("Error updating daily menu:", error);
+  }
 }
 
 // Function to delete a daily menu by ID
 async function deleteDailyMenu(deleteEachData) {
-    try {
-        const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/deleteDailyMenu/${deleteEachData}`, {
-            method: "DELETE",
-        });
-        const data = await response.json();
-        console.log("Menu Deleted:", data);
-        alert('Daily Menu Item Deleted Successfully')
-        getAllDailyMenus()
-    } catch (error) {
-        console.error("Error deleting daily menu:", error);
-    }
+  try {
+    const response = await fetch(`${config.apiUrl}/dailyMenuDisplay/deleteDailyMenu/${deleteEachData}`, {
+      method: "DELETE",
+    });
+    const data = await response.json();
+    console.log("Menu Deleted:", data);
+    alert('Daily Menu Item Deleted Successfully')
+    getAllDailyMenus()
+  } catch (error) {
+    console.error("Error deleting daily menu:", error);
+  }
 }
 
 
@@ -1382,10 +1382,10 @@ async function deleteDailyMenu(deleteEachData) {
 
 document.getElementById('eventProductForm').addEventListener('submit', async (e) => {
   e.preventDefault()
-
+  document.getElementById("preloader").classList.remove('hidden')
   const formData = new FormData(e.target)
   console.log(formData);
-  
+
 
   try {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventapi/createEventMgt`, {
@@ -1394,9 +1394,165 @@ document.getElementById('eventProductForm').addEventListener('submit', async (e)
     })
 
     console.log(response);
-    
+
+    alert('Upload successfully')
   } catch (error) {
-    
+    console.error(error)
+  }
+  document.getElementById("preloader").classList.add('hidden')
+})
+
+const triggerNoteRead = document.querySelectorAll('.triggerNoteRead')
+const toggleTriggeredNote = document.getElementById('toggleTriggeredNote')
+
+triggerNoteRead.forEach((eachTriggerBtn) => {
+  eachTriggerBtn.addEventListener('click', (e) => {
+    // console.log(e.target);
+
+    toggleTriggeredNote.classList.toggle('hidden')
+    // console.log(toggleTriggeredNote);
+
+  })
+})
+
+
+
+document.getElementById('eventHeaderForm').addEventListener('submit', async (e) => {
+  e.preventDefault()
+  document.getElementById("preloader").classList.remove('hidden')
+  const formData = {
+    eventHeader: document.getElementById('eventHeader').value,
+    eventHeaderDescription: document.getElementById('eventHeaderDescription').value
   }
 
+  console.log(formData);
+
+
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventHeader/createEventHeader`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    })
+
+    console.log(response);
+
+    document.getElementById('eventHeader').value = '',
+    document.getElementById('eventHeaderDescription').value = ''
+
+  } catch (error) {
+    console.error(error)
+  }
+  document.getElementById("preloader").classList.add('hidden')
 })
+
+
+
+const eventToggleStatus = document.getElementById('eventToggleStatus')
+const eventToggleStatusDiv = document.getElementById('eventToggleStatusDiv')
+const eventHeaderForm = document.getElementById('eventHeaderForm')
+const uploadeventdivdisplay = document.getElementById('uploadeventdivdisplay')
+
+
+const toggleEventFunc = async () => {
+  document.getElementById("preloader").classList.remove('hidden')
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventStatus/initiateToggle`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    console.log(response);
+
+    const data = await response.json();
+    console.log(data);
+
+    await getToggleEventFunc(); // Wait for UI to update
+  } catch (error) {
+    console.error(error);
+  }
+  document.getElementById("preloader").classList.add('hidden')
+};
+
+const getToggleEventFunc = async () => {
+  document.getElementById("preloader").classList.remove('hidden')
+  eventToggleStatusDiv.innerHTML = ''; // Clear the div before adding new content
+
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventStatus/getToggleStatus`);
+    console.log(response);
+
+    const data = await response.json();
+    console.log(data);
+
+    const toggleStatus = data.toggleEventStatus == "Checked" ? "checked" : "";
+    const toggleStatusTrig = data.toggleEventStatus == "Checked" ? "active" : "inactive";
+
+    data.toggleEventStatus == "Checked" ? eventHeaderForm.classList.remove('hidden') : eventHeaderForm.classList.add('hidden')
+
+    data.toggleEventStatus == "Checked" ? uploadeventdivdisplay.classList.remove('hidden') : uploadeventdivdisplay.classList.add('hidden')
+
+    eventToggleStatusDiv.innerHTML = `
+      <input id="eventToggleStatus" type="checkbox" ${toggleStatus}>
+      <div>
+        <p class="font-bold text-[12px] ${data.toggleEventStatus == "Checked" ? "text-green-600" : "text-red-600"}">
+          ${toggleStatusTrig}
+        </p>
+      </div>
+    `;
+
+    // **Reattach the event listener after updating the DOM**
+    const eventToggleStatus = document.getElementById("eventToggleStatus");
+    eventToggleStatus.onchange = () => {
+      console.log("Changes occurred");
+      toggleEventFunc();
+    };
+  } catch (error) {
+    console.error(error);
+  }
+  document.getElementById("preloader").classList.add('hidden')
+};
+
+
+const checkAdminAuth = async () => {
+  try {
+      const response = await fetch(`${config.apiUrl}/doveeysKitchen/safezone/verifyAdmin`, {
+
+        credentials: 'include', 
+          method: 'GET',
+          
+      });
+
+      console.log(response);
+      
+      const data = await response.json();
+
+      console.log(data);
+      
+
+      if (!response.ok) {
+        console.log('log 1');
+        
+          // window.location.href = "../htmlFolder/adminAuth.html";
+      }
+  } catch (error) {
+    console.log('log 2');
+    
+      // window.location.href = "../htmlFolder/adminAuth.html";
+  }
+};
+
+
+// Initialize the toggle status on page load
+window.onload = () => {
+  checkAdminAuth()
+  getToggleEventFunc();
+  document.getElementById("preloader").classList.remove('hidden')
+  setTimeout(() => {
+    document.getElementById("preloader").classList.add('hidden')
+  }, 2000); // Adjust timing as needed
+};

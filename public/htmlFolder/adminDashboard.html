@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../src/output.css">
-    <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../src/output.css">
+  <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- <script src="http://localhost:3000/socket.io/socket.io.js"></script> -->
 
-
+<style>
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+</style>
 </head>
+
 <body class="bg-gray-100">
   <div class="flex flex-col h-screen">
     <!-- Sidebar -->
@@ -21,130 +33,130 @@
         <ul class="space-y-4">
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div >
-              <i class="fas fa-home"></i>
-            </div> 
-            <div class="hidden md:block">
-              <p>Dashboard</p>
-            </div>
-          </a></li>
-
-          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-utensils"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Menu Management</p>
-            </div>
-          </a></li>
-
-          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-glass-cheers"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Specials</p>
-            </div>  
-          </a></li>
-
-          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-bicycle"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Orders</p>
-            </div>
+              <div>
+                <i class="fas fa-home"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Dashboard</p>
+              </div>
             </a></li>
 
-            <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+              <div>
+                <i class="fas fa-utensils"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Menu Management</p>
+              </div>
+            </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+              <div>
+                <i class="fas fa-glass-cheers"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Specials</p>
+              </div>
+            </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
+              <div>
+                <i class="fas fa-bicycle"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Orders</p>
+              </div>
+            </a></li>
+
+          <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
               <div>
                 <i class="fas fa-ticket-alt"></i>
               </div>
               <div class="hidden md:block">
                 <p>Events</p>
               </div>
-              </a></li>
+            </a></li>
 
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-envelope-open-text"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Real-Time Chat</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-envelope-open-text"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Real-Time Chat</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-rocket"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Hero Image</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-rocket"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Hero Image</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-tshirt"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>MenuLandingImages</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-tshirt"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>MenuLandingImages</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-star"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>SpecialLandingImage</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>SpecialLandingImage</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-bullhorn"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Flyer 1</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-bullhorn"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Flyer 1</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-palette"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Flyer 2</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-palette"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Flyer 2</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-images"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Gallery</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-images"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Gallery</p>
+              </div>
+            </a></li>
 
           <li><a href="#" class="py-2 px-4 hover:bg-gray-700 rounded flex gap-2">
-            <div>
-              <i class="fas fa-calendar-alt"></i>
-            </div>
-            <div class="hidden md:block">
-              <p>Daily Menu</p>
-            </div>  
-          </a></li>
+              <div>
+                <i class="fas fa-calendar-alt"></i>
+              </div>
+              <div class="hidden md:block">
+                <p>Daily Menu</p>
+              </div>
+            </a></li>
         </ul>
       </nav>
     </div>
-    
+
     <!-- Main Content -->
     <div id="analytics4Home" class="flex-1 p-6 space-y-6 ml-[20%] content analytics4HomeContent">
       <!-- Analytics -->
-      <div  class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 
         <!-- Total Earnings -->
         <div class="bg-white shadow-lg rounded-lg p-4 text-center">
@@ -189,92 +201,65 @@
     <section id="menuManagement" class="flex-1 p-6 space-y-6 ml-[20%] content hidden menuManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Menu Products</h2>
-      
+
         <!-- Upload Product Form -->
         <form id="menuProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
           <div>
             <label for="menuProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
-            <input
-              type="text"
-              id="menuProductName"
-              name="menuProductName"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter product name"
-            />
+            <input type="text" id="menuProductName" name="menuProductName"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter product name" />
           </div>
-      
+
           <div>
             <label for="menuDescription" class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea
-              id="menuDescription"
-              name="menuDescription"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              rows="3"
-              placeholder="Enter product description"
-            ></textarea>
+            <textarea id="menuDescription" name="menuDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" rows="3"
+              placeholder="Enter product description"></textarea>
           </div>
-      
+
           <div id="priceSection">
             <label for="menuPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
-            <input
-              type="number"
-              id="menuPrice"
-              name="menuPrice"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter product price"
-            />
+            <input type="number" id="menuPrice" name="menuPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter product price" />
           </div>
 
           <!-- Variations Section -->
-        <div id="variationsContainer" class="hidden">
-          <h3 class="text-lg font-semibold mb-4">Add Product Variations</h3>
-          <div class="variation-group">
-            <div class="flex space-x-4 mb-4">
-              <input
-                type="text"
-                name="variationSize[]"
-                class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
-                placeholder="Enter variation size (e.g., 1L)"
-              />
-              <input
-                type="number"
-                name="variationPrice[]"
-                class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
-                placeholder="Enter price"
-              />
+          <div id="variationsContainer" class="hidden">
+            <h3 class="text-lg font-semibold mb-4">Add Product Variations</h3>
+            <div class="variation-group">
+              <div class="flex space-x-4 mb-4">
+                <input type="text" name="variationSize[]" class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+                  placeholder="Enter variation size (e.g., 1L)" />
+                <input type="number" name="variationPrice[]" class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+                  placeholder="Enter price" />
+              </div>
             </div>
+
+            <button type="button" id="addVariationBtn"
+              class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
+              Add Variation
+            </button>
           </div>
 
-          <button type="button" id="addVariationBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
-            Add Variation
+
+
+          <button type="button" id="showVariationBtn"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
+            Show Variation
           </button>
-        </div>
 
-        
-
-        <button type="button" id="showVariationBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
-          Show Variation
-        </button>
-      
           <div>
             <label for="menuImage" class="block text-sm font-medium text-gray-700">Product Image</label>
-            <input
-              type="file"
-              id="menuImage"
-              name="menuImage"
-              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
-            />
+            <input type="file" id="menuImage" name="menuImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600" />
           </div>
-      
-          <button
-          id="menuUploadBtn"
-            type="submit"
-            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-          >
+
+          <button id="menuUploadBtn" type="submit"
+            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
             Upload Product
           </button>
         </form>
-      
+
         <!-- Product List -->
         <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
         <div id="menuProductList" class="space-y-4">
@@ -298,101 +283,74 @@
               </button>
             </div>
           </div>
-      
+
           <!-- Repeat for more products -->
         </div>
-      </div>      
+      </div>
     </section>
 
     <!-- Special Management Section -->
     <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden specialManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Special Products</h2>
-      
+
         <!-- Upload Product Form -->
         <form id="specialProductForm" class="space-y-4 border-b pb-6 mb-6">
           <div>
             <label for="specialProductName" class="block text-sm font-medium text-gray-700">Product Name</label>
-            <input
-              type="text"
-              id="specialProductName"
-              name="specialProductName"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter product name"
-            />
-          </div>
-      
-          <div>
-            <label for="specialDescription" class="block text-sm font-medium text-gray-700">Description</label>
-            <textarea
-              id="specialDescription"
-              name="specialDescription"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              rows="3"
-              placeholder="Enter product description"
-            ></textarea>
-          </div>
-      
-          <div id="specialPriceSection">
-            <label for="specialPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
-            <input
-              type="number"
-              id="specialPrice"
-              name="specialPrice"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter product price"
-            />
+            <input type="text" id="specialProductName" name="specialProductName"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter product name" />
           </div>
 
-            <!-- Variations Section -->
+          <div>
+            <label for="specialDescription" class="block text-sm font-medium text-gray-700">Description</label>
+            <textarea id="specialDescription" name="specialDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" rows="3"
+              placeholder="Enter product description"></textarea>
+          </div>
+
+          <div id="specialPriceSection">
+            <label for="specialPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+            <input type="number" id="specialPrice" name="specialPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter product price" />
+          </div>
+
+          <!-- Variations Section -->
           <div id="specialVariationsContainer" class="hidden">
             <h3 class="text-lg font-semibold mb-4">Add Product Variations</h3>
             <div class="specialVariation-group">
               <div class="flex space-x-4 mb-4">
-                <input
-                  type="text"
-                  name="variationSize[]"
-                  class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
-                  placeholder="Enter variation size (e.g., 1L)"
-                />
-                <input
-                  type="number"
-                  name="variationPrice[]"
-                  class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
-                  placeholder="Enter price"
-                />
+                <input type="text" name="variationSize[]" class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+                  placeholder="Enter variation size (e.g., 1L)" />
+                <input type="number" name="variationPrice[]" class="mt-1 p-2 block w-1/2 border border-gray-300 rounded"
+                  placeholder="Enter price" />
               </div>
             </div>
 
-            <button type="button" id="addSpecialVariationBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
+            <button type="button" id="addSpecialVariationBtn"
+              class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
               Add Variation
             </button>
           </div>
 
-        
 
-          <button type="button" id="showSpecialVariationBtn" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
+
+          <button type="button" id="showSpecialVariationBtn"
+            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 w-full">
             Show Variations
           </button>
-      
+
           <div>
             <label for="specialImage" class="block text-sm font-medium text-gray-700">Product Image</label>
-            <input
-              type="file"
-              id="specialImage"
-              name="specialImage"
-              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
-            />
+            <input type="file" id="specialImage" name="specialImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600" />
           </div>
-      
-          <button
-            type="submit"
-            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-          >
+
+          <button type="submit" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
             Upload Product
           </button>
         </form>
-      
+
         <!-- Product List -->
         <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
         <div id="specialProductList" class="space-y-4">
@@ -405,7 +363,7 @@
                 <p class="text-sm text-gray-600">₦3,000</p>
               </div>
             </div>
-            
+
             <div class="flex space-x-2">
               <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
                 <p class="hidden md:block">Edit</p>
@@ -417,17 +375,17 @@
               </button>
             </div>
           </div>
-      
+
           <!-- Repeat for more products -->
         </div>
-      </div>      
+      </div>
     </section>
 
     <!-- Orders Management Section  -->
-     <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden orderManagementContent">
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden orderManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Orders</h2>
-      
+
         <!-- Orders List -->
         <div id="adminOrdersList" class="space-y-4">
           <!-- Example Order Card -->
@@ -447,7 +405,7 @@
                 <p>10:45 AM, 7 Dec 2024</p>
               </div>
             </div>
-      
+
             <!-- Client Info -->
             <div class="mt-4 space-y-2">
               <p><strong>Client Name:</strong> John Doe</p>
@@ -457,46 +415,114 @@
               <p><strong>Quantity:</strong> 2</p>
               <p><strong>Total Price:</strong> ₦6,000</p>
             </div>
-      
+
             <!-- Actions -->
             <div class="mt-4 md:flex md:space-x-4 space-y-1 md:space-y-0">
               <button class="bg-yellow-500 text-white py-2 px-4 rounded hover:bg-yellow-600 w-full">
                 Processing Order
               </button>
-              
+
               <button class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
                 Confirm/Delivered
               </button>
             </div>
 
           </div>
-      
+
           <!-- Repeat for more orders -->
         </div>
-        
-      </div>
-      
-     </section>
 
-     <!-- Event Management  -->
-     <section id="eventManagement" class="flex-1 p-6 space-y-6 ml-[20%] content hidden eventManagementContent">
+      </div>
+
+    </section>
+
+    <!-- Event Management  -->
+    <section id="eventManagement" class="flex-1 p-6 space-y-6 ml-[20%] content hidden eventManagementContent">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Upcoming Event</h2>
-      
-        <!-- Upload Product Form -->
-        <form id="eventProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+
+        <!-- EVENT SETTINGS  -->
+        <section id="turnonupcomingevent">
           <div>
-            <label for="eventTitle" class="block text-sm font-medium text-gray-700">Event Title</label>
-            <input
-              type="text"
-              id="eventTitle"
-              name="eventTitle"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter Event Title"
-            />
+            <h1 class="font-bold text-[12px] text-gray-500">Click this toggle button to turn on/off event</h1>
+
+            <div class="flex items-center gap-1" id="eventToggleStatusDiv">
+              <input id="eventToggleStatus" type="checkbox" name="">
+              <div>
+                <p class="font-bold text-[12px] text-gray-500">on</p>
+              </div>
+            </div>
+
+            <!-- Trigger Note to READ  -->
+            <div>
+              <p class="italic text-blue-600 font-bold text-[12px] triggerNoteRead" id="triggerNoteRead">Read...</p>
+            </div>
           </div>
-      
-          <!-- <div>
+
+
+          <!-- Event Type Display  -->
+          <form id="eventHeaderForm" enctype="multipart/form-data"
+            class="space-y-4 border-b py-6 my-6 bg-gray-300 px-2 rounded-md hidden">
+            <div>
+              <label for="eventHeader" class="block text-sm font-medium text-gray-700">Event Header</label>
+              <input type="text" id="eventHeader" name="eventHeader"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter Event Header" />
+            </div>
+
+            <div>
+              <label for="eventHeaderDescription" class="block text-sm font-medium text-gray-700">Header
+                Description</label>
+              <textarea id="eventHeaderDescription" name="eventHeaderDescription"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded" rows="3"
+                placeholder="Enter Header Description"></textarea>
+            </div>
+
+
+            <button id="eventHeaderUploadBtn" type="submit"
+              class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
+              Upload Event Type
+            </button>
+          </form>
+
+          <!-- NOTE to be READ -->
+          <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden"
+            id="toggleTriggeredNote">
+            <div class="border-[2px] border-gray-500 border-solid relative w-[90%] bg-white p-2 rounded-md">
+              <p class="text-red-500 absolute right-1 top-1 font-bold p-[15px] triggerNoteRead">X</p>
+
+              <div class="text-[12px] text-gray-600 mt-[30px]">
+                <p class="font-bold">Please Read Through Carefully</p>
+
+                <div>
+                  <ol>
+                    <li>When you click on the toggle button, you get a form to upload your upcoming events like Easter,
+                      New Year, Valentine, etc...</li>
+                    <li>The Event Header is the Header of the Event e.g <span class="font-bold">Easter Meals</span>
+                      etc...</li>
+                    <li>After an event, you can turn off the event by clicking on the same button</li>
+                    <li>To change an event title or description, you just simply post a new one and it auto changes</li>
+                    <li>To delete an event, you just simply turn it off</li>
+                    <li>The second form that carries the event title, price and flyer, is for the event product or flyer
+                      you wanna display</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- Upload Event Product Form -->
+        <div id="uploadeventdivdisplay" class="hidden">
+          <form id="eventProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 my-6">
+            <div>
+              <label for="eventTitle" class="block text-sm font-medium text-gray-700">Event Title</label>
+              <input type="text" id="eventTitle" name="eventTitle"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter Event Title" />
+            </div>
+
+            <!-- <div>
             <label for="eventDescription" class="block text-sm font-medium text-gray-700">Description</label>
             <textarea
               id="eventDescription"
@@ -506,109 +532,104 @@
               placeholder="Enter product description"
             ></textarea>
           </div> -->
-      
-          <div id="eventPrice">
-            <label for="eventPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
-            <input
-              type="number"
-              id="eventPrice"
-              name="eventPrice"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter Event Price"
-            />
-          </div>
-      
-          <div>
-            <label for="eventImage" class="block text-sm font-medium text-gray-700">Event Flyer/Image</label>
-            <input
-              type="file"
-              id="eventImage"
-              name="eventImage"
-              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
-            />
-          </div>
-      
-          <button
-          id="eventUploadBtn"
-            type="submit"
-            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-          >
-            Upload Event
-          </button>
-        </form>
-      
-        <!-- Product List -->
-        <h3 class="text-lg font-semibold mb-4">Existing Products</h3>
-        <div id="menuProductList" class="space-y-4">
-          <!-- Example Product Card -->
-          <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
-            <div class="flex items-center space-x-4">
-              <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
-              <div>
-                <h4 class="font-semibold">Chicken Suya</h4>
-                <p class="text-sm text-gray-600">₦3,000</p>
+
+            <div id="eventPrice">
+              <label for="eventPrice" class="block text-sm font-medium text-gray-700">Price (₦)</label>
+              <input type="number" id="eventPrice" name="eventPrice"
+                class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter Event Price" />
+            </div>
+
+            <div>
+              <label for="eventImage" class="block text-sm font-medium text-gray-700">Event Flyer/Image</label>
+              <input type="file" id="eventImage" name="eventImage"
+                class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600" />
+            </div>
+
+            <button id="eventUploadBtn" type="submit"
+              class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
+              Upload Event
+            </button>
+          </form>
+
+          <!-- Product List -->
+          <h3 class="text-lg font-semibold mb-4">Existing Event Products</h3>
+          <div id="menuProductList" class="space-y-4">
+            <!-- Example Product Card -->
+            <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+              <div class="flex items-center space-x-4">
+                <img src="../image/chickenSuya.jpg" alt="Chicken Suya" class="w-16 h-16 object-cover rounded">
+                <div>
+                  <h4 class="font-semibold">Chicken Suya</h4>
+                  <p class="text-sm text-gray-600">₦3,000</p>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
+                  <p class="hidden md:block">Edit</p>
+                  <i class="fas fa-pencil-alt md:hidden"></i>
+                </button>
+                <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
+                  <p class="hidden md:block">Delete</p>
+                  <i class="fas fa-trash md:hidden"></i>
+                </button>
               </div>
             </div>
-            <div class="flex space-x-2">
-              <button class="bg-yellow-500 text-white py-1 px-3 rounded hover:bg-yellow-600">
-                <p class="hidden md:block">Edit</p>
-                <i class="fas fa-pencil-alt md:hidden"></i>
-              </button>
-              <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">
-                <p class="hidden md:block">Delete</p>
-                <i class="fas fa-trash md:hidden"></i>
-              </button>
-            </div>
+
+            <!-- Repeat for more products -->
           </div>
-      
-          <!-- Repeat for more products -->
         </div>
-      </div>      
+        
+
+
+
+      </div>
     </section>
 
 
-     <!-- User MessageSection  -->
-      <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden messageManagementContent">
-        <!-- ViewAll Message  -->
-        <div id="viewAllUserMessage" class="bg-white shadow-lg rounded-lg p-6">
-          <h2 class="text-xl font-bold mb-4">User Messages</h2>
-        
-          <!-- Messages List -->
-          <div id="messagesList" class="space-y-4">
-            <!-- Example Message -->
-            <div class="border rounded-lg shadow-md p-4 cursor-pointer" onclick="openMessagePopup('John Doe', 'Need Help', 'I am having issues with my order...', '+234 812 345 6789', 'johndoe@example.com')">
-              <div class="flex justify-between items-center">
-                <!-- User Info -->
-                <div>
-                  <h4 class="font-semibold">John Doe</h4>
-                  <p class="text-sm text-gray-600">Need Help</p>
-                </div>
-                <!-- Time Posted -->
-                <p class="text-sm text-gray-500">10:45 AM, 7 Dec 2024</p>
+    <!-- User MessageSection  -->
+    <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden messageManagementContent">
+      <!-- ViewAll Message  -->
+      <div id="viewAllUserMessage" class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-xl font-bold mb-4">User Messages</h2>
+
+        <!-- Messages List -->
+        <div id="messagesList" class="space-y-4">
+          <!-- Example Message -->
+          <div class="border rounded-lg shadow-md p-4 cursor-pointer"
+            onclick="openMessagePopup('John Doe', 'Need Help', 'I am having issues with my order...', '+234 812 345 6789', 'johndoe@example.com')">
+            <div class="flex justify-between items-center">
+              <!-- User Info -->
+              <div>
+                <h4 class="font-semibold">John Doe</h4>
+                <p class="text-sm text-gray-600">Need Help</p>
               </div>
+              <!-- Time Posted -->
+              <p class="text-sm text-gray-500">10:45 AM, 7 Dec 2024</p>
             </div>
-        
-            <!-- Repeat for more messages -->
           </div>
+
+          <!-- Repeat for more messages -->
         </div>
+      </div>
 
-        <!-- View Specific Message  -->
-         <!-- Message Details Popup -->
-        <div id="messagePopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-          <div class="bg-white w-96 rounded-lg shadow-lg p-6">
-            <h2 id="popupUserName" class="text-xl font-bold mb-2">John Doe</h2>
-            <p id="popupTitle" class="text-lg font-semibold mb-2">Message Title: Need Help</p>
-            <p id="popupDescription" class="text-gray-600 mb-4">Message: I am having issues with my order...</p>
-            <p><strong>Phone:</strong> <span id="popupPhone">+234 812 345 6789</span></p>
-            <p><strong>Email:</strong> <span id="popupEmail">johndoe@example.com</span></p>
-            <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full" onclick="closeMessagePopup()">Close</button>
-          </div>
+      <!-- View Specific Message  -->
+      <!-- Message Details Popup -->
+      <div id="messagePopup" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white w-96 rounded-lg shadow-lg p-6">
+          <h2 id="popupUserName" class="text-xl font-bold mb-2">John Doe</h2>
+          <p id="popupTitle" class="text-lg font-semibold mb-2">Message Title: Need Help</p>
+          <p id="popupDescription" class="text-gray-600 mb-4">Message: I am having issues with my order...</p>
+          <p><strong>Phone:</strong> <span id="popupPhone">+234 812 345 6789</span></p>
+          <p><strong>Email:</strong> <span id="popupEmail">johndoe@example.com</span></p>
+          <button class="mt-4 bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 w-full"
+            onclick="closeMessagePopup()">Close</button>
         </div>
+      </div>
 
-        
-      </section>
 
-       <!-- Update Hero Image -->
+    </section>
+
+    <!-- Update Hero Image -->
     <section class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
       <h2 class="text-xl font-bold mb-4">Update Hero Image</h2>
       <form id="heroImageForm" enctype="multipart/form-data" class="space-y-4 bg-white p-4 rounded shadow">
@@ -642,7 +663,7 @@
           <label for="menuLandingDes" class="block text-sm font-medium">Menu Description</label>
           <input type="text" id="menuLandingDes" name="menuLandingDes" class="w-full p-2 border rounded" required>
         </div>
-        
+
         <div>
           <label for="menuLandingImage" class="block text-sm font-medium">Upload Image</label>
           <input type="file" id="menuLandingImage" name="menuLandingImage" class="w-full p-2" required>
@@ -665,7 +686,7 @@
               <h4 class="font-semibold">Chicken Suya</h4>
               <p class="text-sm text-gray-600 font-semibold">MenuLanding Page Description</p>
               <p class="text-sm text-gray-600">₦3,000</p>
-              
+
             </div>
 
             <div class="flex space-x-2">
@@ -675,7 +696,7 @@
               </button>
             </div>
           </div>
-      
+
           <!-- Repeat for more products -->
         </div>
       </div>
@@ -688,7 +709,8 @@
 
         <div>
           <label for="specialLandingName" class="block text-sm font-medium">Special Name</label>
-          <input type="text" id="specialLandingName" name="specialLandingName" class="w-full p-2 border rounded" required>
+          <input type="text" id="specialLandingName" name="specialLandingName" class="w-full p-2 border rounded"
+            required>
         </div>
 
         <div>
@@ -718,7 +740,7 @@
             <div>
               <h4 class="font-semibold">Chicken Suya</h4>
               <p class="text-sm text-gray-600 font-semibold">MenuLanding Page Description</p>
-              
+
             </div>
 
             <div class="flex space-x-2">
@@ -728,7 +750,7 @@
               </button>
             </div>
           </div>
-      
+
           <!-- Repeat for more products -->
         </div>
       </div>
@@ -804,7 +826,7 @@
             <div>
               <h4 class="font-semibold">Chicken Suya</h4>
               <p class="text-sm text-gray-600 font-semibold"><span>Posted: </span>Time Posted</p>
-              
+
             </div>
 
             <div class="flex space-x-2">
@@ -814,7 +836,7 @@
               </button>
             </div>
           </div>
-      
+
           <!-- Repeat for more products -->
         </div>
       </div>
@@ -824,49 +846,32 @@
     <section id="dailyMenuSection" class="flex-1 p-6 space-y-6 ml-[20%] content hidden">
       <div class="bg-white shadow-lg rounded-lg p-6">
         <h2 class="text-xl font-bold mb-4">Manage Daily Menu</h2>
-      
+
         <!-- Upload Product Form -->
         <form id="dailyMenuForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
           <div>
             <label for="menuTitle" class="block text-sm font-medium text-gray-700">Daily Menu Title</label>
-            <input
-              type="text"
-              id="menuTitle"
-              name="menuTitle"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter daily menu title"
-            />
+            <input type="text" id="menuTitle" name="menuTitle"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter daily menu title" />
           </div>
-      
+
           <div id="dailyMenuPrice">
             <label for="price2" class="block text-sm font-medium text-gray-700">Price (₦)</label>
-            <input
-              type="number"
-              id="price2"
-              name="price"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter product price"
-            />
+            <input type="number" id="price2" name="price" class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter product price" />
           </div>
-      
+
           <div>
             <label for="menuImage2" class="block text-sm font-medium text-gray-700">Daily Menu Image</label>
-            <input
-              type="file"
-              id="menuImage2"
-              name="menuImage"
-              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600"
-            />
+            <input type="file" id="menuImage2" name="menuImage"
+              class="mt-1 block w-full text-sm text-gray-500 file:py-2 file:px-4 file:rounded file:border-0 file:text-white file:bg-green-500 hover:file:bg-green-600" />
           </div>
-      
-          <button
-            type="submit"
-            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-          >
+
+          <button type="submit" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
             Upload Product
           </button>
         </form>
-      
+
         <!-- Product List -->
         <h3 class="text-lg font-semibold mb-4">Existing Daily Menu</h3>
         <div id="dailyMenuProductList" class="space-y-4">
@@ -891,132 +896,101 @@
               </button>
             </div>
           </div>
-      
+
           <!-- Repeat for more products -->
         </div>
-      </div>      
+      </div>
     </section>
 
 
-      <!-- POP UP SECTIONS -->
+    <!-- POP UP SECTIONS -->
 
-      <!-- MenuEditPopUpSection  -->
-       <section id="menuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
-          <div id="menuPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+    <!-- MenuEditPopUpSection  -->
+    <section id="menuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
+      <div id="menuPopUpDiv"
+        class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
 
-            <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
-              <div><i class="fas fa-times"></i></div>
-              <p>close</p>
-            </div>
-
-            <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
-      
-        <!-- Upload Product Form -->
-            <form id="editMenuProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
-              <div class="eachEditMenuProductDiv">
-                <label for="menuProductName" class="block text-sm font-medium ">Existing Product Name</label>
-                <input
-                  type="text"
-                  id="menuProductName"
-                  name="menuProductName"
-                  class="mt-1 p-2 block w-full border border-gray-300 rounded"
-                  placeholder="Enter new product name"
-                />
-              </div>
-          
-              <div>
-                <label for="menuDescription" class="block text-sm font-medium ">Existing Product Description</label>
-                <textarea
-                  id="menuDescription"
-                  name="menuDescription"
-                  class="mt-1 p-2 block w-full border border-gray-300 rounded"
-                  rows="3"
-                  placeholder="Enter new product description"
-                ></textarea>
-              </div>
-          
-              <div>
-                <label for="menuPrice" class="block text-sm font-medium "> Existing Product Price (₦)</label>
-                <input
-                  type="number"
-                  id="menuPrice"
-                  name="menuPrice"
-                  class="mt-1 p-2 block w-full border border-gray-300 rounded"
-                  placeholder="Enter new product price"
-                />
-              </div>
-          
-              <button
-                type="submit"
-                class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-              >
-                Upload Product
-              </button>
-              
-            </form>
-          </div>
-       </section>
-
-
-       <!-- specialEditPopUpSection  -->
-       <section id="specialPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
-        <div id="specialPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
-
-          <div id="closeSpecialPopUp" class="text-red-500 flex items-center font-bold">
-            <div><i class="fas fa-times"></i></div>
-            <p>close</p>
-          </div>
-
-          <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit special Products</h2>
-    
-      <!-- Upload Product Form -->
-          <form id="editSpecialProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
-            <div class="eachEditspecialProductDiv">
-              <label for="specialProductName" class="block text-sm font-medium ">Existing Product Name</label>
-              <input
-                type="text"
-                id="specialProductName"
-                name="specialProductName"
-                class="mt-1 p-2 block w-full border border-gray-300 rounded"
-                placeholder="Enter new product name"
-              />
-            </div>
-        
-            <div>
-              <label for="specialDescription" class="block text-sm font-medium ">Existing Product Description</label>
-              <textarea
-                id="specialDescription"
-                name="specialDescription"
-                class="mt-1 p-2 block w-full border border-gray-300 rounded"
-                rows="3"
-                placeholder="Enter new product description"
-              ></textarea>
-            </div>
-        
-            <div>
-              <label for="specialPrice" class="block text-sm font-medium "> Existing Product Price (₦)</label>
-              <input
-                type="number"
-                id="specialPrice"
-                name="specialPrice"
-                class="mt-1 p-2 block w-full border border-gray-300 rounded"
-                placeholder="Enter new product price"
-              />
-            </div>
-        
-            <button
-              type="submit"
-              class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-            >
-              Upload Product
-            </button>
-            
-          </form>
+        <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
+          <div><i class="fas fa-times"></i></div>
+          <p>close</p>
         </div>
-     </section>
 
-     <!-- MenuLandingPageEditPopUpSection  -->
-    <section id="MenuLandingPageEditPopUpSection" class="flex-1 p-6 space-y-6 ml-[20%] fixed inset-0 bg-blue-100 hidden">
+        <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
+
+        <!-- Upload Product Form -->
+        <form id="editMenuProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+          <div class="eachEditMenuProductDiv">
+            <label for="menuProductName" class="block text-sm font-medium ">Existing Product Name</label>
+            <input type="text" id="menuProductName" name="menuProductName"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter new product name" />
+          </div>
+
+          <div>
+            <label for="menuDescription" class="block text-sm font-medium ">Existing Product Description</label>
+            <textarea id="menuDescription" name="menuDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" rows="3"
+              placeholder="Enter new product description"></textarea>
+          </div>
+
+          <div>
+            <label for="menuPrice" class="block text-sm font-medium "> Existing Product Price (₦)</label>
+            <input type="number" id="menuPrice" name="menuPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter new product price" />
+          </div>
+
+          <button type="submit" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
+            Upload Product
+          </button>
+
+        </form>
+      </div>
+    </section>
+
+
+    <!-- specialEditPopUpSection  -->
+    <section id="specialPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
+      <div id="specialPopUpDiv"
+        class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+
+        <div id="closeSpecialPopUp" class="text-red-500 flex items-center font-bold">
+          <div><i class="fas fa-times"></i></div>
+          <p>close</p>
+        </div>
+
+        <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit special Products</h2>
+
+        <!-- Upload Product Form -->
+        <form id="editSpecialProductForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
+          <div class="eachEditspecialProductDiv">
+            <label for="specialProductName" class="block text-sm font-medium ">Existing Product Name</label>
+            <input type="text" id="specialProductName" name="specialProductName"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter new product name" />
+          </div>
+
+          <div>
+            <label for="specialDescription" class="block text-sm font-medium ">Existing Product Description</label>
+            <textarea id="specialDescription" name="specialDescription"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" rows="3"
+              placeholder="Enter new product description"></textarea>
+          </div>
+
+          <div>
+            <label for="specialPrice" class="block text-sm font-medium "> Existing Product Price (₦)</label>
+            <input type="number" id="specialPrice" name="specialPrice"
+              class="mt-1 p-2 block w-full border border-gray-300 rounded" placeholder="Enter new product price" />
+          </div>
+
+          <button type="submit" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
+            Upload Product
+          </button>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- MenuLandingPageEditPopUpSection  -->
+    <section id="MenuLandingPageEditPopUpSection"
+      class="flex-1 p-6 space-y-6 ml-[20%] fixed inset-0 bg-blue-100 hidden">
 
       <div class="flex justify-between items-center">
         <div>
@@ -1038,7 +1012,7 @@
           <label for="" class="block text-sm font-medium">Menu Description</label>
           <input type="text" id="" name="menuLandingDes" class="w-full p-2 border rounded" required>
         </div>
-        
+
         <div>
           <label for="" class="block text-sm font-medium">Upload Image</label>
           <input type="file" id="" name="menuLandingImage" class="w-full p-2" required>
@@ -1048,7 +1022,8 @@
     </section>
 
     <!-- specialLandingPageEditPopUpSection  -->
-    <section id="specialLandingPageEditPopUpSection" class="flex-1 p-6 space-y-6 ml-[20%] fixed inset-0 bg-blue-100 hidden">
+    <section id="specialLandingPageEditPopUpSection"
+      class="flex-1 p-6 space-y-6 ml-[20%] fixed inset-0 bg-blue-100 hidden">
 
       <div class="flex justify-between items-center">
         <div>
@@ -1070,7 +1045,7 @@
           <label for="" class="block text-sm font-medium">Special Description</label>
           <input type="text" id="" name="specialLandingDes" class="w-full p-2 border rounded" required>
         </div>
-        
+
         <div>
           <label for="" class="block text-sm font-medium">Upload Image</label>
           <input type="file" id="" name="specialLandingImage" class="w-full p-2" required>
@@ -1078,10 +1053,11 @@
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded">Proceed</button>
       </form>
     </section>
-     
+
     <!-- DAILY MENU POPUP SECTION  -->
     <section id="dailyMenuPopUpSection" class="fixed inset-0 bg-black bg-opacity-50 grid items-center hidden">
-      <div id="dailyMenuPopUpDiv" class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
+      <div id="dailyMenuPopUpDiv"
+        class="w-[95%] md:w-[650px] mx-auto bg-black text-white border-white border-[1px] px-[10px] rounded-md">
 
         <div id="closeMenuPopUp" class="text-red-500 flex items-center font-bold">
           <div><i class="fas fa-times"></i></div>
@@ -1089,56 +1065,43 @@
         </div>
 
         <h2 class="text-xl font-bold mb-4 text-center mt-[10px]">Edit Menu Products</h2>
-  
-    <!-- Upload Product Form -->
+
+        <!-- Upload Product Form -->
         <form id="editDailyMenuForm" enctype="multipart/form-data" class="space-y-4 border-b pb-6 mb-6">
           <div class="eachEditMenuProductDiv">
             <label class="block text-sm font-medium ">Existing Daily Menu</label>
-            <input
-              type="text"
-              name="menuTitle"
-              value=""
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter new product name"
-            />
+            <input type="text" name="menuTitle" value="" class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter new product name" />
           </div>
-      
+
           <div>
             <label class="block text-sm font-medium "> Existing Product Price (₦)</label>
-            <input
-              type="number"
-              name="price"
-              value=""
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              placeholder="Enter new product price"
-            />
+            <input type="number" name="price" value="" class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              placeholder="Enter new product price" />
           </div>
 
           <div>
             <label class="block text-sm font-medium text-gray-700">Daily Menu Image</label>
-            <input
-              type="file"
-              name="menuImage"
-              class="mt-1 p-2 block w-full border border-gray-300 rounded"
-              accept="image/*"
-            />
+            <input type="file" name="menuImage" class="mt-1 p-2 block w-full border border-gray-300 rounded"
+              accept="image/*" />
           </div>
-      
-          <button
-            type="submit"
-            class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full"
-          >
+
+          <button type="submit" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">
             Upload Product
           </button>
-          
+
         </form>
 
-        
+
       </div>
-   </section>
+    </section>
 
 
 
+    <!-- Preloader -->
+<div id="preloader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+</div>
 
   </div>
 
@@ -1146,7 +1109,7 @@
     const ctx = document.getElementById('growthChart').getContext('2d');
     let currentMonth = new Date().getMonth() + 1; // Current month (1-based)
     let currentYear = new Date().getFullYear();
-  
+
     // Initialize Chart.js
     let growthChart = new Chart(ctx, {
       type: 'line',
@@ -1161,7 +1124,7 @@
         }]
       }
     });
-  
+
     const updateChart = (month, year) => {
       fetch(`http://localhost:3000/doveeysKitchen/adminGetOrder/getMonthlyOrders?month=${month}&year=${year}`)
         .then(response => response.json())
@@ -1171,11 +1134,11 @@
           orders.forEach(order => {
             weeklyOrders[order._id - 1] = order.totalOrders; // Adjust week index
           });
-  
+
           // Update chart data
           growthChart.data.datasets[0].data = weeklyOrders;
           growthChart.update();
-  
+
           // Update current month display
           const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -1185,7 +1148,7 @@
         })
         .catch(error => console.error(error));
     };
-  
+
     // Event Listeners for Navigation
     document.getElementById('prevMonthBtn').addEventListener('click', () => {
       if (currentMonth === 1) {
@@ -1196,7 +1159,7 @@
       }
       updateChart(currentMonth, currentYear);
     });
-  
+
     document.getElementById('nextMonthBtn').addEventListener('click', () => {
       if (currentMonth === 12) {
         currentMonth = 1;
@@ -1206,7 +1169,7 @@
       }
       updateChart(currentMonth, currentYear);
     });
-  
+
     // Load initial chart data
     updateChart(currentMonth, currentYear);
   </script>
@@ -1214,4 +1177,5 @@
   <script src="../jsFolder/specialOrder.js"></script>
   <script src="../jsFolder/userMessage.js"></script>
 </body>
+
 </html>
