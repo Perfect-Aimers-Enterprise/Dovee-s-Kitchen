@@ -78,8 +78,13 @@ const deleteEventMgt = async (req, res) => {
     try {
         const { id } = req.params;
 
+        console.log(id);
+        
+
         const existingMenu = await EventMgt.findById(id)
 
+        console.log(existingMenu);
+        
         if (!existingMenu) {
             return res.status(404).json({ error: "Menu not found" });
         }

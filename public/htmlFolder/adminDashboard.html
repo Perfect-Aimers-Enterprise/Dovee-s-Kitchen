@@ -553,7 +553,7 @@
 
           <!-- Product List -->
           <h3 class="text-lg font-semibold mb-4">Existing Event Products</h3>
-          <div id="menuProductList" class="space-y-4">
+          <div id="eventMenuProductList" class="space-y-4">
             <!-- Example Product Card -->
             <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
               <div class="flex items-center space-x-4">
@@ -1103,6 +1103,24 @@
   <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
 </div>
 
+<!-- New UPDAte Alert  -->
+ <div class="text-center bg-green-500 fixed top-1 right-1 w-fit p-[10px] rounded-md text-[10px] md:text-[12px] lg:text-[14px]" id="newUpdateAlert">
+  <div class=" w-full text-red-600">
+    <div class="relative w-full text-red-600">
+      <p class="absolute right-1 top-1 font-bold cursor-pointer" id="newUpdateAlertX">X</p>
+    </div>
+    
+  </div>
+  <h1 class="font-bold mt-[20px]">New Update</h1>
+  <div>
+    <p>The admin can now update upcoming events</p>
+    <p>The events can be toggled on and off at will</p>
+    <p>The active event will auto display on the user end</p>
+    <p class="text-orange-700 font-bold">Try it out Admin</p>
+    <p class="font-bold">click on the 5th button by your left</p>
+  </div>
+ </div>
+
   </div>
 
   <script>
@@ -1172,6 +1190,13 @@
 
     // Load initial chart data
     updateChart(currentMonth, currentYear);
+
+
+    const newUpdateAlertX = document.getElementById('newUpdateAlertX')
+
+    newUpdateAlertX.addEventListener('click', () => {
+      document.getElementById('newUpdateAlert').classList.add('hidden')
+    })
   </script>
   <script src="../jsFolder/order.js"></script>
   <script src="../jsFolder/specialOrder.js"></script>

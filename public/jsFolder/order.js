@@ -1415,7 +1415,82 @@ triggerNoteRead.forEach((eachTriggerBtn) => {
   })
 })
 
+// Fetch All  Event Product 
+const eventMenuProductList = document.getElementById('eventMenuProductList')
+const fetchEventProductFunc = async () => {
+  eventMenuProductList.innerHTML = ''
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventapi/getAllEventMgts`)
 
+    console.log(response);
+
+    const data = await response.json()
+    console.log(data);
+
+    data.forEach((eachData) => {
+       const allEvent = `
+      <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
+              <div class="flex items-center space-x-4">
+                <img src="${eachData.eventImage}" alt="${eachData.eventTitle}" class="w-16 h-16 object-cover rounded">
+                <div>
+                  <h4 class="font-semibold">${eachData.eventTitle}</h4>
+                  <p class="text-sm text-gray-600">₦${eachData.eventPrice}</p>
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600" id="deleteEachEventBtn" data-id="${eachData._id}">
+                  <p class="hidden md:block">Delete</p>
+                  <i class="fas fa-trash md:hidden"></i>
+                </button>
+              </div>
+            </div>
+    
+    `
+
+    eventMenuProductList.innerHTML += allEvent
+
+    const deleteEachEventBtn = document.querySelectorAll('#deleteEachEventBtn')
+
+    deleteEachEventBtn.forEach((eachdeleteEachEventBtn) => {
+      console.log(eachdeleteEachEventBtn);
+
+      eachdeleteEachEventBtn.addEventListener('click', (e) => {
+        // console.log('Event Target', e.target.closest('#deleteEachEventBtn').dataset.id);
+
+        const eventId = e.target.closest('#deleteEachEventBtn').dataset.id
+        deleteEventProductFunc(eventId)
+      })
+      
+      // deleteEventProductFunc(eachData._id)
+    })
+    
+    })
+   
+    
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+const deleteEventProductFunc = async (eventId) => {
+console.log('Hello World Delete');
+
+  console.log(eventId);
+  
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventapi/deleteEventMgt/${eventId}`, {
+      method: 'DELETE'
+    })
+
+    console.log(response);
+
+    await fetchEventProductFunc()
+    
+  } catch (error) {
+    console.error(error)
+  }
+}
 
 document.getElementById('eventHeaderForm').addEventListener('submit', async (e) => {
   e.preventDefault()
@@ -1478,6 +1553,13 @@ const toggleEventFunc = async () => {
   document.getElementById("preloader").classList.add('hidden')
 };
 
+
+    eventToggleStatus.onchange = () => {
+      console.log("Changes occurred");
+      toggleEventFunc();
+    };
+
+
 const getToggleEventFunc = async () => {
   document.getElementById("preloader").classList.remove('hidden')
   // eventToggleStatusDiv.innerHTML = ''; 
@@ -1488,6 +1570,10 @@ const getToggleEventFunc = async () => {
 
     const data = await response.json();
     console.log(data);
+
+    // if(data) {
+    //   eventToggleStatusDiv.innerHTML = ''; 
+    // }
 
     const toggleStatus = data.toggleEventStatus == "Checked" ? "checked" : "";
     const toggleStatusTrig = data.toggleEventStatus == "Checked" ? "active" : "inactive";
@@ -1551,6 +1637,7 @@ const checkAdminAuth = async () => {
 window.onload = () => {
   checkAdminAuth()
   getToggleEventFunc();
+  fetchEventProductFunc();
   document.getElementById("preloader").classList.remove('hidden')
   setTimeout(() => {
     document.getElementById("preloader").classList.add('hidden')

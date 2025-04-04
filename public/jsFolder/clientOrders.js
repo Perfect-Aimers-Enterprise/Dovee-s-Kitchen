@@ -32,6 +32,7 @@ const config2 = {
 document.addEventListener('DOMContentLoaded', ()=> {
     getAllMenuProductFunc()
     populateUserProceedOrder()
+    
     // fetchUserGallery()
 
     
@@ -515,10 +516,11 @@ const updateTotalPrice = () => {
 };
 
 
-
-
-
 // Helper function to check if all variations are invalid
 function isAllVariationsInvalid(variations) {
     return variations.every((variation) => !variation.size || variation.price === null);
   }
+
+
+
+
