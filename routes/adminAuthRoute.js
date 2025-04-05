@@ -5,7 +5,7 @@ const { authenticateAdmin, getAdminVerification } = require('../controller/admin
 const cookieJwtAuth = require('../middleWare/cookieJwtAuth')
 
 router.post('/authenticateAdmin', authenticateAdmin)
-router.get('/verifyAdmin', cookieJwtAuth, getAdminVerification)
+router.get('/verifyAdmin', getAdminVerification)
 
 
 

@@ -1604,38 +1604,38 @@ const getToggleEventFunc = async () => {
 };
 
 
-const checkAdminAuth = async () => {
-  try {
-      const response = await fetch(`${config.apiUrl}/doveeysKitchen/safezone/verifyAdmin`, {
+// const checkAdminAuth = async () => {
+//   try {
+//       const response = await fetch(`${config.apiUrl}/doveeysKitchen/safezone/verifyAdmin`, {
 
-        credentials: 'include', 
-          method: 'GET',
+//         credentials: 'include', 
+//           method: 'GET',
           
-      });
+//       });
 
-      console.log(response);
+//       console.log(response);
       
-      const data = await response.json();
+//       const data = await response.json();
 
-      console.log(data);
+//       console.log(data);
       
 
-      if (!response.ok) {
-        console.log('log 1');
+//       if (!response.ok) {
+//         console.log('log 1');
         
-          // window.location.href = "../htmlFolder/adminAuth.html";
-      }
-  } catch (error) {
-    console.log('log 2');
+//           // window.location.href = "../htmlFolder/adminAuth.html";
+//       }
+//   } catch (error) {
+//     console.log('log 2');
     
-      // window.location.href = "../htmlFolder/adminAuth.html";
-  }
-};
+//       // window.location.href = "../htmlFolder/adminAuth.html";
+//   }
+// };
 
 
 // Initialize the toggle status on page load
+
 window.onload = () => {
-  checkAdminAuth()
   getToggleEventFunc();
   fetchEventProductFunc();
   document.getElementById("preloader").classList.remove('hidden')

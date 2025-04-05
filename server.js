@@ -3,7 +3,6 @@ const express = require('express');
 const cors = require('cors')
 // const http = require('http');
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser');
 const path = require('path')
 const connectDB = require('./db/connectDB')
 const userRoute = require('./routes/userRoute')
@@ -43,26 +42,9 @@ const app = express();
 
 
 // Serve static files
-// app.use(express.static('public'));
-const allowedOrigins = [
-  'http://localhost:3000',
-  'http://localhost:5501',  // For local testing
-  'http://127.0.0.1:5501',  // Alternative localhost
-  'https://doveeyskitchen.org',  // ✅ Your live domain
-  'https://www.doveeyskitchen.org' // ✅ With "www" (if applicable)
-];
 
 
-app.use(cookieParser());
-// secure: process.env.NODE_ENV === 'production',  // ✅ Secure in production, not in development
-// app.use(cors({
-//   origin: allowedOrigins,  
-//   // credentials: true  // ✅ Allow cookies/sessions
-// }));
-app.use(cors({
-  origin: allowedOrigins,
-  credentials: true  // Allow cookies to be sent
-}));
+app.use(cors());
 
 app.use(express.json())
 

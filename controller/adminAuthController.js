@@ -27,28 +27,6 @@ const authenticateAdmin = async (req, res) => {
                 return res.status(403).json({ error: 'Maximum Email Exceeded' });
             }
 
-            const token = jwt.sign({ adminEmail }, process.env.JWT_SECRET, { expiresIn: '7h' });
-
-            console.log(token);
-
-            // res.cookie('hello', 'world')
-            
-            res.cookie('adminToken', token, {
-                httpOnly: true, // Prevents JavaScript access
-                // secure: process.env.NODE_ENV === 'production', // Only use 'secure: true' in production
-                secure: true, // Use HTTPS in production
-                sameSite: 'Strict', // Prevent CSRF attacks
-                maxAge: 60 * 60 * 24 * 7 * 1000  // 7 days in milliseconds
-
-            });
-
-            // res.cookie('adminToken', token, {
-            //     httpOnly: true,
-            //     secure: process.env.NODE_ENV === 'production',  // Ensure Secure flag in production (only over HTTPS)
-            //     sameSite: 'None',  // For cross-site requests, if using localhost in development
-            //     maxAge: 60 * 60 * 24 * 7,  // Set the cookie to expire after 1 week
-            //     path: '/'  // The cookie should be available throughout the site
-            // });
 
             // Hash the password before storing
             const salt = await bcrypt.genSalt(10);
@@ -75,26 +53,6 @@ const authenticateAdmin = async (req, res) => {
             });
         }
 
-
-        const token = jwt.sign({ adminEmail }, process.env.JWT_SECRET, { expiresIn: '7h' });
-
-        console.log(token);
-        
-        res.cookie('adminToken', token, {
-            httpOnly: true, // Prevents JavaScript access
-            // secure: process.env.NODE_ENV === 'production', // Only use 'secure: true' in productions
-            secure: true, // Use HTTPS in production
-            sameSite: 'Strict', // Prevent CSRF attacks
-            maxAge: 60 * 60 * 24 * 7 * 1000  // 7 days in milliseconds
-        });
-
-        // res.cookie('adminToken', token, {
-        //     httpOnly: true,
-        //     secure: process.env.NODE_ENV === 'production',  // Ensure Secure flag in production (only over HTTPS)
-        //     sameSite: 'None',  // For cross-site requests, if using localhost in development
-        //     maxAge: 60 * 60 * 24 * 7,  // Set the cookie to expire after 1 week
-        //     path: '/'  // The cookie should be available throughout the site
-        // });
 
         res.status(200).json({ message: 'Login successful! Redirecting...', adminauth });
     } catch (error) {
