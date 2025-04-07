@@ -10,15 +10,17 @@ const registerUser = async (req, res) => {
         const token = user.createJwt()
         console.log(token);
         
-        
+        // We use service when it's normal GMail and we use HOST, PORT & SECURE when it's other provider
+
         const transporter = nodemailer.createTransport({
-            service: 'gmail',
+            // service: 'gmail',
+            host: "smtp.zoho.com",
+            port: 465,
+            secure: true,
             auth: {
               user: process.env.DOVEEYS_EMAIL,
               pass: process.env.DOVEEYS_PASS,
             },
-            debug: true,
-            logger: true,
           });
           
 
@@ -59,7 +61,7 @@ const registerUser = async (req, res) => {
                     <tr>
                         <td style="padding: 10px;">
                             <p style="font-size: 14px; margin: 0;">
-                                Click <a href="https://doveeys-kitchen.onrender.com/htmlFolder/Doviee2.html" style="font-weight: bold; color: #007bff; text-decoration: none;">here</a> to place your first order.
+                                Click <a href="https://doveeyskitchen.org/" style="font-weight: bold; color: #007bff; text-decoration: none;">here</a> to place your first order.
                             </p>
                         </td>
                     </tr>

@@ -1,4 +1,5 @@
 const productModel = require('../model/productModel')
+const nodemailer = require('nodemailer')
 
 const createMenuProduct = async (req, res) => {
 
@@ -24,6 +25,7 @@ const createMenuProduct = async (req, res) => {
         if (!menuProduct) {
             return res.status(404).json({message: 'Please fill up all required field'})
         }
+
 
         res.status(201).json({menuProduct, message: 'Product uploaded Successfully'})
     } catch (error) {
