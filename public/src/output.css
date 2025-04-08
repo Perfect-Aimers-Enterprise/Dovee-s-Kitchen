@@ -822,6 +822,10 @@ video {
   height: 5rem;
 }
 
+.h-3 {
+  height: 0.75rem;
+}
+
 .h-40 {
   height: 10rem;
 }
@@ -915,6 +919,10 @@ video {
   width: 5rem;
 }
 
+.w-3 {
+  width: 0.75rem;
+}
+
 .w-3\/4 {
   width: 75%;
 }
@@ -999,6 +1007,32 @@ video {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8,0,1,1);
+  }
+
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0,0,0.2,1);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: .5;
+  }
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 @keyframes spin {
@@ -1357,6 +1391,10 @@ video {
   --tw-bg-opacity: 0.5;
 }
 
+.bg-opacity-70 {
+  --tw-bg-opacity: 0.7;
+}
+
 .bg-gradient-to-tr {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
@@ -1584,6 +1622,11 @@ video {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-7xl {
+  font-size: 4.5rem;
+  line-height: 1;
 }
 
 .text-\[10px\] {
@@ -1884,6 +1927,14 @@ video {
   transition-duration: 300ms;
 }
 
+.\[animation-delay\:-0\.15s\] {
+  animation-delay: -0.15s;
+}
+
+.\[animation-delay\:-0\.3s\] {
+  animation-delay: -0.3s;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -2126,6 +2177,10 @@ li a .activeNav {
     line-height: 1;
   }
 
+  .md\:text-\[12px\] {
+    font-size: 12px;
+  }
+
   .md\:text-\[18px\] {
     font-size: 18px;
   }
@@ -2190,6 +2245,10 @@ li a .activeNav {
   .lg\:px-16 {
     padding-left: 4rem;
     padding-right: 4rem;
+  }
+
+  .lg\:text-\[14px\] {
+    font-size: 14px;
   }
 }
 

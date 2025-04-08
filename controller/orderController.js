@@ -3,6 +3,7 @@ const Subscription = require('../model/subscriptionModel'); // Assuming you have
 const { webPush } = require('../utils/webPushConfig');
 const userSchema = require('../model/userModel')
 const nodemailer = require('nodemailer')
+const path = require('path')
 
 const getAllProceedOrder = async (req, res) => {
     try {
@@ -69,10 +70,10 @@ const createProceedOrder = async (req, res) => {
         <p style="font-size: 16px;">Hi <strong>${orderProceed.userName}</strong>,</p>
         <p>Thank you for placing an order with <strong>Doveeys Kitchen</strong>! Here’s a summary of your order:</p>
 
-        <div style="border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
+        <div style="border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px; overflow-x: auto;">
           <table style="width: 100%; border-collapse: collapse;">
             <thead>
-              <tr style="background-color: #f6f6f6; overflow-x: scroll;">
+              <tr style="background-color: #f6f6f6;">
                 <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Product</th>
                 <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Image</th>
                 <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Price</th>
@@ -121,7 +122,7 @@ const createProceedOrder = async (req, res) => {
             ],
         }
 
-       await transporter.sendMail(mailOptions)
+        await transporter.sendMail(mailOptions)
 
 
         res.status(201).json({

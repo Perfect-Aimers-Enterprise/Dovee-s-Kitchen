@@ -113,7 +113,6 @@ const getAllMenuProductFunc = async () => {
 };
 
 
-
 const fetchSingleProductFunc = async (menuProductId) => {
 
   
@@ -438,7 +437,6 @@ const populateUserProceedOrder = () => {
     
 
     
-                alert(`Selected Price: ${selectedPrice}`);
                 await userProceedOrderFunc(formData)
             
 
@@ -447,7 +445,10 @@ const populateUserProceedOrder = () => {
 
 }
 
+const menuLoader = document.getElementById('menuOrderLoader')
+
 const userProceedOrderFunc = async (formData) => {
+    menuLoader.classList.remove('hidden')
     const orderPopUpAlert = document.getElementById('orderPopUpAlert')
     try {
         const userProceedResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
@@ -470,6 +471,8 @@ const userProceedOrderFunc = async (formData) => {
     } catch (error) {
         console.log(error);
         
+    } finally {
+        menuLoader.classList.add('hidden')
     }
 }
 

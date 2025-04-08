@@ -429,12 +429,13 @@ const populateSpecialProductFunc = () => {
             })
         }
 
-        alert(`Selected Price: ${selectedPrice}`);
         await userProceedSpecialOrderFunc(formData)
     })
 }
 
+const specialOrderLoader = document.getElementById('specialOrderLoader')
 const userProceedSpecialOrderFunc = async (formData) => {
+    specialOrderLoader.classList.remove('hidden')
     try {
         const response = await fetch(`${config4.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
             method: 'POST',
@@ -450,6 +451,8 @@ const userProceedSpecialOrderFunc = async (formData) => {
     } catch (error) {
         console.log(error);
         
+    }finally {
+        specialOrderLoader.classList.add('hidden')
     }
 }
 
