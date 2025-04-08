@@ -55,80 +55,67 @@ const createProceedOrder = async (req, res) => {
         const mailOptions = {
             from: process.env.DOVEEYS_EMAIL,
             to: req.body.userEmail,
-            subject: 'Your Order from Doveeys Kitchen',
+            subject: 'Doveeys Kitchen Order Placement',
             html: `
-                          <table
-        style="width: 100%; font-family: Arial, sans-serif; color: #333; text-align: center; background-color: #f9f9f9; padding: 20px;">
-        <tr>
-            <td style="padding: 10px;">
-                <h1 style="font-size: 24px; margin: 0; color: #333;">Doveeys Kitchen Product Order!</h1>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;">
-                <p style="font-size: 16px; margin: 0;">Dear ${orderProceed.userName},
+                          <body style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; color: #222;">
 
-                    Thank you for shopping with Doveey's Kitchen family! 🎉 We’re thrilled to have serve you always, and
-                    we promise to treat your taste buds to something extraordinary.
+    <div style="max-width: 600px; margin: auto; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 0 10px rgba(0,0,0,0.08);">
+      <div style="background-color: #2e7d32; color: #fff; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+        <h1 style="margin: 0; font-size: 24px;">🍽️ Doveeys Kitchen</h1>
+        <p style="margin: 5px 0 0;">Your Order Has Been Received!</p>
+      </div>
 
-                </p>
-                <p style="font-weight: bold; margin-top: 10px;">Your Order Details</p>
-                <div>
-        <tr>
-            <td style="padding: 10px;">
-                <!-- Embedded image -->
-                <img src="cid:email-image" alt="Verification Banner"
-                    style="width: 300px; height: auto; border: none; margin: 10px auto;">
-            </td>
-        </tr>
-        <tr>
-            <td>Product Name: ${req.body.menuProductOrderName}</td>
-        </tr>
-        <tr>
-            <td>Product Quantity: ${req.body.menuProductOrderQuantity}</td>
-        </tr>
-        <tr>
-            <td>Total Price: ${req.body.menuTotalProductOrderPrice}</td>
-        </tr>
-        <tr>
-            <td>Variation: ${req.body.menuProductOrderVariation.size} ${req.body.menuProductOrderVariation.price}</td>
-        </tr>
-        <tr>
-            <td>Product Price: ${req.body.menuProductOrderPrice}</td>
-        </tr>
+      <div style="padding: 20px;">
+        <p style="font-size: 16px;">Hi <strong>${orderProceed.userName}</strong>,</p>
+        <p>Thank you for placing an order with <strong>Doveeys Kitchen</strong>! Here’s a summary of your order:</p>
 
+        <div style="border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px;">
+          <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #f6f6f6; overflow-x: scroll;">
+                <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Product</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Image</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Price</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Qty</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Repeat this TR for each product -->
+              <tr>
+                <td style="padding: 10px;">${orderProceed.menuProductOrderName}</td>
+                <td style="padding: 10px; text-align: center;">
+                  <img src="cid:email-image" alt="${orderProceed.menuProductOrderImage}" width="60" height="60" style="border-radius: 6px; object-fit: cover;" />
+                </td>
+                <td style="padding: 10px; text-align: center;">₦${orderProceed.menuProductOrderPrice}</td>
+                <td style="padding: 10px; text-align: center;">${orderProceed.menuProductOrderQuantity}</td>
+                <td style="padding: 10px; text-align: center;">₦${orderProceed?.menuTotalProductOrderPrice}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        </td>
-        </tr>
 
-        <tr>
-            <td style="padding: 20px;">For more delivery info, contact our admin <span
-                    style="font-weight: bold;">doveeyskitchen@gmail.com</span></td>
-        </tr>
+        <div style="margin-top: 20px;">
+          <p><strong>Order Total: ₦${orderProceed?.menuTotalProductOrderPrice}</strong></p>
+        </div>
 
-        <tr>
+        <div style="margin-top: 30px; font-size: 14px;">
+          <p>If you have any questions or special requests, feel free to reply to this email. We’re always here to serve you with a smile 😊</p>
+          <p style="margin-top: 10px;">Stay hungry, stay happy!<br/><strong style="color: #ff6f00;">– Doveeys Kitchen Team</strong></p>
+        </div>
+      </div>
 
-            <td style="padding: 10px;">
-                <p style="font-size: 14px; margin: 0;">
-                    Click <a href="https://doveeyskitchen.org/"
-                        style="font-weight: bold; color: #007bff; text-decoration: none;">here</a> to shop again with
-                    us.
-                </p>
-            </td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;">
-                <p style="font-size: 12px; color: #666; margin: 0;">
-                    If you did not request this, please ignore this email or contact our support.
-                </p>
-            </td>
-        </tr>
-    </table>
+      <div style="background-color: #000; color: #fff; text-align: center; padding: 15px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+        <p style="margin: 0; font-size: 12px;">© 2025 Doveeys Kitchen. All rights reserved.</p>
+      </div>
+    </div>
+
+  </body>
                         `,
             attachments: [
                 {
                     filename: 'electrical1.jpg', // Image filename
-                    path: path.resolve(__dirname, `../public/image/menuImage/${req.body.menuProductOrderImage}`),// Image path
+                    path: path.resolve(__dirname, `../public/htmlFolder/${orderProceed.menuProductOrderImage}`),// Image path
                     cid: 'email-image', // Content ID matches img src
                 },
             ],
