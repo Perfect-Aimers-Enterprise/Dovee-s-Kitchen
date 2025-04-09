@@ -174,6 +174,76 @@ const adminCancleOrder = async (req, res) => {
         const { id: orderId } = req.params
         const orderProceed = await orderModel.findOneAndDelete({ createdBy: req.user.userId, _id: orderId })
 
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.zoho.com',
+            port: 465,
+            auth: {
+                user: process.env.DOVEEYS_EMAIL,
+                pass: process.env.DOVEEYS_PASS
+            }
+        })
+
+        const mailOptions = {
+            from: process.env.DOVEEYS_EMAIL,
+            to: orderProceed.userName,
+            subject: 'Order Cancellation Doveeys Kitchen',
+            html: `
+                    <body style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; color: #222;">
+
+                <div style="max-width: 600px; margin: auto; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 0 10px rgba(0,0,0,0.08);">
+                    
+                    <div style="background-color: #2e7d32; color: #fff; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                    <h1 style="margin: 0; font-size: 24px;">🍽️ Doveeys Kitchen</h1>
+                    <p style="margin: 5px 0 0;">Your Order Has Been Cancelled!</p>
+                    </div>
+
+            <div style="padding: 20px;">
+            <p style="font-size: 16px;">Hi <strong>${orderProceed.userName}</strong>,</p>
+            <p>Great news! Your order has been cancelled by <strong>Doveeys Kitchen</strong>. Here are the details:</p>
+
+            <div style="border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f6f6f6;">
+                <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Product</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Price</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Qty</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+              <td style="padding: 10px;">${orderProceed.menuProductOrderName}</td>
+              <td style="padding: 10px; text-align: center;">₦${orderProceed.menuProductOrderPrice}</td>
+              <td style="padding: 10px; text-align: center;">${orderProceed.menuProductOrderQuantity}</td>
+              <td style="padding: 10px; text-align: center;">₦${orderProceed?.menuTotalProductOrderPrice}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <p><strong>Order Total: ₦${orderProceed?.menuTotalProductOrderPrice}</strong></p>
+      </div>
+
+      <div style="margin-top: 30px; font-size: 14px;">
+        <p>Your food is being prepared and will be with you shortly. Thank you for choosing us!</p>
+        <p style="margin-top: 10px;">Stay hungry, stay happy!<br/><strong style="color: #ff6f00;">– Doveeys Kitchen Team</strong></p>
+      </div>
+    </div>
+
+    <div style="background-color: #000; color: #fff; text-align: center; padding: 15px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+      <p style="margin: 0; font-size: 12px;">© 2025 Doveeys Kitchen. All rights reserved.</p>
+    </div>
+
+  </div>
+
+</body>
+            `
+        }
+
+        await transporter.sendMail(mailOptions)
+
         res.status(201).json({ message: 'Item Cancled Successfully' })
 
     } catch (error) {
@@ -188,6 +258,76 @@ const adminConfirmOrder = async (req, res) => {
 
         orderProceed.menuProductOrderStatus = 'Confirmed'
         await orderProceed.save()
+
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.zoho.com',
+            port: 465,
+            auth: {
+                user: process.env.DOVEEYS_EMAIL,
+                pass: process.env.DOVEEYS_PASS
+            }
+        })
+
+        const mailOptions = {
+            from: process.env.DOVEEYS_EMAIL,
+            to: orderProceed.userName,
+            subject: 'Order Confirmation Doveeys Kitchen',
+            html: `
+                    <body style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; color: #222;">
+
+                <div style="max-width: 600px; margin: auto; border-radius: 8px; border: 1px solid #e0e0e0; box-shadow: 0 0 10px rgba(0,0,0,0.08);">
+                    
+                    <div style="background-color: #2e7d32; color: #fff; padding: 20px; text-align: center; border-top-left-radius: 8px; border-top-right-radius: 8px;">
+                    <h1 style="margin: 0; font-size: 24px;">🍽️ Doveeys Kitchen</h1>
+                    <p style="margin: 5px 0 0;">Your Order Has Been Confirmed!</p>
+                    </div>
+
+            <div style="padding: 20px;">
+            <p style="font-size: 16px;">Hi <strong>${orderProceed.userName}</strong>,</p>
+            <p>Great news! Your order has been confirmed by <strong>Doveeys Kitchen</strong>. Here are the details:</p>
+
+            <div style="border-top: 1px solid #ddd; margin-top: 15px; padding-top: 15px; overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f6f6f6;">
+                <th style="padding: 10px; text-align: left; border-bottom: 1px solid #ddd;">Product</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Price</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Qty</th>
+                <th style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+              <td style="padding: 10px;">${orderProceed.menuProductOrderName}</td>
+              <td style="padding: 10px; text-align: center;">₦${orderProceed.menuProductOrderPrice}</td>
+              <td style="padding: 10px; text-align: center;">${orderProceed.menuProductOrderQuantity}</td>
+              <td style="padding: 10px; text-align: center;">₦${orderProceed?.menuTotalProductOrderPrice}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="margin-top: 20px;">
+        <p><strong>Order Total: ₦${orderProceed?.menuTotalProductOrderPrice}</strong></p>
+      </div>
+
+      <div style="margin-top: 30px; font-size: 14px;">
+        <p>Your food is being prepared and will be with you shortly. Thank you for choosing us!</p>
+        <p style="margin-top: 10px;">Stay hungry, stay happy!<br/><strong style="color: #ff6f00;">– Doveeys Kitchen Team</strong></p>
+      </div>
+    </div>
+
+    <div style="background-color: #000; color: #fff; text-align: center; padding: 15px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
+      <p style="margin: 0; font-size: 12px;">© 2025 Doveeys Kitchen. All rights reserved.</p>
+    </div>
+
+  </div>
+
+</body>
+            `
+        }
+
+        await transporter.sendMail(mailOptions)
 
         res.status(201).json({ message: 'Item Confirmed' })
     } catch (error) {

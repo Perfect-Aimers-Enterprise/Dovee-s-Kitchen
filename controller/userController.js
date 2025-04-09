@@ -157,7 +157,8 @@ const getRegisteredUser = async (req, res) => {
 
 // Create a transporter using Nodemailer
 const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.zoho.com',
+    port: 465,
     auth: {
         user: process.env.DOVEEYS_EMAIL,  // Gmail email address
         pass: process.env.DOVEEYS_PASS,   // Gmail password or App Password
@@ -193,7 +194,7 @@ const sendReminderEmail = async () => {
                                 <br><br> 
                                 We’ve got a variety of mouthwatering dishes, prepared just for you! 😋
 
-                                Click <a href="https://doveeys-kitchen.onrender.com/htmlFolder/orderPage.html" style="font-weight: bold; color: #007bff; text-decoration: none;">here</a> to make your weekend order now!
+                                Click <a href="https://doveeyskitchen.com/htmlFolder/orderPage.html" style="font-weight: bold; color: #007bff; text-decoration: none;">here</a> to make your weekend order now!
                                 </p>
                             </td>
                         </tr>
