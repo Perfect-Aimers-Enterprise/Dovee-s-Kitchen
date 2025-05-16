@@ -1,8 +1,8 @@
 const config = {
     apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3000'
-      : `${window.location.protocol}//${window.location.hostname}`
-  };
+        ? 'http://localhost:3000'
+        : `${window.location.protocol}//${window.location.hostname}`
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     getAllProceedSubTotalFunc()
@@ -59,7 +59,7 @@ const getAllProceedDataCountFunc = async () => {
         })
 
         const data = await getAllProceedDataCountResponse.json()
-        
+
 
         const totalOrdersVar = `
             <h1>Total Orders (${data.count})</h1>
@@ -67,38 +67,46 @@ const getAllProceedDataCountFunc = async () => {
 
         totalOrders.innerHTML = totalOrdersVar
     } catch (error) {
-        
+
     }
 }
 
 const getAllProceedOrderFunc = async () => {
+
     try {
+        // document.getElementById("preloaderCart").classList.remove('hidden')
         const getAllProceedResponse = await fetch(`${config.apiUrl}/doveeysKitchen/order/getAllProceedOrder`, {
             method: 'GET',
             headers: {
-                    "Authorization": `Bearer ${localStorage.getItem("token")}`
+                "Authorization": `Bearer ${localStorage.getItem("token")}`
             }
         })
 
+
+
         console.log(getAllProceedResponse);
+        if (!getAllProceedResponse.ok) {
+            shoppingCartDiv.innerHTML = '<p>Shopping Cart is Empty or User is yet to Login</p>'
+            document.getElementById("preloaderCart").classList.add('hidden')
+        }
 
         const data = await getAllProceedResponse.json()
         console.log(data);
-        
+
         const orderData = data.orderProceed
 
         const shoppingCartDiv = document.getElementById('shoppingCartDiv')
 
         shoppingCartDiv.innerHTML = ''
 
-       orderData.forEach((eachOrderData) => {
-        console.log(eachOrderData);
+        orderData.forEach((eachOrderData) => {
+            console.log(eachOrderData);
 
-        const statusClass = eachOrderData.menuProductOrderStatus === "Confirmed" 
+            const statusClass = eachOrderData.menuProductOrderStatus === "Confirmed"
                 ? "bg-green-400"
                 : "bg-yellow-400";
-        
-        const populateCartOrder = `
+
+            const populateCartOrder = `
             <div class="flex items-center p-4 border rounded-lg bg-gray-50">
             <img src="${eachOrderData.menuProductOrderImage}" alt="Product" class="w-20 h-20 rounded-lg object-cover">
             <div class="ml-4 flex-1">
@@ -112,14 +120,14 @@ const getAllProceedOrderFunc = async () => {
         </div>
         `
 
-        shoppingCartDiv.innerHTML += populateCartOrder
-})
+            shoppingCartDiv.innerHTML += populateCartOrder
+        })
 
-        
 
-        
     } catch (error) {
         console.log(error);
+    } finally {
+        document.getElementById("preloaderCart").classList.add('hidden')
     }
 }
 

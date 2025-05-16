@@ -1010,6 +1010,7 @@ const updateSpecialImage = async (formData, specialLandingId) => {
 
 const galleryForm = document.getElementById('galleryForm')
 const createGalleryFunc = async () => {
+  document.getElementById("preloader").classList.remove('hidden')
   const formData = new FormData(galleryForm);
   try {
 
@@ -1029,6 +1030,8 @@ const createGalleryFunc = async () => {
   } catch (error) {
     console.error(err);
     alert("An error occurred while uploading the file.");
+  } finally {
+    document.getElementById("preloader").classList.add('hidden')
   }
 }
 
@@ -1428,7 +1431,7 @@ const fetchEventProductFunc = async () => {
     console.log(data);
 
     data.forEach((eachData) => {
-       const allEvent = `
+      const allEvent = `
       <div class="flex items-center justify-between border rounded-lg shadow-md p-4">
               <div class="flex items-center space-x-4">
                 <img src="${eachData.eventImage}" alt="${eachData.eventTitle}" class="w-16 h-16 object-cover rounded">
@@ -1447,37 +1450,37 @@ const fetchEventProductFunc = async () => {
     
     `
 
-    eventMenuProductList.innerHTML += allEvent
+      eventMenuProductList.innerHTML += allEvent
 
-    const deleteEachEventBtn = document.querySelectorAll('#deleteEachEventBtn')
+      const deleteEachEventBtn = document.querySelectorAll('#deleteEachEventBtn')
 
-    deleteEachEventBtn.forEach((eachdeleteEachEventBtn) => {
-      console.log(eachdeleteEachEventBtn);
+      deleteEachEventBtn.forEach((eachdeleteEachEventBtn) => {
+        console.log(eachdeleteEachEventBtn);
 
-      eachdeleteEachEventBtn.addEventListener('click', (e) => {
-        // console.log('Event Target', e.target.closest('#deleteEachEventBtn').dataset.id);
+        eachdeleteEachEventBtn.addEventListener('click', (e) => {
+          // console.log('Event Target', e.target.closest('#deleteEachEventBtn').dataset.id);
 
-        const eventId = e.target.closest('#deleteEachEventBtn').dataset.id
-        deleteEventProductFunc(eventId)
+          const eventId = e.target.closest('#deleteEachEventBtn').dataset.id
+          deleteEventProductFunc(eventId)
+        })
+
+        // deleteEventProductFunc(eachData._id)
       })
-      
-      // deleteEventProductFunc(eachData._id)
+
     })
-    
-    })
-   
-    
-    
+
+
+
   } catch (error) {
     console.error(error)
   }
 }
 
 const deleteEventProductFunc = async (eventId) => {
-console.log('Hello World Delete');
+  console.log('Hello World Delete');
 
   console.log(eventId);
-  
+
   try {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventapi/deleteEventMgt/${eventId}`, {
       method: 'DELETE'
@@ -1486,7 +1489,7 @@ console.log('Hello World Delete');
     console.log(response);
 
     await fetchEventProductFunc()
-    
+
   } catch (error) {
     console.error(error)
   }
@@ -1515,7 +1518,7 @@ document.getElementById('eventHeaderForm').addEventListener('submit', async (e) 
     console.log(response);
 
     document.getElementById('eventHeader').value = '',
-    document.getElementById('eventHeaderDescription').value = ''
+      document.getElementById('eventHeaderDescription').value = ''
 
   } catch (error) {
     console.error(error)
@@ -1554,10 +1557,10 @@ const toggleEventFunc = async () => {
 };
 
 
-    eventToggleStatus.onchange = () => {
-      console.log("Changes occurred");
-      toggleEventFunc();
-    };
+eventToggleStatus.onchange = () => {
+  console.log("Changes occurred");
+  toggleEventFunc();
+};
 
 
 const getToggleEventFunc = async () => {
@@ -1610,24 +1613,24 @@ const getToggleEventFunc = async () => {
 
 //         credentials: 'include', 
 //           method: 'GET',
-          
+
 //       });
 
 //       console.log(response);
-      
+
 //       const data = await response.json();
 
 //       console.log(data);
-      
+
 
 //       if (!response.ok) {
 //         console.log('log 1');
-        
+
 //           // window.location.href = "../htmlFolder/adminAuth.html";
 //       }
 //   } catch (error) {
 //     console.log('log 2');
-    
+
 //       // window.location.href = "../htmlFolder/adminAuth.html";
 //   }
 // };

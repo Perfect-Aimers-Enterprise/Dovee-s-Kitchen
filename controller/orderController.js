@@ -11,7 +11,7 @@ const getAllProceedOrder = async (req, res) => {
 
         res.status(201).json({ orderProceed, count: orderProceed.length })
     } catch (error) {
-        res.status(500).json(error)
+        res.status(500).json({ error: 'Something went wrong' })
     }
 }
 

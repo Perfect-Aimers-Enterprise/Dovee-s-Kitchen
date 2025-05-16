@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../src/output.css">
   <title>Dovieeys Kitchen - Specials</title>
   <style>
@@ -12,16 +15,19 @@
       transform: translateY(20px);
       transition: all 0.5s ease-in-out;
     }
+
     .menu-item.visible {
       opacity: 1;
       transform: translateY(0);
     }
+
     .search-bar {
       position: relative;
       width: 100%;
       max-width: 500px;
       margin: 0 auto;
     }
+
     .search-bar input {
       width: 100%;
       padding: 10px 40px 10px 15px;
@@ -30,9 +36,11 @@
       outline: none;
       transition: border 0.3s ease;
     }
+
     .search-bar input:focus {
       border: 1px solid #4caf50;
     }
+
     .search-bar i {
       position: absolute;
       right: 15px;
@@ -42,18 +50,50 @@
     }
   </style>
 </head>
+
 <body class="bg-black text-gray-200">
 
- <!-- Header -->
- <header class="bg-green-600 text-white py-3 fixed top-0 w-full z-10 shadow-md">
-  <div class="container mx-auto flex justify-between items-center px-6 lg:px-16">
-    <div class="flex items-center space-x-4">
-      <img src="../image/doveeLogo.png" alt="Logo" class="w-10 h-10">
-      <h1 class="text-lg font-bold">Doveeys Kitchen</h1>
+  <!-- Header -->
+  <header class="bg-green-600 text-white py-3 fixed top-0 w-full z-10 shadow-md">
+    <div class="container mx-auto flex justify-between items-center px-6 lg:px-16">
+      <div class="flex items-center space-x-4">
+        <img src="../image/doveeLogo.png" alt="Logo" class="w-10 h-10">
+        <h1 class="text-lg font-bold">Doveeys Kitchen</h1>
+      </div>
+
+      <nav>
+        <ul class="hidden md:flex space-x-6">
+          <li><a href="../htmlFolder/Doviee2.html" class="hover:text-orange-300">Home</a></li>
+          <li><a href="../htmlFolder/menu2.html" class="hover:text-orange-300">Menu</a></li>
+          <li><a href="../htmlFolder/special2.html" class="hover:text-orange-300">Specials</a></li>
+          <li><a href="../htmlFolder/regLog.html" class="hover:text-orange-300">Account</a></li>
+          <li><a href="../htmlFolder/Gallery.html" class="hover:text-orange-300">Gallery</a></li>
+          <li><a href="#help" class="hover:text-orange-300">Help</a></li>
+          <li>
+            <a href="../htmlFolder/shoppingCart.html" class="relative">
+              <i class="fas fa-shopping-cart"></i>
+              <span
+                class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <button id="menuToggle" class="md:hidden text-xl">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
 
-    <nav>
-      <ul class="hidden md:flex space-x-6">
+    <!-- Sliding Navbar -->
+    <nav id="slidingNavbar"
+      class="fixed top-0 right-0 h-full w-3/4 bg-black text-gray-200 transform translate-x-full transition-transform duration-300 md:hidden">
+      <div class="p-4">
+        <!-- Close Icon -->
+        <button id="closeMenu" class="text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="mt-5 space-y-4 text-lg px-6">
         <li><a href="../htmlFolder/Doviee2.html" class="hover:text-orange-300">Home</a></li>
         <li><a href="../htmlFolder/menu2.html" class="hover:text-orange-300">Menu</a></li>
         <li><a href="../htmlFolder/special2.html" class="hover:text-orange-300">Specials</a></li>
@@ -63,41 +103,13 @@
         <li>
           <a href="../htmlFolder/shoppingCart.html" class="relative">
             <i class="fas fa-shopping-cart"></i>
-            <span class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
+            <span
+              class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
           </a>
         </li>
       </ul>
     </nav>
-
-    <button id="menuToggle" class="md:hidden text-xl">
-      <i class="fas fa-bars"></i>
-    </button>
-  </div>
-
-  <!-- Sliding Navbar -->
-<nav id="slidingNavbar" class="fixed top-0 right-0 h-full w-3/4 bg-black text-gray-200 transform translate-x-full transition-transform duration-300 md:hidden">
-  <div class="p-4">
-    <!-- Close Icon -->
-    <button id="closeMenu" class="text-white text-2xl">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <ul class="mt-5 space-y-4 text-lg px-6">
-    <li><a href="../htmlFolder/Doviee2.html" class="hover:text-orange-300">Home</a></li>
-    <li><a href="../htmlFolder/menu2.html" class="hover:text-orange-300">Menu</a></li>
-    <li><a href="../htmlFolder/special2.html" class="hover:text-orange-300">Specials</a></li>
-    <li><a href="../htmlFolder/regLog.html" class="hover:text-orange-300">Account</a></li>
-    <li><a href="../htmlFolder/Gallery.html" class="hover:text-orange-300">Gallery</a></li>
-    <li><a href="#help" class="hover:text-orange-300">Help</a></li>
-    <li>
-      <a href="../htmlFolder/shoppingCart.html" class="relative">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
-      </a>
-    </li>
-  </ul>
-</nav>
-</header>
+  </header>
 
   <!-- Menu Section -->
   <section class="py-20 mt-[40px]">
@@ -117,12 +129,12 @@
 
         <!-- Special Package Card -->
         <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item">
-            <img src="../image/valentine1.jpg" alt="Valentine Package" class="w-full h-48 object-cover rounded">
-            <h3 class="mt-4 text-xl font-semibold">Valentine Package</h3>
-            <p class="text-gray-600">Deliciously seasoned rice with a bottle of red wine.</p>
-            <p class="mt-2 text-green-700 font-bold">$15</p>
-            <button class="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full">Order Now</button>
-          </div>
+          <img src="../image/valentine1.jpg" alt="Valentine Package" class="w-full h-48 object-cover rounded">
+          <h3 class="mt-4 text-xl font-semibold">Valentine Package</h3>
+          <p class="text-gray-600">Deliciously seasoned rice with a bottle of red wine.</p>
+          <p class="mt-2 text-green-700 font-bold">$15</p>
+          <button class="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full">Order Now</button>
+        </div>
 
         <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item">
           <img src="../image/jollofRice.jpg" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
@@ -152,20 +164,28 @@
   </section>
 
   <!-- Navigation PopUp Section -->
-  <section id="specialNavigationPopUp" class="fixed inset-0 bg-black bg-opacity-50 z-50 grid items-center justify-center hidden">
+  <section id="specialNavigationPopUp"
+    class="fixed inset-0 bg-black bg-opacity-50 z-50 grid items-center justify-center hidden">
     <div>
       <div class="text-center leading-10 bg-white text-black p-[20px] border-[2px] border-gray-500 rounded-md">
         <div>
           <p>Please Register or Login an account</p>
         </div>
-        <a href="regLog.html" class="bg-green-600 p-[5px] text-white cursor-pointer active:bg-green-200 active:text-black">Register/Login an Account</a>
+        <a href="regLog.html"
+          class="bg-green-600 p-[5px] text-white cursor-pointer active:bg-green-200 active:text-black">Register/Login an
+          Account</a>
 
         <div>
           <p id="specialToggleRegCloseBtn" class="text-orange-500 font-bold cursor-pointer">close</p>
         </div>
       </div>
     </div>
- </section>
+  </section>
+
+  <!-- Preloader -->
+  <div id="preloaderSpecial" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
 
   <script>
     const menuGrid = document.querySelector("#menuGrid");
@@ -192,7 +212,7 @@
 
 
     const specialToggleRegCloseBtn = document.getElementById('specialToggleRegCloseBtn')
-    
+
     specialToggleRegCloseBtn.onclick = () => {
       document.getElementById('specialNavigationPopUp').classList.add('hidden')
     }
@@ -201,4 +221,5 @@
 <script src="../jsFolder/navBar.js"></script>
 <script src="../jsFolder/clientSpecialOrders.js"></script>
 <script src="../jsFolder/cartReading.js"></script>
+
 </html>

@@ -1,41 +1,20 @@
 // config.js
 const config2 = {
     apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3000'
-      : `${window.location.protocol}//${window.location.hostname}`
-  };
+        ? 'http://localhost:3000'
+        : `${window.location.protocol}//${window.location.hostname}`
+};
 
-  const navigationPopUp = document.getElementById('navigationPopUp')
-  // Connect to the WebSocket server
-//   const socket = io(config2.apiUrl);
-
-  // Listen for 'update' events from the server
-
-//   socket.on('update', (data) => {
-//       console.log('Real-time data received:', data);
+const navigationPopUp = document.getElementById('navigationPopUp')
 
 
-//       const orderPageDiv = document.getElementById('orderPage');
-//       orderPageDiv.innerHTML = `
-//           <p><strong>Message:</strong> ${data.message}</p>
-//           <p><strong>Time:</strong> ${new Date(data.timestamp).toLocaleTimeString()}</p>
-//       `;
-//   });
-
-  // Optional: Handle disconnection
-
-//   socket.on('disconnect', () => {
-//       console.log('Disconnected from server');
-//       document.getElementById('result').innerHTML = 'Disconnected from server.';
-//   });
-
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
     getAllMenuProductFunc()
     populateUserProceedOrder()
-    
+
     // fetchUserGallery()
 
-    
+
 })
 
 // 
@@ -43,13 +22,14 @@ document.addEventListener('DOMContentLoaded', ()=> {
 const menuGridClass = document.querySelector('.menuGridClass')
 
 const getAllMenuProductFunc = async () => {
+    document.getElementById("preloaderOrder").classList.remove('hidden')
     try {
         const getAllMenuProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getMenuProducts`);
         console.log(getAllMenuProductResponse);
-        
+
         const data = await getAllMenuProductResponse.json();
         console.log(data);
-        menuGridClass.innerHTML = '';        
+        menuGridClass.innerHTML = '';
 
         data.forEach((eachData) => {
             const eachDataId = eachData._id;
@@ -58,7 +38,7 @@ const getAllMenuProductFunc = async () => {
 
 
             if (eachData.menuPrice && (!eachData.variations || eachData.variations.length === 0 || isAllVariationsInvalid(eachData.variations))) {
-                
+
                 productContent = `
                     <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
                         <img src="../image/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
@@ -69,10 +49,10 @@ const getAllMenuProductFunc = async () => {
                     </div>
                 `;
             } else if (eachData.variations && eachData.variations.length > 0) {
-                 // Show the price of the first variation
-                 const firstVariationPrice = eachData.variations[0].price;
+                // Show the price of the first variation
+                const firstVariationPrice = eachData.variations[0].price;
 
-                 productContent = `
+                productContent = `
                      <div class="border rounded-lg shadow-lg p-4 bg-white text-black menu-item" data-id="${eachDataId}">
                          <img src="../image/menuImage/${eachData.menuImage}" alt="${eachData.menuProductName}" class="w-full h-48 object-cover rounded">
                          <h3 class="mt-4 text-xl font-semibold">${eachData.menuProductName}</h3>
@@ -93,14 +73,14 @@ const getAllMenuProductFunc = async () => {
                 item.classList.add('visible');
             });
         }, 100);
-        
+
         const orderNowButton = document.querySelectorAll('#orderNowButton');
-        
+
         orderNowButton.forEach((eachOrderNowButton) => {
             eachOrderNowButton.addEventListener('click', (e) => {
                 const token = localStorage.getItem('token');
                 if (!token) {
-                   return navigationPopUp.classList.remove('hidden')
+                    return navigationPopUp.classList.remove('hidden')
                 }
                 const menuProductId = e.target.closest('.menu-item').dataset.id;
                 fetchSingleProductFunc(menuProductId);
@@ -108,43 +88,46 @@ const getAllMenuProductFunc = async () => {
         });
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
+    } finally {
+        document.getElementById("preloaderOrder").classList.add('hidden')
     }
 };
 
 
 const fetchSingleProductFunc = async (menuProductId) => {
 
-  
+
     try {
-      const fetchSingleProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
-  
-    // console.log(fetchSingleProductResponse);
-  
-      const data = await fetchSingleProductResponse.json()
-      console.log('Testing Data String', data);
+        const fetchSingleProductResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
 
-      const menuProductOrderImage = data.menuImage
-      const menuProductOrderName = data.menuProductName
-      const menuProductOrderDescription = data.menuDescription
-      const menuProductOrderPrice = data.menuPrice
-      const menuProductVariations = data.variations || []; // Check if variations exist
+        // console.log(fetchSingleProductResponse);
 
-      console.log(menuProductVariations);
-      
+        const data = await fetchSingleProductResponse.json()
+        console.log('Testing Data String', data);
 
-      localStorage.setItem('menuProductOrderImage', menuProductOrderImage)
-      localStorage.setItem('menuProductOrderName', menuProductOrderName)
-      localStorage.setItem('menuProductOrderDescription', menuProductOrderDescription)
-      localStorage.setItem('menuProductOrderPrice', menuProductOrderPrice)
-      localStorage.setItem('menuProductVariations', JSON.stringify(menuProductVariations));
+        const menuProductOrderImage = data.menuImage
+        const menuProductOrderName = data.menuProductName
+        const menuProductOrderDescription = data.menuDescription
+        const menuProductOrderPrice = data.menuPrice
+        const menuProductVariations = data.variations || []; // Check if variations exist
 
-      window.location.href = '../htmlFolder/orderDetailsPage.html'
+        console.log(menuProductVariations);
+
+
+        localStorage.setItem('menuProductOrderImage', menuProductOrderImage)
+        localStorage.setItem('menuProductOrderName', menuProductOrderName)
+        localStorage.setItem('menuProductOrderDescription', menuProductOrderDescription)
+        localStorage.setItem('menuProductOrderPrice', menuProductOrderPrice)
+        localStorage.setItem('menuProductVariations', JSON.stringify(menuProductVariations));
+
+        window.location.href = '../htmlFolder/orderDetailsPage.html'
 
     } catch (error) {
-      console.log(error);
-      
-    }}
+        console.log(error);
+
+    }
+}
 
 
 const orderPage = document.getElementById('orderPage')
@@ -160,7 +143,7 @@ const populateUserProceedOrder = () => {
     const menuProductVariations = JSON.parse(localStorage.getItem('menuProductVariations'))
 
     console.log(menuProductVariations);
-    
+
 
 
     let variationDropdown = '';
@@ -180,8 +163,8 @@ const populateUserProceedOrder = () => {
             <option disabled selected>Select Food Size</option>
             ${menuProductVariations
                 .map(
-                (variation) =>
-                    `<option value="${variation.price}" data-variation-name="${variation.size}">
+                    (variation) =>
+                        `<option value="${variation.price}" data-variation-name="${variation.size}">
                     ${variation.size} - &#8358;${variation.price.toFixed(2)}
                     </option>`
                 )
@@ -195,10 +178,10 @@ const populateUserProceedOrder = () => {
         </div>`;
     }
 
-        
+
     function isAllVariationsInvalidMenuPrice(menuProductVariations) {
         return menuProductVariations.every((menuProductVariation) => !menuProductVariation.size || menuProductVariation.price === null);
-      }
+    }
 
     const userProceedOrder = `
             <form id="userProceedOrderId" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
@@ -258,7 +241,7 @@ const populateUserProceedOrder = () => {
         </form>
         `
 
-        orderPage.innerHTML = userProceedOrder
+    orderPage.innerHTML = userProceedOrder
 
     const terms_condition = `
                 <div class="fixed inset-0 z-50 bg-white text-black">
@@ -312,73 +295,73 @@ const populateUserProceedOrder = () => {
         </div>
     `
 
-  
+
     initializeEventListeners(proceedOrderPrice)
-    
-        const termsCondition = document.getElementById('termsCondition')
 
-        termsCondition.addEventListener('click', () => {
-            orderPage.innerHTML = terms_condition
-            const goBack = document.querySelector('.goBack')
-            goBackFunc(goBack)
+    const termsCondition = document.getElementById('termsCondition')
+
+    termsCondition.addEventListener('click', () => {
+        orderPage.innerHTML = terms_condition
+        const goBack = document.querySelector('.goBack')
+        goBackFunc(goBack)
+    })
+
+
+    const goBackFunc = (goBack) => {
+        goBack.addEventListener('click', () => {
+            orderPage.innerHTML = userProceedOrder
         })
+    }
 
-        
-        const goBackFunc = (goBack) => {
-            goBack.addEventListener('click', () => {
-                orderPage.innerHTML = userProceedOrder
-            })
+
+    // Price and Total Price Handling
+    const orderProceedAddress = document.getElementById('orderProceedAddress')
+    const deliveryContact = document.getElementById('deliveryContact')
+
+    proceedButton.addEventListener('click', async (e) => {
+        e.preventDefault()
+        const validateInputProvision = document.querySelectorAll('#userProceedOrderId .inputProceed')
+
+        // Validate inputs and stop execution if any are empty
+        const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
+            if (!inputProvision.value) {
+                alert('Please provide all information');
+                return true; // Stop further validation
+            }
+            return false;
+        });
+
+        if (hasEmptyInput) return;
+
+
+        const token = localStorage.getItem('token')
+        const userName = localStorage.getItem('userName')
+        const userEmail = localStorage.getItem('userEmail')
+        const userPhone = localStorage.getItem('userPhone')
+
+        if (!token) {
+
+            return navigationPopUp.classList.remove('hidden')
+
         }
-        
 
-        // Price and Total Price Handling
-        const orderProceedAddress = document.getElementById('orderProceedAddress')
-        const deliveryContact = document.getElementById('deliveryContact')
-
-        proceedButton.addEventListener('click', async (e) => {
-            e.preventDefault()
-            const validateInputProvision = document.querySelectorAll('#userProceedOrderId .inputProceed')
-
-            // Validate inputs and stop execution if any are empty
-            const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
-                if (!inputProvision.value) {
-                    alert('Please provide all information');
-                    return true; // Stop further validation
-                }
-                return false;
-            });
-
-            if (hasEmptyInput) return;
+        const variationSelect = document.getElementById('variationSelect');
+        // const hasVariation = menuProductVariations.length > 0 && variationSelect && variationSelect.selectedOptions.length > 0;
 
 
-            const token = localStorage.getItem('token')
-            const userName = localStorage.getItem('userName')
-            const userEmail = localStorage.getItem('userEmail')
-            const userPhone = localStorage.getItem('userPhone')
-            
-            if (!token) {
-                
-                return navigationPopUp.classList.remove('hidden')
-                
+        const hasVariation = menuProductVariations.length > 0 && variationSelect;
+
+        if (hasVariation) {
+            // Ensure user selects a variation
+            if (variationSelect.selectedIndex === 0) {
+                alert("Please select a food size before proceeding.");
+                return;
             }
- 
-            const variationSelect = document.getElementById('variationSelect');
-            // const hasVariation = menuProductVariations.length > 0 && variationSelect && variationSelect.selectedOptions.length > 0;
-
-
-            const hasVariation = menuProductVariations.length > 0 && variationSelect;
-
-            if (hasVariation) {
-                // Ensure user selects a variation
-                if (variationSelect.selectedIndex === 0) {
-                    alert("Please select a food size before proceeding.");
-                    return;
-                }
-            }
+        }
 
 
 
-            
+
         let sizeDisplay = '';
         let variationSizeDisplay = '';
         let selectedSize = ''; // Store the selected size
@@ -388,67 +371,66 @@ const populateUserProceedOrder = () => {
         } else if (menuProductVariations && menuProductVariations.length > 0) {
             variationSizeDisplay = `
                 <select id="variationSelect" class="">
-                    ${menuProductVariations.map((variation) => 
-                        `<option value="${variation.price}" data-variation-name="${variation.size}">
+                    ${menuProductVariations.map((variation) =>
+                `<option value="${variation.price}" data-variation-name="${variation.size}">
                             ${variation.size}
                         </option>`
-                    ).join('')}
+            ).join('')}
                 </select>
             `;
         }
 
-            // Event listener to update selected size
-            document.addEventListener('change', (event) => {
-                if (event.target && event.target.id === 'variationSelect') {
-                    selectedSize = event.target.selectedOptions[0].dataset.variationName;
+        // Event listener to update selected size
+        document.addEventListener('change', (event) => {
+            if (event.target && event.target.id === 'variationSelect') {
+                selectedSize = event.target.selectedOptions[0].dataset.variationName;
+            }
+        });
+
+
+        const selectedSizeValue = variationSelect ? variationSelect.selectedOptions[0].dataset.variationName : menuProductVariations[0]?.size || 'Default';
+
+
+        orderPage.classList.add('hidden');
+
+        const formData = {
+            menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
+            menuProductOrderName: `${proceedOrderName} - Size: ${selectedSizeValue}`,
+            menuProductOrderPrice: selectedPrice,
+            menuTotalProductOrderPrice: selectedPrice * quantity.value,
+            menuProductOrderAddress: orderProceedAddress.value,
+            menuProductOrderContact: deliveryContact.value,
+            menuProductOrderQuantity: quantity.value,
+            userName,
+            userEmail,
+            userPhone,
+            ...(hasVariation && variationSelect.selectedIndex > 0 && {
+                menuProductOrderVariation: {
+                    size: variationSelect.selectedOptions[0].dataset.variationName,
+                    price: parseFloat(variationSelect.value)
                 }
-            });
+            })
+            // ...(menuProductVariations.length > 0 && {
+            //     menuProductOrderVariation: {
+            //         size: document.getElementById('variationSelect').selectedOptions[0].dataset.variationName,
+            //         price: parseFloat(document.getElementById('variationSelect').value)
+            //     }
+            // })
+        }
 
 
-            const selectedSizeValue = variationSelect ? variationSelect.selectedOptions[0].dataset.variationName : menuProductVariations[0]?.size || 'Default';
+
+        await userProceedOrderFunc(formData)
 
 
-            orderPage.classList.add('hidden');
+    })
 
-                const formData = {
-                    menuProductOrderImage: `../image/menuImage/${proceedOrderImg}`,
-                    menuProductOrderName: `${proceedOrderName} - Size: ${selectedSizeValue}`,
-                    menuProductOrderPrice: selectedPrice,
-                    menuTotalProductOrderPrice: selectedPrice * quantity.value,
-                    menuProductOrderAddress: orderProceedAddress.value,
-                    menuProductOrderContact: deliveryContact.value,
-                    menuProductOrderQuantity: quantity.value,
-                    userName,
-                    userEmail,
-                    userPhone,
-                    ...(hasVariation && variationSelect.selectedIndex > 0 && {
-                        menuProductOrderVariation: {
-                            size: variationSelect.selectedOptions[0].dataset.variationName,
-                            price: parseFloat(variationSelect.value)
-                        }
-                    })
-                    // ...(menuProductVariations.length > 0 && {
-                    //     menuProductOrderVariation: {
-                    //         size: document.getElementById('variationSelect').selectedOptions[0].dataset.variationName,
-                    //         price: parseFloat(document.getElementById('variationSelect').value)
-                    //     }
-                    // })
-                }
-    
-
-    
-                await userProceedOrderFunc(formData)
-            
-
-        })
-    
 
 }
 
-const menuLoader = document.getElementById('menuOrderLoader')
 
 const userProceedOrderFunc = async (formData) => {
-    menuLoader.classList.remove('hidden')
+    document.getElementById("preloaderOrder").classList.remove('hidden')
     const orderPopUpAlert = document.getElementById('orderPopUpAlert')
     try {
         const userProceedResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
@@ -462,17 +444,17 @@ const userProceedOrderFunc = async (formData) => {
 
 
         console.log(userProceedResponse);
-        
+
         const data = await userProceedResponse.json()
         // console.log(data);
         // alert('orderPlaced Successfully')
         orderPopUpAlert.classList.remove('hidden')
-        
+
     } catch (error) {
-        console.log(error);
-        
+        console.error(error);
+
     } finally {
-        menuLoader.classList.add('hidden')
+        document.getElementById("preloaderOrder").classList.add('hidden')
     }
 }
 
@@ -492,16 +474,16 @@ const initializeEventListeners = (proceedOrderPrice) => {
 
 
     // Listen for changes in the variation dropdown
-if (variationSelect) {
-    variationSelect.addEventListener('change', (event) => {
-        const selectedOption = event.target.selectedOptions[0];
-        selectedPrice = parseFloat(selectedOption.value); // Update selectedPrice based on selected variation
-        document.getElementById('orderProceedPrice').innerHTML = `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
-        updateTotalPrice();
-    });
-} else {
-    selectedPrice = proceedOrderPrice; // Default to the fixed price from local storage
-}
+    if (variationSelect) {
+        variationSelect.addEventListener('change', (event) => {
+            const selectedOption = event.target.selectedOptions[0];
+            selectedPrice = parseFloat(selectedOption.value); // Update selectedPrice based on selected variation
+            document.getElementById('orderProceedPrice').innerHTML = `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
+            updateTotalPrice();
+        });
+    } else {
+        selectedPrice = proceedOrderPrice; // Default to the fixed price from local storage
+    }
 
 
     quantityInput.addEventListener('input', () => {
@@ -522,7 +504,7 @@ const updateTotalPrice = () => {
 // Helper function to check if all variations are invalid
 function isAllVariationsInvalid(variations) {
     return variations.every((variation) => !variation.size || variation.price === null);
-  }
+}
 
 
 

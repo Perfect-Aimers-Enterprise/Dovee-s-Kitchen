@@ -151,10 +151,6 @@ const getRegisteredUser = async (req, res) => {
     }
 }
 
-
-
-
-
 // Create a transporter using Nodemailer
 const transporter = nodemailer.createTransport({
     host: 'smtp.zoho.com',

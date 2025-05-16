@@ -1,10 +1,10 @@
 const config4 = {
     apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3000'
-      : `${window.location.protocol}//${window.location.hostname}`
-  };
+        ? 'http://localhost:3000'
+        : `${window.location.protocol}//${window.location.hostname}`
+};
 
-document.addEventListener('DOMContentLoaded', ()=> {
+document.addEventListener('DOMContentLoaded', () => {
     getAllClientProductFunc()
     populateSpecialProductFunc()
 })
@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
 const specialNavigationPopUp = document.getElementById('specialNavigationPopUp')
 
 const getAllClientProductFunc = async () => {
+    document.getElementById("preloaderSpecial").classList.remove('hidden')
     const specialGridClass = document.querySelector('.specialGridClass')
     specialGridClass.innerHTML = ''
 
@@ -39,7 +40,7 @@ const getAllClientProductFunc = async () => {
 
 
             if (eachSpecialData.specialPrice && (!eachSpecialData.variations || eachSpecialData.variations.length === 0 || isAllVariationsInvalid(eachSpecialData.variations))) {
-                
+
                 productContent = `
                     <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
                         <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="${eachSpecialData.specialProductName}" class="w-full h-48 object-cover rounded">
@@ -50,10 +51,10 @@ const getAllClientProductFunc = async () => {
                     </div>
                 `;
             } else if (eachSpecialData.variations && eachSpecialData.variations.length > 0) {
-                 // Show the price of the first variation
-                 const firstSpecialVariationPrice = eachSpecialData.variations[0].price;
+                // Show the price of the first variation
+                const firstSpecialVariationPrice = eachSpecialData.variations[0].price;
 
-                 productContent = `
+                productContent = `
                      <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
                          <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="${eachSpecialData.specialProductName}" class="w-full h-48 object-cover rounded">
                          <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
@@ -74,29 +75,32 @@ const getAllClientProductFunc = async () => {
                 item.classList.add('visible');
             });
         }, 100);
-        
+
         const orderSpecialProductNow = document.querySelectorAll('#orderSpecialProductNow')
 
         console.log(orderSpecialProductNow);
-        
+
 
         orderSpecialProductNow.forEach((eachOrderSpecialProductNow) => {
             eachOrderSpecialProductNow.addEventListener('click', (e) => {
                 // alert('hello')
                 const token = localStorage.getItem('token')
                 console.log(token);
-                
+
                 if (!token) {
-                   return specialNavigationPopUp.classList.remove('hidden')
+                    return specialNavigationPopUp.classList.remove('hidden')
                 }
                 const specialProductId = e.target.closest('.special-item').dataset.id
                 getSingleClientProductFunc(specialProductId)
-                
+
             })
         })
 
     } catch (error) {
-        
+        console.error(error);
+
+    } finally {
+        document.getElementById("preloaderSpecial").classList.add('hidden')
     }
 }
 
@@ -122,67 +126,67 @@ const getSingleClientProductFunc = async (specialProductId) => {
         localStorage.setItem('specialDescriptionSingle', specialDescriptionSingle)
         localStorage.setItem('specialPriceSingle', specialPriceSingle)
         localStorage.setItem('specialProductVariations', JSON.stringify(specialProductVariations))
-        
+
         window.location.href = '../htmlFolder/specialOrderDetails.html'
-        
+
     } catch (error) {
         console.log(error);
-        
+
     }
 }
 
 const specialOrderPage = document.getElementById('specialOrderPage')
 const populateSpecialProductFunc = () => {
-    
+
     specialOrderPage.innerHTML = ''
 
-        const specialImage = localStorage.getItem('specialImageSingle')
-        console.log(specialImage);
-        const specialProductName = localStorage.getItem('specialProductNameSingle')
-        const specialDescription = localStorage.getItem('specialDescriptionSingle')
-        const specialPrice = parseFloat(localStorage.getItem('specialPriceSingle'))
-        // const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
-        const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations'));
+    const specialImage = localStorage.getItem('specialImageSingle')
+    console.log(specialImage);
+    const specialProductName = localStorage.getItem('specialProductNameSingle')
+    const specialDescription = localStorage.getItem('specialDescriptionSingle')
+    const specialPrice = parseFloat(localStorage.getItem('specialPriceSingle'))
+    // const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
+    const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations'));
 
 
-        let variationDropdown = '';
-        let priceDisplay = '';
-    
-        let formattedPrice = specialPrice.toFixed(2); // Now safe to call toFixed()
-        
-        if (specialPrice && (!specialProductVariations || specialProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(specialProductVariations))) {
-            priceDisplay = `
+    let variationDropdown = '';
+    let priceDisplay = '';
+
+    let formattedPrice = specialPrice.toFixed(2); // Now safe to call toFixed()
+
+    if (specialPrice && (!specialProductVariations || specialProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(specialProductVariations))) {
+        priceDisplay = `
             <div class="mb-4">
                 <p id="specialOrderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${formattedPrice}</span></p>
             </div>`;
-        } else if (specialProductVariations && specialProductVariations.length > 0) {
-            variationDropdown = `
+    } else if (specialProductVariations && specialProductVariations.length > 0) {
+        variationDropdown = `
             <div class="mb-4">
                 <label for="variationSelect" class="block text-gray-600 font-medium mb-1">Choose Variation</label>
                 <select id="variationSelect" class="w-full p-3 border border-gray-300 rounded-lg">
                 <option disabled selected>Select Food Size</option>
                 ${specialProductVariations
-                    .map(
+                .map(
                     (variation) =>
                         `<option value="${variation.price}" data-variation-name="${variation.size}">
                         ${variation.size} - &#8358;${variation.price.toFixed(2)}
                         </option>`
-                    )
-                    .join('')}
+                )
+                .join('')}
                 </select>
             </div>`;
-    
-            priceDisplay = `
+
+        priceDisplay = `
             <div class="mb-4">
                 <p id="specialOrderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${specialProductVariations[0].price.toFixed(2)}</span></p>
             </div>`;
-        }
-    
-            
-        function isAllVariationsInvalidMenuPrice(specialProductVariations) {
-            return specialProductVariations.every((specialProductVariation) => !specialProductVariation.size || specialProductVariation.price === null);
-          }
-        
+    }
+
+
+    function isAllVariationsInvalidMenuPrice(specialProductVariations) {
+        return specialProductVariations.every((specialProductVariation) => !specialProductVariation.size || specialProductVariation.price === null);
+    }
+
 
     const populateSpecialVar = `
         <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
@@ -305,7 +309,7 @@ const populateSpecialProductFunc = () => {
         goBackFunc(goBack)
     })
 
-    
+
     const goBackFunc = (goBack) => {
         goBack.addEventListener('click', () => {
             specialOrderPage.innerHTML = populateSpecialVar
@@ -321,9 +325,9 @@ const populateSpecialProductFunc = () => {
     // const quantityInput = document.getElementById('quantity');
     // const totalPriceElement = document.getElementById('totalPrice');
 
-    
+
     // specialQuantity.addEventListener('input', updateTotalPrice);
-    
+
 
     const proceedButton = document.getElementById('proceedButton');
     const termsCheckbox = document.getElementById('terms');
@@ -348,13 +352,13 @@ const populateSpecialProductFunc = () => {
 
         if (hasEmptyInput) return;
 
-        
-        
+
+
         const token = localStorage.getItem('token')
         const userName = localStorage.getItem('userName')
         const userEmail = localStorage.getItem('userEmail')
         const userPhone = localStorage.getItem('userPhone')
-        
+
         if (!token) {
             return specialNavigationPopUp.classList.remove('hidden')
         }
@@ -379,19 +383,19 @@ const populateSpecialProductFunc = () => {
 
         if (
             specialPrice &&
-            (!specialProductVariations || 
-            specialProductVariations.length === 0 || 
-            isAllVariationsInvalidMenuPrice(specialProductVariations))
+            (!specialProductVariations ||
+                specialProductVariations.length === 0 ||
+                isAllVariationsInvalidMenuPrice(specialProductVariations))
         ) {
             sizeDisplay = '';
         } else if (specialProductVariations && specialProductVariations.length > 0) {
             variationSizeDisplay = `
                 <select id="variationSelect" class="">
-                    ${specialProductVariations.map((variation) => 
-                        `<option value="${variation.price}" data-variation-name="${variation.size}">
+                    ${specialProductVariations.map((variation) =>
+                `<option value="${variation.price}" data-variation-name="${variation.size}">
                             ${variation.size}
                         </option>`
-                    ).join('')}
+            ).join('')}
                 </select>
             `;
         }
@@ -433,9 +437,9 @@ const populateSpecialProductFunc = () => {
     })
 }
 
-const specialOrderLoader = document.getElementById('specialOrderLoader')
+
 const userProceedSpecialOrderFunc = async (formData) => {
-    specialOrderLoader.classList.remove('hidden')
+    document.getElementById("preloaderSpecial").classList.remove('hidden')
     try {
         const response = await fetch(`${config4.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
             method: 'POST',
@@ -449,15 +453,15 @@ const userProceedSpecialOrderFunc = async (formData) => {
         const specialOrderPopUpAlert = document.getElementById('specialOrderPopUpAlert')
         specialOrderPopUpAlert.classList.remove('hidden')
     } catch (error) {
-        console.log(error);
-        
-    }finally {
-        specialOrderLoader.classList.add('hidden')
+        console.error(error);
+
+    } finally {
+        document.getElementById("preloaderSpecial").classList.add('hidden')
     }
 }
 
 
-let selectedPrice = 0; 
+let selectedPrice = 0;
 const initializeEventListeners = (specialPrice) => {
     const variationSelect = document.getElementById('variationSelect');
     const quantityInput = document.getElementById('specialQuantity');
@@ -470,15 +474,15 @@ const initializeEventListeners = (specialPrice) => {
             const selectedOption = event.target.selectedOptions[0];
             selectedPrice = parseFloat(selectedOption.value);
 
-            document.getElementById('specialOrderProceedPrice').innerHTML = 
+            document.getElementById('specialOrderProceedPrice').innerHTML =
                 `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
 
-                updateTotalPrice();
+            updateTotalPrice();
         });
     } else {
         selectedPrice = specialPrice
     }
-    
+
     // quantityInput.addEventListener('input', updateTotalPrice);
     quantityInput.addEventListener('input', () => {
 
@@ -499,4 +503,4 @@ const updateTotalPrice = () => {
 // Helper function to check if all variations are invalid
 function isAllVariationsInvalid(variations) {
     return variations.every((variation) => !variation.size || variation.price === null);
-  }
+}
