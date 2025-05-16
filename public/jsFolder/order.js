@@ -1024,6 +1024,7 @@ const createGalleryFunc = async () => {
       alert("File uploaded successfully!");
       // fetchGallery(); 
       fetchGallery()
+      return
     } else {
       alert(result.error || "Failed to upload file.");
     }
