@@ -31,13 +31,13 @@ const app = express();
 // const io = new Server(server);
 
 // Middleware to set cache control headers
-// app.use((req, res, next) => {
-//   // Set the Cache-Control headers to 'no-store' to prevent caching
-//   res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-//   res.setHeader('Pragma', 'no-cache');
-//   res.setHeader('Expires', '0');
-//   next();
-// });
+app.use((req, res, next) => {
+  // Set the Cache-Control headers to 'no-store' to prevent caching
+  res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
 
 
 
@@ -95,17 +95,17 @@ const port = process.env.PORT || 3000
 
 const start = async () => {
   try {
-      await connectDB(process.env.MONGO_URI, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
+    await connectDB(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true
     })
-      app.listen(port, () => {
-          console.log(`server is listening on port ${port}`);
-          
-      })
+    app.listen(port, () => {
+      console.log(`server is listening on port ${port}`);
+
+    })
   } catch (error) {
-      console.log('error listening to port', error);
-      
+    console.log('error listening to port', error);
+
   }
 }
 
