@@ -30,6 +30,7 @@
             opacity: 0;
             transition: opacity 0.5s, bottom 0.5s;
         }
+
         #toast.show {
             visibility: visible;
             opacity: 1;
@@ -47,19 +48,24 @@
             <div class="w-[250px] md:w-[350px]">
                 <label for="">Email</label>
                 <div class="w-full">
-                    <input type="email" name="" id="adminEmail" class="border-none shadow-sm outline-green-200 mt-[5px] w-full p-1 text-black" placeholder="Enter Email">
+                    <input type="email" name="" id="adminEmail"
+                        class="border-none shadow-sm outline-green-200 mt-[5px] w-full p-1 text-black"
+                        placeholder="Enter Email">
                 </div>
             </div>
 
             <div class="w-[250px] md:w-[350px] mt-[10px]">
                 <label for="">Password</label>
                 <div class="w-full">
-                    <input type="text" name="" id="adminPassword" class="border-none shadow-sm outline-green-200 mt-[5px] w-full p-1 text-black" placeholder="Enter Password">
+                    <input type="text" name="" id="adminPassword"
+                        class="border-none shadow-sm outline-green-200 mt-[5px] w-full p-1 text-black"
+                        placeholder="Enter Password">
                 </div>
             </div>
 
             <div class="w-[250px] md:w-[350px] mt-[20px]">
-                    <button type="submit" class="w-full bg-green-600 text-center border-none outline-gray-400 p-1">Access</button>
+                <button type="submit"
+                    class="w-full bg-green-600 text-center border-none outline-gray-400 p-1">Access</button>
             </div>
 
         </form>
@@ -108,12 +114,12 @@
 
             const data = await response.json();
             console.log(data);
-            
+
 
             if (response.ok) {
                 showToast(data.message || 'Login successful Redirecting...', true);
                 setTimeout(() => {
-                    window.location.href = "../htmlFolder/adminDashboard.html"; 
+                    window.location.href = "../htmlFolder/adminDashboard.html";
                 }, 2000);
             } else {
                 showToast(data.error || 'Invalid credentials', false);
@@ -122,5 +128,8 @@
             showToast('Network error. Please try again.', false);
         }
     });
+
+
 </script>
+
 </html>

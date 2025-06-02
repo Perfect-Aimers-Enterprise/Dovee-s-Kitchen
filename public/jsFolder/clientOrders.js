@@ -431,7 +431,7 @@ const populateUserProceedOrder = () => {
 
 const userProceedOrderFunc = async (formData) => {
     document.getElementById("menuOrderLoader").classList.remove('hidden')
-    const orderPopUpAlert = document.getElementById('orderPopUpAlert')
+
     try {
 
         const userProceedResponse = await fetch(`${config2.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
@@ -447,8 +447,8 @@ const userProceedOrderFunc = async (formData) => {
         console.log(userProceedResponse);
 
         const data = await userProceedResponse.json()
-        // console.log(data);
-        // alert('orderPlaced Successfully')
+
+        const orderPopUpAlert = document.getElementById('orderPopUpAlert')
         orderPopUpAlert.classList.remove('hidden')
 
     } catch (error) {
