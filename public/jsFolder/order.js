@@ -24,9 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
 const getMenuProductFuncUrl = `${config.apiUrl}/doveeysKitchen/product/getMenuProducts`
 const menuProductFormUrl = `${config.apiUrl}/doveeysKitchen/product/createMenuProduct`
 
-// All Api URL Development
-// const menuProductFormUrl = '/doveeysKitchen/product/createMenuProduct'
-// const getMenuProductFuncUrl = '/doveeysKitchen/product/getMenuProducts'
+
 
 const menuProductForm = document.getElementById('menuProductForm')
 const menuProductList = document.getElementById('menuProductList')
@@ -38,9 +36,8 @@ menuProductForm.addEventListener('submit', async (e) => {
   const formData = new FormData(menuProductTarget)
 
   formData.forEach((value, key) => {
-    console.log(key, value);
+    // console.log(key, value);
   });
-  console.log(formData);
 
   try {
     const createMenuProduct = await fetch(`${config.apiUrl}/doveeysKitchen/product/createMenuProduct`, {
@@ -48,7 +45,6 @@ menuProductForm.addEventListener('submit', async (e) => {
       body: formData
     })
 
-    console.log(createMenuProduct);
 
     if (createMenuProduct.ok) {
       alert('Product created successfully!');
@@ -58,10 +54,9 @@ menuProductForm.addEventListener('submit', async (e) => {
     }
 
     const data = await createMenuProduct.json()
-    console.log(data);
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
   }
 })
@@ -69,6 +64,7 @@ menuProductForm.addEventListener('submit', async (e) => {
 // getMenuProducts
 // getMenuProducts
 const getMenuProductFunc = async (e) => {
+  document.getElementById('preloader').classList.remove('hidden')
   try {
     const getMenuProductsResponse = await fetch(getMenuProductFuncUrl);
 
@@ -156,7 +152,9 @@ const getMenuProductFunc = async (e) => {
     attachEditEventListeners();
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 };
 
@@ -196,23 +194,17 @@ const attachEditEventListeners = () => {
 
 const fetchSingleProductFunc = async (menuProductId) => {
 
-  // console.log('fetch', eachData);
-  console.log('id', menuProductId);
+  document.getElementById('preloader').classList.remove('hidden')
 
   try {
     const fetchSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/getSingleMenuProduct/${menuProductId}`)
 
-    // console.log(fetchSingleProductResponse);
 
     const data = await fetchSingleProductResponse.json()
     console.log(data);
 
     const menuPopUpSection = document.getElementById('menuPopUpSection')
     menuPopUpSection.classList.remove('hidden')
-
-    // menuPopUpSection.addEventListener('click', () => {
-    //   menuPopUpSection.classList.add('hidden')
-    // })
 
     const menuPopUpDiv = document.getElementById('menuPopUpDiv')
     menuPopUpDiv.innerHTML = ""
@@ -304,14 +296,17 @@ const fetchSingleProductFunc = async (menuProductId) => {
     })
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 }
 
 const updateMenuProductFunc = async (menuProductId, formData) => {
 
   console.log(formData);
+  document.getElementById('preloader').classList.remove('hidden')
 
   try {
     const updateMenuProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/updateMenuProduct/${menuProductId}`, {
@@ -334,12 +329,16 @@ const updateMenuProductFunc = async (menuProductId, formData) => {
 
     // alert('successful')
   } catch (error) {
+    console.error(error);
 
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 }
 
 
 const deleteSingleProductFunc = async (menuProductId) => {
+  document.getElementById('preloader').classList.remove('hidden')
   try {
     const deleteSingleProductResponse = await fetch(`${config.apiUrl}/doveeysKitchen/product/deleteMenuProduct/${menuProductId}`, {
       method: 'DELETE',
@@ -355,7 +354,10 @@ const deleteSingleProductFunc = async (menuProductId) => {
     }
 
   } catch (error) {
+    console.error(error);
 
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 }
 
@@ -380,10 +382,10 @@ sidebarLinks.forEach((link, index) => {
 
 const adminOrdersList = document.getElementById('adminOrdersList')
 
-{/* <p><strong>Variation: </strong>{ Size ${eachData.menuProductOrderVariation.size} : Price ${eachData.menuProductOrderVariation.price} }</p> */ }
 
 const fetchAllOrders = async () => {
   adminOrdersList.innerHTML = '';
+  document.getElementById('preloader').classList.remove('hidden')
 
   try {
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/adminGetOrder/adminGetAllProceedOrder`);
@@ -460,13 +462,6 @@ const fetchAllOrders = async () => {
 
       console.log(adminOrdersList);
 
-
-      // const cancleOrderBtn = document.getElementById('cancleOrderBtn');
-      // cancleOrderBtn.addEventListener('click', (e) => {
-      //   const deleteMenuOrderId = e.target.closest('.ordersIdClass').dataset.id;
-      //   cancleUserOrders(deleteMenuOrderId);
-      // });
-
       const confirmOrderBtn = document.getElementById('confirmOrderBtn');
       confirmOrderBtn.addEventListener('click', (e) => {
         const confirmMenuOrderId = e.target.closest('.ordersIdClass').dataset.id;
@@ -483,13 +478,16 @@ const fetchAllOrders = async () => {
 
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 };
 
 
 const cancleUserOrders = async (menuOrderId) => {
   try {
+    document.getElementById('preloader').classList.remove('hidden')
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
       method: 'DELETE',
       headers: {
@@ -502,13 +500,17 @@ const cancleUserOrders = async (menuOrderId) => {
     fetchAllOrders()
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 }
 
 const confirmUserOrders = async (menuOrderId) => {
   try {
+    document.getElementById('preloader').classList.remove('hidden')
+
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
       method: 'POST',
       headers: {
@@ -525,8 +527,10 @@ const confirmUserOrders = async (menuOrderId) => {
     fetchAllOrders()
 
   } catch (error) {
-    console.log(error);
+    console.error(error);
 
+  } finally {
+    document.getElementById('preloader').classList.add('hidden')
   }
 }
 
@@ -876,6 +880,7 @@ const getAdminMenuLandingFunc = async () => {
   }
 };
 
+
 const fetchSingleAdminMenuLanding = async (menuLandingId) => {
   try {
     const response = await fetch(`${config.apiUrl}/doveeysLanding/getSingleMenuImage/${menuLandingId}`);
@@ -892,6 +897,7 @@ const fetchSingleAdminMenuLanding = async (menuLandingId) => {
     console.error('Error fetching single menu landing:', error);
   }
 };
+
 
 const updateAdminMenuLanding = async (formData, menuLandingId) => {
   try {
@@ -986,6 +992,7 @@ const fetchSingleSpecialImage = async (specialLandingId) => {
   }
 };
 
+
 const updateSpecialImage = async (formData, specialLandingId) => {
   try {
     const response = await fetch(`${config.apiUrl}/doveeysLanding/uploadSpecialImageSchema/${specialLandingId}`, {
@@ -1009,6 +1016,7 @@ const updateSpecialImage = async (formData, specialLandingId) => {
 
 
 const galleryForm = document.getElementById('galleryForm')
+
 const createGalleryFunc = async () => {
   document.getElementById("preloader").classList.remove('hidden')
   const formData = new FormData(galleryForm);
