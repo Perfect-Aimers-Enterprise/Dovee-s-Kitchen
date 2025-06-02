@@ -439,7 +439,7 @@ const populateSpecialProductFunc = () => {
 
 
 const userProceedSpecialOrderFunc = async (formData) => {
-    document.getElementById("preloaderSpecial").classList.remove('hidden')
+    document.getElementById("specialOrderLoader").classList.remove('hidden')
     try {
         const response = await fetch(`${config4.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
             method: 'POST',
@@ -456,7 +456,7 @@ const userProceedSpecialOrderFunc = async (formData) => {
         console.error(error);
 
     } finally {
-        document.getElementById("preloaderSpecial").classList.add('hidden')
+        document.getElementById("specialOrderLoader").classList.add('hidden')
     }
 }
 
