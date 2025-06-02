@@ -49,7 +49,14 @@ app.use(cors());
 app.use(express.json())
 
 app.use(bodyParser.json())
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, fiiePath) => {
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    res.setHeader('Surrogate-Control', 'no-store')
+  }
+}));
 
 
 app.get('/', (req, res) => {

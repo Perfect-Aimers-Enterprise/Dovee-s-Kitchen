@@ -202,6 +202,14 @@
         item.style.display = text.includes(searchValue) ? "" : "none";
       });
     }
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
   </script>
 
   <!-- <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script> -->

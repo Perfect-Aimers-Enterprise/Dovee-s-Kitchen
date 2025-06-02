@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../src/output.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
   <title>Doveeys Kitchen</title>
   <style>
@@ -32,13 +34,18 @@
     }
 
     @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  .animate-spin {
-    animation: spin 1s linear infinite;
-  }
+      0% {
+        transform: rotate(0deg);
+      }
 
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .animate-spin {
+      animation: spin 1s linear infinite;
+    }
   </style>
 </head>
 
@@ -63,7 +70,8 @@
           <li>
             <a href="../htmlFolder/shoppingCart.html" class="relative">
               <i class="fas fa-shopping-cart"></i>
-              <span class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
+              <span
+                class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
             </a>
           </li>
         </ul>
@@ -75,34 +83,37 @@
     </div>
 
     <!-- Sliding Navbar -->
-  <nav id="slidingNavbar" class="fixed top-0 right-0 h-full w-3/4 bg-black text-gray-200 transform translate-x-full transition-transform duration-300 lg:hidden">
-    <div class="p-4">
-      <!-- Close Icon -->
-      <button id="closeMenu" class="text-white text-2xl">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <ul class="mt-5 space-y-4 text-lg px-6">
-      <li><a href="#menu" class="hover:text-orange-300">Menu</a></li>
-      <li><a href="#about" class="hover:text-orange-300">About</a></li>
-      <li><a href="#specials" class="hover:text-orange-300">Specials</a></li>
-      <li><a href="../htmlFolder/regLog.html" class="hover:text-orange-300">Account</a></li>
-      <li><a href="../htmlFolder/Gallery.html" class="hover:text-orange-300">Gallery</a></li>
-      <li><a href="#contact" class="hover:text-orange-300">Contact</a></li>
-      <li><a href="#help" class="hover:text-orange-300">Help</a></li>
-      <li class="w-fit">
-        <a href="../htmlFolder/shoppingCart.html" class="relative">
-          <i class="fas fa-shopping-cart"></i>
-          <span class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+    <nav id="slidingNavbar"
+      class="fixed top-0 right-0 h-full w-3/4 bg-black text-gray-200 transform translate-x-full transition-transform duration-300 lg:hidden">
+      <div class="p-4">
+        <!-- Close Icon -->
+        <button id="closeMenu" class="text-white text-2xl">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="mt-5 space-y-4 text-lg px-6">
+        <li><a href="#menu" class="hover:text-orange-300">Menu</a></li>
+        <li><a href="#about" class="hover:text-orange-300">About</a></li>
+        <li><a href="#specials" class="hover:text-orange-300">Specials</a></li>
+        <li><a href="../htmlFolder/regLog.html" class="hover:text-orange-300">Account</a></li>
+        <li><a href="../htmlFolder/Gallery.html" class="hover:text-orange-300">Gallery</a></li>
+        <li><a href="#contact" class="hover:text-orange-300">Contact</a></li>
+        <li><a href="#help" class="hover:text-orange-300">Help</a></li>
+        <li class="w-fit">
+          <a href="../htmlFolder/shoppingCart.html" class="relative">
+            <i class="fas fa-shopping-cart"></i>
+            <span
+              class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </header>
 
   <!-- Hero Section -->
   <section id="dynamicHeroImage" class="mt-[30px]">
-    <div class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]" style="background-image: url('../image/regBg1.jpg');">
+    <div class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]"
+      style="background-image: url('../image/regBg1.jpg');">
       <div class="hero-overlay absolute inset-0"></div>
       <div class="relative h-full flex flex-col justify-center items-center text-center">
         <h2 class="text-2xl md:text-5xl font-bold mb-4">Welcome to Doveeys Kitchen</h2>
@@ -123,44 +134,50 @@
           <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
           <h4 class="mt-4 text-xl font-semibold">Grilled Chicken</h4>
           <p class="mt-2 text-gray-600">Deliciously seasoned grilled chicken.</p>
-          
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order Now</button>
+
+          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
+            Now</button>
         </div>
 
         <!-- Dish Card2 -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/3litresofvegetablesoup.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
-            <h4 class="mt-4 text-xl font-semibold">Vegetable Soup</h4>
-            <p class="mt-2 text-gray-600">Deliciously vegetable soup.</p>
-            
-            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order Now</button>
-          </div>
+          <img src="../image/3litresofvegetablesoup.jpg" alt="Grilled Chicken"
+            class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold">Vegetable Soup</h4>
+          <p class="mt-2 text-gray-600">Deliciously vegetable soup.</p>
 
-          <!-- Dish Card3 -->
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/ricenplantain.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
-            <h4 class="mt-4 text-xl font-semibold">White Rice & Stew with Plantain</h4>
-            <p class="mt-2 text-gray-600">Deliciously white rice & stew with plantain.</p>
-            
-            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order Now</button>
-          </div>
+          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
+            Now</button>
+        </div>
 
-          <!-- Dish Card4 -->
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/3litresOfEgwuciSoup.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
-            <h4 class="mt-4 text-xl font-semibold">3 litres of Egwuci Soup</h4>
-            <p class="mt-2 text-gray-600">Deliciously egwuci soup.</p>
-            
-            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order Now</button>
-          </div>
+        <!-- Dish Card3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+          <img src="../image/ricenplantain.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold">White Rice & Stew with Plantain</h4>
+          <p class="mt-2 text-gray-600">Deliciously white rice & stew with plantain.</p>
+
+          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
+            Now</button>
+        </div>
+
+        <!-- Dish Card4 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+          <img src="../image/3litresOfEgwuciSoup.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold">3 litres of Egwuci Soup</h4>
+          <p class="mt-2 text-gray-600">Deliciously egwuci soup.</p>
+
+          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
+            Now</button>
+        </div>
 
         <!-- Repeat Dish Card for other items -->
       </div>
     </div>
 
-    <div id="menuBtn" class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
-        <p>View All</p>
-        <i class="fas fa-angle-down"></i>
+    <div id="menuBtn"
+      class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
+      <p>View All</p>
+      <i class="fas fa-angle-down"></i>
     </div>
 
   </section>
@@ -173,39 +190,51 @@
       <div id="dailyMenuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Dish Card -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
+          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
+            class="rounded-lg w-full h-80 object-cover">
           <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
           <p class="mt-2 text-gray-600">₦8000</p>
-          
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order Now</button>
+
+          <button
+            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
+            Now</button>
         </div>
 
         <!-- Dish Card2 -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
+          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
+            class="rounded-lg w-full h-80 object-cover">
           <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
           <p class="mt-2 text-gray-600">₦8000</p>
-          
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order Now</button>
+
+          <button
+            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
+            Now</button>
         </div>
 
-          <!-- Dish Card3 -->
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
-            <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
-            <p class="mt-2 text-gray-600">₦8000</p>
-            
-            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order Now</button>
-          </div>
+        <!-- Dish Card3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
+            class="rounded-lg w-full h-80 object-cover">
+          <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
+          <p class="mt-2 text-gray-600">₦8000</p>
 
-          <!-- Dish Card4 -->
-          <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
-            <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
-            <p class="mt-2 text-gray-600">₦8000</p>
-            
-            <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order Now</button>
-          </div>
+          <button
+            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
+            Now</button>
+        </div>
+
+        <!-- Dish Card4 -->
+        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
+          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
+            class="rounded-lg w-full h-80 object-cover">
+          <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
+          <p class="mt-2 text-gray-600">₦8000</p>
+
+          <button
+            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
+            Now</button>
+        </div>
 
         <!-- Repeat Dish Card for other items -->
       </div>
@@ -215,16 +244,18 @@
 
   <!-- Student Flyer section  -->
   <section id="flyer1Section">
-    <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/xmasPackage.jpg); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
+    <a href="https://wa.me/message/LV4DUBT6DDZHA1"
+      style="background-image: url(../image/xmasPackage.jpg); background-size: cover;"
+      class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
       <div class="bg-black opacity-50 inset-0 absolute"></div>
       <div class="text-center relative">
         <h1>Run Your ADS here (Contact Us)</h1>
       </div>
-     </a>
+    </a>
   </section>
 
-   <!-- Event Menu Dishes  -->
-   <section id="eventMenu" class="py-16 bg-gray-100 text-black eventMenuSection hidden">
+  <!-- Event Menu Dishes  -->
+  <section id="eventMenu" class="py-16 bg-gray-100 text-black eventMenuSection hidden">
 
     <div class="container mx-auto px-6 lg:px-16">
       <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Event Menu Dishes</h3>
@@ -234,8 +265,10 @@
           <img src="" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
           <h4 class="mt-4 text-xl font-semibold"></h4>
           <p class="mt-2 text-gray-600"></p>
-          
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order Now</button>
+
+          <button
+            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
+            Now</button>
         </div>
 
         <!-- Repeat Dish Card for other items -->
@@ -256,165 +289,187 @@
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
           <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
           <h4 class="mt-4 text-xl font-semibold text-gray-900">Rice, Veges and Wine</h4>
-          <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine, chicken chops & veges with flower (Valentine Package).</p>
-          
-          <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order Now</button>
+          <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine, chicken chops & veges with
+            flower (Valentine Package).</p>
+
+          <button
+            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
+            Now</button>
         </div>
 
         <!-- Special Package Card2 -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/valentine2.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-            <h4 class="mt-4 text-xl font-semibold text-gray-900">Chops & Cookies</h4>
-            <p class="mt-2 text-gray-600">Deliciously chops & cookies (hangouts, dates, val etc..).</p>
-            
-            <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order Now</button>
-          </div>
+          <img src="../image/valentine2.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold text-gray-900">Chops & Cookies</h4>
+          <p class="mt-2 text-gray-600">Deliciously chops & cookies (hangouts, dates, val etc..).</p>
+
+          <button
+            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
+            Now</button>
+        </div>
 
         <!-- Special Package Card3 -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/xmasCombo.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-            <h4 class="mt-4 text-xl font-semibold text-gray-900">Grilled Fish & Rice + Sauce & Veges</h4>
-            <p class="mt-2 text-gray-600">Deliciously seasoned rice & grilled fish (picnic, valentine, xmas, dates etc...).</p>
-            
-            <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order Now</button>
-          </div>
+          <img src="../image/xmasCombo.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold text-gray-900">Grilled Fish & Rice + Sauce & Veges</h4>
+          <p class="mt-2 text-gray-600">Deliciously seasoned rice & grilled fish (picnic, valentine, xmas, dates
+            etc...).</p>
+
+          <button
+            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
+            Now</button>
+        </div>
 
         <!-- Special Package Card4 -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-            <img src="../image/chickenandsauce.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-            <h4 class="mt-4 text-xl font-semibold text-gray-900">Sauced Rice & Beans with Chicken</h4>
-            <p class="mt-2 text-gray-600">Deliciously seasoned rice & beans with chicken (outdoor, picnic, Easter, Birthday, wedding, etc...).</p>
-            
-            <button class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order Now</button>
-          </div>
+          <img src="../image/chickenandsauce.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
+          <h4 class="mt-4 text-xl font-semibold text-gray-900">Sauced Rice & Beans with Chicken</h4>
+          <p class="mt-2 text-gray-600">Deliciously seasoned rice & beans with chicken (outdoor, picnic, Easter,
+            Birthday, wedding, etc...).</p>
+
+          <button
+            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
+            Now</button>
+        </div>
 
         <!-- Repeat for other specials -->
       </div>
     </div>
 
-    <div id="specialBtn" class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
+    <div id="specialBtn"
+      class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
       <p>View All</p>
       <i class="fas fa-angle-down"></i>
-  </div>
+    </div>
   </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-10 bg-gray-100 text-black">
-        <div class="container mx-auto px-4 text-center">
-          <h3 class="text-2xl font-bold text-green-800">About Us</h3>
-          <p class="mt-4">Doveeys Kitchen is a home restaurant dedicated to bringing you the best meals made with love and care. From everyday dishes to special event packages, we’ve got you covered!</p>
-        </div>
-    
-        <div id="ceoProfile" class="w-[95%] mx-auto mt-[20px]">
-          <div class="h-[400px] md:h-[550px] lg:w-[80%] mx-auto overflow-hidden border-[3px] border-green-400">
-            <img id="ceoImageId" src="../image/ceo1.jpg" alt="" class="object-cover w-full h-full">
-          </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section id="testimonialSection" class="py-12 bg-gray-100">
-        <h1 class="text-center text-3xl font-bold text-green-700 mb-8">What Our Clients Say</h1>
-        <div id="testimonialDiv" class="w-[95%] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-          <!-- 1st User Testimonial -->
-          <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div class="flex items-center mb-4">
-              <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
-
-               <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
-                  <i class="fas fa-user"></i>
-               </div>
-
-              <h2 class="font-semibold text-lg">Nina Obikudo</h2>
-            </div>
-            <p class="text-sm text-gray-600 italic">
-              "My hubby is not a fan of grilled fish so when I placed my order, I got asun rice for him. Sadly, he had rice for lunch that saturday, so I served him the plantain and mackerek upon retun. Before I'd serve others and get to him to jollof with him, everything was gone as in gone. He was washing his hands, nothing to even pinch. He said he enjoyed it thoroughly. Everyone enjoyed their meals, the fried rice - my babies ate wihtout removing one veggie! I had the asun rice (though without the meat as i don't eat asun). All the adults enjoyed the meals we got. Well-done Doveeys!"
-            </p>
-            <div class="mt-4 text-yellow-500">
-              <!-- Star ratings -->
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-      
-          <!-- 2nd User Testimonial -->
-          <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div class="flex items-center mb-4">
-              <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
-
-              <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
-                <i class="fas fa-user"></i>
-             </div>
-
-              <h2 class="font-semibold text-lg">Mrs. Ebika Ayeba-Enenimiete</h2>
-            </div>
-            <p class="text-sm text-gray-600 italic">
-              "For the orders yesterday, I loved it. Congratulations once again."
-            </p>
-            <div class="mt-4 text-yellow-500">
-              <!-- Star ratings -->
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-            </div>
-          </div>
-      
-          <!-- 3rd User Testimonial -->
-          <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-            <div class="flex items-center mb-4">
-              <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
-
-              <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
-                <i class="fas fa-user"></i>
-             </div>
-
-              <h2 class="font-semibold text-lg">Mrs. Kay</h2>
-            </div>
-            <p class="text-sm text-gray-600 italic">
-              "Yes, I added more to your balance because you and your team did excellently well. Thank you for coordinating the food service so well from started to main course. Everyone enjoyed their meals and the remaining you gave us served us very well. Doveeys Kitchen to the world."
-            </p>
-            <div class="mt-4 text-yellow-500">
-              <!-- Star ratings -->
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star-half-alt"></i>
-            </div>
-          </div>
-        </div>
-    </section>
-
-
-    <!-- Doveeys Kitchen Intro Video -->
-
-    <section>
-      <video class="w-[90%] mx-auto h-[300px] md:h-[350px] lg:h-[400px]" autoplay controls loop>
-        <source src="../image/video/doveeyVideo.mp4" type="video/mp4"> 
-      </video>
-    </section>
-    
-    <div class="bg-orange-100 mb-[20px]">
-      hello
+  <!-- About Section -->
+  <section id="about" class="py-10 bg-gray-100 text-black">
+    <div class="container mx-auto px-4 text-center">
+      <h3 class="text-2xl font-bold text-green-800">About Us</h3>
+      <p class="mt-4">Doveeys Kitchen is a home restaurant dedicated to bringing you the best meals made with love and
+        care. From everyday dishes to special event packages, we’ve got you covered!</p>
     </div>
 
-    <!-- Become a Distributor Flyer -->
-   <section id="flyer2Section">
-    <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/xmasPackage.jpg); background-size: cover;" class="grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
+    <div id="ceoProfile" class="w-[95%] mx-auto mt-[20px]">
+      <div class="h-[400px] md:h-[550px] lg:w-[80%] mx-auto overflow-hidden border-[3px] border-green-400">
+        <img id="ceoImageId" src="../image/ceo1.jpg" alt="" class="object-cover w-full h-full">
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonialSection" class="py-12 bg-gray-100">
+    <h1 class="text-center text-3xl font-bold text-green-700 mb-8">What Our Clients Say</h1>
+    <div id="testimonialDiv" class="w-[95%] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <!-- 1st User Testimonial -->
+      <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+          <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
+
+          <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
+            <i class="fas fa-user"></i>
+          </div>
+
+          <h2 class="font-semibold text-lg">Nina Obikudo</h2>
+        </div>
+        <p class="text-sm text-gray-600 italic">
+          "My hubby is not a fan of grilled fish so when I placed my order, I got asun rice for him. Sadly, he had rice
+          for lunch that saturday, so I served him the plantain and mackerek upon retun. Before I'd serve others and get
+          to him to jollof with him, everything was gone as in gone. He was washing his hands, nothing to even pinch. He
+          said he enjoyed it thoroughly. Everyone enjoyed their meals, the fried rice - my babies ate wihtout removing
+          one veggie! I had the asun rice (though without the meat as i don't eat asun). All the adults enjoyed the
+          meals we got. Well-done Doveeys!"
+        </p>
+        <div class="mt-4 text-yellow-500">
+          <!-- Star ratings -->
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+      </div>
+
+      <!-- 2nd User Testimonial -->
+      <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+          <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
+
+          <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
+            <i class="fas fa-user"></i>
+          </div>
+
+          <h2 class="font-semibold text-lg">Mrs. Ebika Ayeba-Enenimiete</h2>
+        </div>
+        <p class="text-sm text-gray-600 italic">
+          "For the orders yesterday, I loved it. Congratulations once again."
+        </p>
+        <div class="mt-4 text-yellow-500">
+          <!-- Star ratings -->
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+      </div>
+
+      <!-- 3rd User Testimonial -->
+      <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+        <div class="flex items-center mb-4">
+          <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
+
+          <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
+            <i class="fas fa-user"></i>
+          </div>
+
+          <h2 class="font-semibold text-lg">Mrs. Kay</h2>
+        </div>
+        <p class="text-sm text-gray-600 italic">
+          "Yes, I added more to your balance because you and your team did excellently well. Thank you for coordinating
+          the food service so well from started to main course. Everyone enjoyed their meals and the remaining you gave
+          us served us very well. Doveeys Kitchen to the world."
+        </p>
+        <div class="mt-4 text-yellow-500">
+          <!-- Star ratings -->
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Doveeys Kitchen Intro Video -->
+
+  <section>
+    <video class="w-[90%] mx-auto h-[300px] md:h-[350px] lg:h-[400px]" autoplay controls loop>
+      <source src="../image/video/doveeyVideo.mp4" type="video/mp4">
+    </video>
+  </section>
+
+  <div class="bg-orange-100 mb-[20px]">
+    hello
+  </div>
+
+  <!-- Become a Distributor Flyer -->
+  <section id="flyer2Section">
+    <a href="https://wa.me/message/LV4DUBT6DDZHA1"
+      style="background-image: url(../image/xmasPackage.jpg); background-size: cover;"
+      class="grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
       <div class="bg-black opacity-50 inset-0 absolute"></div>
       <div class="text-center relative">
         <h1>Click to Become a Distributor Flyer</h1>
       </div>
-     </a>
-   </section>
+    </a>
+  </section>
 
-     <!-- Contact Section -->
+  <!-- Contact Section -->
   <section id="contact" class="bg-orange-100 py-10 text-black">
     <div class="container mx-auto px-4">
       <h3 class="text-2xl font-bold text-red-800 text-center">Contact Us</h3>
@@ -432,7 +487,7 @@
       </form>
     </div>
   </section>
-      
+
   <footer class="bg-black text-white py-10 relative">
     <div
       class="container mx-auto px-6 py-6 rounded-lg bg-opacity-30 bg-white backdrop-filter backdrop-blur-lg shadow-lg">
@@ -447,7 +502,7 @@
           <p>6 Endless Close off Elitor Road, Woji</p>
           <p>Port Harcourt, Rivers State</p>
         </div>
-  
+
         <!-- Phone Section -->
         <div class="text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start mb-2">
@@ -456,7 +511,7 @@
           </div>
           <a href="tel:+2348030962601" class="underline">+234 803 096 2601</a>
         </div>
-  
+
         <!-- Email Section -->
         <div class="text-center md:text-left">
           <div class="flex items-center justify-center md:justify-start mb-2">
@@ -466,56 +521,38 @@
           <a href="mailto:doveeyskitchen@gmail.com" class="underline">doveeyskitchen@gmail.com</a>
         </div>
       </div>
-  
+
       <!-- Social Icons and Call to Action -->
       <div class="mt-10 flex flex-col md:flex-row justify-between items-center">
         <!-- Social Media Icons -->
         <div class="flex space-x-6">
-          <a
-            href="https://www.facebook.com/doveeyhomes"
-            target="_blank"
-            class="text-white hover:text-gray-400"
-            title="Facebook"
-          >
+          <a href="https://www.facebook.com/doveeyhomes" target="_blank" class="text-white hover:text-gray-400"
+            title="Facebook">
             <i class="fab fa-facebook-f text-2xl"></i>
           </a>
-          <a
-            href="https://wa.me/message/LV4DUBT6DDZHA1"
-            target="_blank"
-            class="text-white hover:text-gray-400"
-            title="WhatsApp"
-          >
+          <a href="https://wa.me/message/LV4DUBT6DDZHA1" target="_blank" class="text-white hover:text-gray-400"
+            title="WhatsApp">
             <i class="fab fa-whatsapp text-2xl"></i>
           </a>
-          <a
-            href="https://www.instagram.com/doveeyskitchen?igsh=YzljYTk1ODg3Zg=="
-            target="_blank"
-            class="text-white hover:text-gray-400"
-            title="Instagram"
-          >
+          <a href="https://www.instagram.com/doveeyskitchen?igsh=YzljYTk1ODg3Zg==" target="_blank"
+            class="text-white hover:text-gray-400" title="Instagram">
             <i class="fab fa-instagram text-2xl"></i>
           </a>
-          <a
-            href="https://www.tiktok.com/@doveeyskitchen?_t=ZM-8ss5pESbS6A&_r=1"
-            target="_blank"
-            class="text-white hover:text-gray-400"
-            title="TikTok"
-          >
+          <a href="https://www.tiktok.com/@doveeyskitchen?_t=ZM-8ss5pESbS6A&_r=1" target="_blank"
+            class="text-white hover:text-gray-400" title="TikTok">
             <i class="fab fa-tiktok text-2xl"></i>
           </a>
         </div>
-  
+
         <!-- Call to Action -->
         <div class="mt-6 md:mt-0">
-          <a
-            href="https://wa.me/message/LV4DUBT6DDZHA1"
-            class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg text-lg shadow-md"
-          >
+          <a href="https://wa.me/message/LV4DUBT6DDZHA1"
+            class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg text-lg shadow-md">
             Custom Package? Message Us on WhatsApp!
           </a>
         </div>
       </div>
-  
+
       <!-- Footer Bottom -->
       <div class="mt-8 text-center border-t border-gray-500 pt-4">
         <p class="text-sm text-gray-200">
@@ -524,12 +561,12 @@
       </div>
     </div>
   </footer>
-  
-  
-    <!-- Preloader -->
-    <div id="preloader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-      <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-    </div>
+
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
 </body>
 <script>
   const menuBtn = document.getElementById('menuBtn')
@@ -542,18 +579,27 @@
   specialBtn.onclick = () => {
     window.location.href = '../htmlFolder/special2.html'
   }
-// Initialize the toggle status on page load
-window.onload = () => {
-  document.getElementById("preloader").classList.remove('hidden')
-  setTimeout(() => {
-    document.getElementById("preloader").classList.add('hidden')
-  }, 2000); // Adjust timing as needed
-};
+  // Initialize the toggle status on page load
+  window.onload = () => {
+    document.getElementById("preloader").classList.remove('hidden')
+    setTimeout(() => {
+      document.getElementById("preloader").classList.add('hidden')
+    }, 2000); // Adjust timing as needed
+  };
 
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then((registrations) => {
+      for (let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
 
 </script>
 <script src="../jsFolder/navBar.js"></script>
 <script src="../jsFolder/userMessage.js"></script>
 <script src="../jsFolder/cartReading.js"></script>
 <script src="../jsFolder/userDailyMenu.js"></script>
+
 </html>
