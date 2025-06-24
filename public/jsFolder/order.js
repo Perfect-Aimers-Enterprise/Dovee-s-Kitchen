@@ -395,6 +395,8 @@ const fetchAllOrders = async () => {
 
     const spreadData = data.orderProceed;
 
+    document.getElementById('manageorderhtag').innerText = `Manage Orders (${spreadData.length > 0 ? spreadData.length : 0})`
+
     spreadData.forEach((eachData) => {
       // console.log(eachData.menuProductOrderVariation.size
       // );

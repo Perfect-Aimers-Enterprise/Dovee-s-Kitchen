@@ -6,29 +6,29 @@ const auth = async (req, res, next) => {
     // console.log(req.headers);
 
     // console.log(req);
-    
+
     const authHeader = req.headers.authorization
     // console.log('authenTicationHeaderConsole', authHeader);
 
     // console.log(authHeader);
-    
-    
+
+
     if (!authHeader || !authHeader.startsWith('Bearer')) {
-        throw new Error('Authentication Invalid 1')
+        return res.status(403).json({ error: 'Invalid Authentication' })
     }
 
     const token = authHeader.split(' ')[1]
     // console.log(token);
-    
+
 
     try {
         const payLoad = jwt.verify(token, process.env.JWT_SECRET)
-        req.user = {userId:payLoad.userId, userName:payLoad.userName}
+        req.user = { userId: payLoad.userId, userName: payLoad.userName }
 
         next()
     } catch (error) {
-        throw new Error('Authentication Invalid 2')
-        
+        return res.status(403).json({ error: 'Invalid Authentication' })
+
     }
 }
 
