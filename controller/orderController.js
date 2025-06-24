@@ -172,7 +172,7 @@ const adminCancleOrder = async (req, res) => {
     try {
 
         const { id: orderId } = req.params
-        const orderProceed = await orderModel.findOneAndDelete({ createdBy: req.user.userId, _id: orderId })
+        const orderProceed = await orderModel.findOneAndDelete({ _id: orderId })
 
         const transporter = nodemailer.createTransport({
             host: 'smtp.zoho.com',
@@ -185,7 +185,7 @@ const adminCancleOrder = async (req, res) => {
 
         const mailOptions = {
             from: process.env.DOVEEYS_EMAIL,
-            to: orderProceed.userName,
+            to: orderProceed.userEmail,
             subject: 'Order Cancellation Doveeys Kitchen',
             html: `
                     <body style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; color: #222;">
@@ -254,7 +254,8 @@ const adminCancleOrder = async (req, res) => {
 const adminConfirmOrder = async (req, res) => {
     try {
         const { id: orderId } = req.params
-        const orderProceed = await orderModel.findOne({ createdBy: req.user.userId, _id: orderId })
+
+        const orderProceed = await orderModel.findOne({ _id: orderId })
 
         orderProceed.menuProductOrderStatus = 'Confirmed'
         await orderProceed.save()
@@ -270,7 +271,7 @@ const adminConfirmOrder = async (req, res) => {
 
         const mailOptions = {
             from: process.env.DOVEEYS_EMAIL,
-            to: orderProceed.userName,
+            to: orderProceed.userEmail,
             subject: 'Order Confirmation Doveeys Kitchen',
             html: `
                     <body style="font-family: Arial, sans-serif; background-color: #ffffff; padding: 20px; color: #222;">
@@ -331,6 +332,8 @@ const adminConfirmOrder = async (req, res) => {
 
         res.status(201).json({ message: 'Item Confirmed' })
     } catch (error) {
+        console.log(error);
+
         res.status(500).json(error)
     }
 }

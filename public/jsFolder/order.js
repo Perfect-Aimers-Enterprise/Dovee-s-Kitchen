@@ -491,10 +491,7 @@ const cancleUserOrders = async (menuOrderId) => {
   try {
     document.getElementById('preloader').classList.remove('hidden')
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/order/adminCancleOrder/${menuOrderId}`, {
-      method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+      method: 'DELETE'
     })
 
 
@@ -514,10 +511,7 @@ const confirmUserOrders = async (menuOrderId) => {
     document.getElementById('preloader').classList.remove('hidden')
 
     const response = await fetch(`${config.apiUrl}/doveeysKitchen/order/adminConfirmOrder/${menuOrderId}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${localStorage.getItem('token')}`
-      }
+      method: 'POST'
     })
 
     console.log(response);

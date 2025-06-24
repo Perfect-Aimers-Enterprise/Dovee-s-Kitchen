@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const {adminGetAllProceedOrder, adminGetAllConfirmedOrdersPrice, getMonthlyOrders, getWeeklyGrowth} = require('../controller/orderController')
+const { adminGetAllProceedOrder, adminGetAllConfirmedOrdersPrice, getMonthlyOrders, getWeeklyGrowth } = require('../controller/orderController')
 
 router.get('/adminGetAllProceedOrder', adminGetAllProceedOrder)
 router.get('/adminGetAllConfirmedOrdersPrice', adminGetAllConfirmedOrdersPrice)

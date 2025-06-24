@@ -70,7 +70,7 @@ app.get('/doveeyskitchenadmin', (req, res) => {
 // MiddleWares 
 app.use('/doveeysKitchen/api', userRoute)
 app.use('/doveeysKitchen/product', productRoute)
-app.use('/doveeysKitchen/order', authentication, orderRoute)
+app.use('/doveeysKitchen/order', orderRoute)
 app.use('/doveeysKitchen/adminGetOrder', adminGetOrderRoute)
 app.use('/doveeysKitchen/specialProduct', specialProductRoute)
 app.use('/doveeysKitchen/message', userMessageRoute)
