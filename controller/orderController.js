@@ -122,7 +122,25 @@ const createProceedOrder = async (req, res) => {
             ],
         }
 
-        await transporter.sendMail(mailOptions)
+
+        const mailOptionsAdmin = {
+            from: process.env.DOVEEYS_EMAIL,
+            to: "doveeyskitchen@gmail.com",
+            subject: `📦 New Order Placed by ${orderProceed.userName}`,
+            html: `
+        <p><strong>New Order Received</strong></p>
+        <p>Customer: ${orderProceed.userName}</p>
+        <p>Email: ${req.body.userEmail}</p>
+        <p>Product: ${orderProceed.menuProductOrderName}</p>
+        <p>Qty: ${orderProceed.menuProductOrderQuantity}</p>
+        <p>Total: ₦${orderProceed.menuTotalProductOrderPrice}</p>
+      `,
+        };
+
+        // Send both emails
+        await transporter.sendMail(mailOptions);
+        await transporter.sendMail(mailOptionsAdmin);
+
 
 
         res.status(201).json({
