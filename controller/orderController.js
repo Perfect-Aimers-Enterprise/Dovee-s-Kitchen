@@ -143,23 +143,23 @@ const createProceedOrder = async (req, res) => {
 
 
         // Verify connection
-        transporter.verify((error, success) => {
-            if (error) {
-                console.error("SMTP Error:", error);
-            } else {
-                console.log("SMTP Ready:", success);
-            }
-        });
+        // transporter.verify((error, success) => {
+        //     if (error) {
+        //         console.error("SMTP Error:", error);
+        //     } else {
+        //         console.log("SMTP Ready:", success);
+        //     }
+        // });
 
         // Send to customer
         await transporter.sendMail(mailOptions)
-            .then(info => console.log("User Mail Sent:", info.response))
-            .catch(err => console.error("User Mail Error:", err));
+        // .then(info => console.log("User Mail Sent:", info.response))
+        // .catch(err => console.error("User Mail Error:", err));
 
         // Send to admin
         await transporter.sendMail(mailOptionsAdmin)
-            .then(info => console.log("Admin Mail Sent:", info.response))
-            .catch(err => console.error("Admin Mail Error:", err));
+        // .then(info => console.log("Admin Mail Sent:", info.response))
+        // .catch(err => console.error("Admin Mail Error:", err));
 
 
 
