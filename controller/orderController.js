@@ -169,7 +169,9 @@ const createProceedOrder = async (req, res) => {
         });
 
     } catch (error) {
-        console.error('Error processing order:', error);
+        console.error("Error processing order:", error); // logs whole object
+        console.error("Error message:", error.message);  // logs message
+        console.error("Error stack:", error.stack);      // logs stack trace
         res.status(500).json({ message: 'Error placing order.', error });
     }
 };
