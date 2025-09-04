@@ -122,10 +122,12 @@ const createProceedOrder = async (req, res) => {
             ],
         }
 
+        await transporter.sendMail(mailOptions);
+
 
         const mailOptionsAdmin = {
             from: process.env.DOVEEYS_EMAIL,
-            to: "doveeyskitchen@gmail.com",
+            to: "godsaveogbidor@gmail.com",
             subject: `📦 New Order Placed by ${orderProceed.userName}`,
             html: `
         <p><strong>New Order Received</strong></p>
@@ -138,7 +140,7 @@ const createProceedOrder = async (req, res) => {
         };
 
         // Send both emails
-        await transporter.sendMail(mailOptions);
+
         await transporter.sendMail(mailOptionsAdmin);
 
 
