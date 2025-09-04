@@ -45,7 +45,7 @@ const createProceedOrder = async (req, res) => {
 
         const transporter = nodemailer.createTransport({
             host: "smtp.zoho.com",
-            port: 465,
+            port: 587,
             secure: true,
             auth: {
                 user: process.env.DOVEEYS_EMAIL,
