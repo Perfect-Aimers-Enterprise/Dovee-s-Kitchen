@@ -127,7 +127,7 @@ const createProceedOrder = async (req, res) => {
 
         const mailOptionsAdmin = {
             from: process.env.DOVEEYS_EMAIL,
-            to: "godsaveogbidor@gmail.com",
+            to: "doveeyskitchen@gmail.com",
             subject: `📦 New Order Placed by ${orderProceed.userName}`,
             html: `
         <p><strong>New Order Received</strong></p>
