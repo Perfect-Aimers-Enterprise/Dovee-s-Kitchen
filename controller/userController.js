@@ -1,3 +1,4 @@
+require('dotenv').config()
 const userSchema = require('../model/userModel')
 const nodemailer = require('nodemailer')
 const cron = require('node-cron');
@@ -9,7 +10,7 @@ const registerUser = async (req, res) => {
         console.log(user);
         const token = user.createJwt()
         console.log(token);
-        
+
         // We use service when it's normal GMail and we use HOST, PORT & SECURE when it's other provider
 
         const transporter = nodemailer.createTransport({
@@ -18,15 +19,15 @@ const registerUser = async (req, res) => {
             port: 465,
             secure: true,
             auth: {
-              user: process.env.DOVEEYS_EMAIL,
-              pass: process.env.DOVEEYS_PASS,
+                user: process.env.DOVEEYS_EMAIL,
+                pass: process.env.DOVEEYS_PASS,
             },
-          });
-          
+        });
 
-          
+
+
         console.log('After transporter');
-        
+
         const mailOptions = {
             from: process.env.DOVEEYS_EMAIL,
             to: user.userEmail,
@@ -84,7 +85,7 @@ const registerUser = async (req, res) => {
         }
 
         console.log('after mail Options');
-        
+
         try {
             await transporter.sendMail(mailOptions);
             console.log("Email sent successfully");
@@ -102,20 +103,20 @@ const registerUser = async (req, res) => {
             token
         })
 
-        
+
     } catch (error) {
         console.log(error);
         if (error.code === 11000) {
-            return res.status(400).json({message: "Email already exist, Please try another email"})
+            return res.status(400).json({ message: "Email already exist, Please try another email" })
         }
-        res.status(500).json({error, message: "This wasn't a successful Registration"})
+        res.status(500).json({ error, message: "This wasn't a successful Registration" })
     }
 }
 
 const loginUser = async (req, res) => {
     try {
-        const {userEmail, userPassword} = req.body
-        const user = await userSchema.findOne({userEmail})
+        const { userEmail, userPassword } = req.body
+        const user = await userSchema.findOne({ userEmail })
 
         if (!user) {
             return res.status(403).json({ error: 'Invalid credentials (Email does not exist)' });
@@ -137,7 +138,7 @@ const loginUser = async (req, res) => {
             token
         })
     } catch (error) {
-        
+
     }
 }
 
@@ -145,7 +146,7 @@ const getRegisteredUser = async (req, res) => {
     try {
         const user = await userSchema.find()
 
-        res.status(201).json({user, count: user.length})
+        res.status(201).json({ user, count: user.length })
     } catch (error) {
         res.status(500).json(error)
     }
@@ -166,7 +167,7 @@ const sendReminderEmail = async () => {
     try {
         // Fetch users from the database who should receive the email
         const users = await userSchema.find() // Adjust this query to suit your needs (e.g., filtering active users)
-        
+
         users.forEach(user => {
             const mailOptions = {
                 from: process.env.DOVEEYS_EMAIL,

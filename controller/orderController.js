@@ -1,6 +1,6 @@
+require('dotenv').config()
 const orderModel = require('../model/orderModel')
 const Subscription = require('../model/subscriptionModel'); // Assuming you have a subscription model for notifications
-const { webPush } = require('../utils/webPushConfig');
 const userSchema = require('../model/userModel')
 const nodemailer = require('nodemailer')
 const path = require('path')
@@ -127,7 +127,7 @@ const createProceedOrder = async (req, res) => {
 
         const mailOptionsAdmin = {
             from: process.env.DOVEEYS_EMAIL,
-            to: "doveeyskitchen@gmail.com",
+            to: "godsaveogbidor@gmail.com",
             subject: `📦 New Order Placed by ${orderProceed.userName}`,
             html: `
         <p><strong>New Order Received</strong></p>
