@@ -9,9 +9,14 @@ const getAllProceedOrder = async (req, res) => {
     try {
         const orderProceed = await orderModel.find({ createdBy: req.user.userId }).sort({ createdAt: -1 })
 
+        console.log({ orderProceed });
+
+
         res.status(201).json({ orderProceed, count: orderProceed.length })
     } catch (error) {
-        res.status(500).json({ error: 'Something went wrong' })
+        res.status(500).json(error)
+        console.error(error, 'Something went wrong on getting proceed orderss');
+
     }
 }
 

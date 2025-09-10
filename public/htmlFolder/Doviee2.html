@@ -123,12 +123,15 @@
     </div>
   </section>
 
+
   <!-- Menu Section -->
+  <!--  -->
   <section id="menu" class="py-16 bg-gray-100 text-black">
 
     <div class="container mx-auto px-6 lg:px-16">
       <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Featured Dishes</h3>
-      <div id="menuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- id="menuDishCards" -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 menuGridClassHome">
         <!-- Dish Card -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
           <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
@@ -284,7 +287,8 @@
     <div class="container mx-auto px-6 lg:px-16 text-center">
       <h3 class="text-2xl font-bold text-orange-700 mb-6">Special Packages</h3>
       <p class="text-gray-700 mb-10">Exciting packages for holidays and events!</p>
-      <div id="specialLandingPageDisplay" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- id="specialLandingPageDisplay" -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 specialGridClassHome">
         <!-- Special Package Card -->
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
           <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
@@ -564,7 +568,7 @@
 
 
   <!-- Preloader -->
-  <div id="preloader" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+  <div id="preloaderOrder" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
     <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
   </div>
 </body>
@@ -598,6 +602,8 @@
 
 </script>
 <script src="../jsFolder/navBar.js"></script>
+<script src="../jsFolder/clientOrdersHome.js"></script>
+<script src="../jsFolder/clientSpecialOrdersHome.js"></script>
 <script src="../jsFolder/userMessage.js"></script>
 <script src="../jsFolder/cartReading.js"></script>
 <script src="../jsFolder/userDailyMenu.js"></script>

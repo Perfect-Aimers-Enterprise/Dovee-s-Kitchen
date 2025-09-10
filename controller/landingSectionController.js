@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const HeroImage= require('../model/landingPageModel');
+const HeroImage = require('../model/landingPageModel');
 const MenuLanding = require('../model/menuLandingSchema')
 const SpecialLanding = require('../model/specialLandingSchema')
 const Flyer1 = require('../model/flyer1Model')
@@ -49,7 +49,7 @@ const getHeroImage = async (req, res) => {
 
         res.status(201).json(getHeroImageVar)
     } catch (error) {
-        res.status(500).json(error, message = "Couldn't get HeroImage to display")
+        res.status(500).json(error)
     }
 }
 
@@ -78,17 +78,17 @@ const createMenuImage = async (req, res) => {
 const uploadMenuImageSchema = async (req, res) => {
     try {
 
-        const {id: menuImageId} = req.params
-        const {menuLandingName, menuLandingDes} = req.body
+        const { id: menuImageId } = req.params
+        const { menuLandingName, menuLandingDes } = req.body
         menuLandingImageUrl = req.file.filename
 
         const menuImageSchema = await MenuLanding.findOneAndUpdate(
-            {_id: menuImageId},
-            {menuLandingName, menuLandingDes, menuLandingImage: menuLandingImageUrl},
-            {new: true, runValidators: true}
+            { _id: menuImageId },
+            { menuLandingName, menuLandingDes, menuLandingImage: menuLandingImageUrl },
+            { new: true, runValidators: true }
         )
 
-        res.status(201).json({menuImageSchema, message: 'menuLandingPage Uploaded Successfullyl'})
+        res.status(201).json({ menuImageSchema, message: 'menuLandingPage Uploaded Successfullyl' })
     } catch (error) {
         res.status(500).json(error)
     }
@@ -107,8 +107,8 @@ const getAllMenuImage = async (req, res) => {
 const getSingleMenuImage = async (req, res) => {
     try {
 
-        const {id:singleMenuId} = req.params
-        const getSingleMenuImageVar = await MenuLanding.findOne({_id:singleMenuId})
+        const { id: singleMenuId } = req.params
+        const getSingleMenuImageVar = await MenuLanding.findOne({ _id: singleMenuId })
         res.status(201).json(getSingleMenuImageVar)
 
     } catch (error) {
@@ -140,17 +140,17 @@ const createSpecialImage = async (req, res) => {
 
 const uploadSpecialImageSchema = async (req, res) => {
     try {
-        const {id: specialImageId} = req.params
-        const {specialLandingName, specialLandingDes} = req.body
+        const { id: specialImageId } = req.params
+        const { specialLandingName, specialLandingDes } = req.body
         specialLandingImageUrl = req.file.filename
 
         const specialImageSchema = await SpecialLanding.findOneAndUpdate(
-            {_id: specialImageId},
-            {specialLandingName, specialLandingDes, specialLandingImage: specialLandingImageUrl},
-            {new: true, runValidators: true}
+            { _id: specialImageId },
+            { specialLandingName, specialLandingDes, specialLandingImage: specialLandingImageUrl },
+            { new: true, runValidators: true }
         )
 
-        res.status(201).json({specialImageSchema, message: 'Special product uploaded successfull!!!'})
+        res.status(201).json({ specialImageSchema, message: 'Special product uploaded successfull!!!' })
     } catch (error) {
         res.status(500).json(error)
     }
@@ -168,8 +168,8 @@ const getAllSpecialImage = async (req, res) => {
 const getSingleSpecialImage = async (req, res) => {
     try {
 
-        const {_id: singleSpecialId} = req.params
-        const getSingleSpecialImageVar = await SpecialLanding.findOne({_id: singleSpecialId})
+        const { _id: singleSpecialId } = req.params
+        const getSingleSpecialImageVar = await SpecialLanding.findOne({ _id: singleSpecialId })
 
         res.status(201).json(getSingleSpecialImageVar)
     } catch (error) {
@@ -217,7 +217,7 @@ const getFlyer1Schema = async (req, res) => {
         const getFlyer1Var = await Flyer1.find()
         res.status(201).json(getFlyer1Var)
     } catch (error) {
-        res.status(500).json({error, message: 'Flyer1 not found'})
+        res.status(500).json({ error, message: 'Flyer1 not found' })
     }
 }
 
@@ -231,7 +231,7 @@ const uploadFlyer2Schema = async (req, res) => {
 
         const existingFlyer2 = await Flyer2.findOne();
         console.log('Existing Flyer2 Test Schema', existingFlyer2);
-        
+
         if (existingFlyer2) {
             // Step 1: Retrieve the existing image file path
             const existingImagePath = path.join(__dirname, '../public/image/flyer2', existingFlyer2.flyer2Image);
@@ -249,7 +249,7 @@ const uploadFlyer2Schema = async (req, res) => {
             );
 
             console.log('New Flyer2 Test Schema', updatedFlyer2);
-            
+
             return res.status(200).json({ updatedFlyer2, message: 'Flyer2 updated successfully!' });
         } else {
             const newFlyer2 = await Flyer2.create({
@@ -269,7 +269,7 @@ const getFlyer2Schema = async (req, res) => {
         const getFlyer2Var = await Flyer2.find()
         res.status(201).json(getFlyer2Var)
     } catch (error) {
-        res.status(500).json({error, message: 'Flyer2 not found'})
+        res.status(500).json({ error, message: 'Flyer2 not found' })
     }
 }
 

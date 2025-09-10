@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
-// 
+
 
 const menuGridClass = document.querySelector('.menuGridClass')
 
