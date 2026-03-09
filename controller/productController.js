@@ -34,8 +34,8 @@ const createMenuProduct = async (req, res) => {
 const getMenuProducts = async (req, res) => {
   try {
     await connectDB();
-    const menuProduct = await productModel.find().sort({ createdAt: -1 });
-    console.log({ menuProduct }).lean();
+    const menuProduct = await productModel.find().sort({ createdAt: -1 }).lean();
+    console.log({ menuProduct });
 
     if (!menuProduct) {
       return res.status(404).json({ message: "No product Found" });
