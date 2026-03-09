@@ -21,7 +21,7 @@ const eventHeaderRoute = require("./routes/eventHeaderRoute");
 const toggleEventRoute = require("./routes/toggleEventRoute");
 
 const app = express();
-const server = createServer(app);
+// const server = createServer(app);
 
 // Update Express CORS to match
 app.use(
@@ -78,4 +78,4 @@ app.use("/doveeysKitchen/safezone", adminSecureRoute);
 app.use("/doveeysKitchen/eventHeader", eventHeaderRoute);
 app.use("/doveeysKitchen/eventStatus", toggleEventRoute);
 
-module.exports = { server };
+module.exports = app;
