@@ -48,6 +48,8 @@ module.exports = async function handler(req, res) {
       return res.status(200).end();
     }
     await connectDB();
+    console.log("APP TYPE:", typeof app);
+    console.log("APP VALUE:", app);
     return app(req, res);
   } catch (err) {
     console.error(err);
