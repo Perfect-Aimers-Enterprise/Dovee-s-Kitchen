@@ -41,17 +41,13 @@ function applyCors(res) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
 }
 
-app.use(async (req, res, next) => {
-  await connectDB();
-  next();
-});
-
-module.exports = function handler(req, res) {
+module.exports = async function handler(req, res) {
   try {
     applyCors(res);
     if (req.method === "OPTIONS") {
       return res.status(200).end();
     }
+    await connectDB();
     return app(req, res);
   } catch (err) {
     console.error(err);
