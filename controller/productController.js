@@ -1,3 +1,4 @@
+const connectDB = require("../db/connectDB");
 const productModel = require("../model/productModel");
 const nodemailer = require("nodemailer");
 
@@ -32,6 +33,7 @@ const createMenuProduct = async (req, res) => {
 
 const getMenuProducts = async (req, res) => {
   try {
+    await connectDB();
     const menuProduct = await productModel.find().sort({ createdAt: -1 });
     console.log({ menuProduct }).lean();
 
