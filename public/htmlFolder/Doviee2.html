@@ -1,612 +1,1240 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="../src/output.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon">
-  <title>Doveeys Kitchen</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .hero-overlay {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
-    }
-
-    button:hover {
-      transform: translateY(-2px);
-      transition: 0.3s ease-in-out;
-    }
-
-    nav a {
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #FFA726;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../src/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="shortcut icon" href="../image/doveeLogo.png" type="image/x-icon" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Playfair+Display:wght@700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Doveeys Kitchen</title>
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
       }
 
-      100% {
-        transform: rotate(360deg);
+      .hero-overlay {
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.8));
       }
-    }
 
-    .animate-spin {
-      animation: spin 1s linear infinite;
-    }
-  </style>
-</head>
+      button:hover {
+        transform: translateY(-2px);
+        transition: 0.3s ease-in-out;
+      }
 
-<body class="bg-black text-gray-200">
-  <!-- Header -->
-  <header class="bg-green-600 text-white py-3 fixed top-0 w-full z-10 shadow-md">
-    <div class="container mx-auto flex justify-between items-center px-6 lg:px-16">
-      <div class="flex items-center space-x-4">
-        <img src="../image/doveeLogo.png" alt="Logo" class="w-10 h-10">
-        <h1 class="text-lg font-bold">Doveeys Kitchen</h1>
-      </div>
+      nav a {
+        transition: color 0.3s;
+      }
 
-      <nav class="hidden lg:block">
-        <ul class="flex space-x-6">
-          <li><a href="#menu" class="hover:text-orange-300">Menu</a></li>
-          <li><a href="#about" class="hover:text-orange-300">About</a></li>
-          <li><a href="#specials" class="hover:text-orange-300">Specials</a></li>
-          <li><a href="../htmlFolder/regLog.html" class="hover:text-orange-300">Account</a></li>
-          <li><a href="../htmlFolder/Gallery.html" class="hover:text-orange-300">Gallery</a></li>
-          <li><a href="#contact" class="hover:text-orange-300">Contact</a></li>
-          <li><a href="#help" class="hover:text-orange-300">Help</a></li>
-          <li>
-            <a href="../htmlFolder/shoppingCart.html" class="relative">
-              <i class="fas fa-shopping-cart"></i>
-              <span
-                class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      nav a:hover {
+        color: #ffa726;
+      }
 
-      <button id="menuToggle" class="lg:hidden text-xl">
-        <i class="fas fa-bars"></i>
-      </button>
-    </div>
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
+        }
 
-    <!-- Sliding Navbar -->
-    <nav id="slidingNavbar"
-      class="fixed top-0 right-0 h-full w-3/4 bg-black text-gray-200 transform translate-x-full transition-transform duration-300 lg:hidden">
-      <div class="p-4">
-        <!-- Close Icon -->
-        <button id="closeMenu" class="text-white text-2xl">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <ul class="mt-5 space-y-4 text-lg px-6">
-        <li><a href="#menu" class="hover:text-orange-300">Menu</a></li>
-        <li><a href="#about" class="hover:text-orange-300">About</a></li>
-        <li><a href="#specials" class="hover:text-orange-300">Specials</a></li>
-        <li><a href="../htmlFolder/regLog.html" class="hover:text-orange-300">Account</a></li>
-        <li><a href="../htmlFolder/Gallery.html" class="hover:text-orange-300">Gallery</a></li>
-        <li><a href="#contact" class="hover:text-orange-300">Contact</a></li>
-        <li><a href="#help" class="hover:text-orange-300">Help</a></li>
-        <li class="w-fit">
-          <a href="../htmlFolder/shoppingCart.html" class="relative">
-            <i class="fas fa-shopping-cart"></i>
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .animate-spin {
+        animation: spin 1s linear infinite;
+      }
+    </style>
+  </head>
+
+  <!-- <body class="bg-black text-gray-200"> -->
+  <body class="bg-[#050505] text-gray-100 antialiased">
+    <header class="fixed top-4 inset-x-0 z-50 transition-all duration-500">
+      <div class="container mx-auto px-4">
+        <nav
+          class="bg-black/60 backdrop-blur-xl border border-white/10 rounded-2xl px-4 md:px-6 py-3 flex justify-between items-center shadow-2xl"
+        >
+          <div class="flex items-center space-x-2 md:space-x-3 group cursor-pointer">
+            <div
+              class="w-9 h-9 md:w-10 md:h-10 bg-green-600 rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform shrink-0"
+            >
+              <img src="../image/doveeLogo.png" alt="Logo" class="w-7 h-7 object-contain" />
+            </div>
             <span
-              class="absolute -top-2 -right-2 bg-orange-500 text-white rounded-full text-xs w-5 h-5 flex items-center justify-center cartCount">2</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </header>
-
-  <!-- Hero Section -->
-  <section id="dynamicHeroImage" class="mt-[30px]">
-    <div class="relative bg-cover bg-center text-white h-[50vh] md:h-[60vh] lg:h-[70vh] xl:h-[85vh]"
-      style="background-image: url('../image/regBg1.jpg');">
-      <div class="hero-overlay absolute inset-0"></div>
-      <div class="relative h-full flex flex-col justify-center items-center text-center">
-        <h2 class="text-2xl md:text-5xl font-bold mb-4">Welcome to Doveeys Kitchen</h2>
-        <p class="text-lg md:text-xl mb-6">Delicious meals made with love. Place your orders now!</p>
-        <a href="#menu" class="bg-orange-500 py-3 px-6 rounded-full hover:bg-orange-600">Explore Menu</a>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- Menu Section -->
-  <!--  -->
-  <section id="menu" class="py-16 bg-gray-100 text-black">
-
-    <div class="container mx-auto px-6 lg:px-16">
-      <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Featured Dishes</h3>
-      <!-- id="menuDishCards" -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 menuGridClassHome">
-        <!-- Dish Card -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/grilledChicken.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">Grilled Chicken</h4>
-          <p class="mt-2 text-gray-600">Deliciously seasoned grilled chicken.</p>
-
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
-            Now</button>
-        </div>
-
-        <!-- Dish Card2 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/3litresofvegetablesoup.jpg" alt="Grilled Chicken"
-            class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">Vegetable Soup</h4>
-          <p class="mt-2 text-gray-600">Deliciously vegetable soup.</p>
-
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
-            Now</button>
-        </div>
-
-        <!-- Dish Card3 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/ricenplantain.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">White Rice & Stew with Plantain</h4>
-          <p class="mt-2 text-gray-600">Deliciously white rice & stew with plantain.</p>
-
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
-            Now</button>
-        </div>
-
-        <!-- Dish Card4 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/3litresOfEgwuciSoup.jpg" alt="Grilled Chicken" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">3 litres of Egwuci Soup</h4>
-          <p class="mt-2 text-gray-600">Deliciously egwuci soup.</p>
-
-          <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full menuOrderNow">Order
-            Now</button>
-        </div>
-
-        <!-- Repeat Dish Card for other items -->
-      </div>
-    </div>
-
-    <div id="menuBtn"
-      class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
-      <p>View All</p>
-      <i class="fas fa-angle-down"></i>
-    </div>
-
-  </section>
-
-  <!-- Daily Menu Dishes  -->
-  <section id="dailyMenu" class="py-16 bg-gray-100 text-black">
-
-    <div class="container mx-auto px-6 lg:px-16">
-      <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Daily Menu Dishes</h3>
-      <div id="dailyMenuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Dish Card -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
-            class="rounded-lg w-full h-80 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
-          <p class="mt-2 text-gray-600">₦8000</p>
-
-          <button
-            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Dish Card2 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
-            class="rounded-lg w-full h-80 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
-          <p class="mt-2 text-gray-600">₦8000</p>
-
-          <button
-            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Dish Card3 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
-            class="rounded-lg w-full h-80 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
-          <p class="mt-2 text-gray-600">₦8000</p>
-
-          <button
-            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Dish Card4 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/dailyMenu/dailyMenu5.jpg" alt="Grilled Chicken"
-            class="rounded-lg w-full h-80 object-cover">
-          <h4 class="mt-4 text-xl font-semibold">Monday Menu Dish</h4>
-          <p class="mt-2 text-gray-600">₦8000</p>
-
-          <button
-            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Repeat Dish Card for other items -->
-      </div>
-    </div>
-
-  </section>
-
-  <!-- Student Flyer section  -->
-  <section id="flyer1Section">
-    <a href="https://wa.me/message/LV4DUBT6DDZHA1"
-      style="background-image: url(../image/xmasPackage.jpg); background-size: cover;"
-      class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
-      <div class="bg-black opacity-50 inset-0 absolute"></div>
-      <div class="text-center relative">
-        <h1>Run Your ADS here (Contact Us)</h1>
-      </div>
-    </a>
-  </section>
-
-  <!-- Event Menu Dishes  -->
-  <section id="eventMenu" class="py-16 bg-gray-100 text-black eventMenuSection hidden">
-
-    <div class="container mx-auto px-6 lg:px-16">
-      <h3 class="text-2xl font-bold text-center text-green-700 mb-10">Event Menu Dishes</h3>
-      <div id="eventMenuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Dish Card -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
-          <h4 class="mt-4 text-xl font-semibold"></h4>
-          <p class="mt-2 text-gray-600"></p>
-
-          <button
-            class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Repeat Dish Card for other items -->
-      </div>
-    </div>
-
-  </section>
-
-
-
-  <!-- Specials Section -->
-  <section id="specials" class="py-16 bg-orange-100">
-    <div class="container mx-auto px-6 lg:px-16 text-center">
-      <h3 class="text-2xl font-bold text-orange-700 mb-6">Special Packages</h3>
-      <p class="text-gray-700 mb-10">Exciting packages for holidays and events!</p>
-      <!-- id="specialLandingPageDisplay" -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 specialGridClassHome">
-        <!-- Special Package Card -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/valentine1.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold text-gray-900">Rice, Veges and Wine</h4>
-          <p class="mt-2 text-gray-600">Deliciously seasoned rice with a bottle of red wine, chicken chops & veges with
-            flower (Valentine Package).</p>
-
-          <button
-            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Special Package Card2 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/valentine2.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold text-gray-900">Chops & Cookies</h4>
-          <p class="mt-2 text-gray-600">Deliciously chops & cookies (hangouts, dates, val etc..).</p>
-
-          <button
-            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Special Package Card3 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/xmasCombo.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold text-gray-900">Grilled Fish & Rice + Sauce & Veges</h4>
-          <p class="mt-2 text-gray-600">Deliciously seasoned rice & grilled fish (picnic, valentine, xmas, dates
-            etc...).</p>
-
-          <button
-            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Special Package Card4 -->
-        <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
-          <img src="../image/chickenandsauce.jpg" alt="Valentine Package" class="rounded-lg w-full h-40 object-cover">
-          <h4 class="mt-4 text-xl font-semibold text-gray-900">Sauced Rice & Beans with Chicken</h4>
-          <p class="mt-2 text-gray-600">Deliciously seasoned rice & beans with chicken (outdoor, picnic, Easter,
-            Birthday, wedding, etc...).</p>
-
-          <button
-            class="mt-6 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full specialMenuOrder">Order
-            Now</button>
-        </div>
-
-        <!-- Repeat for other specials -->
-      </div>
-    </div>
-
-    <div id="specialBtn"
-      class="text-center w-fit mx-auto mt-[10px] p-[5px] rounded-md text-green-600 cursor-pointer flex items-center gap-2 shadow-md shadow-black drop-shadow-md">
-      <p>View All</p>
-      <i class="fas fa-angle-down"></i>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-10 bg-gray-100 text-black">
-    <div class="container mx-auto px-4 text-center">
-      <h3 class="text-2xl font-bold text-green-800">About Us</h3>
-      <p class="mt-4">Doveeys Kitchen is a home restaurant dedicated to bringing you the best meals made with love and
-        care. From everyday dishes to special event packages, we’ve got you covered!</p>
-    </div>
-
-    <div id="ceoProfile" class="w-[95%] mx-auto mt-[20px]">
-      <div class="h-[400px] md:h-[550px] lg:w-[80%] mx-auto overflow-hidden border-[3px] border-green-400">
-        <img id="ceoImageId" src="../image/ceo1.jpg" alt="" class="object-cover w-full h-full">
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section id="testimonialSection" class="py-12 bg-gray-100">
-    <h1 class="text-center text-3xl font-bold text-green-700 mb-8">What Our Clients Say</h1>
-    <div id="testimonialDiv" class="w-[95%] mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-      <!-- 1st User Testimonial -->
-      <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-        <div class="flex items-center mb-4">
-          <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
-
-          <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
-            <i class="fas fa-user"></i>
+              class="text-base md:text-xl font-extrabold tracking-tighter uppercase italic whitespace-nowrap"
+            >
+              Doveeys <span class="text-green-500">Kitchen</span>
+            </span>
           </div>
 
-          <h2 class="font-semibold text-lg">Nina Obikudo</h2>
-        </div>
-        <p class="text-sm text-gray-600 italic">
-          "My hubby is not a fan of grilled fish so when I placed my order, I got asun rice for him. Sadly, he had rice
-          for lunch that saturday, so I served him the plantain and mackerek upon retun. Before I'd serve others and get
-          to him to jollof with him, everything was gone as in gone. He was washing his hands, nothing to even pinch. He
-          said he enjoyed it thoroughly. Everyone enjoyed their meals, the fried rice - my babies ate wihtout removing
-          one veggie! I had the asun rice (though without the meat as i don't eat asun). All the adults enjoyed the
-          meals we got. Well-done Doveeys!"
-        </p>
-        <div class="mt-4 text-yellow-500">
-          <!-- Star ratings -->
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star-half-alt"></i>
-        </div>
+          <ul
+            class="hidden lg:flex items-center space-x-8 text-xs font-bold tracking-widest text-gray-300"
+          >
+            <li>
+              <a href="#menu" class="hover:text-green-400 transition-colors uppercase">The Menu</a>
+            </li>
+            <li>
+              <a href="#specials" class="hover:text-green-400 transition-colors uppercase"
+                >Specials</a
+              >
+            </li>
+            <li>
+              <a
+                href="../htmlFolder/Gallery.html"
+                class="hover:text-green-400 transition-colors uppercase"
+                >Gallery</a
+              >
+            </li>
+            <li>
+              <a href="#contact" class="hover:text-green-400 transition-colors uppercase"
+                >Contact</a
+              >
+            </li>
+          </ul>
+
+          <div class="flex items-center space-x-2 md:space-x-4">
+            <a
+              href="../htmlFolder/shoppingCart.html"
+              class="relative p-2 hover:bg-white/5 rounded-full transition-colors text-white"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+              <span
+                class="absolute top-1 right-1 bg-green-500 text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full text-black shadow-sm"
+                >2</span
+              >
+            </a>
+
+            <button
+              id="menuToggle"
+              class="lg:hidden p-2 text-white hover:bg-white/5 rounded-lg transition-colors"
+            >
+              <i class="fas fa-bars text-xl"></i>
+            </button>
+          </div>
+        </nav>
       </div>
 
-      <!-- 2nd User Testimonial -->
-      <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-        <div class="flex items-center mb-4">
-          <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
+      <div
+        id="mobileMenu"
+        class="fixed inset-0 z-[60] bg-black/98 backdrop-blur-2xl flex flex-col items-center justify-center space-y-10 text-xl font-black tracking-[0.2em] opacity-0 pointer-events-none transition-all duration-500"
+      >
+        <button
+          id="closeMenu"
+          class="absolute top-8 right-8 w-12 h-12 flex items-center justify-center bg-white/5 rounded-full text-white transition-transform active:scale-90"
+        >
+          <i class="fas fa-times text-2xl"></i>
+        </button>
 
-          <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
-            <i class="fas fa-user"></i>
+        <a href="#menu" class="text-white hover:text-green-500 transition-colors">THE MENU</a>
+        <a href="#specials" class="text-white hover:text-green-500 transition-colors">SPECIALS</a>
+        <a
+          href="../htmlFolder/Gallery.html"
+          class="text-white hover:text-green-500 transition-colors"
+          >GALLERY</a
+        >
+        <a href="#contact" class="text-white hover:text-green-500 transition-colors">CONTACT</a>
+
+        <div class="pt-10">
+          <img src="../image/doveeLogo.png" alt="Logo" class="w-16 h-16 opacity-20" />
+        </div>
+      </div>
+    </header>
+
+    <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[#050505] z-10"
+        ></div>
+        <div
+          class="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent z-10"
+        ></div>
+        <img
+          src="../image/regBg1.jpg"
+          alt="Background"
+          class="w-full h-full object-cover animate-subtle-zoom"
+        />
+      </div>
+
+      <div class="container mx-auto px-6 lg:px-16 relative z-20">
+        <div class="max-w-4xl">
+          <div class="flex items-center space-x-4 mb-6">
+            <span class="h-[1px] w-12 bg-green-500"></span>
+            <span class="text-green-500 font-bold tracking-[0.3em] text-xs uppercase"
+              >Premium Catering Services</span
+            >
           </div>
 
-          <h2 class="font-semibold text-lg">Mrs. Ebika Ayeba-Enenimiete</h2>
-        </div>
-        <p class="text-sm text-gray-600 italic">
-          "For the orders yesterday, I loved it. Congratulations once again."
-        </p>
-        <div class="mt-4 text-yellow-500">
-          <!-- Star ratings -->
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
+          <h2 class="serif text-6xl md:text-8xl lg:text-9xl text-white leading-[0.9] mb-8">
+            The Art of <br />
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-700 italic"
+              >Fine Dining.</span
+            >
+          </h2>
+
+          <p class="text-gray-400 text-lg md:text-xl max-w-xl mb-12 leading-relaxed font-light">
+            A culinary journey where tradition meets modern innovation. Every plate tells a story of
+            passion, precision, and locally sourced ingredients.
+          </p>
+
+          <div class="flex flex-wrap gap-6">
+            <a
+              href="#menu"
+              class="px-10 py-5 bg-green-600 hover:bg-green-500 text-white font-bold rounded-full transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(34,197,94,0.3)]"
+            >
+              BOOK A TABLE
+            </a>
+            <a
+              href="#gallery"
+              class="px-10 py-5 border border-white/20 hover:bg-white/5 text-white font-bold rounded-full transition-all"
+            >
+              VIEW GALLERY
+            </a>
+          </div>
         </div>
       </div>
 
-      <!-- 3rd User Testimonial -->
-      <div class="bg-white text-gray-800 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
-        <div class="flex items-center mb-4">
-          <!-- <img src="https://via.placeholder.com/50" alt="User" class="w-12 h-12 rounded-full mr-4"> -->
+      <div class="absolute bottom-12 right-12 hidden lg:flex flex-col items-center space-y-4">
+        <span
+          class="text-[10px] tracking-[0.4em] uppercase vertical-text text-gray-500"
+          style="writing-mode: vertical-rl"
+          >Scroll Down</span
+        >
+        <div class="w-[1px] h-20 bg-gradient-to-b from-green-500 to-transparent"></div>
+      </div>
+    </section>
 
-          <div class="w-12 h-12 rounded-full mr-4 flex items-center justify-center bg-gray-300">
-            <i class="fas fa-user"></i>
+    <!-- Menu Section -->
+
+    <section id="menu" class="py-24 bg-[#0a0a0a] text-white">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="flex flex-col items-center mb-16 text-center">
+          <span class="text-green-500 font-bold tracking-[0.3em] text-xs uppercase mb-3"
+            >Chef's Choice</span
+          >
+          <h3 class="serif text-4xl md:text-5xl lg:text-6xl text-white">Featured Dishes</h3>
+          <div class="w-16 h-1 bg-green-600 mt-6 rounded-full"></div>
+        </div>
+
+        <div
+          id="menuDishCards"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 menuGridClassHome"
+        >
+          <div
+            class="group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-green-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+          >
+            <div class="overflow-hidden rounded-2xl aspect-[4/3]">
+              <img
+                src="../image/grilledChicken.jpg"
+                alt="Grilled Chicken"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div class="px-2 pb-2">
+              <div class="flex justify-between items-start mt-6">
+                <h4 class="text-xl font-bold tracking-tight">Grilled Chicken</h4>
+                <span class="text-green-500 font-bold">₦4,500</span>
+              </div>
+              <p class="mt-2 text-gray-500 text-sm leading-relaxed">
+                Deliciously seasoned grilled chicken, slow-roasted to juicy perfection with local
+                spices.
+              </p>
+              <button
+                class="mt-6 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-green-600 hover:text-white menuOrderNow active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
           </div>
 
-          <h2 class="font-semibold text-lg">Mrs. Kay</h2>
+          <div
+            class="group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-green-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+          >
+            <div class="overflow-hidden rounded-2xl aspect-[4/3]">
+              <img
+                src="../image/3litresofvegetablesoup.jpg"
+                alt="Vegetable Soup"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div class="px-2 pb-2">
+              <div class="flex justify-between items-start mt-6">
+                <h4 class="text-xl font-bold tracking-tight">Vegetable Soup</h4>
+                <span class="text-green-500 font-bold">₦8,000</span>
+              </div>
+              <p class="mt-2 text-gray-500 text-sm leading-relaxed">
+                Freshly harvested greens cooked in a rich, savory broth—pure comfort in a bowl.
+              </p>
+              <button
+                class="mt-6 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-green-600 hover:text-white menuOrderNow active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-green-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+          >
+            <div class="overflow-hidden rounded-2xl aspect-[4/3]">
+              <img
+                src="../image/ricenplantain.jpg"
+                alt="White Rice & Stew"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div class="px-2 pb-2">
+              <div class="flex justify-between items-start mt-6">
+                <h4 class="text-xl font-bold tracking-tight">Rice & Plantain</h4>
+                <span class="text-green-500 font-bold">₦3,500</span>
+              </div>
+              <p class="mt-2 text-gray-500 text-sm leading-relaxed">
+                Perfectly fluffy white rice served with signature stew and golden-fried sweet
+                plantains.
+              </p>
+              <button
+                class="mt-6 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-green-600 hover:text-white menuOrderNow active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
         </div>
-        <p class="text-sm text-gray-600 italic">
-          "Yes, I added more to your balance because you and your team did excellently well. Thank you for coordinating
-          the food service so well from started to main course. Everyone enjoyed their meals and the remaining you gave
-          us served us very well. Doveeys Kitchen to the world."
-        </p>
-        <div class="mt-4 text-yellow-500">
-          <!-- Star ratings -->
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star"></i>
-          <i class="fas fa-star-half-alt"></i>
+
+        <div class="mt-20 flex justify-center">
+          <div
+            id="menuBtn"
+            class="group flex items-center gap-3 px-8 py-3 bg-transparent border border-white/20 rounded-full text-white cursor-pointer transition-all hover:bg-white hover:text-black hover:border-white active:scale-95"
+          >
+            <span class="text-sm font-black tracking-widest uppercase">View Full Menu</span>
+            <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
+    <!-- Daily Menu Dishes  -->
+    <section id="dailyMenu" class="py-24 bg-[#050505] text-white">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="flex flex-col items-center mb-16 text-center">
+          <span
+            class="text-orange-500 font-bold tracking-[0.3em] text-[10px] md:text-xs uppercase mb-3"
+            >Fresh Every Morning</span
+          >
+          <h3 class="serif text-4xl md:text-5xl lg:text-6xl text-white">Daily Menu Dishes</h3>
+          <div class="w-12 h-1 bg-orange-500 mt-6 rounded-full"></div>
+        </div>
 
-  <!-- Doveeys Kitchen Intro Video -->
+        <div id="dailyMenuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+          <div
+            class="group relative flex flex-col bg-gradient-to-b from-[#111] to-black border border-white/5 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-orange-500/30"
+          >
+            <div class="relative h-[400px] overflow-hidden">
+              <img
+                src="../image/dailyMenu/dailyMenu5.jpg"
+                alt="Monday Menu Dish"
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div
+                class="absolute top-6 right-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
+              >
+                <p class="text-orange-400 font-bold text-sm">₦8,000</p>
+              </div>
+            </div>
 
-  <section>
-    <video class="w-[90%] mx-auto h-[300px] md:h-[350px] lg:h-[400px]" autoplay controls loop>
-      <source src="../image/video/doveeyVideo.mp4" type="video/mp4">
-    </video>
-  </section>
+            <div class="p-8">
+              <h4
+                class="serif text-2xl font-medium text-white group-hover:text-orange-400 transition-colors"
+              >
+                Monday Menu Dish
+              </h4>
+              <p class="mt-3 text-gray-500 text-sm leading-relaxed">
+                Our curated Monday special features a balanced blend of traditional flavors and
+                seasonal freshness.
+              </p>
 
-  <div class="bg-orange-100 mb-[20px]">
-    hello
-  </div>
+              <button
+                class="mt-8 w-full py-4 bg-orange-500/10 border border-orange-500/20 text-orange-500 font-black tracking-widest text-xs uppercase rounded-xl transition-all hover:bg-orange-500 hover:text-white dailyMenuDishOrder active:scale-95 shadow-lg shadow-orange-500/5"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
 
-  <!-- Become a Distributor Flyer -->
-  <section id="flyer2Section">
-    <a href="https://wa.me/message/LV4DUBT6DDZHA1"
-      style="background-image: url(../image/xmasPackage.jpg); background-size: cover;"
-      class="grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
-      <div class="bg-black opacity-50 inset-0 absolute"></div>
-      <div class="text-center relative">
-        <h1>Click to Become a Distributor Flyer</h1>
+          <div
+            class="group relative flex flex-col bg-gradient-to-b from-[#111] to-black border border-white/5 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-orange-500/30"
+          >
+            <div class="relative h-[400px] overflow-hidden">
+              <img
+                src="../image/dailyMenu/dailyMenu5.jpg"
+                alt="Tuesday Menu Dish"
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div
+                class="absolute top-6 right-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
+              >
+                <p class="text-orange-400 font-bold text-sm">₦8,000</p>
+              </div>
+            </div>
+            <div class="p-8">
+              <h4
+                class="serif text-2xl font-medium text-white group-hover:text-orange-400 transition-colors"
+              >
+                Tuesday Menu Dish
+              </h4>
+              <p class="mt-3 text-gray-500 text-sm leading-relaxed">
+                A mid-week delight crafted by our head chef to keep your energy high and your palate
+                satisfied.
+              </p>
+              <button
+                class="mt-8 w-full py-4 bg-orange-500/10 border border-orange-500/20 text-orange-500 font-black tracking-widest text-xs uppercase rounded-xl transition-all hover:bg-orange-500 hover:text-white dailyMenuDishOrder active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="group relative flex flex-col bg-gradient-to-b from-[#111] to-black border border-white/5 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-orange-500/30"
+          >
+            <div class="relative h-[400px] overflow-hidden">
+              <img
+                src="../image/dailyMenu/dailyMenu5.jpg"
+                alt="Wednesday Menu Dish"
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div
+                class="absolute top-6 right-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10"
+              >
+                <p class="text-orange-400 font-bold text-sm">₦8,000</p>
+              </div>
+            </div>
+            <div class="p-8">
+              <h4
+                class="serif text-2xl font-medium text-white group-hover:text-orange-400 transition-colors"
+              >
+                Wednesday Menu Dish
+              </h4>
+              <p class="mt-3 text-gray-500 text-sm leading-relaxed">
+                Savor the heart of our kitchen with this signature dish that brings comfort and bold
+                spices.
+              </p>
+              <button
+                class="mt-8 w-full py-4 bg-orange-500/10 border border-orange-500/20 text-orange-500 font-black tracking-widest text-xs uppercase rounded-xl transition-all hover:bg-orange-500 hover:text-white dailyMenuDishOrder active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </a>
-  </section>
+    </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="bg-orange-100 py-10 text-black">
-    <div class="container mx-auto px-4">
-      <h3 class="text-2xl font-bold text-red-800 text-center">Contact Us</h3>
-      <form id="sendMessageForm" class="mt-6 max-w-lg mx-auto space-y-4">
-        <div>
-          <label for="messageTitle" class="block text-sm font-medium">Message Title</label>
-          <input type="text" id="userMessageTitle" name="messageTitle" class="w-full border rounded px-3 py-2">
+    <!-- Student Flyer section  -->
+    <section id="flyer1Section" class="py-12 bg-[#050505]">
+      <div class="container mx-auto px-6 lg:px-16">
+        <a
+          href="https://wa.me/message/LV4DUBT6DDZHA1"
+          target="_blank"
+          class="group relative block w-full h-[250px] md:h-[40vh] lg:h-[50vh] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl transition-all duration-500 hover:border-green-500/50 hover:-translate-y-1"
+        >
+          <div
+            class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+            style="background-image: url(&quot;../image/xmasPackage.jpg&quot;)"
+          ></div>
+
+          <div
+            class="absolute inset-0 z-10 bg-gradient-to-b from-black/80 via-black/40 to-black/80"
+          ></div>
+
+          <div
+            class="relative z-20 h-full flex flex-col items-center justify-center text-center px-6"
+          >
+            <div class="mb-6 flex items-center justify-center">
+              <span class="relative flex h-3 w-3">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                ></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+              </span>
+              <span class="ml-3 text-xs font-bold tracking-[0.3em] uppercase text-green-400"
+                >Sponsored Feature</span
+              >
+            </div>
+
+            <h1 class="serif text-3xl md:text-5xl lg:text-6xl text-white leading-tight max-w-3xl">
+              Partner with
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 italic"
+                >Doveeys Kitchen</span
+              >
+            </h1>
+
+            <p
+              class="mt-6 text-gray-300 text-lg md:text-xl font-light tracking-wide flex items-center gap-3 group-hover:text-white transition-colors"
+            >
+              Run Your Ads Here
+              <i class="fab fa-whatsapp text-green-500 text-2xl animate-pulse"></i>
+              <span class="font-semibold">(Contact Us)</span>
+            </p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Event Menu Dishes  -->
+    <section
+      id="eventMenu"
+      class="py-24 bg-[#080808] text-white eventMenuSection hidden transition-all duration-700"
+    >
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="flex flex-col items-center mb-16 text-center">
+          <div class="flex items-center space-x-2 mb-4">
+            <i class="fas fa-star text-green-500 text-xs"></i>
+            <span class="text-green-500 font-bold tracking-[0.4em] text-[10px] uppercase"
+              >Exclusive Catering</span
+            >
+            <i class="fas fa-star text-green-500 text-xs"></i>
+          </div>
+          <h3 class="serif text-4xl md:text-5xl lg:text-6xl text-white">Event Menu Dishes</h3>
+          <p class="mt-4 text-gray-500 max-w-lg font-light">
+            Elevate your special occasions with our chef-curated banquet selections, designed for
+            celebrations and corporate gatherings.
+          </p>
         </div>
 
-        <div>
-          <label for="message" class="block text-sm font-medium">Message</label>
-          <textarea id="userMessage" name="message" rows="4" class="w-full border rounded px-3 py-2"></textarea>
-        </div>
-        <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Send Message</button>
-      </form>
-    </div>
-  </section>
+        <div id="eventMenuDishCards" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          <div
+            class="group relative bg-[#121212] rounded-[2.5rem] p-5 border border-white/5 transition-all duration-500 hover:border-green-500/40"
+          >
+            <div class="relative rounded-[1.8rem] overflow-hidden aspect-[3/4]">
+              <img
+                src=""
+                alt="Event Dish"
+                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+              />
+              <div
+                class="absolute bottom-4 left-4 right-4 bg-black/40 backdrop-blur-md border border-white/10 p-3 rounded-2xl"
+              >
+                <p class="text-[10px] font-black tracking-widest text-green-400 uppercase">
+                  Available for Bookings
+                </p>
+              </div>
+            </div>
 
-  <footer class="bg-black text-white py-10 relative">
+            <div class="pt-8 px-2">
+              <h4
+                class="serif text-2xl text-white mb-2 group-hover:text-green-500 transition-colors"
+              ></h4>
+              <p class="text-gray-500 text-sm leading-relaxed mb-8 h-12 overflow-hidden"></p>
+
+              <button
+                class="relative w-full group/btn overflow-hidden rounded-2xl py-4 bg-green-600 font-bold text-white transition-all hover:bg-green-500 dailyMenuDishOrder active:scale-95"
+              >
+                <span class="relative z-10">Reserve for Event</span>
+                <div
+                  class="absolute inset-0 bg-white/20 translate-y-full transition-transform duration-300 group-hover/btn:translate-y-0"
+                ></div>
+              </button>
+            </div>
+
+            <div
+              class="absolute -top-2 -right-2 w-20 h-20 bg-green-500/5 rounded-full blur-2xl group-hover:bg-green-500/10 transition-colors"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Specials Section -->
+    <section id="specials" class="py-24 bg-[#0a0a0a] text-white">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="flex flex-col items-center mb-16 text-center">
+          <span class="text-orange-500 font-bold tracking-[0.3em] text-xs uppercase mb-3"
+            >Limited Time</span
+          >
+          <h3 class="serif text-4xl md:text-5xl lg:text-6xl text-white">Special Packages</h3>
+          <p class="mt-4 text-gray-500 max-w-lg font-light tracking-wide">
+            Exciting packages for holidays and unforgettable events!
+          </p>
+          <div class="w-16 h-1 bg-orange-600 mt-6 rounded-full"></div>
+        </div>
+
+        <div
+          id="specialLandingPageDisplay"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 specialGridClassHome"
+        >
+          <div
+            class="group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-orange-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+          >
+            <div class="overflow-hidden rounded-2xl aspect-[4/3] relative">
+              <img
+                src="../image/valentine1.jpg"
+                alt="Valentine Package"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div
+                class="absolute top-4 left-4 bg-orange-600/90 backdrop-blur-md text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter"
+              >
+                Hot Deal
+              </div>
+            </div>
+            <div class="px-2 pb-2">
+              <div class="flex flex-col mt-6">
+                <h4
+                  class="text-xl font-bold tracking-tight text-white group-hover:text-orange-400 transition-colors"
+                >
+                  Rice, Veges and Wine
+                </h4>
+              </div>
+              <p class="mt-3 text-gray-500 text-sm leading-relaxed line-clamp-3">
+                Deliciously seasoned rice with a bottle of red wine, chicken chops & veges with
+                flower (Valentine Package).
+              </p>
+              <button
+                class="mt-8 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-orange-600 hover:text-white specialMenuOrder active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-orange-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+          >
+            <div class="overflow-hidden rounded-2xl aspect-[4/3] relative">
+              <img
+                src="../image/valentine2.jpg"
+                alt="Chops & Cookies"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div class="px-2 pb-2">
+              <div class="flex flex-col mt-6">
+                <h4
+                  class="text-xl font-bold tracking-tight text-white group-hover:text-orange-400 transition-colors"
+                >
+                  Chops & Cookies
+                </h4>
+              </div>
+              <p class="mt-3 text-gray-500 text-sm leading-relaxed line-clamp-3">
+                Deliciously chops & cookies (hangouts, dates, val etc..).
+              </p>
+              <button
+                class="mt-8 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-orange-600 hover:text-white specialMenuOrder active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-orange-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
+          >
+            <div class="overflow-hidden rounded-2xl aspect-[4/3] relative">
+              <img
+                src="../image/xmasCombo.jpg"
+                alt="Xmas Package"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+            <div class="px-2 pb-2">
+              <div class="flex flex-col mt-6">
+                <h4
+                  class="text-xl font-bold tracking-tight text-white group-hover:text-orange-400 transition-colors"
+                >
+                  Grilled Fish & Rice
+                </h4>
+              </div>
+              <p class="mt-3 text-gray-500 text-sm leading-relaxed line-clamp-3">
+                Deliciously seasoned rice & grilled fish (picnic, valentine, xmas, dates etc...).
+              </p>
+              <button
+                class="mt-8 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-orange-600 hover:text-white specialMenuOrder active:scale-95"
+              >
+                Order Now
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-20 flex justify-center">
+          <div
+            id="specialBtn"
+            class="group flex items-center gap-3 px-8 py-3 bg-transparent border border-white/20 rounded-full text-white cursor-pointer transition-all hover:bg-white hover:text-black hover:border-white active:scale-95"
+          >
+            <span class="text-sm font-black tracking-widest uppercase">View All Packages</span>
+            <i class="fas fa-arrow-right transition-transform group-hover:translate-x-1"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-[#050505] text-white overflow-hidden">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="order-2 lg:order-1">
+            <div class="flex items-center space-x-3 mb-6">
+              <div class="w-10 h-[2px] bg-green-500"></div>
+              <span class="text-green-500 font-bold tracking-[0.3em] text-xs uppercase"
+                >Our Heritage</span
+              >
+            </div>
+
+            <h3 class="serif text-4xl md:text-6xl text-white mb-8 leading-tight">
+              Crafting Flavors <br />
+              <span class="italic text-gray-500 font-light">With Heart & Soul</span>
+            </h3>
+
+            <div class="space-y-6 text-gray-400 text-lg leading-relaxed font-light">
+              <p>
+                Doveeys Kitchen isn’t just a restaurant; it’s a culinary sanctuary. Born from a
+                passion for authentic home-style cooking, we are dedicated to bringing you the best
+                meals made with meticulous love and care.
+              </p>
+              <p>
+                From our everyday signature dishes to our premium special event packages, every
+                plate we serve is a testament to our commitment to quality, freshness, and the rich
+                traditions of our kitchen.
+              </p>
+            </div>
+
+            <div class="mt-10 flex items-center gap-8">
+              <div>
+                <p class="text-3xl font-bold text-white">100%</p>
+                <p class="text-xs uppercase tracking-widest text-green-500 mt-1">Organic</p>
+              </div>
+              <div class="w-[1px] h-10 bg-white/10"></div>
+              <div>
+                <p class="text-3xl font-bold text-white">Fresh</p>
+                <p class="text-xs uppercase tracking-widest text-green-500 mt-1">Daily Prep</p>
+              </div>
+            </div>
+          </div>
+
+          <div id="ceoProfile" class="order-1 lg:order-2 relative group">
+            <div
+              class="absolute -inset-4 border border-green-500/20 rounded-[3rem] z-0 transition-transform duration-500 group-hover:scale-105"
+            ></div>
+            <div
+              class="absolute -top-10 -right-10 w-32 h-32 bg-green-600/10 rounded-full blur-3xl"
+            ></div>
+
+            <div
+              class="relative z-10 h-[450px] md:h-[600px] w-full overflow-hidden rounded-[2.5rem] border-2 border-white/10 shadow-2xl"
+            >
+              <img
+                id="ceoImageId"
+                src="../image/ceo1.jpg"
+                alt="CEO of Doveeys Kitchen"
+                class="object-cover w-full h-full transition-transform duration-[2s] group-hover:scale-110"
+              />
+
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
+              ></div>
+
+              <div class="absolute bottom-8 left-8">
+                <p class="text-green-500 font-black tracking-widest text-xs uppercase mb-1">
+                  Founder & Head Chef
+                </p>
+                <h4 class="text-2xl font-bold text-white tracking-tighter uppercase italic">
+                  The Visionary
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonialSection" class="py-24 bg-[#0a0a0a] text-white overflow-hidden">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="flex flex-col items-center mb-16 text-center">
+          <span class="text-green-500 font-bold tracking-[0.3em] text-xs uppercase mb-3"
+            >Wall of Fame</span
+          >
+          <h1 class="serif text-4xl md:text-5xl lg:text-6xl text-white">What Our Clients Say</h1>
+          <div class="w-16 h-1 bg-green-600 mt-6 rounded-full"></div>
+        </div>
+
+        <div id="testimonialDiv" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="group bg-[#111] border border-white/5 p-8 rounded-[2rem] transition-all duration-500 hover:border-green-500/30 hover:-translate-y-2 relative"
+          >
+            <i
+              class="fas fa-quote-left absolute top-6 right-8 text-white/5 text-5xl group-hover:text-green-500/10 transition-colors"
+            ></i>
+
+            <div class="flex items-center mb-6">
+              <div
+                class="w-14 h-14 rounded-full mr-4 flex items-center justify-center bg-green-500/10 border border-green-500/20 text-green-500 shadow-inner"
+              >
+                <i class="fas fa-user-circle text-2xl"></i>
+              </div>
+              <div>
+                <h2 class="font-bold text-lg tracking-tight text-white">Nina Obikudo</h2>
+                <div class="flex text-yellow-500 text-[10px] mt-1">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
+                  ><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+
+            <p class="text-sm text-gray-400 italic leading-relaxed">
+              "My hubby is not a fan of grilled fish so when I placed my order, I got asun rice for
+              him. Sadly, he had rice for lunch that Saturday... everything was gone as in gone. He
+              said he enjoyed it thoroughly. Well-done Doveeys!"
+            </p>
+          </div>
+
+          <div
+            class="group bg-[#111] border border-white/5 p-8 rounded-[2rem] transition-all duration-500 hover:border-green-500/30 hover:-translate-y-2 relative"
+          >
+            <i
+              class="fas fa-quote-left absolute top-6 right-8 text-white/5 text-5xl group-hover:text-green-500/10 transition-colors"
+            ></i>
+
+            <div class="flex items-center mb-6">
+              <div
+                class="w-14 h-14 rounded-full mr-4 flex items-center justify-center bg-green-500/10 border border-green-500/20 text-green-500"
+              >
+                <i class="fas fa-user-circle text-2xl"></i>
+              </div>
+              <div>
+                <h2 class="font-bold text-lg tracking-tight text-white leading-tight">
+                  Mrs. Ebika Ayeba
+                </h2>
+                <div class="flex text-yellow-500 text-[10px] mt-1">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
+                  ><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-gray-400 italic leading-relaxed">
+              "For the orders yesterday, I loved it. Congratulations once again on the exceptional
+              service."
+            </p>
+          </div>
+
+          <div
+            class="group bg-[#111] border border-white/5 p-8 rounded-[2rem] transition-all duration-500 hover:border-green-500/30 hover:-translate-y-2 relative"
+          >
+            <i
+              class="fas fa-quote-left absolute top-6 right-8 text-white/5 text-5xl group-hover:text-green-500/10 transition-colors"
+            ></i>
+
+            <div class="flex items-center mb-6">
+              <div
+                class="w-14 h-14 rounded-full mr-4 flex items-center justify-center bg-green-500/10 border border-green-500/20 text-green-500"
+              >
+                <i class="fas fa-user-circle text-2xl"></i>
+              </div>
+              <div>
+                <h2 class="font-bold text-lg tracking-tight text-white">Mrs. Kay</h2>
+                <div class="flex text-yellow-500 text-[10px] mt-1">
+                  <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i
+                  ><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                </div>
+              </div>
+            </div>
+            <p class="text-sm text-gray-400 italic leading-relaxed">
+              "Yes, I added more to your balance because you and your team did excellently well.
+              Thank you for coordinating the food service so well. Doveeys Kitchen to the world."
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Doveeys Kitchen Intro Video -->
+
+    <section id="brandVideo" class="py-24 bg-[#050505] overflow-hidden">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="flex flex-col items-center mb-12 text-center">
+          <span class="text-green-500 font-bold tracking-[0.3em] text-[10px] uppercase mb-3"
+            >The Experience</span
+          >
+          <h3 class="serif text-3xl md:text-4xl text-white">Behind The Kitchen</h3>
+        </div>
+
+        <div class="relative group max-w-5xl mx-auto">
+          <div
+            class="absolute -inset-1 bg-gradient-to-r from-green-600/20 to-orange-600/20 rounded-[2rem] blur-2xl opacity-50 group-hover:opacity-100 transition duration-1000"
+          ></div>
+
+          <div
+            class="relative bg-[#111] border border-white/10 rounded-[2rem] overflow-hidden shadow-2xl"
+          >
+            <video
+              class="w-full h-[300px] md:h-[450px] lg:h-[550px] object-cover"
+              autoplay
+              controls
+              muted
+              loop
+              playsinline
+            >
+              <source src="../image/video/doveeyVideo.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+
+            <div
+              class="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60"
+            ></div>
+          </div>
+
+          <div
+            class="absolute -bottom-6 -right-6 hidden md:flex items-center justify-center w-24 h-24 bg-white rounded-full shadow-xl"
+          >
+            <span
+              class="text-[10px] font-black text-black uppercase tracking-tighter text-center leading-none"
+            >
+              Official<br />Film
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <div class="bg-orange-100 mb-[20px]">hello</div> -->
+
+    <!-- Become a Distributor Flyer -->
+    <section id="flyer2Section" class="py-12 bg-[#050505]">
+      <div class="container mx-auto px-6 lg:px-16">
+        <a
+          href="https://wa.me/message/LV4DUBT6DDZHA1"
+          target="_blank"
+          class="group relative block w-full h-[250px] md:h-[40vh] lg:h-[50vh] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl transition-all duration-500 hover:border-amber-500/50 hover:-translate-y-1"
+        >
+          <div
+            class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+            style="background-image: url(&quot;../image/xmasPackage.jpg&quot;)"
+          ></div>
+
+          <div
+            class="absolute inset-0 z-10 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+          ></div>
+
+          <div class="relative z-20 h-full flex flex-col items-start justify-center px-8 md:px-16">
+            <div class="mb-4 flex items-center">
+              <div class="w-8 h-[1px] bg-amber-500"></div>
+              <span class="ml-3 text-[10px] font-black tracking-[0.4em] uppercase text-amber-500"
+                >Business Opportunity</span
+              >
+            </div>
+
+            <h1 class="serif text-3xl md:text-5xl lg:text-6xl text-white leading-tight max-w-2xl">
+              Join Our Network as a <br />
+              <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-600 italic"
+                >Certified Distributor</span
+              >
+            </h1>
+
+            <div
+              class="mt-8 flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 py-3 px-6 rounded-full group-hover:bg-amber-500 group-hover:border-amber-500 transition-all duration-300"
+            >
+              <span class="text-white text-sm font-bold tracking-widest uppercase"
+                >Get Started</span
+              >
+              <i class="fab fa-whatsapp text-white text-xl animate-bounce"></i>
+            </div>
+          </div>
+
+          <div class="absolute bottom-6 right-8 hidden md:block">
+            <p
+              class="text-white/20 text-xs font-light tracking-[0.5em] uppercase rotate-90 origin-right"
+            >
+              Doveeys Global
+            </p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 bg-[#0a0a0a] text-white">
+      <div class="container mx-auto px-6 lg:px-16">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div class="space-y-8">
+            <div>
+              <span class="text-green-500 font-bold tracking-[0.3em] text-xs uppercase mb-3 block"
+                >Get In Touch</span
+              >
+              <h3 class="serif text-4xl md:text-5xl lg:text-6xl text-white mb-6">
+                Let's Talk <br /><span class="italic text-gray-500 font-light">Food & Events</span>
+              </h3>
+              <p class="text-gray-400 text-lg max-w-md">
+                Have a question about our menu or want to book us for an event? Send us a message
+                and we'll get back to you shortly.
+              </p>
+            </div>
+
+            <div class="space-y-6">
+              <div class="flex items-start gap-4 group">
+                <div
+                  class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all"
+                >
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-gray-500 font-bold">Location</p>
+                  <p class="text-white mt-1">Port Harcourt, Rivers State, Nigeria</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-4 group">
+                <div
+                  class="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-all"
+                >
+                  <i class="fas fa-paper-plane"></i>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-widest text-gray-500 font-bold">
+                    Direct Line
+                  </p>
+                  <p class="text-white mt-1">Chat with us on WhatsApp</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute inset-0 bg-green-500/5 blur-3xl rounded-full"></div>
+
+            <form
+              id="sendMessageForm"
+              class="relative bg-[#111] border border-white/5 p-8 md:p-10 rounded-[2.5rem] shadow-2xl space-y-6"
+            >
+              <div class="space-y-2">
+                <label
+                  for="userMessageTitle"
+                  class="block text-xs font-black uppercase tracking-widest text-gray-500 ml-1"
+                  >Message Title</label
+                >
+                <input
+                  type="text"
+                  id="userMessageTitle"
+                  name="messageTitle"
+                  placeholder="e.g. Event Inquiry"
+                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all placeholder:text-gray-700"
+                  required
+                />
+              </div>
+
+              <div class="space-y-2">
+                <label
+                  for="userMessage"
+                  class="block text-xs font-black uppercase tracking-widest text-gray-500 ml-1"
+                  >Your Message</label
+                >
+                <textarea
+                  id="userMessage"
+                  name="message"
+                  rows="4"
+                  placeholder="How can we help you today?"
+                  class="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all placeholder:text-gray-700"
+                  required
+                ></textarea>
+              </div>
+
+              <button
+                type="submit"
+                class="group w-full py-4 bg-green-600 text-white font-bold rounded-2xl transition-all hover:bg-green-500 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-green-900/20"
+              >
+                <span>Send Message</span>
+                <i
+                  class="fas fa-paper-plane text-sm transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                ></i>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-[#050505] text-white pt-20 pb-10 relative overflow-hidden">
+      <div
+        class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-green-500/50 to-transparent"
+      ></div>
+
+      <div class="container mx-auto px-6 lg:px-16">
+        <div
+          class="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] p-8 md:p-16 shadow-2xl"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-white/5 pb-12">
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 text-green-500 border border-white/10"
+              >
+                <i class="fas fa-map-marker-alt"></i>
+              </div>
+              <h2 class="serif text-xl font-bold mb-3">Visit Us</h2>
+              <p class="text-gray-400 text-sm leading-relaxed">
+                6 Endless Close off Elitor Road, Woji<br />
+                Port Harcourt, Rivers State
+              </p>
+            </div>
+
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 text-green-500 border border-white/10"
+              >
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <h2 class="serif text-xl font-bold mb-3">Call Us</h2>
+              <a
+                href="tel:+2348030962601"
+                class="text-gray-400 hover:text-green-500 transition-colors text-sm tracking-widest uppercase font-bold"
+              >
+                +234 803 096 2601
+              </a>
+            </div>
+
+            <div class="flex flex-col items-center md:items-start text-center md:text-left">
+              <div
+                class="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center mb-6 text-green-500 border border-white/10"
+              >
+                <i class="fas fa-envelope"></i>
+              </div>
+              <h2 class="serif text-xl font-bold mb-3">Email Us</h2>
+              <a
+                href="mailto:doveeyskitchen@gmail.com"
+                class="text-gray-400 hover:text-green-500 transition-colors text-sm font-medium"
+              >
+                doveeyskitchen@gmail.com
+              </a>
+            </div>
+          </div>
+
+          <div class="py-12 flex flex-col lg:flex-row justify-between items-center gap-10">
+            <div class="flex items-center gap-4">
+              <a
+                href="https://www.facebook.com/doveeyhomes"
+                target="_blank"
+                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300"
+              >
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a
+                href="https://wa.me/message/LV4DUBT6DDZHA1"
+                target="_blank"
+                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-green-500 hover:border-green-500 transition-all duration-300"
+              >
+                <i class="fab fa-whatsapp"></i>
+              </a>
+              <a
+                href="https://www.instagram.com/doveeyskitchen"
+                target="_blank"
+                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-gradient-to-tr hover:from-purple-500 hover:to-orange-500 hover:border-transparent transition-all duration-300"
+              >
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a
+                href="https://www.tiktok.com/@doveeyskitchen"
+                target="_blank"
+                class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white hover:bg-white hover:text-black transition-all duration-300"
+              >
+                <i class="fab fa-tiktok"></i>
+              </a>
+            </div>
+
+            <a
+              href="https://wa.me/message/LV4DUBT6DDZHA1"
+              class="group relative overflow-hidden px-8 py-4 bg-green-600 rounded-2xl font-bold text-white shadow-lg shadow-green-900/20 transition-all hover:-translate-y-1 active:scale-95"
+            >
+              <span class="relative z-10">Custom Package? Message Us!</span>
+              <div
+                class="absolute inset-0 bg-white/20 translate-y-full transition-transform duration-300 group-hover:translate-y-0"
+              ></div>
+            </a>
+          </div>
+
+          <div
+            class="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4"
+          >
+            <p class="text-xs text-gray-500 tracking-widest uppercase font-bold">
+              &copy; 2026 Doveeys Kitchen. All Rights Reserved.
+            </p>
+            <div class="flex gap-6 text-[10px] text-gray-600 uppercase tracking-widest font-black">
+              <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+              <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Preloader -->
     <div
-      class="container mx-auto px-6 py-6 rounded-lg bg-opacity-30 bg-white backdrop-filter backdrop-blur-lg shadow-lg">
-      <!-- Main Content -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Address Section -->
-        <div class="text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start mb-2">
-            <i class="fas fa-map-marker-alt text-xl text-red-500 mr-2"></i>
-            <h2 class="text-lg font-bold">Visit Us</h2>
-          </div>
-          <p>6 Endless Close off Elitor Road, Woji</p>
-          <p>Port Harcourt, Rivers State</p>
-        </div>
-
-        <!-- Phone Section -->
-        <div class="text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start mb-2">
-            <i class="fas fa-phone-alt text-xl text-green-500 mr-2"></i>
-            <h2 class="text-lg font-bold">Call Us</h2>
-          </div>
-          <a href="tel:+2348030962601" class="underline">+234 803 096 2601</a>
-        </div>
-
-        <!-- Email Section -->
-        <div class="text-center md:text-left">
-          <div class="flex items-center justify-center md:justify-start mb-2">
-            <i class="fas fa-envelope text-xl text-yellow-500 mr-2"></i>
-            <h2 class="text-lg font-bold">Email Us</h2>
-          </div>
-          <a href="mailto:doveeyskitchen@gmail.com" class="underline">doveeyskitchen@gmail.com</a>
-        </div>
-      </div>
-
-      <!-- Social Icons and Call to Action -->
-      <div class="mt-10 flex flex-col md:flex-row justify-between items-center">
-        <!-- Social Media Icons -->
-        <div class="flex space-x-6">
-          <a href="https://www.facebook.com/doveeyhomes" target="_blank" class="text-white hover:text-gray-400"
-            title="Facebook">
-            <i class="fab fa-facebook-f text-2xl"></i>
-          </a>
-          <a href="https://wa.me/message/LV4DUBT6DDZHA1" target="_blank" class="text-white hover:text-gray-400"
-            title="WhatsApp">
-            <i class="fab fa-whatsapp text-2xl"></i>
-          </a>
-          <a href="https://www.instagram.com/doveeyskitchen?igsh=YzljYTk1ODg3Zg==" target="_blank"
-            class="text-white hover:text-gray-400" title="Instagram">
-            <i class="fab fa-instagram text-2xl"></i>
-          </a>
-          <a href="https://www.tiktok.com/@doveeyskitchen?_t=ZM-8ss5pESbS6A&_r=1" target="_blank"
-            class="text-white hover:text-gray-400" title="TikTok">
-            <i class="fab fa-tiktok text-2xl"></i>
-          </a>
-        </div>
-
-        <!-- Call to Action -->
-        <div class="mt-6 md:mt-0">
-          <a href="https://wa.me/message/LV4DUBT6DDZHA1"
-            class="bg-green-500 hover:bg-green-600 text-white py-2 px-6 rounded-lg text-lg shadow-md">
-            Custom Package? Message Us on WhatsApp!
-          </a>
-        </div>
-      </div>
-
-      <!-- Footer Bottom -->
-      <div class="mt-8 text-center border-t border-gray-500 pt-4">
-        <p class="text-sm text-gray-200">
-          &copy; 2025 Doveeys Kitchen. All Rights Reserved.
-        </p>
-      </div>
+      id="preloaderOrder"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"
+      ></div>
     </div>
-  </footer>
+  </body>
+  <script>
+    const menuBtn = document.getElementById("menuBtn");
+    const specialBtn = document.getElementById("specialBtn");
 
+    menuBtn.onclick = () => {
+      window.location.href = "../htmlFolder/menu2.html";
+    };
 
-  <!-- Preloader -->
-  <div id="preloaderOrder" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
-    <div class="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin"></div>
-  </div>
-</body>
-<script>
-  const menuBtn = document.getElementById('menuBtn')
-  const specialBtn = document.getElementById('specialBtn')
+    specialBtn.onclick = () => {
+      window.location.href = "../htmlFolder/special2.html";
+    };
+    // Initialize the toggle status on page load
+    window.onload = () => {
+      document.getElementById("preloader").classList.remove("hidden");
+      setTimeout(() => {
+        document.getElementById("preloader").classList.add("hidden");
+      }, 2000); // Adjust timing as needed
+    };
 
-  menuBtn.onclick = () => {
-    window.location.href = '../htmlFolder/menu2.html'
-  }
-
-  specialBtn.onclick = () => {
-    window.location.href = '../htmlFolder/special2.html'
-  }
-  // Initialize the toggle status on page load
-  window.onload = () => {
-    document.getElementById("preloader").classList.remove('hidden')
-    setTimeout(() => {
-      document.getElementById("preloader").classList.add('hidden')
-    }, 2000); // Adjust timing as needed
-  };
-
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then((registrations) => {
-      for (let registration of registrations) {
-        registration.unregister();
-      }
-    });
-  }
-
-</script>
-<script src="../jsFolder/navBar.js"></script>
-<script src="../jsFolder/clientOrdersHome.js"></script>
-<script src="../jsFolder/clientSpecialOrdersHome.js"></script>
-<script src="../jsFolder/userMessage.js"></script>
-<script src="../jsFolder/cartReading.js"></script>
-<script src="../jsFolder/userDailyMenu.js"></script>
-<script src="../jsFolder/layout.ejs"></script>
-
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        for (let registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+  </script>
+  <script src="../jsFolder/navBar.js"></script>
+  <script src="../jsFolder/clientOrdersHome.js"></script>
+  <script src="../jsFolder/clientSpecialOrdersHome.js"></script>
+  <script src="../jsFolder/userMessage.js"></script>
+  <script src="../jsFolder/cartReading.js"></script>
+  <script src="../jsFolder/userDailyMenu.js"></script>
+  <script src="../jsFolder/layout.ejs"></script>
 </html>
