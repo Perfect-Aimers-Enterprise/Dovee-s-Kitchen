@@ -1,9 +1,10 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
 const menuLandingSchema = new mongoose.Schema({
-    menuLandingName: {type: String},
-    menuLandingDes: {type: String},
-    menuLandingImage: {type: String}
-})
+  menuLandingName: { type: String },
+  menuLandingDes: { type: String },
+  menuLandingImage: { type: String },
+  privateLandingImage: { type: String },
+});
 
-module.exports = mongoose.model('MenuLanding', menuLandingSchema)
+module.exports = mongoose.model("MenuLanding", menuLandingSchema);

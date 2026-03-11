@@ -1,85 +1,93 @@
-const specialProductSchema = require('../model/specialProductModel')
-
+const cloudinary = require("../config/cloudinary");
+const specialProductSchema = require("../model/specialProductModel");
 
 const getMenuProducts = async (req, res) => {
-    try {
-        const menuProduct = await specialProductSchema.find().sort({ createdAt: -1 });
+  try {
+    const menuProduct = await specialProductSchema.find().sort({ createdAt: -1 });
 
-    res.status(201).json(menuProduct)
-    } catch (error) {
-        res.status(500).json({message: 'Error Fetching Product'})
-    }
-}
+    res.status(201).json(menuProduct);
+  } catch (error) {
+    res.status(500).json({ message: "Error Fetching Product" });
+  }
+};
 
 const getSingleMenuProduct = async (req, res) => {
-
-    try {
-        const { id:menuProductId } = req.params;
-        const menuProduct = await specialProductSchema.findById({_id:menuProductId})
-        res.status(201).json(menuProduct)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
+  try {
+    const { id: menuProductId } = req.params;
+    const menuProduct = await specialProductSchema.findById({ _id: menuProductId });
+    res.status(201).json(menuProduct);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 const deleteMenuProduct = async (req, res) => {
-    try {
-        const { id:menuProductId } = req.params
-        const menuProduct = await specialProductSchema.findOneAndDelete({_id:menuProductId})
+  try {
+    const { id: menuProductId } = req.params;
+    const menuProduct = await specialProductSchema.findOneAndDelete({ _id: menuProductId });
 
-        res.status(201).send('Product Successfully Deleted')
-    } catch (error) {
-        res.status(500).json(error)
+    if (menuProduct.privateSpecialImage) {
+      await cloudinary.uploader.destroy(menuProduct.privateSpecialImage);
     }
-}
+    res.status(201).send("Product Successfully Deleted");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
 const createSpecialProduct = async (req, res) => {
+  try {
+    const { specialProductName, specialDescription, specialPrice, variationSize, variationPrice } =
+      req.body;
 
-    try {
-        const { specialProductName, specialDescription, specialPrice,  variationSize, variationPrice  } = req.body
+    console.log(req.body);
 
-        console.log(req.body);
-        
-        const specialImageUrl = req.file.filename
+    const specialImageUrl = req.file.path;
+    const privateSpecialImage = req.file.filename;
+    const specialProduct = await specialProductSchema.create({
+      specialProductName,
+      specialDescription,
+      specialPrice,
+      specialImage: specialImageUrl,
+      privateSpecialImage,
+      variations: variationSize.map((size, index) => ({
+        size: size,
+        price: variationPrice[index],
+      })),
+    });
 
-        const specialProduct = await specialProductSchema.create({ 
-            specialProductName, 
-            specialDescription, 
-            specialPrice, 
-            specialImage:specialImageUrl,
-            variations: variationSize.map((size, index) => ({
-                size: size,
-                price: variationPrice[index]
-            }))
-         })
+    console.log(specialProduct);
 
-        console.log(specialProduct);
-        
-
-        if (!specialProduct) {
-            return res.status(404).json({message: 'Please fill up all required field'})
-        }
-
-        res.status(201).json({specialProduct, message: 'Product uploaded Successfully'})
-    } catch (error) {
-        res.status(500).json({error, message: 'something went wrong'})
+    if (!specialProduct) {
+      return res.status(404).json({ message: "Please fill up all required field" });
     }
-}
+
+    res.status(201).json({ specialProduct, message: "Product uploaded Successfully" });
+  } catch (error) {
+    res.status(500).json({ error, message: "something went wrong" });
+  }
+};
 
 const updateSpecialProduct = async (req, res) => {
-    try {
-        const { id:menuProductId } = req.params
-        const { specialProductName, specialDescription, specialPrice } = req.body;
+  try {
+    const { id: menuProductId } = req.params;
+    const { specialProductName, specialDescription, specialPrice } = req.body;
 
-        const specialProduct = await specialProductSchema.findOneAndUpdate(
-            { _id:menuProductId},
-            { specialProductName, specialDescription, specialPrice },
-            { new: true, runValidators: true}
-        )
-        res.status(201).json(specialProduct)
-    } catch (error) {
-        res.status(500).json(error)
-    }
-}
+    const specialProduct = await specialProductSchema.findOneAndUpdate(
+      { _id: menuProductId },
+      { specialProductName, specialDescription, specialPrice },
+      { new: true, runValidators: true },
+    );
+    res.status(201).json(specialProduct);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
 
-module.exports = {getMenuProducts, getSingleMenuProduct, deleteMenuProduct, createSpecialProduct, updateSpecialProduct}
+module.exports = {
+  getMenuProducts,
+  getSingleMenuProduct,
+  deleteMenuProduct,
+  createSpecialProduct,
+  updateSpecialProduct,
+};

@@ -1,19 +1,25 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const dailyMenuSchema = new mongoose.Schema({
+const dailyMenuSchema = new mongoose.Schema(
+  {
     menuTitle: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     price: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     menuImage: {
-        type: String,
-        required: true
-    }
-}, { timestamps: true });
+      type: String,
+      required: true,
+    },
+    privateMenuImage: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
 
-
-module.exports = mongoose.model('DailyMenu', dailyMenuSchema);
+module.exports = mongoose.model("DailyMenu", dailyMenuSchema);

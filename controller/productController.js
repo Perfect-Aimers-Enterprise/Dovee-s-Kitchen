@@ -1,3 +1,4 @@
+const cloudinary = require("../config/cloudinary");
 const connectDB = require("../db/connectDB");
 const productModel = require("../model/productModel");
 const nodemailer = require("nodemailer");
@@ -5,7 +6,9 @@ const nodemailer = require("nodemailer");
 const createMenuProduct = async (req, res) => {
   try {
     const { menuProductName, menuDescription, menuPrice, variationSize, variationPrice } = req.body;
-    menuImageUrl = req.file.filename;
+
+    const menuImageUrl = req.file.path;
+    const privateMenuImage = req.file.filename;
 
     // Create a new menu product
     const menuProduct = await productModel.create({
@@ -13,6 +16,7 @@ const createMenuProduct = async (req, res) => {
       menuDescription,
       menuPrice,
       menuImage: menuImageUrl,
+      privateMenuImage,
       variations: variationSize.map((size, index) => ({
         size: size,
         price: variationPrice[index],
@@ -63,6 +67,10 @@ const deleteMenuProduct = async (req, res) => {
   try {
     const { id: menuProductId } = req.params;
     const menuProduct = await productModel.findOneAndDelete({ _id: menuProductId });
+
+    if (menuProduct.privateMenuImage) {
+      await cloudinary.uploader.destroy(menuProduct.privateMenuImage);
+    }
 
     res.status(201).send("Product Successfully Deleted");
   } catch (error) {

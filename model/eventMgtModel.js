@@ -1,19 +1,25 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const eventSchema = new mongoose.Schema({
+const eventSchema = new mongoose.Schema(
+  {
     eventTitle: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     eventPrice: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true,
     },
     eventImage: {
-        type: String,
-        required: true
-    }
-}, { timestamps: true });
+      type: String,
+      required: true,
+    },
+    privateEventImage: {
+      type: String,
+      required: true,
+    },
+  },
+  { timestamps: true },
+);
 
-
-module.exports = mongoose.model('EventMgt', eventSchema);
+module.exports = mongoose.model("EventMgt", eventSchema);

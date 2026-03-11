@@ -1,19 +1,21 @@
-const mongoose = require('mongoose')
+const mongoose = require("mongoose");
 
-const gallerySchema = new mongoose.Schema({
-
-    galleryTitle: {type: String, required: true},
-    galleryMedia: {type: String, required: true},
+const gallerySchema = new mongoose.Schema(
+  {
+    galleryTitle: { type: String, required: true },
+    galleryMedia: { type: String, required: true },
+    privateGalleryMedia: { type: String, required: true },
     galleryType: {
-        type: String,
-        enum: ["image", "video"], // Restrict to "image" or "video"
-        required: true,
+      type: String,
+      enum: ["image", "video"], // Restrict to "image" or "video"
+      required: true,
     },
     uploadedAt: {
-        type: Date,
-        default: Date.now,
-      },
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { timestamps: true },
+);
 
-}, { timestamps: true } )
-
-module.exports = mongoose.model('gallery', gallerySchema)
+module.exports = mongoose.model("gallery", gallerySchema);
