@@ -1,194 +1,241 @@
 const config4 = {
-    apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:3000'
-        : `${window.location.protocol}//${window.location.hostname}`
+  apiUrl:
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:3000"
+      : `${window.location.protocol}//${window.location.hostname}`,
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-    getAllClientProductFunc()
-    populateSpecialProductFunc()
-})
+document.addEventListener("DOMContentLoaded", () => {
+  getAllClientProductFunc();
+  populateSpecialProductFunc();
+});
 
-const specialNavigationPopUp = document.getElementById('specialNavigationPopUp')
+const specialNavigationPopUp = document.getElementById("specialNavigationPopUp");
 
 const getAllClientProductFunc = async () => {
-    document.getElementById("preloaderSpecial").classList.remove('hidden')
-    const specialGridClass = document.querySelector('.specialGridClass')
-    specialGridClass.innerHTML = ''
+  document.getElementById("preloaderSpecial").classList.remove("hidden");
+  const specialGridClass = document.querySelector(".specialGridClass");
+  specialGridClass.innerHTML = "";
 
-    try {
-        const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/getSpecialProducts`)
+  try {
+    const response = await fetch(
+      `${config4.apiUrl}/doveeysKitchen/specialProduct/getSpecialProducts`,
+    );
 
-        const data = await response.json()
+    const data = await response.json();
 
-        // console.log(data);
+    // console.log(data);
 
-        data.forEach((eachSpecialData) => {
-            // console.log(eachSpecialData);
+    data.forEach((eachSpecialData) => {
+      // console.log(eachSpecialData);
 
-            const eachSpecialDataId = eachSpecialData._id
-            // <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
-            // <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
-            // <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
-            // <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
-            // <p class="mt-2 text-green-700 font-bold">₦${eachSpecialData.specialPrice}</p>
-            // <button id="orderSpecialProductNow" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full ">Order Now</button>
-            // </div>
-            // `;
+      const eachSpecialDataId = eachSpecialData._id;
+      // <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
+      // <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="Jollof Rice" class="w-full h-48 object-cover rounded">
+      // <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
+      // <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
+      // <p class="mt-2 text-green-700 font-bold">₦${eachSpecialData.specialPrice}</p>
+      // <button id="orderSpecialProductNow" class="mt-4 bg-orange-500 text-white py-2 px-4 rounded hover:bg-orange-600 w-full ">Order Now</button>
+      // </div>
+      // `;
 
-            let productContent = '';
+      let productContent = "";
 
+      if (
+        eachSpecialData.specialPrice &&
+        (!eachSpecialData.variations ||
+          eachSpecialData.variations.length === 0 ||
+          isAllVariationsInvalid(eachSpecialData.variations))
+      ) {
+        productContent = `<div data-id="${eachSpecialDataId}" class="special-item group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-orange-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)] text-white">
+    <div class="overflow-hidden rounded-2xl aspect-[4/3] relative">
+        <img
+            src="../image/specialImage/${eachSpecialData.specialImage}"
+            alt="${eachSpecialData.specialProductName}"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div class="absolute top-4 left-4 bg-orange-600/90 backdrop-blur-md text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
+            Special
+        </div>
+    </div>
 
-            if (eachSpecialData.specialPrice && (!eachSpecialData.variations || eachSpecialData.variations.length === 0 || isAllVariationsInvalid(eachSpecialData.variations))) {
+    <div class="px-2 pb-2">
+        <div class="flex flex-col mt-6">
+            <h4 class="text-xl font-bold tracking-tight group-hover:text-orange-400 transition-colors">${eachSpecialData.specialProductName}</h4>
+            <span class="text-orange-500 font-bold mt-1">₦${eachSpecialData.specialPrice}</span>
+        </div>
+        
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed line-clamp-2">
+            ${eachSpecialData.specialDescription}
+        </p>
 
-                productContent = `
-                    <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
-                        <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="${eachSpecialData.specialProductName}" class="w-full h-48 object-cover rounded">
-                        <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
-                        <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
-                        <p class="mt-2 text-green-700 font-bold">₦${eachSpecialData.specialPrice}</p>
-                        <button id="orderSpecialProductNow"" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
-                    </div>
-                `;
-            } else if (eachSpecialData.variations && eachSpecialData.variations.length > 0) {
-                // Show the price of the first variation
-                const firstSpecialVariationPrice = eachSpecialData.variations[0].price;
+        <button
+            id="orderSpecialProductNow"
+            class="mt-8 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-orange-600 hover:text-white active:scale-95"
+        >
+            Order Now
+        </button>
+    </div>
+</div>`;
+      } else if (eachSpecialData.variations && eachSpecialData.variations.length > 0) {
+        // Show the price of the first variation
+        const firstSpecialVariationPrice = eachSpecialData.variations[0].price;
 
-                productContent = `
-                     <div class="border rounded-lg shadow-lg p-4 bg-white text-black special-item" data-id="${eachSpecialDataId}">
-                         <img src="../image/specialImage/${eachSpecialData.specialImage}" alt="${eachSpecialData.specialProductName}" class="w-full h-48 object-cover rounded">
-                         <h3 class="mt-4 text-xl font-semibold">${eachSpecialData.specialProductName}</h3>
-                         <p class="text-gray-600">${eachSpecialData.specialDescription}</p>
-                         <p class="mt-2 text-green-700 font-bold">₦${firstSpecialVariationPrice}</p>
-                         <button id="orderSpecialProductNow"" class="mt-4 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full">Order Now</button>
-                     </div>
-                 `;
-            }
+        productContent = `<div data-id="${eachSpecialDataId}" class="special-item group relative bg-[#111] border border-white/5 rounded-3xl p-4 transition-all duration-500 hover:border-orange-500/50 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.7)] text-white">
+    <div class="overflow-hidden rounded-2xl aspect-[4/3] relative">
+        <img
+            src="../image/specialImage/${eachSpecialData.specialImage}"
+            alt="${eachSpecialData.specialProductName}"
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        />
+        <div class="absolute top-4 left-4 bg-orange-600/90 backdrop-blur-md text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-tighter">
+            Exclusive
+        </div>
+    </div>
 
-            // specialGridClass.innerHTML += clientSpecialVar
-            specialGridClass.innerHTML += productContent
-        })
+    <div class="px-2 pb-2">
+        <div class="flex flex-col mt-6">
+            <h4 class="text-xl font-bold tracking-tight text-white group-hover:text-orange-400 transition-colors">${eachSpecialData.specialProductName}</h4>
+            <span class="text-orange-500 font-bold mt-1">₦${firstSpecialVariationPrice}</span>
+        </div>
+        
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed line-clamp-2">
+            ${eachSpecialData.specialDescription}
+        </p>
 
-        setTimeout(() => {
-            const specialItems = document.querySelectorAll('.special-item');
-            specialItems.forEach((item) => {
-                item.classList.add('visible');
-            });
-        }, 100);
+        <button
+            id="orderSpecialProductNow"
+            class="mt-8 w-full py-3 bg-white text-black font-bold rounded-xl transition-all hover:bg-orange-600 hover:text-white active:scale-95"
+        >
+            Order Now
+        </button>
+    </div>
+</div>`;
+      }
 
-        const orderSpecialProductNow = document.querySelectorAll('#orderSpecialProductNow')
+      // specialGridClass.innerHTML += clientSpecialVar
+      specialGridClass.innerHTML += productContent;
+    });
 
-        console.log(orderSpecialProductNow);
+    setTimeout(() => {
+      const specialItems = document.querySelectorAll(".special-item");
+      specialItems.forEach((item) => {
+        item.classList.add("visible");
+      });
+    }, 100);
 
+    const orderSpecialProductNow = document.querySelectorAll("#orderSpecialProductNow");
 
-        orderSpecialProductNow.forEach((eachOrderSpecialProductNow) => {
-            eachOrderSpecialProductNow.addEventListener('click', (e) => {
-                // alert('hello')
-                const token = localStorage.getItem('token')
-                console.log(token);
+    console.log(orderSpecialProductNow);
 
-                if (!token) {
-                    return specialNavigationPopUp.classList.remove('hidden')
-                }
-                const specialProductId = e.target.closest('.special-item').dataset.id
-                getSingleClientProductFunc(specialProductId)
+    orderSpecialProductNow.forEach((eachOrderSpecialProductNow) => {
+      eachOrderSpecialProductNow.addEventListener("click", (e) => {
+        // alert('hello')
+        const token = localStorage.getItem("token");
+        console.log(token);
 
-            })
-        })
-
-    } catch (error) {
-        console.error(error);
-
-    } finally {
-        document.getElementById("preloaderSpecial").classList.add('hidden')
-    }
-}
+        if (!token) {
+          return specialNavigationPopUp.classList.remove("hidden");
+        }
+        const specialProductId = e.target.closest(".special-item").dataset.id;
+        getSingleClientProductFunc(specialProductId);
+      });
+    });
+  } catch (error) {
+    console.error(error);
+  } finally {
+    document.getElementById("preloaderSpecial").classList.add("hidden");
+  }
+};
 
 const getSingleClientProductFunc = async (specialProductId) => {
+  try {
+    const response = await fetch(
+      `${config4.apiUrl}/doveeysKitchen/specialProduct/getSingleSpecialProduct/${specialProductId}`,
+    );
 
-    try {
-        const response = await fetch(`${config4.apiUrl}/doveeysKitchen/specialProduct/getSingleSpecialProduct/${specialProductId}`)
+    console.log(response);
 
-        console.log(response);
+    const data = await response.json();
 
-        const data = await response.json()
+    console.log(data);
 
-        console.log(data);
+    const specialImageSingle = data.specialImage;
+    const specialProductNameSingle = data.specialProductName;
+    const specialDescriptionSingle = data.specialDescription;
+    const specialPriceSingle = data.specialPrice;
+    const specialProductVariations = data.variations || []; // Check if
 
-        const specialImageSingle = data.specialImage
-        const specialProductNameSingle = data.specialProductName
-        const specialDescriptionSingle = data.specialDescription
-        const specialPriceSingle = data.specialPrice
-        const specialProductVariations = data.variations || []; // Check if 
+    localStorage.setItem("specialImageSingle", specialImageSingle);
+    localStorage.setItem("specialProductNameSingle", specialProductNameSingle);
+    localStorage.setItem("specialDescriptionSingle", specialDescriptionSingle);
+    localStorage.setItem("specialPriceSingle", specialPriceSingle);
+    localStorage.setItem("specialProductVariations", JSON.stringify(specialProductVariations));
 
-        localStorage.setItem('specialImageSingle', specialImageSingle)
-        localStorage.setItem('specialProductNameSingle', specialProductNameSingle)
-        localStorage.setItem('specialDescriptionSingle', specialDescriptionSingle)
-        localStorage.setItem('specialPriceSingle', specialPriceSingle)
-        localStorage.setItem('specialProductVariations', JSON.stringify(specialProductVariations))
+    window.location.href = "../htmlFolder/specialOrderDetails.html";
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-        window.location.href = '../htmlFolder/specialOrderDetails.html'
-
-    } catch (error) {
-        console.log(error);
-
-    }
-}
-
-const specialOrderPage = document.getElementById('specialOrderPage')
+const specialOrderPage = document.getElementById("specialOrderPage");
 const populateSpecialProductFunc = () => {
+  specialOrderPage.innerHTML = "";
 
-    specialOrderPage.innerHTML = ''
+  const specialImage = localStorage.getItem("specialImageSingle");
+  console.log(specialImage);
+  const specialProductName = localStorage.getItem("specialProductNameSingle");
+  const specialDescription = localStorage.getItem("specialDescriptionSingle");
+  const specialPrice = parseFloat(localStorage.getItem("specialPriceSingle"));
+  // const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
+  const specialProductVariations = JSON.parse(localStorage.getItem("specialProductVariations"));
 
-    const specialImage = localStorage.getItem('specialImageSingle')
-    console.log(specialImage);
-    const specialProductName = localStorage.getItem('specialProductNameSingle')
-    const specialDescription = localStorage.getItem('specialDescriptionSingle')
-    const specialPrice = parseFloat(localStorage.getItem('specialPriceSingle'))
-    // const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations') || '[]');
-    const specialProductVariations = JSON.parse(localStorage.getItem('specialProductVariations'));
+  let variationDropdown = "";
+  let priceDisplay = "";
 
+  let formattedPrice = specialPrice.toFixed(2); // Now safe to call toFixed()
 
-    let variationDropdown = '';
-    let priceDisplay = '';
-
-    let formattedPrice = specialPrice.toFixed(2); // Now safe to call toFixed()
-
-    if (specialPrice && (!specialProductVariations || specialProductVariations.length === 0 || isAllVariationsInvalidMenuPrice(specialProductVariations))) {
-        priceDisplay = `
+  if (
+    specialPrice &&
+    (!specialProductVariations ||
+      specialProductVariations.length === 0 ||
+      isAllVariationsInvalidMenuPrice(specialProductVariations))
+  ) {
+    priceDisplay = `
             <div class="mb-4">
                 <p id="specialOrderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${formattedPrice}</span></p>
             </div>`;
-    } else if (specialProductVariations && specialProductVariations.length > 0) {
-        variationDropdown = `
+  } else if (specialProductVariations && specialProductVariations.length > 0) {
+    variationDropdown = `
             <div class="mb-4">
                 <label for="variationSelect" class="block text-gray-600 font-medium mb-1">Choose Variation</label>
                 <select id="variationSelect" class="w-full p-3 border border-gray-300 rounded-lg">
                 <option disabled selected>Select Food Size</option>
                 ${specialProductVariations
-                .map(
+                  .map(
                     (variation) =>
-                        `<option value="${variation.price}" data-variation-name="${variation.size}">
+                      `<option value="${variation.price}" data-variation-name="${variation.size}">
                         ${variation.size} - &#8358;${variation.price.toFixed(2)}
-                        </option>`
-                )
-                .join('')}
+                        </option>`,
+                  )
+                  .join("")}
                 </select>
             </div>`;
 
-        priceDisplay = `
+    priceDisplay = `
             <div class="mb-4">
                 <p id="specialOrderProceedPrice" class="text-lg font-semibold text-gray-800">Price: <span class="text-green-500">&#8358;${specialProductVariations[0].price.toFixed(2)}</span></p>
             </div>`;
-    }
+  }
 
+  function isAllVariationsInvalidMenuPrice(specialProductVariations) {
+    return specialProductVariations.every(
+      (specialProductVariation) =>
+        !specialProductVariation.size || specialProductVariation.price === null,
+    );
+  }
 
-    function isAllVariationsInvalidMenuPrice(specialProductVariations) {
-        return specialProductVariations.every((specialProductVariation) => !specialProductVariation.size || specialProductVariation.price === null);
-    }
-
-
-    const populateSpecialVar = `
+  const populateSpecialVar = `
         <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
             <h2 class="text-2xl font-bold text-gray-700 mb-4">Order Details</h2>
 
@@ -243,9 +290,9 @@ const populateSpecialProductFunc = () => {
         </div>
     `;
 
-    specialOrderPage.innerHTML = populateSpecialVar
+  specialOrderPage.innerHTML = populateSpecialVar;
 
-    const terms_condition = `
+  const terms_condition = `
                 <div class="fixed inset-0 z-50 bg-white text-black">
             <section class="w-[90%] mx-auto md:w-[80%] lg:w-[70%] bg-white p-4 rounded-lg shadow-lg">
             <h1 class="font-bold text-lg">📝 Terms and Conditions for Placing Orders</h1>
@@ -295,212 +342,271 @@ const populateSpecialProductFunc = () => {
             </section>
             
         </div>
-    `
+    `;
 
-    initializeEventListeners(specialPrice)
+  initializeEventListeners(specialPrice);
 
+  const termsCondition2 = document.getElementById("termsCondition2");
 
-    const termsCondition2 = document.getElementById('termsCondition2')
+  termsCondition2.addEventListener("click", () => {
+    specialOrderPage.innerHTML = terms_condition;
 
-    termsCondition2.addEventListener('click', () => {
-        specialOrderPage.innerHTML = terms_condition
+    const goBack = document.querySelector(".goBack");
+    goBackFunc(goBack);
+  });
 
-        const goBack = document.querySelector('.goBack')
-        goBackFunc(goBack)
-    })
+  const goBackFunc = (goBack) => {
+    goBack.addEventListener("click", () => {
+      specialOrderPage.innerHTML = populateSpecialVar;
+    });
+  };
 
+  const specialAddress = document.getElementById("specialAddress");
+  const specialContact = document.getElementById("specialContact");
+  const specialQuantity = document.getElementById("specialQuantity");
 
-    const goBackFunc = (goBack) => {
-        goBack.addEventListener('click', () => {
-            specialOrderPage.innerHTML = populateSpecialVar
-        })
-    }
+  // const quantityInput = document.getElementById('quantity');
+  // const totalPriceElement = document.getElementById('totalPrice');
 
+  // specialQuantity.addEventListener('input', updateTotalPrice);
 
-    const specialAddress = document.getElementById('specialAddress')
-    const specialContact = document.getElementById('specialContact')
-    const specialQuantity = document.getElementById('specialQuantity')
+  const proceedButton = document.getElementById("proceedButton");
+  const termsCheckbox = document.getElementById("terms");
+  termsCheckbox.addEventListener("change", () => {
+    proceedButton.disabled = !termsCheckbox.checked;
+  });
 
+  proceedButton.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-    // const quantityInput = document.getElementById('quantity');
-    // const totalPriceElement = document.getElementById('totalPrice');
+    const validateInputProvision = document.querySelectorAll(".inputProceed");
 
-
-    // specialQuantity.addEventListener('input', updateTotalPrice);
-
-
-    const proceedButton = document.getElementById('proceedButton');
-    const termsCheckbox = document.getElementById('terms');
-    termsCheckbox.addEventListener('change', () => {
-        proceedButton.disabled = !termsCheckbox.checked;
+    // Validate inputs and stop execution if any are empty
+    const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
+      if (!inputProvision.value) {
+        alert("Please provide all information");
+        return true; // Stop further validation
+      }
+      return false;
     });
 
+    if (hasEmptyInput) return;
 
-    proceedButton.addEventListener('click', async (e) => {
-        e.preventDefault()
+    const token = localStorage.getItem("token");
+    const userName = localStorage.getItem("userName");
+    const userEmail = localStorage.getItem("userEmail");
+    const userPhone = localStorage.getItem("userPhone");
 
-        const validateInputProvision = document.querySelectorAll('.inputProceed')
+    if (!token) {
+      return specialNavigationPopUp.classList.remove("hidden");
+    }
 
-        // Validate inputs and stop execution if any are empty
-        const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
-            if (!inputProvision.value) {
-                alert('Please provide all information');
-                return true; // Stop further validation
-            }
-            return false;
-        });
+    const variationSelect = document.getElementById("variationSelect");
 
-        if (hasEmptyInput) return;
+    const hasVariation = specialProductVariations.length > 0 && variationSelect;
 
+    if (hasVariation) {
+      // Ensure user selects a variation
+      if (variationSelect.selectedIndex === 0) {
+        alert("Please select a food size before proceeding.");
+        return;
+      }
+    }
 
+    let sizeDisplay = "";
+    let variationSizeDisplay = "";
+    let selectedSize = ""; // Store the selected size
 
-        const token = localStorage.getItem('token')
-        const userName = localStorage.getItem('userName')
-        const userEmail = localStorage.getItem('userEmail')
-        const userPhone = localStorage.getItem('userPhone')
-
-        if (!token) {
-            return specialNavigationPopUp.classList.remove('hidden')
-        }
-
-
-        const variationSelect = document.getElementById('variationSelect');
-
-        const hasVariation = specialProductVariations.length > 0 && variationSelect;
-
-        if (hasVariation) {
-            // Ensure user selects a variation
-            if (variationSelect.selectedIndex === 0) {
-                alert("Please select a food size before proceeding.");
-                return;
-            }
-        }
-
-
-        let sizeDisplay = '';
-        let variationSizeDisplay = '';
-        let selectedSize = ''; // Store the selected size
-
-        if (
-            specialPrice &&
-            (!specialProductVariations ||
-                specialProductVariations.length === 0 ||
-                isAllVariationsInvalidMenuPrice(specialProductVariations))
-        ) {
-            sizeDisplay = '';
-        } else if (specialProductVariations && specialProductVariations.length > 0) {
-            variationSizeDisplay = `
+    if (
+      specialPrice &&
+      (!specialProductVariations ||
+        specialProductVariations.length === 0 ||
+        isAllVariationsInvalidMenuPrice(specialProductVariations))
+    ) {
+      sizeDisplay = "";
+    } else if (specialProductVariations && specialProductVariations.length > 0) {
+      variationSizeDisplay = `
                 <select id="variationSelect" class="">
-                    ${specialProductVariations.map((variation) =>
-                `<option value="${variation.price}" data-variation-name="${variation.size}">
+                    ${specialProductVariations
+                      .map(
+                        (variation) =>
+                          `<option value="${variation.price}" data-variation-name="${variation.size}">
                             ${variation.size}
-                        </option>`
-            ).join('')}
+                        </option>`,
+                      )
+                      .join("")}
                 </select>
             `;
-        }
+    }
 
-        // Event listener to update selected size
-        document.addEventListener('change', (event) => {
-            if (event.target && event.target.id === 'variationSelect') {
-                selectedSize = event.target.selectedOptions[0].dataset.variationName;
-            }
-        });
+    // Event listener to update selected size
+    document.addEventListener("change", (event) => {
+      if (event.target && event.target.id === "variationSelect") {
+        selectedSize = event.target.selectedOptions[0].dataset.variationName;
+      }
+    });
 
+    const selectedSizeValue = variationSelect
+      ? variationSelect.selectedOptions[0].dataset.variationName
+      : specialProductVariations[0]?.size || "Default";
 
-        const selectedSizeValue = variationSelect ? variationSelect.selectedOptions[0].dataset.variationName : specialProductVariations[0]?.size || 'Default';
+    specialOrderPage.classList.add("hidden");
 
+    const formData = {
+      menuProductOrderImage: `../image/specialImage/${specialImage}`,
+      // menuProductOrderName: `${specialProductName} size ${variationSizeDisplay} ${priceDisplay}`,
+      menuProductOrderName: `${specialProductName} - Size: ${selectedSizeValue}`,
+      menuProductOrderPrice: selectedPrice,
+      menuTotalProductOrderPrice: selectedPrice * specialQuantity.value,
+      menuProductOrderAddress: specialAddress.value,
+      menuProductOrderContact: specialContact.value,
+      menuProductOrderQuantity: specialQuantity.value,
+      userName,
+      userEmail,
+      userPhone,
+      ...(hasVariation &&
+        variationSelect.selectedIndex > 0 && {
+          specialProductOrderVariation: {
+            size: variationSelect.selectedOptions[0].dataset.variationName,
+            price: parseFloat(variationSelect.value),
+          },
+        }),
+    };
 
-        specialOrderPage.classList.add('hidden');
-
-        const formData = {
-            menuProductOrderImage: `../image/specialImage/${specialImage}`,
-            // menuProductOrderName: `${specialProductName} size ${variationSizeDisplay} ${priceDisplay}`,
-            menuProductOrderName: `${specialProductName} - Size: ${selectedSizeValue}`,
-            menuProductOrderPrice: selectedPrice,
-            menuTotalProductOrderPrice: selectedPrice * specialQuantity.value,
-            menuProductOrderAddress: specialAddress.value,
-            menuProductOrderContact: specialContact.value,
-            menuProductOrderQuantity: specialQuantity.value,
-            userName,
-            userEmail,
-            userPhone,
-            ...(hasVariation && variationSelect.selectedIndex > 0 && {
-                specialProductOrderVariation: {
-                    size: variationSelect.selectedOptions[0].dataset.variationName,
-                    price: parseFloat(variationSelect.value)
-                }
-            })
-        }
-
-        await userProceedSpecialOrderFunc(formData)
-    })
-}
-
+    // await userProceedSpecialOrderFunc(formData);
+    await handleMakePay(formData);
+  });
+};
 
 const userProceedSpecialOrderFunc = async (formData) => {
-    document.getElementById("specialOrderLoader").classList.remove('hidden')
-    try {
-        const response = await fetch(`${config4.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
-            method: 'POST',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
+  document.getElementById("specialOrderLoader").classList.remove("hidden");
+  try {
+    const response = await fetch(`${config4.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
 
-        const specialOrderPopUpAlert = document.getElementById('specialOrderPopUpAlert')
-        specialOrderPopUpAlert.classList.remove('hidden')
-    } catch (error) {
-        console.error(error);
-
-    } finally {
-        document.getElementById("specialOrderLoader").classList.add('hidden')
+    if (!response.ok) {
+      // If backend returns an error status (4xx or 5xx)
+      const errorData = await response.json();
+      console.error("Backend Error:", errorData);
+      alert(`❌ Failed to place order: ${errorData?.message || response.statusText}`);
+      errorAlert?.classList.remove("hidden");
+      return;
     }
-}
 
+    const specialOrderPopUpAlert = document.getElementById("specialOrderPopUpAlert");
+    specialOrderPopUpAlert.classList.remove("hidden");
+  } catch (error) {
+    console.error(error);
+    alert(`❌ Something went wrong: ${error.message || error}`);
+  } finally {
+    document.getElementById("specialOrderLoader").classList.add("hidden");
+  }
+};
 
 let selectedPrice = 0;
 const initializeEventListeners = (specialPrice) => {
-    const variationSelect = document.getElementById('variationSelect');
-    const quantityInput = document.getElementById('specialQuantity');
+  const variationSelect = document.getElementById("variationSelect");
+  const quantityInput = document.getElementById("specialQuantity");
 
-    // Listen for changes in the variation dropdown
-    if (variationSelect) {
-        variationSelect.addEventListener('change', (event) => {
-            // selectedPrice = parseFloat(event.target.value) || 0;
+  // Listen for changes in the variation dropdown
+  if (variationSelect) {
+    variationSelect.addEventListener("change", (event) => {
+      // selectedPrice = parseFloat(event.target.value) || 0;
 
-            const selectedOption = event.target.selectedOptions[0];
-            selectedPrice = parseFloat(selectedOption.value);
+      const selectedOption = event.target.selectedOptions[0];
+      selectedPrice = parseFloat(selectedOption.value);
 
-            document.getElementById('specialOrderProceedPrice').innerHTML =
-                `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
+      document.getElementById("specialOrderProceedPrice").innerHTML =
+        `Price: <span class="text-green-500">&#8358;${selectedPrice.toFixed(2)}</span>`;
 
-            updateTotalPrice();
-        });
-    } else {
-        selectedPrice = specialPrice
-    }
-
-    // quantityInput.addEventListener('input', updateTotalPrice);
-    quantityInput.addEventListener('input', () => {
-
-        updateTotalPrice()
+      updateTotalPrice();
     });
+  } else {
+    selectedPrice = specialPrice;
+  }
 
+  // quantityInput.addEventListener('input', updateTotalPrice);
+  quantityInput.addEventListener("input", () => {
+    updateTotalPrice();
+  });
 };
 
 // Function to update the total price dynamically
 
 const updateTotalPrice = () => {
-    const totalPrice = selectedPrice * parseInt(specialQuantity.value || 1, 10);
-    document.getElementById('totalPrice').innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
+  const totalPrice = selectedPrice * parseInt(specialQuantity.value || 1, 10);
+  document.getElementById("totalPrice").innerHTML =
+    `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
 };
-
-
 
 // Helper function to check if all variations are invalid
 function isAllVariationsInvalid(variations) {
-    return variations.every((variation) => !variation.size || variation.price === null);
+  return variations.every((variation) => !variation.size || variation.price === null);
+}
+
+const handleMakePay = async (formData) => {
+  // console.log({ formData });
+
+  try {
+    const res = await fetch(`${config4.apiUrl}/api/paystack/init`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.userEmail,
+        amount: formData.menuTotalProductOrderPrice,
+      }),
+    });
+
+    const result = await res.json();
+
+    if (result?.data?.access_code) {
+      window.PaystackPop.setup({
+        key: "pk_test_dc31ec91108cb7c00c2a27080d4cb845f32f0fa3",
+        // access_code: result.data.access_code,
+        email: formData.userEmail,
+        amount: formData.menuTotalProductOrderPrice * 100,
+        reference: result.data.reference,
+
+        callback: function (response) {
+          console.log("Paystack response:", response);
+
+          verifyPayment(response.reference, formData);
+        },
+
+        onClose: function () {
+          alert("Payment cancelled");
+        },
+      }).openIframe();
+    }
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+async function verifyPayment(reference, formData) {
+  try {
+    const verifyRes = await fetch(`${config4.apiUrl}/api/paystack/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ reference }),
+    });
+
+    const verifyResult = await verifyRes.json();
+
+    if (verifyResult?.data?.status === "success") {
+      await userProceedSpecialOrderFunc(formData);
+    }
+  } catch (err) {
+    console.error(err);
+  }
 }

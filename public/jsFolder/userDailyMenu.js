@@ -1,93 +1,108 @@
 const configuration = {
-    apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-      ? 'http://localhost:3000'
-      : `${window.location.protocol}//${window.location.hostname}`
-  };
+  apiUrl:
+    window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+      ? "http://localhost:3000"
+      : `${window.location.protocol}//${window.location.hostname}`,
+};
 
-document.addEventListener('DOMContentLoaded', () => {
-    getAllDailyMenus()
-    fetchEventProductFunc()
-    getToggleEventFunc()
-    populateUserProceedOrderFunc()
-    
-})
+document.addEventListener("DOMContentLoaded", () => {
+  getAllDailyMenus();
+  fetchEventProductFunc();
+  getToggleEventFunc();
+  populateUserProceedOrderFunc();
+});
 
 // Function to get all daily menus
 async function getAllDailyMenus() {
+  const dailyMenuDishCards = document.getElementById("dailyMenuDishCards");
 
-    const dailyMenuDishCards = document.getElementById('dailyMenuDishCards')
-  
-      try {
-          const response = await fetch(`${configuration.apiUrl}/dailyMenuDisplay/allDailyMenu`);
-          const data = await response.json();
-  
-          dailyMenuDishCards.innerHTML = ''
-          data.forEach((eachData) => {
-  
-            const eachDailyMenuId = eachData._id
+  try {
+    const response = await fetch(`${configuration.apiUrl}/dailyMenuDisplay/allDailyMenu`);
+    const data = await response.json();
 
-            const populateMenuDish = `
-                <div id="dailyMenuEachData" class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg" data-id="${eachDailyMenuId}">
-                    <img src="../image/dailyMenu/${eachData.menuImage}" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
-                    <h4 class="mt-4 text-xl font-semibold">${eachData.menuTitle}</h4>
-                    <p class="mt-2 text-gray-600">₦${eachData.price}</p>
-                    
-                    <button class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full dailyMenuDishOrder">Order Now</button>
-                </div>
-            `
-  
-            dailyMenuDishCards.innerHTML += populateMenuDish
-  
-            const dailyMenuDishOrder = document.querySelectorAll('.dailyMenuDishOrder')
-  
-            dailyMenuDishOrder.forEach((eachDailyMenuDishOrder) => {
-                eachDailyMenuDishOrder.addEventListener('click', (e) => {
-                const eachDailyMenuData = e.target.closest('#dailyMenuEachData').dataset.id
-                getSingleDailyMenu(eachDailyMenuData)
-              })
-            })
-            
-  
-          })
-      } catch (error) {
-          console.error("Error fetching daily menus:", error);
-      }
+    dailyMenuDishCards.innerHTML = "";
+    data.forEach((eachData) => {
+      const eachDailyMenuId = eachData._id;
+
+      const populateMenuDish = `<div id="dailyMenuEachData" data-id="${eachDailyMenuId}" class="group relative flex flex-col bg-gradient-to-b from-[#111] to-black border border-white/5 rounded-[2rem] overflow-hidden transition-all duration-500 hover:border-orange-500/30">
+    <div class="relative h-[350px] md:h-[400px] overflow-hidden">
+        <img
+            src="../image/dailyMenu/${eachData.menuImage}"
+            alt="${eachData.menuTitle}"
+            class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        />
+        <div class="absolute top-6 right-6 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
+            <p class="text-orange-400 font-bold text-sm">₦${eachData.price}</p>
+        </div>
+    </div>
+
+    <div class="p-8">
+        <h4 class="serif text-2xl font-medium text-white group-hover:text-orange-400 transition-colors">
+            ${eachData.menuTitle}
+        </h4>
+        
+        <p class="mt-3 text-gray-500 text-sm leading-relaxed line-clamp-2">
+            Experience our curated daily special, featuring a perfect blend of fresh ingredients and authentic home-style flavors.
+        </p>
+
+        <button
+            class="dailyMenuDishOrder mt-8 w-full py-4 bg-orange-500/10 border border-orange-500/20 text-orange-500 font-black tracking-widest text-[10px] uppercase rounded-xl transition-all hover:bg-orange-500 hover:text-white active:scale-95 shadow-lg shadow-orange-500/5"
+        >
+            Order Now
+        </button>
+    </div>
+</div>`;
+
+      dailyMenuDishCards.innerHTML += populateMenuDish;
+
+      const dailyMenuDishOrder = document.querySelectorAll(".dailyMenuDishOrder");
+
+      dailyMenuDishOrder.forEach((eachDailyMenuDishOrder) => {
+        eachDailyMenuDishOrder.addEventListener("click", (e) => {
+          const eachDailyMenuData = e.target.closest("#dailyMenuEachData").dataset.id;
+          getSingleDailyMenu(eachDailyMenuData);
+        });
+      });
+    });
+  } catch (error) {
+    console.error("Error fetching daily menus:", error);
   }
+}
 
-  // Function to get a single daily menu by ID
+// Function to get a single daily menu by ID
 async function getSingleDailyMenu(eachDailyMenuData) {
+  try {
+    const response = await fetch(
+      `${configuration.apiUrl}/dailyMenuDisplay/eachDailyMenu/${eachDailyMenuData}`,
+    );
+    const data = await response.json();
+    console.log("Single Daily Menu:", data);
 
-      try {
-          const response = await fetch(`${configuration.apiUrl}/dailyMenuDisplay/eachDailyMenu/${eachDailyMenuData}`);
-          const data = await response.json();
-          console.log("Single Daily Menu:", data);
-          
-          localStorage.setItem('menuImage', data.menuImage)
-          localStorage.setItem('menuTitle', data.menuTitle)
-          localStorage.setItem('price', data.price)
-          localStorage.setItem('menuRoute', 'DailyMenu')
+    localStorage.setItem("menuImage", data.menuImage);
+    localStorage.setItem("menuTitle", data.menuTitle);
+    localStorage.setItem("price", data.price);
+    localStorage.setItem("menuRoute", "DailyMenu");
 
-          window.location.href = '../htmlFolder/dailyMenuOrderDetails.html'
-
-      } catch (error) {
-          console.error("Error fetching daily menu:", error);
-      }
+    window.location.href = "../htmlFolder/dailyMenuOrderDetails.html";
+  } catch (error) {
+    console.error("Error fetching daily menu:", error);
   }
-  
-  const populateUserProceedOrderFunc = () => {
-    const menuProductOrderImage = localStorage.getItem('menuImage')
-    const menuProductOrderName = localStorage.getItem('menuTitle')
-    const menuProductOrderPrice = localStorage.getItem('price')
-    const token = localStorage.getItem('token')
-    const userName = localStorage.getItem('userName')
-    const userEmail = localStorage.getItem('userEmail')
-    const userPhone = localStorage.getItem('userPhone')
-    const menuRoute = localStorage.getItem('menuRoute')
-    const dailyMenuOrderPage = document.getElementById('dailyMenuOrderPage')
+}
 
-    const userProceedOrder2 = `
+const populateUserProceedOrderFunc = () => {
+  const menuProductOrderImage = localStorage.getItem("menuImage");
+  const menuProductOrderName = localStorage.getItem("menuTitle");
+  const menuProductOrderPrice = localStorage.getItem("price");
+  const token = localStorage.getItem("token");
+  const userName = localStorage.getItem("userName");
+  const userEmail = localStorage.getItem("userEmail");
+  const userPhone = localStorage.getItem("userPhone");
+  const menuRoute = localStorage.getItem("menuRoute");
+  const dailyMenuOrderPage = document.getElementById("dailyMenuOrderPage");
+
+  const userProceedOrder2 = `
             <form id="userProceedDailyMenuOrderId" class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
-            <h2 class="text-2xl font-bold text-gray-700 mb-4">${menuRoute == 'EventMenu'? 'Event': 'Daily'} Menu Order Details</h2>
+            <h2 class="text-2xl font-bold text-gray-700 mb-4">${menuRoute == "EventMenu" ? "Event" : "Daily"} Menu Order Details</h2>
 
             <!-- Product Image -->
             <div class="mb-4 h-[400px] items-center justify-center overflow-hidden">
@@ -120,7 +135,7 @@ async function getSingleDailyMenu(eachDailyMenuData) {
 
             <!-- dailyMenuQuantity Input -->
             <div class="mb-4">
-                <label for="dailyMenuQuantity" class="block text-gray-600 font-medium mb-1">${menuRoute == 'EventMenu'? 'Event': 'Daily'}MenuQuantity</label>
+                <label for="dailyMenuQuantity" class="block text-gray-600 font-medium mb-1">${menuRoute == "EventMenu" ? "Event" : "Daily"}MenuQuantity</label>
                 <input type="number" id="dailyMenuQuantity" min="1" value="1" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 inputProceed">
             </div>
 
@@ -140,9 +155,9 @@ async function getSingleDailyMenu(eachDailyMenuData) {
             <!-- Proceed Button -->
             <button id="dailyMenuProceedBtn" class="w-full bg-green-500 text-white font-bold py-2 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed" disabled>Proceed to Order</button>
         </form>
-        `
+        `;
 
-        const terms2_condition = `
+  const terms2_condition = `
                 <div class="fixed inset-0 z-50 bg-white text-black">
             <section class="w-[90%] mx-auto md:w-[80%] lg:w-[70%] bg-white p-4 rounded-lg shadow-lg">
             <h1 class="font-bold text-lg">📝 terms2 and Conditions for Placing Orders</h1>
@@ -192,130 +207,132 @@ async function getSingleDailyMenu(eachDailyMenuData) {
             </section>
             
         </div>
-    `
+    `;
 
-        dailyMenuOrderPage.innerHTML = userProceedOrder2
-        const dailyMenuQuantity = document.getElementById('dailyMenuQuantity')
-        const terms2Checkbox = document.getElementById('terms2');
-        const terms2Condition = document.getElementById('terms2Condition')
-        const dailyMenuOrderProceedAddress = document.getElementById('dailyMenuOrderProceedAddress')
-        const dailyMenuDeliveryContact = document.getElementById('dailyMenuDeliveryContact')
+  dailyMenuOrderPage.innerHTML = userProceedOrder2;
+  const dailyMenuQuantity = document.getElementById("dailyMenuQuantity");
+  const terms2Checkbox = document.getElementById("terms2");
+  const terms2Condition = document.getElementById("terms2Condition");
+  const dailyMenuOrderProceedAddress = document.getElementById("dailyMenuOrderProceedAddress");
+  const dailyMenuDeliveryContact = document.getElementById("dailyMenuDeliveryContact");
 
+  terms2Condition.addEventListener("click", () => {
+    orderPage.innerHTML = terms2_condition;
 
-        terms2Condition.addEventListener('click', () => {
-            orderPage.innerHTML = terms2_condition
+    const goBack2 = document.querySelector(".goBack2");
+    goBackFunc(goBack2);
+  });
 
-            const goBack2 = document.querySelector('.goBack2')
-            goBackFunc(goBack2)
-        })
+  const goBackFunc = (goBack2) => {
+    goBack2.addEventListener("click", () => {
+      orderPage.innerHTML = userProceedOrder2;
+      populateUserProceedOrderFunc();
+    });
+  };
 
-        
-        
-        const goBackFunc = (goBack2) => {
-            goBack2.addEventListener('click', () => {
-                orderPage.innerHTML = userProceedOrder2
-                populateUserProceedOrderFunc()
-            })
-        }
+  terms2Checkbox.addEventListener("change", () => {
+    dailyMenuProceedBtn.disabled = !terms2Checkbox.checked;
+  });
 
-        terms2Checkbox.addEventListener('change', () => {
-            dailyMenuProceedBtn.disabled = !terms2Checkbox.checked;
-        });
+  dailyMenuQuantity.addEventListener("input", () => {
+    const totalPrice = menuProductOrderPrice * parseInt(dailyMenuQuantity.value || 1, 10);
+    document.getElementById("totalPrice").innerHTML =
+      `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
+  });
 
-        dailyMenuQuantity.addEventListener('input', () => {
-            const totalPrice = menuProductOrderPrice * parseInt(dailyMenuQuantity.value || 1, 10);
-            document.getElementById('totalPrice').innerHTML = `Total Price: <span class="text-green-500">&#8358;${totalPrice.toFixed(2)}</span>`;
-        });
+  const dailyMenuProceedBtn = document.getElementById("dailyMenuProceedBtn");
 
-        const dailyMenuProceedBtn = document.getElementById('dailyMenuProceedBtn')
+  dailyMenuProceedBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 
-        dailyMenuProceedBtn.addEventListener('click', async (e) => {
-            e.preventDefault()
+    const validateInputProvision = document.querySelectorAll(".inputProceed");
 
-            const validateInputProvision = document.querySelectorAll('.inputProceed')
+    // Validate inputs and stop execution if any are empty
+    const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
+      if (!inputProvision.value) {
+        alert("Please provide all information");
+        return true; // Stop further validation
+      }
+      return false;
+    });
 
-            // Validate inputs and stop execution if any are empty
-            const hasEmptyInput = Array.from(validateInputProvision).some((inputProvision) => {
-                if (!inputProvision.value) {
-                    alert('Please provide all information');
-                    return true; // Stop further validation
-                }
-                return false;
-            });
+    if (hasEmptyInput) return;
 
-            if (hasEmptyInput) return;
-
-            if(!token) {
-                return alert('Please Register an Account')
-            }
-
-            const formData = {
-                menuProductOrderImage: `../image/dailyMenu/${menuProductOrderImage}`,
-                menuProductOrderName,
-                menuProductOrderPrice,
-                menuTotalProductOrderPrice: menuProductOrderPrice * dailyMenuQuantity.value,
-                menuProductOrderAddress: dailyMenuOrderProceedAddress.value,
-                menuProductOrderContact: dailyMenuDeliveryContact.value,
-                menuProductOrderQuantity: dailyMenuQuantity.value,
-                userName,
-                userEmail,
-                userPhone,
-               
-            }
-
-            console.log(formData);
-            await dailyMenuUserProceedOrderFunc(formData)
-            
-        })
-   
-  }
-
-  const dailyMenuUserProceedOrderFunc = async (formData) => {
-    const orderPopUpAlert = document.getElementById('orderPopUpAlert')
-    try {
-        const userProceedResponse = await fetch(`${configuration.apiUrl}/doveeysKitchen/order/createProceedOrder`, {
-            method: 'POST',
-            headers: {
-                "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-
-
-        console.log(userProceedResponse);
-        
-        const data = await userProceedResponse.json()
-        // console.log(data);
-        // alert('orderPlaced Successfully')
-        orderPopUpAlert.classList.remove('hidden')
-        
-    } catch (error) {
-        console.log(error);
-        
+    if (!token) {
+      return alert("Please Register an Account");
     }
-}
 
+    const formData = {
+      menuProductOrderImage: `../image/dailyMenu/${menuProductOrderImage}`,
+      menuProductOrderName,
+      menuProductOrderPrice,
+      menuTotalProductOrderPrice: menuProductOrderPrice * dailyMenuQuantity.value,
+      menuProductOrderAddress: dailyMenuOrderProceedAddress.value,
+      menuProductOrderContact: dailyMenuDeliveryContact.value,
+      menuProductOrderQuantity: dailyMenuQuantity.value,
+      userName,
+      userEmail,
+      userPhone,
+    };
+
+    console.log(formData);
+    await handleMakePay(formData);
+  });
+};
+
+const dailyMenuUserProceedOrderFunc = async (formData) => {
+  const orderPopUpAlert = document.getElementById("orderPopUpAlert");
+  try {
+    const userProceedResponse = await fetch(
+      `${configuration.apiUrl}/doveeysKitchen/order/createProceedOrder`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      },
+    );
+
+    // console.log(userProceedResponse);
+    if (!userProceedResponse.ok) {
+      // If backend returns an error status (4xx or 5xx)
+      const errorData = await userProceedResponse.json();
+      console.error("Backend Error:", errorData);
+      alert(`❌ Failed to place order: ${errorData?.message || userProceedResponse.statusText}`);
+      errorAlert?.classList.remove("hidden");
+      return;
+    }
+
+    const data = await userProceedResponse.json();
+    // console.log(data);
+    // alert('orderPlaced Successfully')
+    orderPopUpAlert.classList.remove("hidden");
+  } catch (error) {
+    console.log(error);
+    alert(`❌ Something went wrong: ${error.message || error}`);
+  }
+};
 
 //   eventMenu Category
-const eventMenuDishCards = document.getElementById('eventMenuDishCards')
+const eventMenuDishCards = document.getElementById("eventMenuDishCards");
 console.log(eventMenuDishCards);
 
-
 const fetchEventProductFunc = async () => {
-    console.log('Started Frontend Fetch');
-    
-    eventMenuDishCards.innerHTML = ''
-    try {
-      const response = await fetch(`${configuration.apiUrl}/doveeysKitchen/eventapi/getAllEventMgts`)
-  
-      console.log(response);
-  
-      const data = await response.json()
-      console.log(data);
-  
-      data.forEach((eachData) => {
-         const allEvent = `
+  console.log("Started Frontend Fetch");
+
+  eventMenuDishCards.innerHTML = "";
+  try {
+    const response = await fetch(`${configuration.apiUrl}/doveeysKitchen/eventapi/getAllEventMgts`);
+
+    console.log(response);
+
+    const data = await response.json();
+    console.log(data);
+
+    data.forEach((eachData) => {
+      const allEvent = `
         <div class="bg-white rounded-lg shadow-md p-6 hover:shadow-lg">
           <img src="${eachData.eventImage}" alt="Grilled Chicken" class="rounded-lg w-full h-80 object-cover">
           <h4 class="mt-4 text-xl font-semibold">${eachData.eventTitle}</h4>
@@ -324,71 +341,123 @@ const fetchEventProductFunc = async () => {
           <button id="orderEachEventBtn" class="mt-6 bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 w-full" data-id="${eachData._id}">Order Now</button>
         </div>
       
-      `
-  
-      eventMenuDishCards.innerHTML += allEvent
-  
-      const orderEachEventBtn = document.querySelectorAll('#orderEachEventBtn')
-  
+      `;
+
+      eventMenuDishCards.innerHTML += allEvent;
+
+      const orderEachEventBtn = document.querySelectorAll("#orderEachEventBtn");
+
       orderEachEventBtn.forEach((eachorderEachEventBtn) => {
         console.log(eachorderEachEventBtn);
-  
-        eachorderEachEventBtn.addEventListener('click', (e) => {
-          const eventId = e.target.closest('#orderEachEventBtn').dataset.id
 
-          console.log('Event Id', eventId);
-          
-          getSingleEventMenu(eventId)
+        eachorderEachEventBtn.addEventListener("click", (e) => {
+          const eventId = e.target.closest("#orderEachEventBtn").dataset.id;
 
-        })
-      })
+          console.log("Event Id", eventId);
 
-     
-      
-      })
-     
-      
-      
-    } catch (error) {
-      console.error(error)
-    }
+          getSingleEventMenu(eventId);
+        });
+      });
+    });
+  } catch (error) {
+    console.error(error);
   }
+};
 
-
-  // Function to get a single daily menu by ID
+// Function to get a single daily menu by ID
 async function getSingleEventMenu(eventId) {
+  try {
+    const response = await fetch(
+      `${configuration.apiUrl}/doveeysKitchen/eventapi/getSingleEventMgt/${eventId}`,
+    );
+    const data = await response.json();
+    console.log("Single Daily Menu:", data);
 
-    try {
-        const response = await fetch(`${configuration.apiUrl}/doveeysKitchen/eventapi/getSingleEventMgt/${eventId}`);
-        const data = await response.json();
-        console.log("Single Daily Menu:", data);
-        
-        localStorage.setItem('menuImage', data.eventImage)
-        localStorage.setItem('menuTitle', data.eventTitle)
-        localStorage.setItem('price', data.eventPrice)
-        localStorage.setItem('menuRoute', 'EventMenu')
+    localStorage.setItem("menuImage", data.eventImage);
+    localStorage.setItem("menuTitle", data.eventTitle);
+    localStorage.setItem("price", data.eventPrice);
+    localStorage.setItem("menuRoute", "EventMenu");
 
-        window.location.href = '../htmlFolder/dailyMenuOrderDetails.html'
-
-    } catch (error) {
-        console.error("Error fetching daily menu:", error);
-    }
+    window.location.href = "../htmlFolder/dailyMenuOrderDetails.html";
+  } catch (error) {
+    console.error("Error fetching daily menu:", error);
+  }
 }
 
-const eventMenuSection = document.querySelector('.eventMenuSection')
+const eventMenuSection = document.querySelector(".eventMenuSection");
 const getToggleEventFunc = async () => {
+  try {
+    const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventStatus/getToggleStatus`);
+    console.log(response);
 
-  
-    try {
-      const response = await fetch(`${config.apiUrl}/doveeysKitchen/eventStatus/getToggleStatus`);
-      console.log(response);
-  
-      const data = await response.json();
-      console.log(data);
-  
-     data.toggleEventStatus == "Checked" ? eventMenuSection.classList.remove('hidden') : eventMenuSection.classList.add('hidden');
-  
-    } catch (error) {
-      console.error(error);
+    const data = await response.json();
+    console.log(data);
+
+    data.toggleEventStatus == "Checked"
+      ? eventMenuSection.classList.remove("hidden")
+      : eventMenuSection.classList.add("hidden");
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const handleMakePay = async (formData) => {
+  console.log({ formData });
+
+  try {
+    const res = await fetch(`${configuration.apiUrl}/api/paystack/init`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: formData.userEmail,
+        amount: formData.menuTotalProductOrderPrice,
+      }),
+    });
+
+    const result = await res.json();
+
+    if (result?.data?.access_code) {
+      window.PaystackPop.setup({
+        key: "pk_test_dc31ec91108cb7c00c2a27080d4cb845f32f0fa3",
+        // access_code: result.data.access_code,
+        email: formData.userEmail,
+        amount: formData.menuTotalProductOrderPrice * 100,
+        reference: result.data.reference,
+
+        callback: function (response) {
+          console.log("Paystack response:", response);
+
+          verifyPayment(response.reference, formData);
+        },
+
+        onClose: function () {
+          alert("Payment cancelled");
+        },
+      }).openIframe();
     }
-  };
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+async function verifyPayment(reference, formData) {
+  try {
+    const verifyRes = await fetch(`${configuration.apiUrl}/api/paystack/verify`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ reference }),
+    });
+
+    const verifyResult = await verifyRes.json();
+
+    if (verifyResult?.data?.status === "success") {
+      await dailyMenuUserProceedOrderFunc(formData);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}

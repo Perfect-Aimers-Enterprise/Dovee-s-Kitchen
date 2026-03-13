@@ -18,6 +18,7 @@ const eventMgtRoute = require("./routes/eventMgtRoute");
 const adminSecureRoute = require("./routes/adminAuthRoute");
 const eventHeaderRoute = require("./routes/eventHeaderRoute");
 const toggleEventRoute = require("./routes/toggleEventRoute");
+const paystackRoute = require("./routes/Paystack/route");
 
 const app = express();
 // const server = createServer(app);
@@ -76,5 +77,6 @@ app.use("/doveeysKitchen/eventapi", eventMgtRoute);
 app.use("/doveeysKitchen/safezone", adminSecureRoute);
 app.use("/doveeysKitchen/eventHeader", eventHeaderRoute);
 app.use("/doveeysKitchen/eventStatus", toggleEventRoute);
+app.use("/api/paystack", paystackRoute);
 
 module.exports = app;

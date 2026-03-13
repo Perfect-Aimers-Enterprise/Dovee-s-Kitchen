@@ -22,7 +22,7 @@
 //       useNewUrlParser: true,
 //       useUnifiedTopology: true,
 //     });
-//     server.listen(port, () => {
+//     app.listen(port, () => {
 //       console.log(`server is listening on port ${port}`);
 //     });
 //   } catch (error) {

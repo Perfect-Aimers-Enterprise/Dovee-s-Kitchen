@@ -74,14 +74,14 @@
               <img src="../image/doveeLogo.png" alt="Logo" class="w-7 h-7 object-contain" />
             </div>
             <span
-              class="text-base md:text-xl font-extrabold tracking-tighter uppercase italic whitespace-nowrap"
+              class="text-base md:text-xl font-extrabold tracking-tighter uppercase italic whitespace-nowrap text-white"
             >
               Doveeys <span class="text-green-500">Kitchen</span>
             </span>
           </div>
 
           <ul
-            class="hidden lg:flex items-center space-x-8 text-xs font-bold tracking-widest text-gray-300"
+            class="hidden lg:flex items-center space-x-8 text-[10px] font-black tracking-[0.2em] text-gray-300"
           >
             <li>
               <a href="#menu" class="hover:text-green-400 transition-colors uppercase">The Menu</a>
@@ -96,6 +96,13 @@
                 href="../htmlFolder/Gallery.html"
                 class="hover:text-green-400 transition-colors uppercase"
                 >Gallery</a
+              >
+            </li>
+            <li>
+              <a
+                href="../htmlFolder/regLog.html"
+                class="hover:text-green-400 transition-colors uppercase text-green-500"
+                >Account</a
               >
             </li>
             <li>
@@ -125,9 +132,16 @@
                 />
               </svg>
               <span
-                class="absolute top-1 right-1 bg-green-500 text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full text-black shadow-sm"
+                class="absolute top-1 right-1 bg-green-500 text-[9px] font-black w-4 h-4 flex items-center justify-center rounded-full text-black shadow-sm cartCount"
                 >2</span
               >
+            </a>
+
+            <a
+              href="../htmlFolder/regLog.html"
+              class="p-2 hover:bg-white/5 rounded-full transition-colors text-white lg:hidden"
+            >
+              <i class="fas fa-user-circle text-xl"></i>
             </a>
 
             <button
@@ -158,6 +172,11 @@
           class="text-white hover:text-green-500 transition-colors"
           >GALLERY</a
         >
+        <a
+          href="../htmlFolder/regLog.html"
+          class="text-green-500 hover:text-white transition-colors"
+          >ACCOUNT</a
+        >
         <a href="#contact" class="text-white hover:text-green-500 transition-colors">CONTACT</a>
 
         <div class="pt-10">
@@ -166,6 +185,7 @@
       </div>
     </header>
 
+    <!-- Hero -->
     <section class="relative min-h-screen flex items-center pt-20 overflow-hidden">
       <div class="absolute inset-0 z-0">
         <div
@@ -231,7 +251,6 @@
     </section>
 
     <!-- Menu Section -->
-
     <section id="menu" class="py-24 bg-[#0a0a0a] text-white">
       <div class="container mx-auto px-6 lg:px-16">
         <div class="flex flex-col items-center mb-16 text-center">

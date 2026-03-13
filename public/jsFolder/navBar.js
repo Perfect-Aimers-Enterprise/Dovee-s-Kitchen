@@ -108,14 +108,42 @@ const getFlyer1Display = async () => {
     data.forEach((eachData) => {
       const flyer1Section = document.getElementById("flyer1Section");
 
-      const populateFlyer1 = `
-        <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/flyer1/${eachData.flyer1Image}); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
-          <div class="bg-black opacity-50 inset-0 absolute"></div>
-          <div class="text-center relative">
-            <h1>${eachData.flyer1Title} (Contact Us)</h1>
-          </div>
-        </a>
-      `;
+      const populateFlyer1 = `<div class="container mx-auto px-6 lg:px-16 mb-12">
+    <a
+      href="https://wa.me/message/LV4DUBT6DDZHA1"
+      target="_blank"
+      class="group relative block w-full h-[250px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl transition-all duration-500 hover:border-green-500/50 hover:-translate-y-1"
+    >
+      <div 
+        class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+        style="background-image: url('../image/flyer1/${eachData.flyer1Image}')"
+      ></div>
+
+      <div class="absolute inset-0 z-10 bg-gradient-to-b from-black/80 via-black/40 to-black/80"></div>
+
+      <div class="relative z-20 h-full flex flex-col items-center justify-center text-center px-6">
+        
+        <div class="mb-6 flex items-center justify-center">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          </span>
+          <span class="ml-3 text-[10px] font-black tracking-[0.3em] uppercase text-green-400">Sponsored Feature</span>
+        </div>
+
+        <h1 class="serif text-3xl md:text-5xl lg:text-6xl text-white leading-tight max-w-3xl">
+          ${eachData.flyer1Title} 
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600 italic">With Doveeys Kitchen</span>
+        </h1>
+
+        <p class="mt-6 text-gray-300 text-lg md:text-xl font-light tracking-wide flex items-center gap-3 group-hover:text-white transition-colors">
+          Chat with Us
+          <i class="fab fa-whatsapp text-green-500 text-2xl animate-pulse"></i>
+          <span class="font-semibold">(Contact Us)</span>
+        </p>
+      </div>
+    </a>
+</div>`;
 
       flyer1Section.innerHTML = populateFlyer1;
     });
@@ -132,14 +160,48 @@ const getFlyer2Display = async () => {
     data.forEach((eachData) => {
       const flyer2Section = document.getElementById("flyer2Section");
 
-      const populateFlyer2 = `
-        <a href="https://wa.me/message/LV4DUBT6DDZHA1" style="background-image: url(../image/flyer2/${eachData.flyer2Image}); background-size: cover;" class=" grid items-center text-[25px] font-bold relative h-[200px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh]">
-          <div class="bg-black opacity-50 inset-0 absolute"></div>
-          <div class="text-center relative">
-            <h1>${eachData.flyer2Title} (Contact Us)</h1>
-          </div>
-        </a>
-      `;
+      const populateFlyer2 = `<div class="container mx-auto px-6 lg:px-16 mb-12">
+    <a
+      href="https://wa.me/message/LV4DUBT6DDZHA1"
+      target="_blank"
+      class="group relative block w-full h-[250px] md:h-[40vh] lg:h-[50vh] xl:h-[60vh] overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl transition-all duration-500 hover:border-amber-500/50 hover:-translate-y-1"
+    >
+      <div
+        class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+        style="background-image: url('../image/flyer2/${eachData.flyer2Image}')"
+      ></div>
+
+      <div
+        class="absolute inset-0 z-10 bg-gradient-to-r from-black/90 via-black/40 to-transparent"
+      ></div>
+
+      <div class="relative z-20 h-full flex flex-col items-start justify-center px-8 md:px-16">
+        
+        <div class="mb-4 flex items-center">
+          <div class="w-8 h-[1px] bg-amber-500"></div>
+          <span class="ml-3 text-[10px] font-black tracking-[0.4em] uppercase text-amber-500">Business Opportunity</span>
+        </div>
+
+        <h1 class="serif text-3xl md:text-5xl lg:text-6xl text-white leading-tight max-w-2xl">
+          ${eachData.flyer2Title} <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-600 italic">Certified Distributor</span>
+        </h1>
+
+        <div
+          class="mt-8 flex items-center gap-4 bg-white/5 backdrop-blur-md border border-white/10 py-3 px-6 rounded-full group-hover:bg-amber-500 group-hover:border-amber-500 transition-all duration-300"
+        >
+          <span class="text-white text-sm font-bold tracking-widest uppercase">Get Started</span>
+          <i class="fab fa-whatsapp text-white text-xl animate-bounce"></i>
+        </div>
+      </div>
+
+      <div class="absolute bottom-6 right-8 hidden md:block">
+        <p class="text-white/20 text-[10px] font-light tracking-[0.5em] uppercase rotate-90 origin-right">
+          Doveeys Global
+        </p>
+      </div>
+    </a>
+</div>`;
 
       flyer2Section.innerHTML = populateFlyer2;
     });

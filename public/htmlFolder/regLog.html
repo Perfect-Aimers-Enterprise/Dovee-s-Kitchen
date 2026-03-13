@@ -1,217 +1,310 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="../src/output.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="../src/output.css" />
     <title>User Registration & Login</title>
     <style>
-        body {
-            background-image: url('../image/regBg2.jpg');
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+      body {
+        background-image: url("../image/regBg2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        height: 100vh;
+        overflow: hidden;
+      }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-        }
+      .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+      }
 
-        .hidden {
-            display: none;
-        }
+      .hidden {
+        display: none;
+      }
     </style>
-</head>
+  </head>
 
-<body class="flex items-center justify-center">
+  <body
+    class="min-h-screen flex items-center justify-center bg-[#050505] font-sans selection:bg-green-500/30"
+  >
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden pointer-events-none -z-10">
+      <div
+        class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-green-600/10 blur-[120px] rounded-full"
+      ></div>
+      <div
+        class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-orange-600/10 blur-[120px] rounded-full"
+      ></div>
+    </div>
 
+    <section
+      id="generalSection"
+      class="relative w-[90%] md:w-[500px] p-8 md:p-10 bg-black/40 backdrop-blur-2xl border border-white/10 rounded-[2.5rem] shadow-2xl transition-all duration-500"
+    >
+      <div class="text-center mb-10">
+        <h1 class="serif text-3xl font-black text-white tracking-tighter">
+          Welcome to <span class="text-green-500 italic">Doveeys</span>
+        </h1>
+        <p class="text-gray-500 text-xs mt-2 uppercase tracking-[0.3em]">
+          Select an option to continue
+        </p>
+      </div>
 
-    <!-- General Section for Registration, Login and Visiting  -->
-    <section id="generalSection"
-        class="bg-gradient-to-tr from-orange-300 via-orange-800 to-orange-500 w-[80%] mx-auto p-[30px] rounded-lg border-[2px] border-green-400 md:w-[600px] shadow-lg shadow-black relative">
-
-        <!-- Existing User  -->
-        <div id="existingUser"
-            class="flex text-black bg-gradient-to-tr from-gray-300 via-gray-100 to-gray-400 justify-around items-center p-[10px] rounded-lg cursor-pointer">
-            <!-- ExistingUserIcon -->
-            <div class="w-[20%]">
-                <i class="fas fa-user-friends"></i>
-            </div>
-
-            <!-- ExistingUserDetailInfo -->
-            <div class="w-[50%]">
-                <h1 class="font-bold">Existing User</h1>
-                <div>Sign in</div>
-            </div>
-
-            <!-- GeneralIcon -->
-            <div class="w-[20%] text-right">
-                <i class="fas fa-greater-than"></i>
-            </div>
-
+      <div class="grid gap-4">
+        <div
+          id="existingUser"
+          class="group flex items-center p-5 bg-white/5 border border-white/5 rounded-2xl cursor-pointer transition-all hover:bg-green-500/10 hover:border-green-500/30"
+        >
+          <div
+            class="w-12 h-12 bg-green-600/20 text-green-500 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform"
+          >
+            <i class="fas fa-user-friends"></i>
+          </div>
+          <div class="ml-5 flex-grow">
+            <h2 class="text-white font-bold text-lg">Existing User</h2>
+            <p class="text-gray-500 text-sm italic">Sign in to your kitchen</p>
+          </div>
+          <i
+            class="fas fa-chevron-right text-gray-700 group-hover:text-green-500 transition-colors"
+          ></i>
         </div>
 
-        <!-- New User  -->
-        <div id="newUser"
-            class="flex text-black bg-gradient-to-tr from-gray-300 via-gray-100 to-gray-400 justify-around items-center p-[10px] rounded-lg mt-[20px] cursor-pointer">
-            <!-- ExistingUserIcon -->
-            <div class="w-[20%]">
-                <i class="fas fa-user"></i>
-            </div>
-
-            <!-- ExistingUserDetailInfo -->
-            <div class="w-[50%]">
-                <h1 class="font-bold">New User</h1>
-                <div>Sign up</div>
-            </div>
-
-            <!-- GeneralIcon -->
-            <div class="w-[20%] text-right">
-                <i class="fas fa-greater-than"></i>
-            </div>
-
+        <div
+          id="newUser"
+          class="group flex items-center p-5 bg-white/5 border border-white/5 rounded-2xl cursor-pointer transition-all hover:bg-orange-500/10 hover:border-orange-500/30"
+        >
+          <div
+            class="w-12 h-12 bg-orange-600/20 text-orange-500 rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform"
+          >
+            <i class="fas fa-user-plus"></i>
+          </div>
+          <div class="ml-5 flex-grow">
+            <h2 class="text-white font-bold text-lg">New User</h2>
+            <p class="text-gray-500 text-sm italic">Join our community</p>
+          </div>
+          <i
+            class="fas fa-chevron-right text-gray-700 group-hover:text-orange-500 transition-colors"
+          ></i>
         </div>
 
-        <!-- Explore App  -->
-        <div id="exploreApp"
-            class="flex text-black bg-gradient-to-tr from-gray-300 via-gray-100 to-gray-400 justify-around items-center p-[10px] rounded-lg mt-[20px] cursor-pointer">
-            <!-- ExistingUserIcon -->
-            <div class="w-[20%]">
-                <i class="fas fa-compass"></i>
-            </div>
+        <div
+          id="exploreApp"
+          class="group flex items-center p-5 bg-white/5 border border-white/5 rounded-2xl cursor-pointer transition-all hover:bg-white/10 hover:border-white/20"
+        >
+          <div
+            class="w-12 h-12 bg-white/10 text-white rounded-xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform"
+          >
+            <i class="fas fa-compass"></i>
+          </div>
+          <div class="ml-5 flex-grow">
+            <h2 class="text-white font-bold text-lg">Guest Mode</h2>
+            <p class="text-gray-500 text-sm italic">Browse before you buy</p>
+          </div>
+          <i
+            class="fas fa-chevron-right text-gray-700 group-hover:text-white transition-colors"
+          ></i>
+        </div>
+      </div>
+    </section>
 
-            <!-- ExistingUserDetailInfo -->
-            <div class="w-[50%]">
-                <h1 class="font-bold">Explore App</h1>
-                <div>Continue as Guest</div>
-            </div>
+    <section
+      id="registrationSection"
+      class="relative w-[90%] md:w-[450px] p-8 md:p-10 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-2xl hidden"
+    >
+      <h1 class="serif text-2xl font-black text-center text-white tracking-tight mb-2">
+        Create <span class="text-green-500 italic">Account</span>
+      </h1>
+      <p class="text-center text-gray-500 text-xs uppercase tracking-widest mb-8">
+        Fill in your details
+      </p>
 
-            <!-- GeneralIcon -->
-            <div class="w-[20%] text-right">
-                <i class="fas fa-greater-than"></i>
-            </div>
-
+      <form id="registrationForm" class="grid gap-5">
+        <div class="step grid gap-4">
+          <div>
+            <label for="userName" class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              name="userName"
+              id="userName"
+              class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+              placeholder="John Doe"
+            />
+          </div>
+          <div>
+            <label for="userEmail" class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+              >Email Address</label
+            >
+            <input
+              type="email"
+              name="userEmail"
+              id="userEmail"
+              class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+              placeholder="name@email.com"
+            />
+          </div>
         </div>
 
+        <div class="step hidden grid gap-4">
+          <div>
+            <label for="userPhone" class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+              >Phone Number</label
+            >
+            <input
+              type="tel"
+              name="userPhone"
+              id="userPhone"
+              class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+              placeholder="+234..."
+            />
+          </div>
+          <div>
+            <label
+              for="userNationality"
+              class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+              >Nationality</label
+            >
+            <input
+              type="text"
+              name="userNationality"
+              id="userNationality"
+              class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+              placeholder="Nigerian"
+            />
+          </div>
+        </div>
+
+        <div class="step hidden grid gap-4">
+          <div>
+            <label for="userState" class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+              >State of Residence</label
+            >
+            <input
+              type="text"
+              name="userState"
+              id="userState"
+              class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+              placeholder="Lagos"
+            />
+          </div>
+          <div>
+            <label
+              for="userPassword"
+              class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+              >Secure Password</label
+            >
+            <input
+              type="password"
+              name="userPassword"
+              id="userPassword"
+              class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+              placeholder="••••••••"
+            />
+          </div>
+        </div>
+
+        <div class="step hidden">
+          <label
+            for="userConfirmPassword"
+            class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+            >Confirm Password</label
+          >
+          <input
+            type="password"
+            name="userConfirmPassword"
+            id="userConfirmPassword"
+            class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+            placeholder="••••••••"
+          />
+        </div>
+
+        <div class="flex items-center gap-3 mt-4">
+          <button
+            type="button"
+            id="prevButton"
+            class="hidden flex-1 py-4 bg-white/5 text-white font-bold rounded-xl border border-white/10 hover:bg-white/10 transition-all"
+          >
+            Back
+          </button>
+          <button
+            type="button"
+            id="nextButton"
+            class="flex-1 py-4 bg-green-600 text-white font-black tracking-widest text-xs uppercase rounded-xl shadow-lg shadow-green-900/20 hover:bg-green-500 transition-all active:scale-95"
+          >
+            Next Step
+          </button>
+          <button
+            type="submit"
+            id="submitButton"
+            class="hidden flex-1 py-4 bg-green-600 text-white font-black tracking-widest text-xs uppercase rounded-xl shadow-lg shadow-green-900/20 hover:bg-green-500 transition-all active:scale-95"
+          >
+            Create Account
+          </button>
+        </div>
+      </form>
     </section>
 
+    <section
+      id="loginSection"
+      class="relative w-[90%] md:w-[400px] p-8 md:p-10 bg-black/60 backdrop-blur-3xl border border-white/10 rounded-[2.5rem] shadow-2xl hidden"
+    >
+      <h1 class="serif text-2xl font-black text-center text-white tracking-tight mb-2">
+        Welcome <span class="text-green-500 italic">Back</span>
+      </h1>
+      <p class="text-center text-gray-500 text-xs uppercase tracking-widest mb-8">
+        Sign in to continue
+      </p>
 
-    <!-- Register User  -->
-    <section id="registrationSection" class="glass w-[90%] md:w-[400px] p-8 rounded-xl shadow-lg relative hidden">
-        <h1 class="text-2xl font-bold text-center text-green-400 uppercase">User Registration Form</h1>
-        <form id="registrationForm" class="mt-8 grid gap-6">
-            <!-- Step 1 -->
-            <div class="step">
-                <label for="userName" class="block text-gray-300 font-medium mb-1">Full Name</label>
-                <input type="text" name="userName" id="userName"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Full Name">
-            </div>
-            <div class="step">
-                <label for="userEmail" class="block text-gray-300 font-medium mb-1">Email</label>
-                <input type="email" name="userEmail" id="userEmail"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Email">
-            </div>
+      <form id="loginForm" class="grid gap-6">
+        <div>
+          <label
+            for="userLoginEmail"
+            class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+            >Email Address</label
+          >
+          <input
+            type="email"
+            name="userEmail"
+            id="userLoginEmail"
+            class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+            placeholder="name@email.com"
+          />
+        </div>
 
-            <!-- Step 2 -->
-            <div class="step hidden">
-                <label for="userPhone" class="block text-gray-300 font-medium mb-1">Phone Number</label>
-                <input type="tel" name="userPhone" id="userPhone"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Phone Number">
-            </div>
-            <div class="step hidden">
-                <label for="userNationality" class="block text-gray-300 font-medium mb-1">Nationality</label>
-                <input type="text" name="userNationality" id="userNationality"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Nationality">
-            </div>
+        <div>
+          <label
+            for="userLoginPassword"
+            class="block text-gray-400 text-xs font-bold uppercase mb-2 ml-1"
+            >Password</label
+          >
+          <input
+            type="password"
+            name="userPassword"
+            id="userLoginPassword"
+            class="w-full p-4 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none focus:border-green-500/50 focus:ring-1 focus:ring-green-500/50 transition-all"
+            placeholder="••••••••"
+          />
+        </div>
 
-            <!-- Step 3 -->
-            <div class="step hidden">
-                <label for="userState" class="block text-gray-300 font-medium mb-1">State</label>
-                <input type="text" name="userState" id="userState"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your State">
-            </div>
-            <div class="step hidden">
-                <label for="userPassword" class="block text-gray-300 font-medium mb-1">Password</label>
-                <input type="password" name="userPassword" id="userPassword"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Password">
-            </div>
-
-            <!-- Step 4 -->
-            <div class="step hidden">
-                <label for="userConfirmPassword" class="block text-gray-300 font-medium mb-1">Confirm Password</label>
-                <input type="password" name="userConfirmPassword" id="userConfirmPassword"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Confirm Your Password">
-            </div>
-
-            <!-- Navigation Buttons -->
-            <div class="flex justify-between">
-                <button type="button" id="prevButton"
-                    class="hidden bg-gray-400 text-white font-bold py-2 px-4 rounded-lg">Previous</button>
-                <button type="button" id="nextButton"
-                    class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Next</button>
-                <button type="submit" id="submitButton"
-                    class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg hidden">Submit</button>
-            </div>
-        </form>
+        <button
+          type="submit"
+          id="loginButton"
+          class="mt-4 w-full py-4 bg-green-600 text-white font-black tracking-widest text-[10px] uppercase rounded-xl shadow-lg shadow-green-900/20 hover:bg-green-500 transition-all active:scale-95"
+        >
+          Sign In Now
+        </button>
+      </form>
     </section>
+  </body>
 
-    <!-- Login User -->
-    <section id="loginSection" class="glass w-[90%] md:w-[400px] p-8 rounded-xl shadow-lg relative hidden">
-        <h1 class="text-2xl font-bold text-center text-green-400 uppercase">User Login Form</h1>
-        <form id="loginForm" class="mt-8 grid gap-6">
-
-            <!-- loginEmail  -->
-            <div class="">
-                <label for="userEmail" class="block text-gray-300 font-medium mb-1">Email</label>
-                <input type="email" name="userEmail" id="userLoginEmail"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Email">
-            </div>
-
-            <!-- Password  -->
-            <div class="">
-                <label for="userPassword" class="block text-gray-300 font-medium mb-1">Password</label>
-                <input type="password" name="userPassword" id="userLoginPassword"
-                    class="w-full p-3 rounded-lg bg-gray-100 border border-gray-300 focus:outline-none focus:border-green-400 focus:ring-2 focus:ring-green-400"
-                    placeholder="Enter Your Password">
-            </div>
-
-
-            <!-- Navigation Buttons -->
-            <div class="flex justify-between">
-                <button type="submit" id="loginButton"
-                    class="bg-green-400 text-white font-bold py-2 px-4 rounded-lg">Login</button>
-            </div>
-        </form>
-    </section>
-
-
-</body>
-
-<script>
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then((registrations) => {
-            for (let registration of registrations) {
-                registration.unregister();
-            }
-        });
-    }
-</script>
-
-<script src="../jsFolder/navigation.js"></script>
-
+  <script src="../jsFolder/navigation.js"></script>
 </html>
